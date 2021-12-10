@@ -4521,13 +4521,18 @@
                 "newValue": {
                   "type": "string",
                   "description": "Value for the share"
+                },
+                "dataType": {
+                  "$ref": "#/definitions/DataType",
+                  "description": "DataType of the share value"
                 }
               },
               "description": "Creates a new Value for a **ShareName**",
               "required": [
                 "share_name",
                 "oldValue",
-                "newValue"
+                "newValue",
+                "dataType"
               ]
             }
           }
