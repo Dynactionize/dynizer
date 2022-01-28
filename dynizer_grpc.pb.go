@@ -203,6 +203,8 @@ type DynizerClient interface {
 	CreateShareNameValue(ctx context.Context, in *CreateShareNameValueReq, opts ...grpc.CallOption) (*EmptyRes, error)
 	// Update ShareNameValue
 	UpdateShareNameValue(ctx context.Context, in *UpdateShareNameValueReq, opts ...grpc.CallOption) (*EmptyRes, error)
+	// Delete ShareNameValue
+	DeleteShareNameValue(ctx context.Context, in *DeleteShareNameValueReq, opts ...grpc.CallOption) (*EmptyRes, error)
 }
 
 type dynizerClient struct {
@@ -1161,6 +1163,15 @@ func (c *dynizerClient) UpdateShareNameValue(ctx context.Context, in *UpdateShar
 	return out, nil
 }
 
+func (c *dynizerClient) DeleteShareNameValue(ctx context.Context, in *DeleteShareNameValueReq, opts ...grpc.CallOption) (*EmptyRes, error) {
+	out := new(EmptyRes)
+	err := c.cc.Invoke(ctx, "/Dynizer/DeleteShareNameValue", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // DynizerServer is the server API for Dynizer service.
 // All implementations must embed UnimplementedDynizerServer
 // for forward compatibility
@@ -1350,6 +1361,8 @@ type DynizerServer interface {
 	CreateShareNameValue(context.Context, *CreateShareNameValueReq) (*EmptyRes, error)
 	// Update ShareNameValue
 	UpdateShareNameValue(context.Context, *UpdateShareNameValueReq) (*EmptyRes, error)
+	// Delete ShareNameValue
+	DeleteShareNameValue(context.Context, *DeleteShareNameValueReq) (*EmptyRes, error)
 	mustEmbedUnimplementedDynizerServer()
 }
 
@@ -1641,6 +1654,9 @@ func (UnimplementedDynizerServer) CreateShareNameValue(context.Context, *CreateS
 }
 func (UnimplementedDynizerServer) UpdateShareNameValue(context.Context, *UpdateShareNameValueReq) (*EmptyRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateShareNameValue not implemented")
+}
+func (UnimplementedDynizerServer) DeleteShareNameValue(context.Context, *DeleteShareNameValueReq) (*EmptyRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteShareNameValue not implemented")
 }
 func (UnimplementedDynizerServer) mustEmbedUnimplementedDynizerServer() {}
 
@@ -3387,6 +3403,24 @@ func _Dynizer_UpdateShareNameValue_Handler(srv interface{}, ctx context.Context,
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Dynizer_DeleteShareNameValue_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteShareNameValueReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DynizerServer).DeleteShareNameValue(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/Dynizer/DeleteShareNameValue",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DynizerServer).DeleteShareNameValue(ctx, req.(*DeleteShareNameValueReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Dynizer_ServiceDesc is the grpc.ServiceDesc for Dynizer service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -3757,6 +3791,10 @@ var Dynizer_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UpdateShareNameValue",
 			Handler:    _Dynizer_UpdateShareNameValue_Handler,
+		},
+		{
+			MethodName: "DeleteShareNameValue",
+			Handler:    _Dynizer_DeleteShareNameValue_Handler,
 		},
 	},
 	Streams: []grpc.StreamDesc{

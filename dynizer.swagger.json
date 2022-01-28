@@ -4402,7 +4402,76 @@
           }
         ],
         "tags": [
-          "Links"
+          "ShareName"
+        ]
+      }
+    },
+    "/api/v2/sharename/{shareName}/delete/value": {
+      "post": {
+        "summary": "Delete ShareNameValue",
+        "description": "Deletes a Value for an existing **ShareName**",
+        "operationId": "DeleteShareNameValue",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/EmptyRes"
+            }
+          },
+          "401": {
+            "description": "Unauthorized call",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Unexpected internal error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "shareName",
+            "description": "Name of the share",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "currentValue": {
+                  "type": "string",
+                  "description": "Value for the share"
+                },
+                "dataType": {
+                  "$ref": "#/definitions/DataType",
+                  "description": "DataType of the share value"
+                }
+              },
+              "description": "Deletes a Value for a **ShareName**",
+              "required": [
+                "share_name",
+                "currentValue",
+                "dataType"
+              ]
+            }
+          }
+        ],
+        "tags": [
+          "ShareName"
         ]
       }
     },
@@ -4466,13 +4535,13 @@
           }
         ],
         "tags": [
-          "Links"
+          "ShareName"
         ]
       },
       "patch": {
         "summary": "Update ShareNameValue",
-        "description": "Creates a new Value for an existing **ShareName**",
-        "operationId": "CreateShareNameValue",
+        "description": "Updates a new Value for an existing **ShareName**",
+        "operationId": "UpdateShareNameValue",
         "responses": {
           "200": {
             "description": "A successful response.",
@@ -4527,7 +4596,7 @@
                   "description": "DataType of the share value"
                 }
               },
-              "description": "Creates a new Value for a **ShareName**",
+              "description": "Updates a Value for a **ShareName**",
               "required": [
                 "share_name",
                 "oldValue",
@@ -4538,7 +4607,7 @@
           }
         ],
         "tags": [
-          "Links"
+          "ShareName"
         ]
       }
     },
@@ -7392,6 +7461,12 @@
       "name": "Plots",
       "tags": [
         "Plots"
+      ]
+    },
+    {
+      "name": "ShareName",
+      "tags": [
+        "ShareName"
       ]
     }
   ]
