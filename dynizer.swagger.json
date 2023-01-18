@@ -6138,7 +6138,7 @@
       "description": "Response which holds an array of **Action** records.",
       "title": "ActionNameArrayResponse",
       "required": [
-        "actions",
+        "action_names",
         "total_actions"
       ]
     },
