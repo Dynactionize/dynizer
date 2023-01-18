@@ -96,6 +96,8 @@ type DynizerClient interface {
 	CreateObject(ctx context.Context, in *CreateObjectReq, opts ...grpc.CallOption) (*ObjectRes, error)
 	//Clear Object Data
 	ClearObjectData(ctx context.Context, in *ClearObjectDataReq, opts ...grpc.CallOption) (*EmptyRes, error)
+	//Delete Object
+	DeleteObject(ctx context.Context, in *DeleteObjectReq, opts ...grpc.CallOption) (*EmptyRes, error)
 	//Stream Object Data IN
 	StreamObjectDataIn(ctx context.Context, opts ...grpc.CallOption) (Dynizer_StreamObjectDataInClient, error)
 	//Stream Object Data OUT
@@ -104,6 +106,10 @@ type DynizerClient interface {
 	UploadObjectData(ctx context.Context, in *UploadObjectDataReq, opts ...grpc.CallOption) (*EmptyRes, error)
 	//Download Object Data
 	DownloadObjectData(ctx context.Context, in *DownloadObjectDataReq, opts ...grpc.CallOption) (*DownloadObjectDataRes, error)
+	//List Object UUIDs
+	ListObjectUUIDS(ctx context.Context, in *EmptyReq, opts ...grpc.CallOption) (*ObjectUUIDArrayRes, error)
+	//Delete all Objects
+	DeleteAllObjects(ctx context.Context, in *EmptyReq, opts ...grpc.CallOption) (*EmptyRes, error)
 	//Create Instance
 	CreateInstance(ctx context.Context, in *CreateInstanceReq, opts ...grpc.CallOption) (*InstanceIDRes, error)
 	StreamInstances(ctx context.Context, opts ...grpc.CallOption) (Dynizer_StreamInstancesClient, error)
@@ -205,6 +211,24 @@ type DynizerClient interface {
 	UpdateShareNameValue(ctx context.Context, in *UpdateShareNameValueReq, opts ...grpc.CallOption) (*EmptyRes, error)
 	// Delete ShareNameValue
 	DeleteShareNameValue(ctx context.Context, in *DeleteShareNameValueReq, opts ...grpc.CallOption) (*EmptyRes, error)
+	// Simple Query with immediate results
+	SimpleQuery(ctx context.Context, in *DQLReq, opts ...grpc.CallOption) (*SimpleQueryRes, error)
+	// parses a dql and stores the result in the session
+	QueryParse(ctx context.Context, in *QueryParseReq, opts ...grpc.CallOption) (*EmptyRes, error)
+	// binds the parameter to a parsed query
+	QueryBind(ctx context.Context, in *QueryBindReq, opts ...grpc.CallOption) (*EmptyRes, error)
+	// returns the description for the result labels and optionally for the bound parameters
+	QueryDescribeStatement(ctx context.Context, in *QueryDescribeStatementReq, opts ...grpc.CallOption) (*QueryDescribeStatementRes, error)
+	// returns the description for the result labels and optionally for the bound parameters
+	QueryDescribePortal(ctx context.Context, in *QueryDescribePortalReq, opts ...grpc.CallOption) (*QueryDescribePortalRes, error)
+	// executes a parsed and bound query
+	QueryExecute(ctx context.Context, in *QueryExecuteReq, opts ...grpc.CallOption) (*QueryExecuteRes, error)
+	// closes and cleans parsed and/or bind queries
+	QueryClose(ctx context.Context, in *QueryCloseReq, opts ...grpc.CallOption) (*EmptyRes, error)
+	// cancels a running query
+	QueryCancel(ctx context.Context, in *QueryCancelReq, opts ...grpc.CallOption) (*EmptyRes, error)
+	// finds the actionlabels with shared datalements within a set of actions
+	FindActionLabelLinks(ctx context.Context, in *FindActionLabelLinksReq, opts ...grpc.CallOption) (*FindActionLabelLinksRes, error)
 }
 
 type dynizerClient struct {
@@ -566,6 +590,15 @@ func (c *dynizerClient) ClearObjectData(ctx context.Context, in *ClearObjectData
 	return out, nil
 }
 
+func (c *dynizerClient) DeleteObject(ctx context.Context, in *DeleteObjectReq, opts ...grpc.CallOption) (*EmptyRes, error) {
+	out := new(EmptyRes)
+	err := c.cc.Invoke(ctx, "/Dynizer/DeleteObject", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *dynizerClient) StreamObjectDataIn(ctx context.Context, opts ...grpc.CallOption) (Dynizer_StreamObjectDataInClient, error) {
 	stream, err := c.cc.NewStream(ctx, &Dynizer_ServiceDesc.Streams[0], "/Dynizer/StreamObjectDataIn", opts...)
 	if err != nil {
@@ -644,6 +677,24 @@ func (c *dynizerClient) UploadObjectData(ctx context.Context, in *UploadObjectDa
 func (c *dynizerClient) DownloadObjectData(ctx context.Context, in *DownloadObjectDataReq, opts ...grpc.CallOption) (*DownloadObjectDataRes, error) {
 	out := new(DownloadObjectDataRes)
 	err := c.cc.Invoke(ctx, "/Dynizer/DownloadObjectData", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *dynizerClient) ListObjectUUIDS(ctx context.Context, in *EmptyReq, opts ...grpc.CallOption) (*ObjectUUIDArrayRes, error) {
+	out := new(ObjectUUIDArrayRes)
+	err := c.cc.Invoke(ctx, "/Dynizer/ListObjectUUIDS", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *dynizerClient) DeleteAllObjects(ctx context.Context, in *EmptyReq, opts ...grpc.CallOption) (*EmptyRes, error) {
+	out := new(EmptyRes)
+	err := c.cc.Invoke(ctx, "/Dynizer/DeleteAllObjects", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -1172,6 +1223,87 @@ func (c *dynizerClient) DeleteShareNameValue(ctx context.Context, in *DeleteShar
 	return out, nil
 }
 
+func (c *dynizerClient) SimpleQuery(ctx context.Context, in *DQLReq, opts ...grpc.CallOption) (*SimpleQueryRes, error) {
+	out := new(SimpleQueryRes)
+	err := c.cc.Invoke(ctx, "/Dynizer/SimpleQuery", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *dynizerClient) QueryParse(ctx context.Context, in *QueryParseReq, opts ...grpc.CallOption) (*EmptyRes, error) {
+	out := new(EmptyRes)
+	err := c.cc.Invoke(ctx, "/Dynizer/QueryParse", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *dynizerClient) QueryBind(ctx context.Context, in *QueryBindReq, opts ...grpc.CallOption) (*EmptyRes, error) {
+	out := new(EmptyRes)
+	err := c.cc.Invoke(ctx, "/Dynizer/QueryBind", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *dynizerClient) QueryDescribeStatement(ctx context.Context, in *QueryDescribeStatementReq, opts ...grpc.CallOption) (*QueryDescribeStatementRes, error) {
+	out := new(QueryDescribeStatementRes)
+	err := c.cc.Invoke(ctx, "/Dynizer/QueryDescribeStatement", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *dynizerClient) QueryDescribePortal(ctx context.Context, in *QueryDescribePortalReq, opts ...grpc.CallOption) (*QueryDescribePortalRes, error) {
+	out := new(QueryDescribePortalRes)
+	err := c.cc.Invoke(ctx, "/Dynizer/QueryDescribePortal", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *dynizerClient) QueryExecute(ctx context.Context, in *QueryExecuteReq, opts ...grpc.CallOption) (*QueryExecuteRes, error) {
+	out := new(QueryExecuteRes)
+	err := c.cc.Invoke(ctx, "/Dynizer/QueryExecute", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *dynizerClient) QueryClose(ctx context.Context, in *QueryCloseReq, opts ...grpc.CallOption) (*EmptyRes, error) {
+	out := new(EmptyRes)
+	err := c.cc.Invoke(ctx, "/Dynizer/QueryClose", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *dynizerClient) QueryCancel(ctx context.Context, in *QueryCancelReq, opts ...grpc.CallOption) (*EmptyRes, error) {
+	out := new(EmptyRes)
+	err := c.cc.Invoke(ctx, "/Dynizer/QueryCancel", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *dynizerClient) FindActionLabelLinks(ctx context.Context, in *FindActionLabelLinksReq, opts ...grpc.CallOption) (*FindActionLabelLinksRes, error) {
+	out := new(FindActionLabelLinksRes)
+	err := c.cc.Invoke(ctx, "/Dynizer/FindActionLabelLinks", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // DynizerServer is the server API for Dynizer service.
 // All implementations must embed UnimplementedDynizerServer
 // for forward compatibility
@@ -1254,6 +1386,8 @@ type DynizerServer interface {
 	CreateObject(context.Context, *CreateObjectReq) (*ObjectRes, error)
 	//Clear Object Data
 	ClearObjectData(context.Context, *ClearObjectDataReq) (*EmptyRes, error)
+	//Delete Object
+	DeleteObject(context.Context, *DeleteObjectReq) (*EmptyRes, error)
 	//Stream Object Data IN
 	StreamObjectDataIn(Dynizer_StreamObjectDataInServer) error
 	//Stream Object Data OUT
@@ -1262,6 +1396,10 @@ type DynizerServer interface {
 	UploadObjectData(context.Context, *UploadObjectDataReq) (*EmptyRes, error)
 	//Download Object Data
 	DownloadObjectData(context.Context, *DownloadObjectDataReq) (*DownloadObjectDataRes, error)
+	//List Object UUIDs
+	ListObjectUUIDS(context.Context, *EmptyReq) (*ObjectUUIDArrayRes, error)
+	//Delete all Objects
+	DeleteAllObjects(context.Context, *EmptyReq) (*EmptyRes, error)
 	//Create Instance
 	CreateInstance(context.Context, *CreateInstanceReq) (*InstanceIDRes, error)
 	StreamInstances(Dynizer_StreamInstancesServer) error
@@ -1363,6 +1501,24 @@ type DynizerServer interface {
 	UpdateShareNameValue(context.Context, *UpdateShareNameValueReq) (*EmptyRes, error)
 	// Delete ShareNameValue
 	DeleteShareNameValue(context.Context, *DeleteShareNameValueReq) (*EmptyRes, error)
+	// Simple Query with immediate results
+	SimpleQuery(context.Context, *DQLReq) (*SimpleQueryRes, error)
+	// parses a dql and stores the result in the session
+	QueryParse(context.Context, *QueryParseReq) (*EmptyRes, error)
+	// binds the parameter to a parsed query
+	QueryBind(context.Context, *QueryBindReq) (*EmptyRes, error)
+	// returns the description for the result labels and optionally for the bound parameters
+	QueryDescribeStatement(context.Context, *QueryDescribeStatementReq) (*QueryDescribeStatementRes, error)
+	// returns the description for the result labels and optionally for the bound parameters
+	QueryDescribePortal(context.Context, *QueryDescribePortalReq) (*QueryDescribePortalRes, error)
+	// executes a parsed and bound query
+	QueryExecute(context.Context, *QueryExecuteReq) (*QueryExecuteRes, error)
+	// closes and cleans parsed and/or bind queries
+	QueryClose(context.Context, *QueryCloseReq) (*EmptyRes, error)
+	// cancels a running query
+	QueryCancel(context.Context, *QueryCancelReq) (*EmptyRes, error)
+	// finds the actionlabels with shared datalements within a set of actions
+	FindActionLabelLinks(context.Context, *FindActionLabelLinksReq) (*FindActionLabelLinksRes, error)
 	mustEmbedUnimplementedDynizerServer()
 }
 
@@ -1487,6 +1643,9 @@ func (UnimplementedDynizerServer) CreateObject(context.Context, *CreateObjectReq
 func (UnimplementedDynizerServer) ClearObjectData(context.Context, *ClearObjectDataReq) (*EmptyRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ClearObjectData not implemented")
 }
+func (UnimplementedDynizerServer) DeleteObject(context.Context, *DeleteObjectReq) (*EmptyRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteObject not implemented")
+}
 func (UnimplementedDynizerServer) StreamObjectDataIn(Dynizer_StreamObjectDataInServer) error {
 	return status.Errorf(codes.Unimplemented, "method StreamObjectDataIn not implemented")
 }
@@ -1498,6 +1657,12 @@ func (UnimplementedDynizerServer) UploadObjectData(context.Context, *UploadObjec
 }
 func (UnimplementedDynizerServer) DownloadObjectData(context.Context, *DownloadObjectDataReq) (*DownloadObjectDataRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DownloadObjectData not implemented")
+}
+func (UnimplementedDynizerServer) ListObjectUUIDS(context.Context, *EmptyReq) (*ObjectUUIDArrayRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListObjectUUIDS not implemented")
+}
+func (UnimplementedDynizerServer) DeleteAllObjects(context.Context, *EmptyReq) (*EmptyRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteAllObjects not implemented")
 }
 func (UnimplementedDynizerServer) CreateInstance(context.Context, *CreateInstanceReq) (*InstanceIDRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateInstance not implemented")
@@ -1657,6 +1822,33 @@ func (UnimplementedDynizerServer) UpdateShareNameValue(context.Context, *UpdateS
 }
 func (UnimplementedDynizerServer) DeleteShareNameValue(context.Context, *DeleteShareNameValueReq) (*EmptyRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteShareNameValue not implemented")
+}
+func (UnimplementedDynizerServer) SimpleQuery(context.Context, *DQLReq) (*SimpleQueryRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SimpleQuery not implemented")
+}
+func (UnimplementedDynizerServer) QueryParse(context.Context, *QueryParseReq) (*EmptyRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method QueryParse not implemented")
+}
+func (UnimplementedDynizerServer) QueryBind(context.Context, *QueryBindReq) (*EmptyRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method QueryBind not implemented")
+}
+func (UnimplementedDynizerServer) QueryDescribeStatement(context.Context, *QueryDescribeStatementReq) (*QueryDescribeStatementRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method QueryDescribeStatement not implemented")
+}
+func (UnimplementedDynizerServer) QueryDescribePortal(context.Context, *QueryDescribePortalReq) (*QueryDescribePortalRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method QueryDescribePortal not implemented")
+}
+func (UnimplementedDynizerServer) QueryExecute(context.Context, *QueryExecuteReq) (*QueryExecuteRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method QueryExecute not implemented")
+}
+func (UnimplementedDynizerServer) QueryClose(context.Context, *QueryCloseReq) (*EmptyRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method QueryClose not implemented")
+}
+func (UnimplementedDynizerServer) QueryCancel(context.Context, *QueryCancelReq) (*EmptyRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method QueryCancel not implemented")
+}
+func (UnimplementedDynizerServer) FindActionLabelLinks(context.Context, *FindActionLabelLinksReq) (*FindActionLabelLinksRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method FindActionLabelLinks not implemented")
 }
 func (UnimplementedDynizerServer) mustEmbedUnimplementedDynizerServer() {}
 
@@ -2373,6 +2565,24 @@ func _Dynizer_ClearObjectData_Handler(srv interface{}, ctx context.Context, dec 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Dynizer_DeleteObject_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteObjectReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DynizerServer).DeleteObject(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/Dynizer/DeleteObject",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DynizerServer).DeleteObject(ctx, req.(*DeleteObjectReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _Dynizer_StreamObjectDataIn_Handler(srv interface{}, stream grpc.ServerStream) error {
 	return srv.(DynizerServer).StreamObjectDataIn(&dynizerStreamObjectDataInServer{stream})
 }
@@ -2452,6 +2662,42 @@ func _Dynizer_DownloadObjectData_Handler(srv interface{}, ctx context.Context, d
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(DynizerServer).DownloadObjectData(ctx, req.(*DownloadObjectDataReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Dynizer_ListObjectUUIDS_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(EmptyReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DynizerServer).ListObjectUUIDS(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/Dynizer/ListObjectUUIDS",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DynizerServer).ListObjectUUIDS(ctx, req.(*EmptyReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Dynizer_DeleteAllObjects_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(EmptyReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DynizerServer).DeleteAllObjects(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/Dynizer/DeleteAllObjects",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DynizerServer).DeleteAllObjects(ctx, req.(*EmptyReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -3421,6 +3667,168 @@ func _Dynizer_DeleteShareNameValue_Handler(srv interface{}, ctx context.Context,
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Dynizer_SimpleQuery_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DQLReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DynizerServer).SimpleQuery(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/Dynizer/SimpleQuery",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DynizerServer).SimpleQuery(ctx, req.(*DQLReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Dynizer_QueryParse_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryParseReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DynizerServer).QueryParse(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/Dynizer/QueryParse",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DynizerServer).QueryParse(ctx, req.(*QueryParseReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Dynizer_QueryBind_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryBindReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DynizerServer).QueryBind(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/Dynizer/QueryBind",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DynizerServer).QueryBind(ctx, req.(*QueryBindReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Dynizer_QueryDescribeStatement_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryDescribeStatementReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DynizerServer).QueryDescribeStatement(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/Dynizer/QueryDescribeStatement",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DynizerServer).QueryDescribeStatement(ctx, req.(*QueryDescribeStatementReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Dynizer_QueryDescribePortal_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryDescribePortalReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DynizerServer).QueryDescribePortal(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/Dynizer/QueryDescribePortal",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DynizerServer).QueryDescribePortal(ctx, req.(*QueryDescribePortalReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Dynizer_QueryExecute_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryExecuteReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DynizerServer).QueryExecute(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/Dynizer/QueryExecute",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DynizerServer).QueryExecute(ctx, req.(*QueryExecuteReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Dynizer_QueryClose_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryCloseReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DynizerServer).QueryClose(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/Dynizer/QueryClose",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DynizerServer).QueryClose(ctx, req.(*QueryCloseReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Dynizer_QueryCancel_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryCancelReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DynizerServer).QueryCancel(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/Dynizer/QueryCancel",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DynizerServer).QueryCancel(ctx, req.(*QueryCancelReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Dynizer_FindActionLabelLinks_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(FindActionLabelLinksReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DynizerServer).FindActionLabelLinks(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/Dynizer/FindActionLabelLinks",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DynizerServer).FindActionLabelLinks(ctx, req.(*FindActionLabelLinksReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Dynizer_ServiceDesc is the grpc.ServiceDesc for Dynizer service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -3585,12 +3993,24 @@ var Dynizer_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _Dynizer_ClearObjectData_Handler,
 		},
 		{
+			MethodName: "DeleteObject",
+			Handler:    _Dynizer_DeleteObject_Handler,
+		},
+		{
 			MethodName: "UploadObjectData",
 			Handler:    _Dynizer_UploadObjectData_Handler,
 		},
 		{
 			MethodName: "DownloadObjectData",
 			Handler:    _Dynizer_DownloadObjectData_Handler,
+		},
+		{
+			MethodName: "ListObjectUUIDS",
+			Handler:    _Dynizer_ListObjectUUIDS_Handler,
+		},
+		{
+			MethodName: "DeleteAllObjects",
+			Handler:    _Dynizer_DeleteAllObjects_Handler,
 		},
 		{
 			MethodName: "CreateInstance",
@@ -3795,6 +4215,42 @@ var Dynizer_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DeleteShareNameValue",
 			Handler:    _Dynizer_DeleteShareNameValue_Handler,
+		},
+		{
+			MethodName: "SimpleQuery",
+			Handler:    _Dynizer_SimpleQuery_Handler,
+		},
+		{
+			MethodName: "QueryParse",
+			Handler:    _Dynizer_QueryParse_Handler,
+		},
+		{
+			MethodName: "QueryBind",
+			Handler:    _Dynizer_QueryBind_Handler,
+		},
+		{
+			MethodName: "QueryDescribeStatement",
+			Handler:    _Dynizer_QueryDescribeStatement_Handler,
+		},
+		{
+			MethodName: "QueryDescribePortal",
+			Handler:    _Dynizer_QueryDescribePortal_Handler,
+		},
+		{
+			MethodName: "QueryExecute",
+			Handler:    _Dynizer_QueryExecute_Handler,
+		},
+		{
+			MethodName: "QueryClose",
+			Handler:    _Dynizer_QueryClose_Handler,
+		},
+		{
+			MethodName: "QueryCancel",
+			Handler:    _Dynizer_QueryCancel_Handler,
+		},
+		{
+			MethodName: "FindActionLabelLinks",
+			Handler:    _Dynizer_FindActionLabelLinks_Handler,
 		},
 	},
 	Streams: []grpc.StreamDesc{

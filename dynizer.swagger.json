@@ -80,6 +80,7 @@
         "parameters": [
           {
             "name": "body",
+            "description": "This is used to create an **Action**.\u003cbr\u003eIf supplied **ActionLabels** can be addes as well.\u003cbr\u003eThe *if_not_exists* flag allows if set not to raise an error if the **Action** already exists.",
             "in": "body",
             "required": true,
             "schema": {
@@ -126,6 +127,7 @@
         "parameters": [
           {
             "name": "body",
+            "description": "This is used to link **Actions**.",
             "in": "body",
             "required": true,
             "schema": {
@@ -138,7 +140,7 @@
         ]
       }
     },
-    "/api/v2/actions/link/{actionLabelLinkName}": {
+    "/api/v2/actions/link/{action_label_link_name}": {
       "get": {
         "summary": "Read a Link via Action Label",
         "description": "Reads a Link between **Actions** via a **ActionLabel**",
@@ -171,7 +173,7 @@
         },
         "parameters": [
           {
-            "name": "actionLabelLinkName",
+            "name": "action_label_link_name",
             "description": "The user friendly name of the **ActionLabel** link **Actions**.",
             "in": "path",
             "required": true,
@@ -183,7 +185,7 @@
         ]
       }
     },
-    "/api/v2/actions/types/{actionTypeLabel}/count": {
+    "/api/v2/actions/types/{action_type_label}/count": {
       "get": {
         "summary": "Count Actions",
         "description": "Returns the total number of **Actions**",
@@ -216,7 +218,7 @@
         },
         "parameters": [
           {
-            "name": "actionTypeLabel",
+            "name": "action_type_label",
             "description": "This is the label of the **ActionType**.",
             "in": "path",
             "required": true,
@@ -228,7 +230,7 @@
         ]
       }
     },
-    "/api/v2/actions/types/{actionTypeLabel}/names/all": {
+    "/api/v2/actions/types/{action_type_label}/names/all": {
       "get": {
         "summary": "List Action Names",
         "description": "Returns a list of **Action** names.\u003cbr\u003eProviding the optional window, paging is supported.",
@@ -261,7 +263,7 @@
         },
         "parameters": [
           {
-            "name": "actionTypeLabel",
+            "name": "action_type_label",
             "description": "The name of the **ActionType**.",
             "in": "path",
             "required": true,
@@ -271,7 +273,7 @@
             "name": "window.limit",
             "description": "Defines how many records at max are returned.\u003cbr\u003eIf fewer records are available, all will be returned.\u003cbr\u003eSetting this to -1 will be interpreted as no limit",
             "in": "query",
-            "required": false,
+            "required": true,
             "type": "integer",
             "format": "int64"
           },
@@ -279,12 +281,19 @@
             "name": "window.offset",
             "description": "Defines the offset at which to start reading.\u003cbr\u003eAn offset of 0 will bean to start from the first possible record.",
             "in": "query",
-            "required": false,
+            "required": true,
             "type": "integer",
             "format": "int64"
           },
           {
-            "name": "orderField",
+            "name": "window.relative",
+            "description": "The Dynizer keeps track of the last read position, this flag indicates wether the offset is relative to the current read position or absolute.",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "order_field",
             "description": "By which field to order **Action** names.\n\n - Created: order by created\n - Name: order by name",
             "in": "query",
             "required": false,
@@ -296,7 +305,7 @@
             "default": "Created"
           },
           {
-            "name": "orderDirection",
+            "name": "order_direction",
             "description": "Order in which to load the **Action** names.\n\n - Asc: order ascending\n - Desc: order descending",
             "in": "query",
             "required": false,
@@ -313,7 +322,7 @@
         ]
       }
     },
-    "/api/v2/actions/{actionName}": {
+    "/api/v2/actions/{action_name}": {
       "get": {
         "summary": "Read Action",
         "description": "Reads an **Action** definition with all **ActionLabels**",
@@ -346,7 +355,7 @@
         },
         "parameters": [
           {
-            "name": "actionName",
+            "name": "action_name",
             "description": "The name of the **Action**.",
             "in": "path",
             "required": true,
@@ -389,7 +398,7 @@
         },
         "parameters": [
           {
-            "name": "actionName",
+            "name": "action_name",
             "description": "The current name of the **Action** to be deleted.",
             "in": "path",
             "required": true,
@@ -439,15 +448,14 @@
         },
         "parameters": [
           {
-            "name": "actionName",
+            "name": "action_name",
             "description": "The current name of the **UseraAction** to be renamed.",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
-            "name": "body",
-            "description": "The new name of the **Action**.\u003cbr\u003eThe name needs to be unique.\u003cbr\u003eUse the CheckActionName, call to verify the name, without trying to create it.",
+            "name": "new_action_name",
             "in": "body",
             "required": true,
             "schema": {
@@ -461,7 +469,7 @@
         ]
       }
     },
-    "/api/v2/actions/{actionName}/actionlabels": {
+    "/api/v2/actions/{action_name}/actionlabels": {
       "post": {
         "summary": "Add ActionLabel",
         "description": "Adds an **ActionLabel** to an existing **Action**.\u003cbr\u003eUse the CheckActionLabelName call to verify that the ActionLabel name can be added.",
@@ -494,7 +502,7 @@
         },
         "parameters": [
           {
-            "name": "actionName",
+            "name": "action_name",
             "description": "The unique name for the **Action**.\u003cbr\u003eUse the CheckActionName, call to verify the name, without trying to create it.",
             "in": "path",
             "required": true,
@@ -507,11 +515,11 @@
             "schema": {
               "type": "object",
               "properties": {
-                "ifNotExists": {
+                "if_not_exists": {
                   "type": "boolean",
                   "description": "if set to true -\u003e NO ERROR is returned if a **Action** already has an **ActionLabel** by the provided name.\u003cbr\u003eNo changes to the ActionLabel will be performed when if_not_exists == true and the **ActionLabel** already exists."
                 },
-                "actionLabelName": {
+                "action_label_name": {
                   "type": "string",
                   "description": "The unique name of the **ActionLabel** within the **Action.\u003cbr\u003eUse the CheckActionLabelName, call to verify the name, without creating it."
                 },
@@ -519,28 +527,28 @@
                   "$ref": "#/definitions/ComponentType",
                   "description": "The **ComponentType** for this **ActionLabel**."
                 },
-                "defaultDataType": {
+                "default_data_type": {
                   "$ref": "#/definitions/DataType",
                   "description": "The **DataType** for this **ActionLabel**.\u003cbr\u003eThis **DataType** will be used when creating **Instances** with this **ActionLabel**."
                 },
-                "minOccurrence": {
+                "min_occurrence": {
                   "type": "integer",
                   "format": "int64",
                   "description": "Allows to set minimum number of values, which need to be provided when using this **ActionLabell*** in an **Instance**."
                 },
-                "maxOccurrence": {
+                "max_occurrence": {
                   "type": "integer",
                   "format": "int64",
                   "description": "Allows to set maximum number of values, which need to be provided when using this **ActionLabell*** in an **Instance**.\u003cbr\u003eThis value needs to be either zero or it can be equal or greater then *min_occurrence*.\u003cbr\u003eSetting it to 0 will be interpreted as open-ended."
                 },
-                "alternativeDataTypes": {
+                "alternative_data_types": {
                   "type": "array",
                   "items": {
                     "$ref": "#/definitions/DataType"
                   },
                   "description": "List of additional allowed **DataTypes** for this **ActionLabel**.\u003cbr\u003eIf left empty only the *default_data_type* is allowed for the values of this **ActionLabel**."
                 },
-                "shareName": {
+                "share_name": {
                   "type": "string",
                   "description": "The **ShareName** to use by default when an new instance is created and a value is set for this **ActionLabel**"
                 }
@@ -548,10 +556,9 @@
               "description": "Use this to add a new **ActionLabel** to an **Action**",
               "title": "AddActionLabelRequest",
               "required": [
-                "action_name",
-                "actionLabelName",
+                "action_label_name",
                 "component",
-                "defaultDataType"
+                "default_data_type"
               ]
             }
           }
@@ -561,7 +568,7 @@
         ]
       }
     },
-    "/api/v2/actions/{actionName}/actionlabels/{actionLabel}": {
+    "/api/v2/actions/{action_name}/actionlabels/{action_label}": {
       "get": {
         "summary": "Read ActionLabel",
         "description": "Reads an **ActionLabel** definition",
@@ -594,14 +601,14 @@
         },
         "parameters": [
           {
-            "name": "actionName",
+            "name": "action_name",
             "description": "The name of the **Action**.",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
-            "name": "actionLabel",
+            "name": "action_label",
             "description": "The name of the **ActionLabel**.",
             "in": "path",
             "required": true,
@@ -644,14 +651,14 @@
         },
         "parameters": [
           {
-            "name": "actionName",
+            "name": "action_name",
             "description": "The name of the **Action**.",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
-            "name": "actionLabel",
+            "name": "action_label",
             "description": "The name of the **ActionLabel**.",
             "in": "path",
             "required": true,
@@ -694,14 +701,14 @@
         },
         "parameters": [
           {
-            "name": "actionName",
+            "name": "action_name",
             "description": "The name of the **Action**.",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
-            "name": "actionLabel",
+            "name": "action_label",
             "description": "The name of the **ActionLabel** which will be modified.",
             "in": "path",
             "required": true,
@@ -714,25 +721,25 @@
             "schema": {
               "type": "object",
               "properties": {
-                "newActionLabelName": {
+                "new_action_label_name": {
                   "type": "string",
                   "description": "The new unique name of the **ActionLabel** within the **Action.\u003cbr\u003eUse the CheckActionLabelName, call to verify the name, without creating it."
                 },
-                "defaultDataType": {
+                "default_data_type": {
                   "$ref": "#/definitions/DataType",
                   "description": "The **DataType** for this **ActionLabel**.\u003cbr\u003eThis **DataType** will be used when creating **Instances** with this **ActionLabel**."
                 },
-                "minOccurrence": {
+                "min_occurrence": {
                   "type": "integer",
                   "format": "int64",
                   "description": "Allows to set minimum number of values, which need to be provided when using this **ActionLabell*** in an **Instance**."
                 },
-                "maxOccurrence": {
+                "max_occurrence": {
                   "type": "integer",
                   "format": "int64",
                   "description": "Allows to set maximum number of values, which need to be provided when using this **ActionLabell*** in an **Instance**.\u003cbr\u003eThis value needs to be either zero or it can be equal or greater then *min_occurrence*.\u003cbr\u003eSetting it to 0 will be interpreted as open-ended."
                 },
-                "alternativeDataTypes": {
+                "alternative_data_types": {
                   "type": "array",
                   "items": {
                     "$ref": "#/definitions/DataType"
@@ -747,12 +754,10 @@
               "description": "Use this to modify an **ActionLabel** associated to an **Action**",
               "title": "UpdateActionLabelReq",
               "required": [
-                "action_name",
-                "action_label",
-                "defaultDataType",
-                "minOccurrence",
-                "maxOccurrence",
-                "alternativeDataTypes"
+                "default_data_type",
+                "min_occurrence",
+                "max_occurrence",
+                "alternative_data_types"
               ]
             }
           }
@@ -762,7 +767,7 @@
         ]
       }
     },
-    "/api/v2/actions/{actionName}/instances": {
+    "/api/v2/actions/{action_name}/instances": {
       "get": {
         "summary": "Read Action Instances",
         "description": "Reads all **Instances** for an **Action**.\u003cbr\u003eWith the optional window pageing is supported.",
@@ -795,7 +800,7 @@
         },
         "parameters": [
           {
-            "name": "actionName",
+            "name": "action_name",
             "description": "This is the name of the **Action** for which the **Instances** will be read",
             "in": "path",
             "required": true,
@@ -805,7 +810,7 @@
             "name": "window.limit",
             "description": "Defines how many records at max are returned.\u003cbr\u003eIf fewer records are available, all will be returned.\u003cbr\u003eSetting this to -1 will be interpreted as no limit",
             "in": "query",
-            "required": false,
+            "required": true,
             "type": "integer",
             "format": "int64"
           },
@@ -813,9 +818,16 @@
             "name": "window.offset",
             "description": "Defines the offset at which to start reading.\u003cbr\u003eAn offset of 0 will bean to start from the first possible record.",
             "in": "query",
-            "required": false,
+            "required": true,
             "type": "integer",
             "format": "int64"
+          },
+          {
+            "name": "window.relative",
+            "description": "The Dynizer keeps track of the last read position, this flag indicates wether the offset is relative to the current read position or absolute.",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
           }
         ],
         "tags": [
@@ -857,6 +869,7 @@
         "parameters": [
           {
             "name": "body",
+            "description": "This is used to create an **ActionType**.\u003cbr\u003eThe *if_not_exists* flag allows if set not to raise an error if the **ActionType** already exists.",
             "in": "body",
             "required": true,
             "schema": {
@@ -869,7 +882,7 @@
         ]
       }
     },
-    "/api/v2/actiontypes/{actionTypeLabel}": {
+    "/api/v2/actiontypes/{action_type_label}": {
       "get": {
         "summary": "Read ActionType",
         "description": "Reads an **ActionType** definition with all **ActionLabels**",
@@ -902,7 +915,7 @@
         },
         "parameters": [
           {
-            "name": "actionTypeLabel",
+            "name": "action_type_label",
             "description": "The label of the **ActionType**.",
             "in": "path",
             "required": true,
@@ -945,15 +958,14 @@
         },
         "parameters": [
           {
-            "name": "actionTypeLabel",
+            "name": "action_type_label",
             "description": "The current name of the **ActionType** to be renamed.",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
-            "name": "body",
-            "description": "The new name of the **ActionType**.\u003cbr\u003eThe label needs to be unique.",
+            "name": "new_action_type_label",
             "in": "body",
             "required": true,
             "schema": {
@@ -967,7 +979,7 @@
         ]
       }
     },
-    "/api/v2/check/actions/{actionName}": {
+    "/api/v2/check/actions/{action_name}": {
       "get": {
         "summary": "Check Action Name",
         "description": "Verifies if the **Action** name is unique and only uses supported characters.",
@@ -1012,7 +1024,7 @@
         },
         "parameters": [
           {
-            "name": "actionName",
+            "name": "action_name",
             "description": "The string which is checked if it can be used as a valid **Action** name.",
             "in": "path",
             "required": true,
@@ -1024,7 +1036,7 @@
         ]
       }
     },
-    "/api/v2/check/actions/{actionName}/actionlabels/{actionLabel}": {
+    "/api/v2/check/actions/{action_name}/actionlabels/{action_label}": {
       "get": {
         "summary": "Check ActionLabel Name",
         "description": "Checks a string if it can be used as an **ActionLabel** name.",
@@ -1057,14 +1069,14 @@
         },
         "parameters": [
           {
-            "name": "actionName",
+            "name": "action_name",
             "description": "The unique name for the **Action**.",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
-            "name": "actionLabel",
+            "name": "action_label",
             "description": "The string which is checked if it can be used as a valid **ActionLabel** name.",
             "in": "path",
             "required": true,
@@ -1076,7 +1088,7 @@
         ]
       }
     },
-    "/api/v2/check/metadata/keys/{keyName}": {
+    "/api/v2/check/metadata/keys/{key_name}": {
       "get": {
         "summary": "Check MetaDataKey Name",
         "description": "Checks a string if it can be used as a **MetaDataKey** name.",
@@ -1109,7 +1121,7 @@
         },
         "parameters": [
           {
-            "name": "keyName",
+            "name": "key_name",
             "description": "The string which is checked if it can be used as a valid **MetaDataKey** name.",
             "in": "path",
             "required": true,
@@ -1156,6 +1168,7 @@
         "parameters": [
           {
             "name": "body",
+            "description": "Request checking a potential password.",
             "in": "body",
             "required": true,
             "schema": {
@@ -1282,6 +1295,7 @@
         "parameters": [
           {
             "name": "body",
+            "description": "Returns **DataElements** which match a contains value",
             "in": "body",
             "required": true,
             "schema": {
@@ -1328,6 +1342,7 @@
         "parameters": [
           {
             "name": "body",
+            "description": "Returns **DataElements** with their count in the Instances slected by the filter or overall if no filter has been set",
             "in": "body",
             "required": true,
             "schema": {
@@ -1337,6 +1352,53 @@
         ],
         "tags": [
           "DataElements"
+        ]
+      }
+    },
+    "/api/v2/find_actionlabel_links": {
+      "post": {
+        "summary": "finds the actionlabels with shared datalements within a set of actions",
+        "description": "Finds the **ActionLabels** with shared datalements within a set of **Actions**",
+        "operationId": "FindActionLabelLinks",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/FindActionLabelLinksRes"
+            }
+          },
+          "401": {
+            "description": "Unauthorized call",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Unexpected internal error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": "Used to find links between **ActionLabels** accross **Actions**.",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/FindActionLabelLinksReq"
+            }
+          }
+        ],
+        "tags": [
+          "Actions"
         ]
       }
     },
@@ -1374,6 +1436,7 @@
         "parameters": [
           {
             "name": "body",
+            "description": "This will create an Instance, for each ActionLabel defined in the Action and element can be defined.\u003cbr\u003eEach element can have multiple values.",
             "in": "body",
             "required": true,
             "schema": {
@@ -1386,7 +1449,7 @@
         ]
       }
     },
-    "/api/v2/instances/{instanceId}": {
+    "/api/v2/instances/{instance_id}": {
       "get": {
         "summary": "Read Instance",
         "description": "Reads an **Instance** directly.",
@@ -1419,7 +1482,7 @@
         },
         "parameters": [
           {
-            "name": "instanceId",
+            "name": "instance_id",
             "description": "The special UUID identifying an **Instance**.",
             "in": "path",
             "required": true,
@@ -1462,7 +1525,7 @@
         },
         "parameters": [
           {
-            "name": "instanceId",
+            "name": "instance_id",
             "description": "The special UUID identifying an **Instance**.",
             "in": "path",
             "required": true,
@@ -1505,7 +1568,7 @@
         },
         "parameters": [
           {
-            "name": "instanceId",
+            "name": "instance_id",
             "description": "The special UUID identifying an **Instance**.",
             "in": "path",
             "required": true,
@@ -1518,7 +1581,7 @@
             "schema": {
               "type": "object",
               "properties": {
-                "instanceCellElements": {
+                "instance_cell_elements": {
                   "type": "array",
                   "items": {
                     "$ref": "#/definitions/InstanceUpdateElementCell"
@@ -1529,7 +1592,6 @@
               "description": "Used to update an Instance.\u003cbr\u003e",
               "title": "UpdateInstanceRequest",
               "required": [
-                "instance_id",
                 "instance_elements"
               ]
             }
@@ -1620,6 +1682,7 @@
         "parameters": [
           {
             "name": "body",
+            "description": "Login Request with user and password.",
             "in": "body",
             "required": true,
             "schema": {
@@ -1669,7 +1732,7 @@
         ]
       }
     },
-    "/api/v2/maintenance/index/{indexName}": {
+    "/api/v2/maintenance/index/{index_name}": {
       "get": {
         "summary": "Dynizer Index rebuild",
         "description": "Starts the rebuild of an index",
@@ -1702,7 +1765,7 @@
         },
         "parameters": [
           {
-            "name": "indexName",
+            "name": "index_name",
             "description": "Name of the index to build",
             "in": "path",
             "required": true,
@@ -1714,7 +1777,7 @@
         ]
       }
     },
-    "/api/v2/metadata/instances/{instanceId}": {
+    "/api/v2/metadata/instances/{instance_id}": {
       "post": {
         "summary": "Add Instance MetaData",
         "description": "Adds a **MetaDataKey** and its values to an **Instance**",
@@ -1747,7 +1810,7 @@
         },
         "parameters": [
           {
-            "name": "instanceId",
+            "name": "instance_id",
             "description": "The special UUID identifying an **Instance**.",
             "in": "path",
             "required": true,
@@ -1760,7 +1823,7 @@
             "schema": {
               "type": "object",
               "properties": {
-                "keyName": {
+                "key_name": {
                   "type": "string",
                   "description": "Unique name of the **MetaDataKey**."
                 },
@@ -1782,8 +1845,7 @@
               "description": "Used for adding a **MetaDataKey** with its values to an **Instance**.",
               "title": "AddInstanceMetaDataRequest",
               "required": [
-                "instance_id",
-                "keyName",
+                "key_name",
                 "values"
               ]
             }
@@ -1795,7 +1857,7 @@
         ]
       }
     },
-    "/api/v2/metadata/instances/{instanceId}/actionlabels/{actionLabel}": {
+    "/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}": {
       "post": {
         "summary": "Add Instance ActionLabel MetaData",
         "description": "Adds a **MetaDataKey** and its values to all **InstanceCells** under the **ActionLabel**",
@@ -1828,14 +1890,14 @@
         },
         "parameters": [
           {
-            "name": "instanceId",
+            "name": "instance_id",
             "description": "The special UUID identifying an **Instance**.",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
-            "name": "actionLabel",
+            "name": "action_label",
             "description": "The unique name of the **ActionLabel**.",
             "in": "path",
             "required": true,
@@ -1848,7 +1910,7 @@
             "schema": {
               "type": "object",
               "properties": {
-                "keyName": {
+                "key_name": {
                   "type": "string",
                   "description": "Unique name of the **MetaDataKey**."
                 },
@@ -1870,9 +1932,7 @@
               "description": "Holds the properties to set MetaData for all cells under the **ActionLabel**.",
               "title": "AddInstanceActionLabelMetaDataRequest",
               "required": [
-                "instance_id",
-                "action_label",
-                "keyName",
+                "key_name",
                 "values"
               ]
             }
@@ -1884,7 +1944,7 @@
         ]
       }
     },
-    "/api/v2/metadata/instances/{instanceId}/actionlabels/{actionLabel}/keys/{keyName}": {
+    "/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/keys/{key_name}": {
       "delete": {
         "summary": "Remove Instance ActionLabel MetaData",
         "description": "Removes a **MetaDataKey** and *all* its values from all the **InstanceCells** under the **ActionLabel**",
@@ -1917,21 +1977,21 @@
         },
         "parameters": [
           {
-            "name": "instanceId",
+            "name": "instance_id",
             "description": "The special UUID identifying an **Instance**.",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
-            "name": "actionLabel",
+            "name": "action_label",
             "description": "The unique name of the **ActionLabel**.",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
-            "name": "keyName",
+            "name": "key_name",
             "description": "Unique name of the **MetaDataKey**.",
             "in": "path",
             "required": true,
@@ -1944,7 +2004,7 @@
         ]
       }
     },
-    "/api/v2/metadata/instances/{instanceId}/actionlabels/{actionLabel}/keys/{keyName}/values": {
+    "/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/keys/{key_name}/values": {
       "post": {
         "summary": "Add Instance ActionLabel MetaData Value",
         "description": "Adds an additional value to the values of a particular **MetaDataKey** linked to all **InstanceCells* under the **ActionLabel**.\u003cbr\u003eIf the value should already be in the array of values, an error is returned.",
@@ -1977,21 +2037,21 @@
         },
         "parameters": [
           {
-            "name": "instanceId",
+            "name": "instance_id",
             "description": "The special UUID identifying an **Instance**.",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
-            "name": "actionLabel",
+            "name": "action_label",
             "description": "The unique name of the **ActionLabel**.",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
-            "name": "keyName",
+            "name": "key_name",
             "description": "Unique name of the **MetaDataKey**.",
             "in": "path",
             "required": true,
@@ -2016,9 +2076,6 @@
               "description": "Holds the properties to add a value to the MetaData to ActionLabel grouped cells.",
               "title": "AddInstanceActionLabelMetaDataValueRequest",
               "required": [
-                "instance_id",
-                "action_label",
-                "key_name",
                 "value"
               ]
             }
@@ -2030,7 +2087,7 @@
         ]
       }
     },
-    "/api/v2/metadata/instances/{instanceId}/actionlabels/{actionLabel}/keys/{keyName}/values/{value}": {
+    "/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/keys/{key_name}/values/{value}": {
       "delete": {
         "summary": "Remove Instance ActionLabel MetaData Value",
         "description": "Removes an existing value from the values of a particular **MetaDataKey** linked to all **InstanceCells* under the **ActionLabel**.\u003cbr\u003eIf the value is not in the array of values, an error is returned.",
@@ -2063,21 +2120,21 @@
         },
         "parameters": [
           {
-            "name": "instanceId",
+            "name": "instance_id",
             "description": "The special UUID identifying an **Instance**.",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
-            "name": "actionLabel",
+            "name": "action_label",
             "description": "The unique name of the **ActionLabel**.",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
-            "name": "keyName",
+            "name": "key_name",
             "description": "Unique name of the **MetaDataKey**.",
             "in": "path",
             "required": true,
@@ -2091,7 +2148,7 @@
             "type": "string"
           },
           {
-            "name": "spec.dataType",
+            "name": "spec.data_type",
             "description": "overwrites the default_data_type from the default value\n\n - DT_Integer: Integer\n - DT_String: String\n - DT_Boolean: Boolean\n - DT_Decimal: Decimal fixed\n - DT_Timestamp: Timestamp\n - DT_Uri: URI\n - DT_Void: VOID is a designated DataType to indicate no value\n - DT_Float: Float\n - DT_UnsignedInteger: UInt\n - DT_Binary: Byte Array\n - DT_Uuid: UUID\n - DT_Text: FullTextIndex large object\n - DT_Blob: Binary large object\n - DT_Clob: Character large object\n - DT_Any: DT_Date = 16;\nDT_Time = 17;\nspecial flag to indiacte all DataTypes, to be used in AlternativeDataTypes for ActionLabels and MetaDataKeys\n - DT_Delete: special flag to indiacte thet the value is to be removed",
             "in": "query",
             "required": false,
@@ -2125,14 +2182,14 @@
             "type": "string"
           },
           {
-            "name": "spec.shareNameOverride",
+            "name": "spec.share_name_override",
             "description": "Defines if the **ShareName** value is used to either clear the **ShareName** if a default is set or to use one or to use one which differs from the default one.",
             "in": "query",
             "required": false,
             "type": "boolean"
           },
           {
-            "name": "spec.shareName",
+            "name": "spec.share_name",
             "description": "The **ShareName** to use by default when an new instance is created and a value is set for this **ActionLabel**",
             "in": "query",
             "required": false,
@@ -2145,7 +2202,7 @@
         ]
       }
     },
-    "/api/v2/metadata/instances/{instanceId}/actionlabels/{actionLabel}/position/{valuePosition}": {
+    "/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/position/{value_position}": {
       "post": {
         "summary": "Add InstanceCell MetaData",
         "description": "Adds a **MetaDataKey** and its values to an **InstanceCell**",
@@ -2178,21 +2235,21 @@
         },
         "parameters": [
           {
-            "name": "instanceId",
+            "name": "instance_id",
             "description": "The special UUID identifying an **Instance**.",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
-            "name": "actionLabel",
+            "name": "action_label",
             "description": "The unique name of the **ActionLabel**.",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
-            "name": "valuePosition",
+            "name": "value_position",
             "description": "The 1-based position of the value within the values for an **ActionLabel**",
             "in": "path",
             "required": true,
@@ -2206,7 +2263,7 @@
             "schema": {
               "type": "object",
               "properties": {
-                "keyName": {
+                "key_name": {
                   "type": "string",
                   "description": "Unique name of the **MetaDataKey**."
                 },
@@ -2228,10 +2285,7 @@
               "description": "Holds the properties to identify MetaData assciated to an **InstanceCell**.",
               "title": "AddInstanceCellMetaDataRequest",
               "required": [
-                "instance_id",
-                "action_label",
-                "value_position",
-                "keyName",
+                "key_name",
                 "values"
               ]
             }
@@ -2243,7 +2297,7 @@
         ]
       }
     },
-    "/api/v2/metadata/instances/{instanceId}/actionlabels/{actionLabel}/position/{valuePosition}/keys": {
+    "/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/position/{value_position}/keys": {
       "get": {
         "summary": "List InstanceCell MetaData",
         "description": "Returns all **MetaDataKeys** linked to an **Instance** with all set values",
@@ -2276,21 +2330,21 @@
         },
         "parameters": [
           {
-            "name": "instanceId",
+            "name": "instance_id",
             "description": "The special UUID identifying an **Instance**.",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
-            "name": "actionLabel",
+            "name": "action_label",
             "description": "The unique name of the **ActionLabel**.",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
-            "name": "valuePosition",
+            "name": "value_position",
             "description": "The 1-based position of the value within the values for an **ActionLabel**",
             "in": "path",
             "required": true,
@@ -2304,7 +2358,7 @@
         ]
       }
     },
-    "/api/v2/metadata/instances/{instanceId}/actionlabels/{actionLabel}/position/{valuePosition}/keys/all/count": {
+    "/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/position/{value_position}/keys/all/count": {
       "get": {
         "summary": "Count InstanceCell MetaDataKeys",
         "description": "Returns the number of **MetaDataKeys** which are associated with the **InstanceCell**",
@@ -2337,21 +2391,21 @@
         },
         "parameters": [
           {
-            "name": "instanceId",
+            "name": "instance_id",
             "description": "The special UUID identifying an **Instance**.",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
-            "name": "actionLabel",
+            "name": "action_label",
             "description": "The unique name of the **ActionLabel**.",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
-            "name": "valuePosition",
+            "name": "value_position",
             "description": "The 1-based position of the value within the values for an **ActionLabel**",
             "in": "path",
             "required": true,
@@ -2365,7 +2419,7 @@
         ]
       }
     },
-    "/api/v2/metadata/instances/{instanceId}/actionlabels/{actionLabel}/position/{valuePosition}/keys/{keyName}": {
+    "/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/position/{value_position}/keys/{key_name}": {
       "get": {
         "summary": "Get InstanceCell MetaData",
         "description": "Returns all the values for the given **MetaDataKey** linked to the give **InstanceCell**.",
@@ -2398,21 +2452,21 @@
         },
         "parameters": [
           {
-            "name": "instanceId",
+            "name": "instance_id",
             "description": "The special UUID identifying an **Instance**.",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
-            "name": "actionLabel",
+            "name": "action_label",
             "description": "The unique name of the **ActionLabel**.",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
-            "name": "valuePosition",
+            "name": "value_position",
             "description": "The 1-based position of the value within the values for an **ActionLabel**",
             "in": "path",
             "required": true,
@@ -2420,7 +2474,7 @@
             "format": "int64"
           },
           {
-            "name": "keyName",
+            "name": "key_name",
             "description": "Unique name of the **MetaDataKey**.",
             "in": "path",
             "required": true,
@@ -2464,21 +2518,21 @@
         },
         "parameters": [
           {
-            "name": "instanceId",
+            "name": "instance_id",
             "description": "The special UUID identifying an **Instance**.",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
-            "name": "actionLabel",
+            "name": "action_label",
             "description": "The unique name of the **ActionLabel**.",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
-            "name": "valuePosition",
+            "name": "value_position",
             "description": "The 1-based position of the value within the values for an **ActionLabel**",
             "in": "path",
             "required": true,
@@ -2486,7 +2540,7 @@
             "format": "int64"
           },
           {
-            "name": "keyName",
+            "name": "key_name",
             "description": "Unique name of the **MetaDataKey**.",
             "in": "path",
             "required": true,
@@ -2499,7 +2553,7 @@
         ]
       }
     },
-    "/api/v2/metadata/instances/{instanceId}/actionlabels/{actionLabel}/position/{valuePosition}/keys/{keyName}/values": {
+    "/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/position/{value_position}/keys/{key_name}/values": {
       "post": {
         "summary": "Add InstanceCell MetaData Value",
         "description": "Adds an additional value to the values of a particular **MetaDataKey** linked to an **InstanceCell*.\u003cbr\u003eIf the value should already be in the array of values, an error is returned.",
@@ -2532,21 +2586,21 @@
         },
         "parameters": [
           {
-            "name": "instanceId",
+            "name": "instance_id",
             "description": "The special UUID identifying an **Instance**.",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
-            "name": "actionLabel",
+            "name": "action_label",
             "description": "The unique name of the **ActionLabel**.",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
-            "name": "valuePosition",
+            "name": "value_position",
             "description": "The 1-based position of the value within the values for an **ActionLabel**",
             "in": "path",
             "required": true,
@@ -2554,7 +2608,7 @@
             "format": "int64"
           },
           {
-            "name": "keyName",
+            "name": "key_name",
             "description": "Unique name of the **MetaDataKey**.",
             "in": "path",
             "required": true,
@@ -2579,10 +2633,6 @@
               "description": "Identifies a single value of a MetaData from an **InstanceCell**",
               "title": "AddInstanceCellMetaDataValueRequest",
               "required": [
-                "instance_id",
-                "action_label",
-                "value_position",
-                "key_name",
                 "value"
               ]
             }
@@ -2594,7 +2644,7 @@
         ]
       }
     },
-    "/api/v2/metadata/instances/{instanceId}/actionlabels/{actionLabel}/position/{valuePosition}/keys/{keyName}/values/all/count": {
+    "/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/position/{value_position}/keys/{key_name}/values/all/count": {
       "get": {
         "summary": "Count InstanceCell MetaDataKey Values",
         "description": "Returns the number of values set for a given **MetaDataKey** of the **InstanceCell**",
@@ -2627,21 +2677,21 @@
         },
         "parameters": [
           {
-            "name": "instanceId",
+            "name": "instance_id",
             "description": "The special UUID identifying an **Instance**.",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
-            "name": "actionLabel",
+            "name": "action_label",
             "description": "The unique name of the **ActionLabel**.",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
-            "name": "valuePosition",
+            "name": "value_position",
             "description": "The 1-based position of the value within the values for an **ActionLabel**",
             "in": "path",
             "required": true,
@@ -2649,7 +2699,7 @@
             "format": "int64"
           },
           {
-            "name": "keyName",
+            "name": "key_name",
             "description": "Unique name of the **MetaDataKey**.",
             "in": "path",
             "required": true,
@@ -2662,7 +2712,7 @@
         ]
       }
     },
-    "/api/v2/metadata/instances/{instanceId}/actionlabels/{actionLabel}/position/{valuePosition}/keys/{keyName}/values/{value}": {
+    "/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/position/{value_position}/keys/{key_name}/values/{value}": {
       "delete": {
         "summary": "Remove InstanceCell MetaData Value",
         "description": "Removes an existing value from the values of a particular **MetaDataKey** linked to an **InstanceCell*.\u003cbr\u003eIf the value is not in the array of values, an error is returned.",
@@ -2695,21 +2745,21 @@
         },
         "parameters": [
           {
-            "name": "instanceId",
+            "name": "instance_id",
             "description": "The special UUID identifying an **Instance**.",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
-            "name": "actionLabel",
+            "name": "action_label",
             "description": "The unique name of the **ActionLabel**.",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
-            "name": "valuePosition",
+            "name": "value_position",
             "description": "The 1-based position of the value within the values for an **ActionLabel**",
             "in": "path",
             "required": true,
@@ -2717,7 +2767,7 @@
             "format": "int64"
           },
           {
-            "name": "keyName",
+            "name": "key_name",
             "description": "Unique name of the **MetaDataKey**.",
             "in": "path",
             "required": true,
@@ -2731,7 +2781,7 @@
             "type": "string"
           },
           {
-            "name": "spec.dataType",
+            "name": "spec.data_type",
             "description": "overwrites the default_data_type from the default value\n\n - DT_Integer: Integer\n - DT_String: String\n - DT_Boolean: Boolean\n - DT_Decimal: Decimal fixed\n - DT_Timestamp: Timestamp\n - DT_Uri: URI\n - DT_Void: VOID is a designated DataType to indicate no value\n - DT_Float: Float\n - DT_UnsignedInteger: UInt\n - DT_Binary: Byte Array\n - DT_Uuid: UUID\n - DT_Text: FullTextIndex large object\n - DT_Blob: Binary large object\n - DT_Clob: Character large object\n - DT_Any: DT_Date = 16;\nDT_Time = 17;\nspecial flag to indiacte all DataTypes, to be used in AlternativeDataTypes for ActionLabels and MetaDataKeys\n - DT_Delete: special flag to indiacte thet the value is to be removed",
             "in": "query",
             "required": false,
@@ -2765,14 +2815,14 @@
             "type": "string"
           },
           {
-            "name": "spec.shareNameOverride",
+            "name": "spec.share_name_override",
             "description": "Defines if the **ShareName** value is used to either clear the **ShareName** if a default is set or to use one or to use one which differs from the default one.",
             "in": "query",
             "required": false,
             "type": "boolean"
           },
           {
-            "name": "spec.shareName",
+            "name": "spec.share_name",
             "description": "The **ShareName** to use by default when an new instance is created and a value is set for this **ActionLabel**",
             "in": "query",
             "required": false,
@@ -2785,7 +2835,7 @@
         ]
       }
     },
-    "/api/v2/metadata/instances/{instanceId}/keys": {
+    "/api/v2/metadata/instances/{instance_id}/keys": {
       "get": {
         "summary": "List Instance MetaData",
         "description": "Returns all **MetaDataKeys** linked to an **Instance** with all set values",
@@ -2818,7 +2868,7 @@
         },
         "parameters": [
           {
-            "name": "instanceId",
+            "name": "instance_id",
             "description": "The special UUID identifying an **Instance**.",
             "in": "path",
             "required": true,
@@ -2831,7 +2881,7 @@
         ]
       }
     },
-    "/api/v2/metadata/instances/{instanceId}/keys/all/count": {
+    "/api/v2/metadata/instances/{instance_id}/keys/all/count": {
       "get": {
         "summary": "Count Instance MetaDataKeys",
         "description": "Returns the number of **MetaDataKeys** which are associated with the **Instance**",
@@ -2864,7 +2914,7 @@
         },
         "parameters": [
           {
-            "name": "instanceId",
+            "name": "instance_id",
             "description": "The special UUID identifying an **Instance**.",
             "in": "path",
             "required": true,
@@ -2877,7 +2927,7 @@
         ]
       }
     },
-    "/api/v2/metadata/instances/{instanceId}/keys/{keyName}": {
+    "/api/v2/metadata/instances/{instance_id}/keys/{key_name}": {
       "get": {
         "summary": "Get Instance MetaData Values",
         "description": "Returns all the values for the given **MetaDataKey** linked to the give **Instance**.",
@@ -2910,14 +2960,14 @@
         },
         "parameters": [
           {
-            "name": "instanceId",
+            "name": "instance_id",
             "description": "The special UUID identifying an **Instance**.",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
-            "name": "keyName",
+            "name": "key_name",
             "description": "Unique name of the **MetaDataKey**.",
             "in": "path",
             "required": true,
@@ -2961,14 +3011,14 @@
         },
         "parameters": [
           {
-            "name": "instanceId",
+            "name": "instance_id",
             "description": "The special UUID identifying an **Instance**.",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
-            "name": "keyName",
+            "name": "key_name",
             "description": "Unique name of the **MetaDataKey**.",
             "in": "path",
             "required": true,
@@ -2981,7 +3031,7 @@
         ]
       }
     },
-    "/api/v2/metadata/instances/{instanceId}/keys/{keyName}/values": {
+    "/api/v2/metadata/instances/{instance_id}/keys/{key_name}/values": {
       "post": {
         "summary": "Add Instance MetaData Value",
         "description": "Adds an additional value to the values of a particular **MetaDataKey** linked to an **Instance*.\u003cbr\u003eIf the value should already be in the array of values, an error is returned.",
@@ -3014,14 +3064,14 @@
         },
         "parameters": [
           {
-            "name": "instanceId",
+            "name": "instance_id",
             "description": "The special UUID identifying an **Instance**.",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
-            "name": "keyName",
+            "name": "key_name",
             "description": "Unique name of the **MetaDataKey**.",
             "in": "path",
             "required": true,
@@ -3046,8 +3096,6 @@
               "description": "Adds a new value to an already linked **MetaDataKey**",
               "title": "AddInstanceMetaDataValueRequest",
               "required": [
-                "instance_id",
-                "key_name",
                 "value"
               ]
             }
@@ -3059,7 +3107,7 @@
         ]
       }
     },
-    "/api/v2/metadata/instances/{instanceId}/keys/{keyName}/values/all/count": {
+    "/api/v2/metadata/instances/{instance_id}/keys/{key_name}/values/all/count": {
       "get": {
         "summary": "Count Instance MetaDataKey Values",
         "description": "Returns the number of values set for a given **MetaDataKey** of the **Instance**",
@@ -3092,14 +3140,14 @@
         },
         "parameters": [
           {
-            "name": "instanceId",
+            "name": "instance_id",
             "description": "The special UUID identifying an **Instance**.",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
-            "name": "keyName",
+            "name": "key_name",
             "description": "Unique name of the **MetaDataKey**.",
             "in": "path",
             "required": true,
@@ -3112,7 +3160,7 @@
         ]
       }
     },
-    "/api/v2/metadata/instances/{instanceId}/keys/{keyName}/values/{value}": {
+    "/api/v2/metadata/instances/{instance_id}/keys/{key_name}/values/{value}": {
       "delete": {
         "summary": "Remove Instance MetaData Value",
         "description": "Removes an existing value from the values of a particular **MetaDataKey** linked to an **Instance*.\u003cbr\u003eIf the value is not in the array of values, an error is returned.",
@@ -3145,14 +3193,14 @@
         },
         "parameters": [
           {
-            "name": "instanceId",
+            "name": "instance_id",
             "description": "The special UUID identifying an **Instance**.",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
-            "name": "keyName",
+            "name": "key_name",
             "description": "Unique name of the **MetaDataKey**.",
             "in": "path",
             "required": true,
@@ -3166,7 +3214,7 @@
             "type": "string"
           },
           {
-            "name": "spec.dataType",
+            "name": "spec.data_type",
             "description": "overwrites the default_data_type from the default value\n\n - DT_Integer: Integer\n - DT_String: String\n - DT_Boolean: Boolean\n - DT_Decimal: Decimal fixed\n - DT_Timestamp: Timestamp\n - DT_Uri: URI\n - DT_Void: VOID is a designated DataType to indicate no value\n - DT_Float: Float\n - DT_UnsignedInteger: UInt\n - DT_Binary: Byte Array\n - DT_Uuid: UUID\n - DT_Text: FullTextIndex large object\n - DT_Blob: Binary large object\n - DT_Clob: Character large object\n - DT_Any: DT_Date = 16;\nDT_Time = 17;\nspecial flag to indiacte all DataTypes, to be used in AlternativeDataTypes for ActionLabels and MetaDataKeys\n - DT_Delete: special flag to indiacte thet the value is to be removed",
             "in": "query",
             "required": false,
@@ -3200,14 +3248,14 @@
             "type": "string"
           },
           {
-            "name": "spec.shareNameOverride",
+            "name": "spec.share_name_override",
             "description": "Defines if the **ShareName** value is used to either clear the **ShareName** if a default is set or to use one or to use one which differs from the default one.",
             "in": "query",
             "required": false,
             "type": "boolean"
           },
           {
-            "name": "spec.shareName",
+            "name": "spec.share_name",
             "description": "The **ShareName** to use by default when an new instance is created and a value is set for this **ActionLabel**",
             "in": "query",
             "required": false,
@@ -3256,7 +3304,7 @@
             "name": "window.limit",
             "description": "Defines how many records at max are returned.\u003cbr\u003eIf fewer records are available, all will be returned.\u003cbr\u003eSetting this to -1 will be interpreted as no limit",
             "in": "query",
-            "required": false,
+            "required": true,
             "type": "integer",
             "format": "int64"
           },
@@ -3264,9 +3312,16 @@
             "name": "window.offset",
             "description": "Defines the offset at which to start reading.\u003cbr\u003eAn offset of 0 will bean to start from the first possible record.",
             "in": "query",
-            "required": false,
+            "required": true,
             "type": "integer",
             "format": "int64"
+          },
+          {
+            "name": "window.relative",
+            "description": "The Dynizer keeps track of the last read position, this flag indicates wether the offset is relative to the current read position or absolute.",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
           }
         ],
         "tags": [
@@ -3307,6 +3362,7 @@
         "parameters": [
           {
             "name": "body",
+            "description": "Properties to create a new MetaDataKey",
             "in": "body",
             "required": true,
             "schema": {
@@ -3357,7 +3413,7 @@
         ]
       }
     },
-    "/api/v2/metadata/keys/{keyName}": {
+    "/api/v2/metadata/keys/{key_name}": {
       "get": {
         "summary": "Read MetaDataKey",
         "description": "Reads the **MetaDataKey** definition",
@@ -3390,7 +3446,7 @@
         },
         "parameters": [
           {
-            "name": "keyName",
+            "name": "key_name",
             "description": "Unique name of the **MetaDataKey**.",
             "in": "path",
             "required": true,
@@ -3434,7 +3490,7 @@
         },
         "parameters": [
           {
-            "name": "keyName",
+            "name": "key_name",
             "description": "Unique name of the **MetaDataKey** to delete.",
             "in": "path",
             "required": true,
@@ -3485,7 +3541,7 @@
         },
         "parameters": [
           {
-            "name": "keyName",
+            "name": "key_name",
             "description": "Unique name of the **MetaDataKey** to update.",
             "in": "path",
             "required": true,
@@ -3498,20 +3554,20 @@
             "schema": {
               "type": "object",
               "properties": {
-                "newKeyName": {
+                "new_key_name": {
                   "type": "string",
                   "description": "New unique name of the **MetaDataKey**.\u003cbr\u003eThe CheckMetaDataKeyName call can be used to check if the name can be used."
                 },
-                "defaultDataType": {
+                "default_data_type": {
                   "$ref": "#/definitions/DataType",
                   "description": "The **DataType** for this **MetaDataKey** value.\u003cbr\u003eThis **DataType** will be used when creating values for the MetaData with this **MetaDataKey**."
                 },
-                "maxOccurrence": {
+                "max_occurrence": {
                   "type": "integer",
                   "format": "int64",
                   "description": "How many values at most can be stored in the **MetaDataKey** value array for one use.\u003cbr\u003eNot setting this property or setting it to 0, will mean to the maximum based on system settings."
                 },
-                "alternativeDataTypes": {
+                "alternative_data_types": {
                   "type": "array",
                   "items": {
                     "$ref": "#/definitions/DataType"
@@ -3520,10 +3576,7 @@
                 }
               },
               "description": "Used to update a **MetaDataKey**.",
-              "title": "UpdateMetaDataKeyRequest",
-              "required": [
-                "key_name"
-              ]
+              "title": "UpdateMetaDataKeyRequest"
             }
           }
         ],
@@ -3567,6 +3620,7 @@
         "parameters": [
           {
             "name": "body",
+            "description": "Request for an user to change it's own password.",
             "in": "body",
             "required": true,
             "schema": {
@@ -3652,6 +3706,74 @@
       }
     },
     "/api/v2/objects": {
+      "get": {
+        "summary": "List Object UUIDs",
+        "description": "Returns a list of all **Object** UUIDs.",
+        "operationId": "ListObjectUUIDS",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ObjectUUIDArrayRes"
+            }
+          },
+          "401": {
+            "description": "Unauthorized call",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Unexpected internal error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "Objects"
+        ]
+      },
+      "delete": {
+        "summary": "Delete all Objects",
+        "description": "This deletes all large object blocks",
+        "operationId": "DeleteAllObjects",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/EmptyRes"
+            }
+          },
+          "401": {
+            "description": "Unauthorized call",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Unexpected internal error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "Objects"
+        ]
+      },
       "post": {
         "summary": "Create Object",
         "description": "creates a reference uri value in the Dynizer which is needed to upload a large value of type *TEXT*, *CLOB*, or *BLOB*.\u003cbr\u003e*TEXT* is the DataType which will get indexed by the **FullTextIndex** if enabled.\u003cbr\u003e*CLOB* is a charatecr LOB, unindexed large string\u003cbr\u003e*BLOB* is a binary LOB, unindexed bytes",
@@ -3697,7 +3819,7 @@
         ]
       }
     },
-    "/api/v2/objects/{type}/{refUuid}": {
+    "/api/v2/objects/{type}/{ref_uuid}": {
       "get": {
         "summary": "Download Object Data",
         "description": "This allows to get the object download url",
@@ -3737,8 +3859,58 @@
             "type": "string"
           },
           {
-            "name": "refUuid",
+            "name": "ref_uuid",
             "description": "The **ObjectReference** UUID which the data will be returned.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Objects"
+        ]
+      },
+      "delete": {
+        "summary": "Delete Object",
+        "description": "This deletes the referenced large object block",
+        "operationId": "DeleteObject",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/EmptyRes"
+            }
+          },
+          "401": {
+            "description": "Unauthorized call",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Unexpected internal error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "type",
+            "description": "The type of the **Object**.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "ref_uuid",
+            "description": "The **ObjectReference** UUID referencing the object that will be deleted.",
             "in": "path",
             "required": true,
             "type": "string"
@@ -3787,7 +3959,7 @@
             "type": "string"
           },
           {
-            "name": "refUuid",
+            "name": "ref_uuid",
             "description": "The **ObjectReference** UUID which the data will be stored.",
             "in": "path",
             "required": true,
@@ -3807,10 +3979,7 @@
                 }
               },
               "description": "URL for an **Object**",
-              "title": "UploadObjectDataRequest",
-              "required": [
-                "ref_uuid"
-              ]
+              "title": "UploadObjectDataRequest"
             }
           }
         ],
@@ -3863,7 +4032,7 @@
             ]
           },
           {
-            "name": "refUuid",
+            "name": "ref_uuid",
             "description": "The **ObjectReference** UUID for which the bytes will be cleared.",
             "in": "path",
             "required": true,
@@ -3875,7 +4044,7 @@
         ]
       }
     },
-    "/api/v2/plots/filtered/{top}/{plotName}": {
+    "/api/v2/plots/filtered/{top}/{plot_name}": {
       "post": {
         "summary": "Dynizer Filtered Plot",
         "description": "Sends in a filtered statement to retrieve plot data json",
@@ -3916,7 +4085,7 @@
             "format": "int64"
           },
           {
-            "name": "plotName",
+            "name": "plot_name",
             "description": "Name of the plot. This defines the response JSON",
             "in": "path",
             "required": true,
@@ -3936,14 +4105,14 @@
                   },
                   "description": "List of allowed **Actions** for the returned **Instances**.\u003cbr\u003eIf left empty the search scope will include all **Actions**."
                 },
-                "dataTypes": {
+                "data_types": {
                   "type": "array",
                   "items": {
                     "$ref": "#/definitions/DataType"
                   },
                   "description": "List of allowed **DataTypes** for the returned **DataElement**.\u003cbr\u003eIf left empty all **DataTypes** will be returned."
                 },
-                "componentTypes": {
+                "component_types": {
                   "type": "array",
                   "items": {
                     "$ref": "#/definitions/ComponentType"
@@ -3958,10 +4127,7 @@
                   "description": "The filter for the **Instance** requested"
                 }
               },
-              "description": "Returns plot data based on the fliter and plot name",
-              "required": [
-                "plot_name"
-              ]
+              "description": "Returns plot data based on the fliter and plot name"
             }
           }
         ],
@@ -4004,10 +4170,199 @@
         "parameters": [
           {
             "name": "body",
+            "description": "DQL statment",
             "in": "body",
             "required": true,
             "schema": {
               "$ref": "#/definitions/DQLReq"
+            }
+          }
+        ],
+        "tags": [
+          "Query"
+        ]
+      }
+    },
+    "/api/v2/query/bind": {
+      "post": {
+        "summary": "binds the parameter to a parsed query",
+        "description": "Binds parameter to a parsed DynizerQueryLanguage statement",
+        "operationId": "QueryBind",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/EmptyRes"
+            }
+          },
+          "401": {
+            "description": "Unauthorized call",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Unexpected internal error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": "Performs the Bind of Parameter values",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/QueryBindReq"
+            }
+          }
+        ],
+        "tags": [
+          "Query"
+        ]
+      }
+    },
+    "/api/v2/query/cancel": {
+      "post": {
+        "summary": "cancels a running query",
+        "description": "Cancels the execution of a running DynizerQuery",
+        "operationId": "QueryCancel",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/EmptyRes"
+            }
+          },
+          "401": {
+            "description": "Unauthorized call",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Unexpected internal error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": "Cancels the execution of a portal.",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/QueryCancelReq"
+            }
+          }
+        ],
+        "tags": [
+          "Query"
+        ]
+      }
+    },
+    "/api/v2/query/close": {
+      "post": {
+        "summary": "closes and cleans parsed and/or bind queries",
+        "description": "Closes a DynizerQueryLanguage statement",
+        "operationId": "QueryClose",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/EmptyRes"
+            }
+          },
+          "401": {
+            "description": "Unauthorized call",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Unexpected internal error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": "Cleans up the session data for weither a portal or a statement.\nIf a statement close is issued all associated portals are closed too.",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/QueryCloseReq"
+            }
+          }
+        ],
+        "tags": [
+          "Query"
+        ]
+      }
+    },
+    "/api/v2/query/execute": {
+      "post": {
+        "summary": "executes a parsed and bound query",
+        "description": "Fetches the ResultRows for the parsed and bound DynizerQueryLanguage statement",
+        "operationId": "QueryExecute",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/QueryExecuteRes"
+            }
+          },
+          "401": {
+            "description": "Unauthorized call",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Unexpected internal error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": "Executes a prepared and bound query",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/QueryExecuteReq"
             }
           }
         ],
@@ -4050,6 +4405,7 @@
         "parameters": [
           {
             "name": "body",
+            "description": "Returns **DataElements** with their count in the Instances slected by the filter or overall if no filter has been set",
             "in": "body",
             "required": true,
             "schema": {
@@ -4062,7 +4418,195 @@
         ]
       }
     },
-    "/api/v2/query/{resultHandle}/close": {
+    "/api/v2/query/parse": {
+      "post": {
+        "summary": "parses a dql and stores the result in the session",
+        "description": "Parses a DynizerQueryLanguage statement.\u003cbr\u003e",
+        "operationId": "QueryParse",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/EmptyRes"
+            }
+          },
+          "401": {
+            "description": "Unauthorized call",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Unexpected internal error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": "DynizerQuery Statement to be parsed",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/QueryParseReq"
+            }
+          }
+        ],
+        "tags": [
+          "Query"
+        ]
+      }
+    },
+    "/api/v2/query/portal/describe": {
+      "post": {
+        "summary": "returns the description for the result labels and optionally for the bound parameters",
+        "description": "Fetches the ResultLabels for the parsed DynizerQueryLanguage statement and bound parameters",
+        "operationId": "QueryDescribePortal",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/QueryDescribePortalRes"
+            }
+          },
+          "401": {
+            "description": "Unauthorized call",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Unexpected internal error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": "Performs the Describe for wither a statement or a portal.\nA statement description will return the definition for both the Parameters as well as the ActionLabels.\nA portal description will just return the ActionLabels.",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/QueryDescribePortalReq"
+            }
+          }
+        ],
+        "tags": [
+          "Query"
+        ]
+      }
+    },
+    "/api/v2/query/simple": {
+      "post": {
+        "summary": "Simple Query with immediate results",
+        "description": "Sends in a DynizerQueryLanguage statement.\u003cbr\u003e*SELECT* to retrieve information.\u003cbr\u003eINSERT, UPDATE, DELETE, CREATE, DROP",
+        "operationId": "SimpleQuery",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/SimpleQueryRes"
+            }
+          },
+          "401": {
+            "description": "Unauthorized call",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Unexpected internal error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": "DQL statment",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DQLReq"
+            }
+          }
+        ],
+        "tags": [
+          "Query"
+        ]
+      }
+    },
+    "/api/v2/query/statement/describe": {
+      "post": {
+        "summary": "returns the description for the result labels and optionally for the bound parameters",
+        "description": "Fetches the ResultLabels for the parsed DynizerQueryLanguage statement",
+        "operationId": "QueryDescribeStatement",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/QueryDescribeStatementRes"
+            }
+          },
+          "401": {
+            "description": "Unauthorized call",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Unexpected internal error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": "Performs the Describe for wither a statement or a portal.\nA statement description will return the definition for both the Parameters as well as the ActionLabels.\nA portal description will just return the ActionLabels.",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/QueryDescribeStatementReq"
+            }
+          }
+        ],
+        "tags": [
+          "Query"
+        ]
+      }
+    },
+    "/api/v2/query/{result_handle}/close": {
       "get": {
         "summary": "QueryResultClose",
         "description": "Close a ResultHandle.\u003cbr\u003eThis will free all result cache resources",
@@ -4095,10 +4639,24 @@
         },
         "parameters": [
           {
-            "name": "resultHandle",
-            "description": "The unique identifier for the DQL Result to close.",
+            "name": "result_handle",
+            "description": "[DEPRECATED] The unique identifier for the DQL Result to close. Legacy compatibility field, use close_for instead.",
             "in": "path",
             "required": true,
+            "type": "string"
+          },
+          {
+            "name": "statement",
+            "description": "The name of the prepared Statement",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "portal",
+            "description": "The name of the portal, this is what the execute references",
+            "in": "query",
+            "required": false,
             "type": "string"
           }
         ],
@@ -4107,7 +4665,7 @@
         ]
       }
     },
-    "/api/v2/query/{resultHandle}/next": {
+    "/api/v2/query/{result_handle}/next": {
       "get": {
         "summary": "Query Result Next",
         "description": "Reads ResultRows from a ResultHandle.\u003cbr\u003eThe window can be used have server-side pageing.",
@@ -4140,7 +4698,7 @@
         },
         "parameters": [
           {
-            "name": "resultHandle",
+            "name": "result_handle",
             "description": "The unique identifier for the DQL Result to read from.",
             "in": "path",
             "required": true,
@@ -4150,7 +4708,7 @@
             "name": "window.limit",
             "description": "Defines how many records at max are returned.\u003cbr\u003eIf fewer records are available, all will be returned.\u003cbr\u003eSetting this to -1 will be interpreted as no limit",
             "in": "query",
-            "required": false,
+            "required": true,
             "type": "integer",
             "format": "int64"
           },
@@ -4158,9 +4716,16 @@
             "name": "window.offset",
             "description": "Defines the offset at which to start reading.\u003cbr\u003eAn offset of 0 will bean to start from the first possible record.",
             "in": "query",
-            "required": false,
+            "required": true,
             "type": "integer",
             "format": "int64"
+          },
+          {
+            "name": "window.relative",
+            "description": "The Dynizer keeps track of the last read position, this flag indicates wether the offset is relative to the current read position or absolute.",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
           }
         ],
         "tags": [
@@ -4168,7 +4733,7 @@
         ]
       }
     },
-    "/api/v2/query/{resultHandle}/stream": {
+    "/api/v2/query/{result_handle}/stream": {
       "get": {
         "summary": "Query Result Streamed",
         "description": "Reads ResultRows from a ResultHandle in a streamed way.\u003cbr\u003eThe window can be used have server-side pageing.",
@@ -4210,7 +4775,7 @@
         },
         "parameters": [
           {
-            "name": "resultHandle",
+            "name": "result_handle",
             "description": "The unique identifier for the DQL Result to read from.",
             "in": "path",
             "required": true,
@@ -4220,7 +4785,7 @@
             "name": "window.limit",
             "description": "Defines how many records at max are returned.\u003cbr\u003eIf fewer records are available, all will be returned.\u003cbr\u003eSetting this to -1 will be interpreted as no limit",
             "in": "query",
-            "required": false,
+            "required": true,
             "type": "integer",
             "format": "int64"
           },
@@ -4228,9 +4793,16 @@
             "name": "window.offset",
             "description": "Defines the offset at which to start reading.\u003cbr\u003eAn offset of 0 will bean to start from the first possible record.",
             "in": "query",
-            "required": false,
+            "required": true,
             "type": "integer",
             "format": "int64"
+          },
+          {
+            "name": "window.relative",
+            "description": "The Dynizer keeps track of the last read position, this flag indicates wether the offset is relative to the current read position or absolute.",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
           }
         ],
         "tags": [
@@ -4308,6 +4880,7 @@
         "parameters": [
           {
             "name": "body",
+            "description": "Service Login holds a service token for the server to check and inpersonate.",
             "in": "body",
             "required": true,
             "schema": {
@@ -4394,6 +4967,7 @@
         "parameters": [
           {
             "name": "body",
+            "description": "Creates a new **ShareName**",
             "in": "body",
             "required": true,
             "schema": {
@@ -4406,7 +4980,7 @@
         ]
       }
     },
-    "/api/v2/sharename/{shareName}/delete/value": {
+    "/api/v2/sharename/{share_name}/delete/value": {
       "post": {
         "summary": "Delete ShareNameValue",
         "description": "Deletes a Value for an existing **ShareName**",
@@ -4439,7 +5013,7 @@
         },
         "parameters": [
           {
-            "name": "shareName",
+            "name": "share_name",
             "description": "Name of the share",
             "in": "path",
             "required": true,
@@ -4452,20 +5026,19 @@
             "schema": {
               "type": "object",
               "properties": {
-                "currentValue": {
+                "current_value": {
                   "type": "string",
                   "description": "Value for the share"
                 },
-                "dataType": {
+                "data_type": {
                   "$ref": "#/definitions/DataType",
                   "description": "DataType of the share value"
                 }
               },
               "description": "Deletes a Value for a **ShareName**",
               "required": [
-                "share_name",
-                "currentValue",
-                "dataType"
+                "current_value",
+                "data_type"
               ]
             }
           }
@@ -4475,7 +5048,7 @@
         ]
       }
     },
-    "/api/v2/sharename/{shareName}/value": {
+    "/api/v2/sharename/{share_name}/value": {
       "post": {
         "summary": "Create ShareNameValue",
         "description": "Creates a new Value for an existing **ShareName**",
@@ -4508,7 +5081,7 @@
         },
         "parameters": [
           {
-            "name": "shareName",
+            "name": "share_name",
             "description": "Name of the share",
             "in": "path",
             "required": true,
@@ -4528,7 +5101,6 @@
               },
               "description": "Creates a new Value for a **ShareName**",
               "required": [
-                "share_name",
                 "value"
               ]
             }
@@ -4570,7 +5142,7 @@
         },
         "parameters": [
           {
-            "name": "shareName",
+            "name": "share_name",
             "description": "Name of the share",
             "in": "path",
             "required": true,
@@ -4583,25 +5155,24 @@
             "schema": {
               "type": "object",
               "properties": {
-                "oldValue": {
+                "old_value": {
                   "type": "string",
                   "description": "old value for the share"
                 },
-                "newValue": {
+                "new_value": {
                   "type": "string",
                   "description": "Value for the share"
                 },
-                "dataType": {
+                "data_type": {
                   "$ref": "#/definitions/DataType",
                   "description": "DataType of the share value"
                 }
               },
               "description": "Updates a Value for a **ShareName**",
               "required": [
-                "share_name",
-                "oldValue",
-                "newValue",
-                "dataType"
+                "old_value",
+                "new_value",
+                "data_type"
               ]
             }
           }
@@ -4679,6 +5250,7 @@
         "parameters": [
           {
             "name": "body",
+            "description": "Exports all **Actions**",
             "in": "body",
             "required": true,
             "schema": {
@@ -4724,6 +5296,7 @@
         "parameters": [
           {
             "name": "body",
+            "description": "This is used to import **Actions**.",
             "in": "body",
             "required": true,
             "schema": {
@@ -4808,7 +5381,7 @@
             "name": "window.limit",
             "description": "Defines how many records at max are returned.\u003cbr\u003eIf fewer records are available, all will be returned.\u003cbr\u003eSetting this to -1 will be interpreted as no limit",
             "in": "query",
-            "required": false,
+            "required": true,
             "type": "integer",
             "format": "int64"
           },
@@ -4816,9 +5389,16 @@
             "name": "window.offset",
             "description": "Defines the offset at which to start reading.\u003cbr\u003eAn offset of 0 will bean to start from the first possible record.",
             "in": "query",
-            "required": false,
+            "required": true,
             "type": "integer",
             "format": "int64"
+          },
+          {
+            "name": "window.relative",
+            "description": "The Dynizer keeps track of the last read position, this flag indicates wether the offset is relative to the current read position or absolute.",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
           }
         ],
         "tags": [
@@ -4858,6 +5438,7 @@
         "parameters": [
           {
             "name": "body",
+            "description": "Holds all properties which are needed to create a new user in the Dynizer.",
             "in": "body",
             "required": true,
             "schema": {
@@ -5130,7 +5711,7 @@
             "schema": {
               "type": "object",
               "properties": {
-                "newPassword": {
+                "new_password": {
                   "type": "string",
                   "description": "The new password string which will be security hashed and stored."
                 }
@@ -5138,7 +5719,7 @@
               "description": "Set a users password as an admin",
               "title": "SetUserPasswordRequest",
               "required": [
-                "newPassword"
+                "new_password"
               ]
             }
           }
@@ -5312,11 +5893,11 @@
     "Action": {
       "type": "object",
       "properties": {
-        "actionName": {
+        "action_name": {
           "type": "string",
           "description": "The unique name for the **Action**."
         },
-        "actionLabels": {
+        "action_labels": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/ActionLabel"
@@ -5330,11 +5911,11 @@
     "ActionInstanceRecord": {
       "type": "object",
       "properties": {
-        "instanceId": {
+        "instance_id": {
           "type": "string",
           "description": "The special UUID identifying an **Instance**."
         },
-        "instanceCellValues": {
+        "instance_cell_values": {
           "type": "array",
           "items": {
             "type": "string"
@@ -5348,7 +5929,7 @@
     "ActionLabel": {
       "type": "object",
       "properties": {
-        "actionLabelName": {
+        "action_label_name": {
           "type": "string",
           "description": "The unique name of the **ActionLabel**."
         },
@@ -5356,28 +5937,28 @@
           "$ref": "#/definitions/ComponentType",
           "description": "The **ComponentType** for this **ActionLabel**."
         },
-        "defaultDataType": {
+        "default_data_type": {
           "$ref": "#/definitions/DataType",
           "description": "The **DataType** for this **ActionLabel**.\u003cbr\u003eThis **DataType** will be used when creating **Instances** with this **ActionLabel**."
         },
-        "minOccurrence": {
+        "min_occurrence": {
           "type": "integer",
           "format": "int64",
           "description": "Allows to set minimum number of values, which need to be provided when using this **ActionLabel*** in an **Instance**."
         },
-        "maxOccurrence": {
+        "max_occurrence": {
           "type": "integer",
           "format": "int64",
           "description": "Allows to set maximum number of values, which need to be provided when using this **ActionLabel*** in an **Instance**.\u003cbr\u003eThis value needs to be either zero or it can be equal or greater then *min_occurrence*.\u003cbr\u003eSetting it to 0 will be interpreted as open-ended."
         },
-        "alternativeDataTypes": {
+        "alternative_data_types": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/DataType"
           },
           "description": "List of additional allowed **DataTypes** for this **ActionLabel**.\u003cbr\u003eIf left empty only the *default_data_type* is allowed for the values of this **ActionLabel**."
         },
-        "shareName": {
+        "share_name": {
           "type": "string",
           "description": "The **ShareName** to use by default when an new instance is created and a value is set for this **ActionLabel**"
         }
@@ -5385,23 +5966,60 @@
       "description": "An **ActionLabel** defines a group of columns with the same name and **ComponentType**.\u003cbr\u003eThe default **DataType** is used when no overwrite is used.\u003cbr\u003eMin and Max occurrence is used to limit the amount of values which can be used for an **ActionLabel**.\u003cbr\u003eThe alternative **dataTypes** can be used to constrain which **DataTypes** can be used for the overwrite.\u003cbr\u003eWith it you can define all the **DataTypes** allowed to be used under this **ActionLabel**.",
       "title": "ActionLabel",
       "required": [
-        "actionLabelName",
+        "action_label_name",
         "component",
-        "defaultDataType",
-        "minOccurrence",
-        "maxOccurrence",
-        "alternativeDataTypes",
+        "default_data_type",
+        "min_occurrence",
+        "max_occurrence",
+        "alternative_data_types",
         "is_active"
+      ]
+    },
+    "ActionLabelLink": {
+      "type": "object",
+      "properties": {
+        "left_action_label": {
+          "$ref": "#/definitions/ActionNameActionLabelName",
+          "description": "The left **ActionLabels** of the link"
+        },
+        "right_action_label": {
+          "$ref": "#/definitions/ActionNameActionLabelName",
+          "description": "The left **ActionLabels** of the link"
+        },
+        "left_total": {
+          "type": "string",
+          "format": "int64",
+          "description": "The total values in the left **ActionLabel**"
+        },
+        "right_total": {
+          "type": "string",
+          "format": "int64",
+          "description": "The total values in the right **ActionLabel**"
+        },
+        "shared_total": {
+          "type": "string",
+          "format": "int64",
+          "description": "The total shared values in both **ActionLabel**"
+        }
+      },
+      "description": "The **ActionLabel** links of the request **Actions**.",
+      "title": "ActionLabelLink",
+      "required": [
+        "left_action_label",
+        "right_action_label",
+        "left_total",
+        "right_total",
+        "shared_total"
       ]
     },
     "ActionLabelLinkPair": {
       "type": "object",
       "properties": {
-        "firstActionLabel": {
+        "first_action_label": {
           "$ref": "#/definitions/ActionLabelSelector",
           "description": "The first **ActionLabels** which will be used to link **Actions**."
         },
-        "secondActionLabel": {
+        "second_action_label": {
           "$ref": "#/definitions/ActionLabelSelector",
           "description": "The second **ActionLabels** which will be used to link **Actions**."
         }
@@ -5409,22 +6027,22 @@
       "description": "This is used to link **Actions**.",
       "title": "ActionLabelLinkPair",
       "required": [
-        "firstActionLabel",
-        "secondActionLabel"
+        "first_action_label",
+        "second_action_label"
       ]
     },
     "ActionLabelLinkReq": {
       "type": "object",
       "properties": {
-        "actionLabelLinkName": {
+        "action_label_link_name": {
           "type": "string",
           "description": "The user friendly name of the **ActionLabel** link **Actions**."
         },
-        "actionLabelPair": {
+        "action_label_pair": {
           "$ref": "#/definitions/ActionLabelLinkPair",
           "description": "The **ActionLabels** which will be used to link **Actions**."
         },
-        "syncBuild": {
+        "sync_build": {
           "type": "boolean",
           "description": "If set to true, the links are build immediately"
         }
@@ -5432,18 +6050,18 @@
       "description": "This is used to link **Actions**.",
       "title": "ActionLabelLinkRequest",
       "required": [
-        "actionLabelLinkName",
-        "actionLabelPair"
+        "action_label_link_name",
+        "action_label_pair"
       ]
     },
     "ActionLabelLinkRes": {
       "type": "object",
       "properties": {
-        "actionLabelLinkName": {
+        "action_label_link_name": {
           "type": "string",
           "description": "The user friendly name of the **ActionLabel** link **Actions**."
         },
-        "actionLabelPair": {
+        "action_label_pair": {
           "$ref": "#/definitions/ActionLabelLinkPair",
           "description": "The **ActionLabels** which will be used to link **Actions**."
         }
@@ -5451,18 +6069,18 @@
       "description": "This is ActionLabelLink",
       "title": "ActionLabelLinkResponse",
       "required": [
-        "actionLabelLinkName",
-        "actionLabelPair"
+        "action_label_link_name",
+        "action_label_pair"
       ]
     },
     "ActionLabelSelector": {
       "type": "object",
       "properties": {
-        "actionName": {
+        "action_name": {
           "type": "string",
           "description": "The name of the **Actions**."
         },
-        "actionLabel": {
+        "action_label": {
           "type": "string",
           "description": "The name of the **ActionLabel**."
         }
@@ -5470,8 +6088,8 @@
       "description": "This is used to define a unique **Label** withing an **Action**.",
       "title": "ActionLabelSelector",
       "required": [
-        "actionName",
-        "actionLabel"
+        "action_name",
+        "action_label"
       ]
     },
     "ActionName": {
@@ -5482,15 +6100,34 @@
         }
       }
     },
+    "ActionNameActionLabelName": {
+      "type": "object",
+      "properties": {
+        "action_name": {
+          "type": "string",
+          "description": "The **Action** name"
+        },
+        "action_label_name": {
+          "type": "string",
+          "description": "The **ActionLabel** name"
+        }
+      },
+      "description": "**Action** name and label pair",
+      "title": "ActionNameActionLabelName",
+      "required": [
+        "action_name",
+        "actionlabel_name"
+      ]
+    },
     "ActionNameArrayRes": {
       "type": "object",
       "properties": {
-        "totalActions": {
+        "total_actions": {
           "type": "integer",
           "format": "int64",
           "description": "Total number of **Actions** in the system"
         },
-        "actionNames": {
+        "action_names": {
           "type": "array",
           "items": {
             "type": "string"
@@ -5502,7 +6139,7 @@
       "title": "ActionNameArrayResponse",
       "required": [
         "actions",
-        "totalActions"
+        "total_actions"
       ]
     },
     "ActionRes": {
@@ -5530,12 +6167,12 @@
     "ActionTypeRes": {
       "type": "object",
       "properties": {
-        "actionType": {
+        "action_type": {
           "type": "string",
           "format": "int64",
           "description": "The **ActionType**."
         },
-        "actionTypeLabel": {
+        "action_type_label": {
           "type": "string",
           "description": "This holds an **ActionTypeLabel**"
         }
@@ -5543,7 +6180,7 @@
       "description": "Response which holds an **ActionType**.",
       "title": "ActionTypeResponse",
       "required": [
-        "actionTypeLabel"
+        "action_type_label"
       ]
     },
     "AddUserReq": {
@@ -5579,11 +6216,11 @@
     "ChangePasswordReq": {
       "type": "object",
       "properties": {
-        "oldPassword": {
+        "old_password": {
           "type": "string",
           "description": "The old password string which will be security hashed and ompared with the stored."
         },
-        "newPassword": {
+        "new_password": {
           "type": "string",
           "description": "The new password string which will be security hashed and stored."
         }
@@ -5591,8 +6228,8 @@
       "description": "Request for an user to change it's own password.",
       "title": "ChangePasswordRequest",
       "required": [
-        "oldPassword",
-        "newPassword"
+        "old_password",
+        "new_password"
       ]
     },
     "CheckPasswordReq": {
@@ -5618,7 +6255,7 @@
           "description": "strength of the pwaasowrd in percent",
           "maximum": 100
         },
-        "crackTime": {
+        "crack_time": {
           "type": "string",
           "description": "human readable information on how long it will take to crack the password"
         },
@@ -5626,7 +6263,7 @@
           "type": "boolean",
           "description": "if the password would be valid when used for a user.\u003cbr\u003eIf not the fail_reason will give the detaiuls"
         },
-        "failReason": {
+        "fail_reason": {
           "type": "string",
           "description": "The reason why the password does not meet the criterias."
         }
@@ -5635,9 +6272,9 @@
       "title": "CheckPasswordRes",
       "required": [
         "strength",
-        "crackTime",
+        "crack_time",
         "valid",
-        "failReason"
+        "fail_reason"
       ]
     },
     "ComponentType": {
@@ -5656,11 +6293,11 @@
     "ComponentTypeUsage": {
       "type": "object",
       "properties": {
-        "componentType": {
+        "component_type": {
           "$ref": "#/definitions/ComponentType",
           "description": "Indicates the **ComponentType** for the **DataElement** that was found."
         },
-        "numInstances": {
+        "num_instances": {
           "type": "integer",
           "format": "int64",
           "description": "Indicates in how many different **Instances** the **DataElement** / **ComponetType** combinations was found."
@@ -5668,23 +6305,23 @@
       },
       "description": "Returns details of the number of **Instances** found divided by **ComponentType** for the **DataElement**",
       "required": [
-        "componentType",
-        "numInstances"
+        "component_type",
+        "num_instances"
       ]
     },
     "ConfigKV": {
       "type": "object",
       "properties": {
-        "configKey": {
+        "config_key": {
           "type": "string",
           "description": "The name of the Dynizer config parameter"
         },
-        "numericValue": {
+        "numeric_value": {
           "type": "number",
           "format": "float",
           "description": "Holds the value of a numeric config parameter"
         },
-        "stringValue": {
+        "string_value": {
           "type": "string",
           "description": "Holds the value of a string config parameter"
         }
@@ -5692,7 +6329,7 @@
       "description": "Holds Dynizer system configuration",
       "title": "ConfigKV",
       "required": [
-        "configKey",
+        "config_key",
         "config_value"
       ]
     },
@@ -5714,15 +6351,15 @@
     "CreateActionReq": {
       "type": "object",
       "properties": {
-        "actionName": {
+        "action_name": {
           "type": "string",
           "description": "The unique name for the **Action**.\u003cbr\u003eUse the CheckActionName, call to verify the name, without trying to create it."
         },
-        "ifNotExists": {
+        "if_not_exists": {
           "type": "boolean",
           "description": "if set to true -\u003e NO ERROR is returned if a **Action** by the provided name already exists in the system.\u003cbr\u003eAny ActionLabels provided are IGNORED when if_not_exists == true and the **Action** already existed."
         },
-        "actionLabels": {
+        "action_labels": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/ActionLabel"
@@ -5733,17 +6370,17 @@
       "description": "This is used to create an **Action**.\u003cbr\u003eIf supplied **ActionLabels** can be addes as well.\u003cbr\u003eThe *if_not_exists* flag allows if set not to raise an error if the **Action** already exists.",
       "title": "CreateActionRequest",
       "required": [
-        "actionName"
+        "action_name"
       ]
     },
     "CreateActionTypeReq": {
       "type": "object",
       "properties": {
-        "actionTypeLabel": {
+        "action_type_label": {
           "type": "string",
           "description": "The unique name for the **ActionType**."
         },
-        "ifNotExists": {
+        "if_not_exists": {
           "type": "boolean",
           "description": "if set to true -\u003e NO ERROR is returned if a **ActionType** by the provided name already exists in the system."
         }
@@ -5751,24 +6388,24 @@
       "description": "This is used to create an **ActionType**.\u003cbr\u003eThe *if_not_exists* flag allows if set not to raise an error if the **ActionType** already exists.",
       "title": "CreateActionTypeRequest",
       "required": [
-        "actionTypeLabel"
+        "action_type_label"
       ]
     },
     "CreateInstanceReq": {
       "type": "object",
       "properties": {
-        "actionName": {
+        "action_name": {
           "type": "string",
           "description": "This is the name of the **Action** for which the **Instance** will be created"
         },
-        "instanceElements": {
+        "instance_elements": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/InstanceElement"
           },
           "description": "Provide all ActionLabel and the associated values."
         },
-        "instanceMetadata": {
+        "instance_metadata": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/MetaDataKeyValue"
@@ -5779,27 +6416,27 @@
       "description": "This will create an Instance, for each ActionLabel defined in the Action and element can be defined.\u003cbr\u003eEach element can have multiple values.",
       "title": "CreateInstanceRequest",
       "required": [
-        "actionName",
-        "instanceElements"
+        "action_name",
+        "instance_elements"
       ]
     },
     "CreateMetaDataKeyReq": {
       "type": "object",
       "properties": {
-        "keyName": {
+        "key_name": {
           "type": "string",
           "description": "The unique name of a **MetaDataKey**.\u003cbr\u003eThe CheckMetaDataKeyName call can be used to check if the name can be used."
         },
-        "defaultDataType": {
+        "default_data_type": {
           "$ref": "#/definitions/DataType",
           "description": "The **DataType** of a **MetaDataKey**.\u003cbr\u003eThis **DataType** will be used when creating values for the MetaData with this **MetaDataKey**."
         },
-        "maxOccurrence": {
+        "max_occurrence": {
           "type": "integer",
           "format": "int64",
           "description": "How many values at most can be stored in the **MetaDataKey** value array for one use.\u003cbr\u003eNot setting this property or setting it to 0, will mean to the maximum based on system settings."
         },
-        "alternativeDataTypes": {
+        "alternative_data_types": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/DataType"
@@ -5810,8 +6447,8 @@
       "description": "Properties to create a new MetaDataKey",
       "title": "CreateMetaDataKeyRequest",
       "required": [
-        "keyName",
-        "defaultDataType"
+        "key_name",
+        "default_data_type"
       ]
     },
     "CreateObjectReq": {
@@ -5830,30 +6467,36 @@
     "CreateShareNameReq": {
       "type": "object",
       "properties": {
-        "shareName": {
+        "share_name": {
           "type": "string",
           "description": "Name of the share"
         },
-        "ifNotExists": {
+        "if_not_exists": {
           "type": "boolean",
           "description": "Defines if an error should be returned if the **ShareName** already exists"
         }
       },
       "description": "Creates a new **ShareName**",
       "required": [
-        "shareName"
+        "share_name"
       ]
     },
     "DQLParam": {
       "type": "object",
       "properties": {
-        "nameAlias": {
-          "type": "string",
-          "description": "identifies the alias in the DQL will be replaced by this parameter ."
+        "index": {
+          "type": "integer",
+          "format": "int64",
+          "description": "identifies the alias in the DQL which will be replaced by this parameter ."
         },
-        "value": {
+        "string_value": {
           "type": "string",
           "description": "string value representation of the parameter, optional parsing can be specified by format."
+        },
+        "binary_value": {
+          "type": "string",
+          "format": "byte",
+          "description": "binary value representation of the parameter, optional parsing can be specified by format."
         },
         "spec": {
           "$ref": "#/definitions/DataTypeFormat",
@@ -5863,7 +6506,25 @@
       "description": "Holds Dynizer Query Parameter",
       "title": "DynizerQueryParameter",
       "required": [
-        "nameAlias",
+        "value"
+      ]
+    },
+    "DQLParamDescription": {
+      "type": "object",
+      "properties": {
+        "index": {
+          "type": "integer",
+          "format": "int64",
+          "description": "identifies the alias in the DQL which will be replaced by this parameter ."
+        },
+        "data_type": {
+          "$ref": "#/definitions/DataType",
+          "description": "The DQL parameter data type"
+        }
+      },
+      "description": "Holds Dynizer Query Parameter Description",
+      "title": "DynizerQueryParameterDescription",
+      "required": [
         "value"
       ]
     },
@@ -5891,11 +6552,11 @@
     "DQLRes": {
       "type": "object",
       "properties": {
-        "selectResult": {
+        "select_result": {
           "$ref": "#/definitions/SelectDQLResult",
           "description": "Holds a SELECT result"
         },
-        "rowsAffected": {
+        "rows_affected": {
           "type": "integer",
           "format": "int64",
           "description": "Number of rows affected by the DQL statement."
@@ -5907,6 +6568,30 @@
         "kind"
       ]
     },
+    "DQLType": {
+      "type": "string",
+      "enum": [
+        "DQL_None",
+        "DQL_Set",
+        "DQL_Show",
+        "DQL_Select",
+        "DQL_Insert",
+        "DQL_Update",
+        "DQL_Delete",
+        "DQL_CreateSchema",
+        "DQL_CreateTable",
+        "DQL_AlterSchema",
+        "DQL_AlterTable",
+        "DQL_DropSchema",
+        "DQL_DropTable",
+        "DQL_Begin",
+        "DQL_Commit",
+        "DQL_Rollback"
+      ],
+      "default": "DQL_None",
+      "description": "- DQL_None: Empty query type\n - DQL_Set: Type of a SET query\n - DQL_Show: Type of a SHOW query\n - DQL_Select: Type of a SELECT query\n - DQL_Insert: Type of a INSERT query\n - DQL_Update: Type of a UPDATE query\n - DQL_Delete: Type of a DELETE query\n - DQL_CreateSchema: Type of a CREATE SCHEMA query\n - DQL_CreateTable: Type of a CREATE_TABLE query\n - DQL_AlterSchema: Type of a ALTER SCHEMA query\n - DQL_AlterTable: Type of a ALTER TABLE query\n - DQL_DropSchema: Type of a DROP SCHEMA query\n - DQL_DropTable: Type of a DROP TABLE query\n - DQL_Begin: Type of a BEGIN query =\u003e Not implemented, no-op\n - DQL_Commit: Type of a COMMIT query =\u003e Not implemented, no-op\n - DQL_Rollback: Type of a ROLLBACK query =\u003e Not implemented, no-op",
+      "title": "DQLType"
+    },
     "DataElement": {
       "type": "object",
       "properties": {
@@ -5914,16 +6599,16 @@
           "type": "string",
           "description": "The string Value of the returned **DataElement**."
         },
-        "dataType": {
+        "data_type": {
           "$ref": "#/definitions/DataType",
           "description": "The **DataTypes** of the returned **DataElement**."
         },
-        "numInstances": {
+        "num_instances": {
           "type": "integer",
           "format": "int64",
           "description": "Indicates in how many different **Instances** the **DataElement** was found."
         },
-        "byComponentType": {
+        "by_component_type": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/ComponentTypeUsage"
@@ -5941,8 +6626,8 @@
       "description": "Returns **DataElements** which match a contains value",
       "required": [
         "value",
-        "dataType",
-        "numInstances"
+        "data_type",
+        "num_instances"
       ]
     },
     "DataType": {
@@ -5973,7 +6658,7 @@
     "DataTypeFormat": {
       "type": "object",
       "properties": {
-        "dataType": {
+        "data_type": {
           "$ref": "#/definitions/DataType",
           "description": "overwrites the default_data_type from the default value"
         },
@@ -5981,11 +6666,11 @@
           "type": "string",
           "description": "is a format string which allows to specify on how the input-value is to be parsed from string to the internal DataType for storing"
         },
-        "shareNameOverride": {
+        "share_name_override": {
           "type": "boolean",
           "description": "Defines if the **ShareName** value is used to either clear the **ShareName** if a default is set or to use one or to use one which differs from the default one."
         },
-        "shareName": {
+        "share_name": {
           "type": "string",
           "description": "The **ShareName** to use by default when an new instance is created and a value is set for this **ActionLabel**"
         }
@@ -6030,21 +6715,21 @@
     "ErrorArg": {
       "type": "object",
       "properties": {
-        "intArg": {
+        "int_arg": {
           "type": "string",
           "format": "int64"
         },
-        "boolArg": {
+        "bool_arg": {
           "type": "boolean"
         },
-        "stringArg": {
+        "string_arg": {
           "type": "string"
         },
-        "doubleArg": {
+        "double_arg": {
           "type": "number",
           "format": "double"
         },
-        "bytesArg": {
+        "bytes_arg": {
           "type": "string",
           "format": "byte"
         }
@@ -6146,10 +6831,44 @@
         "filters"
       ]
     },
+    "FindActionLabelLinksReq": {
+      "type": "object",
+      "properties": {
+        "action_names": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "The names of the **Actions**."
+        }
+      },
+      "description": "Used to find links between **ActionLabels** accross **Actions**.",
+      "title": "FindActionLabelLinksRequest",
+      "required": [
+        "action_names"
+      ]
+    },
+    "FindActionLabelLinksRes": {
+      "type": "object",
+      "properties": {
+        "links": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ActionLabelLink"
+          },
+          "description": "The linked **ActionLabels** of the **Actions**."
+        }
+      },
+      "description": "The **ActionLabel** links of the request **Actions**.",
+      "title": "FindActionLabelLinksResponse",
+      "required": [
+        "links"
+      ]
+    },
     "GetDynizerConfigurationRes": {
       "type": "object",
       "properties": {
-        "configKeyValues": {
+        "config_key_values": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/ConfigKV"
@@ -6160,26 +6879,26 @@
       "description": "Holds Dynizer system configuration",
       "title": "GetDynizerConfigurationResponse",
       "required": [
-        "configKeyValues"
+        "config_key_values"
       ]
     },
     "GetInstanceCellMetaDataKeyRes": {
       "type": "object",
       "properties": {
-        "instanceId": {
+        "instance_id": {
           "type": "string",
           "description": "The special UUID identifying an **Instance**."
         },
-        "actionLabel": {
+        "action_label": {
           "type": "string",
           "description": "The unique name of the **ActionLabel**."
         },
-        "valuePosition": {
+        "value_position": {
           "type": "integer",
           "format": "int64",
           "description": "The 1-based position of the value within the values for an **ActionLabel**"
         },
-        "metaData": {
+        "meta_data": {
           "$ref": "#/definitions/MetaDataOut",
           "description": "All the MetaData records linked to this **Instance** for the requested **MetaDataKey**."
         }
@@ -6187,20 +6906,20 @@
       "description": "Holds all the MetaData values for a sepcific **MetaDataKey** information for an **Instance**.",
       "title": "GetInstanceCellMetaDataKeyResponse",
       "required": [
-        "instanceId",
-        "actionLabel",
-        "valuePosition",
-        "metaData"
+        "instance_id",
+        "action_label",
+        "value_position",
+        "meta_data"
       ]
     },
     "GetInstanceMetaDataKeyRes": {
       "type": "object",
       "properties": {
-        "instanceId": {
+        "instance_id": {
           "type": "string",
           "description": "The special UUID identifying an **Instance**."
         },
-        "metaData": {
+        "meta_data": {
           "$ref": "#/definitions/MetaDataOut",
           "description": "All the MetaData records linked to this **Instance** for the requested **MetaDataKey**."
         }
@@ -6208,8 +6927,8 @@
       "description": "Holds all the values for a **MetaDataKey** linked to an **Instance**.",
       "title": "GetInstanceMetaDataKeyResponse",
       "required": [
-        "instanceId",
-        "metaData"
+        "instance_id",
+        "meta_data"
       ]
     },
     "GetTopNDataElementsReq": {
@@ -6227,14 +6946,14 @@
           },
           "description": "List of allowed **Actions** for the returned **DataElement**.\u003cbr\u003eIf left empty the search scope will include all **Actions**."
         },
-        "dataTypes": {
+        "data_types": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/DataType"
           },
           "description": "List of allowed **DataTypes** for the returned **DataElement**.\u003cbr\u003eIf left empty all **DataTypes** will be returned."
         },
-        "componentTypes": {
+        "component_types": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/ComponentType"
@@ -6298,7 +7017,7 @@
           },
           "description": "The **Action** which will be imported."
         },
-        "ifNotExists": {
+        "if_not_exists": {
           "type": "boolean",
           "description": "if set to true -\u003e NO ERROR is returned if a **Action** by the provided name already exists in the system.\u003cbr\u003eAny ActionLabels provided are IGNORED when if_not_exists == true and the **Action** already existed."
         }
@@ -6312,7 +7031,7 @@
     "InstanceElement": {
       "type": "object",
       "properties": {
-        "actionLabel": {
+        "action_label": {
           "type": "string",
           "description": "The unique name of the **ActionLabel**."
         },
@@ -6330,7 +7049,7 @@
           },
           "description": "allows to add special handling for a value, based on its position in the array (1-based)"
         },
-        "metaData": {
+        "meta_data": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/InstanceElementMetaData"
@@ -6341,7 +7060,7 @@
       "description": "each Element represents one ActionLabel and multiple values.\u003cbr\u003eThe specs allow for DataType override and pars format definition.\u003cbr\u003eAdditionaly can you also add MetaData for each value.",
       "title": "InstanceElement",
       "required": [
-        "actionLabel",
+        "action_label",
         "values"
       ]
     },
@@ -6353,7 +7072,7 @@
           "format": "int64",
           "description": "1-based to identify for which value from InstanceElement this treatment is to be used, 0 ... indicates that all values get the same overwrite"
         },
-        "metaDataKeyValues": {
+        "meta_data_key_values": {
           "$ref": "#/definitions/MetaDataKeyValue",
           "description": "MetaData Key Value defintion"
         }
@@ -6362,13 +7081,13 @@
       "title": "InstanceElementMetaData",
       "required": [
         "position",
-        "metaDataKeyValues"
+        "meta_data_key_values"
       ]
     },
     "InstanceFilter": {
       "type": "object",
       "properties": {
-        "actionLabelName": {
+        "action_label_name": {
           "type": "string",
           "description": "The **ActionLabel**"
         },
@@ -6379,7 +7098,7 @@
           },
           "description": "The possible values for the **ActionLabel**"
         },
-        "componentType": {
+        "component_type": {
           "$ref": "#/definitions/ComponentType",
           "description": "The **Component Type**"
         }
@@ -6396,7 +7115,7 @@
     "InstanceIDRes": {
       "type": "object",
       "properties": {
-        "instanceId": {
+        "instance_id": {
           "type": "string",
           "description": "The UUID identifying an **Instance**."
         }
@@ -6404,31 +7123,31 @@
       "description": "This holds the Instance ID",
       "title": "InstanceIDResponse",
       "required": [
-        "instanceId"
+        "instance_id"
       ]
     },
     "InstanceRes": {
       "type": "object",
       "properties": {
-        "instanceId": {
+        "instance_id": {
           "type": "string",
           "description": "The special UUID identifying an **Instance**."
         },
-        "actionLabels": {
+        "action_labels": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/ResultLabel"
           },
           "description": "All the **ActionsLabels** used in this the **Instance** row."
         },
-        "instanceCellValues": {
+        "instance_cell_values": {
           "type": "array",
           "items": {
             "type": "string"
           },
           "description": "All the values for each **InstanceCell**."
         },
-        "alternativeDataTypes": {
+        "alternative_data_types": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/ResultValueAlternativeMetaDataPosition"
@@ -6439,7 +7158,7 @@
       "description": "This holds an **Instance** row",
       "title": "InstanceRes response which returns one Action Instance row",
       "required": [
-        "instanceId",
+        "instance_id",
         "user_action_labels",
         "instance_cell_value"
       ]
@@ -6447,7 +7166,7 @@
     "InstanceUpdateElementCell": {
       "type": "object",
       "properties": {
-        "actionLabel": {
+        "action_label": {
           "type": "string",
           "description": "The unique name of the **ActionLabel**."
         },
@@ -6455,7 +7174,7 @@
           "type": "string",
           "description": "the value as a string, which will be parsed into the correct Dynizer DataType.\u003cbr\u003eWith the specs parameter a parse format string can be provided."
         },
-        "valuePosition": {
+        "value_position": {
           "type": "integer",
           "format": "int64",
           "description": "The 1-based position of the value within the values for an **ActionLabel**",
@@ -6469,9 +7188,9 @@
       "description": "each Element represents one ActionLabel and multiple values.\u003cbr\u003eThe specs allow for DataType override and pars format definition.\u003cbr\u003eAdditionaly can you also add MetaData for each value.",
       "title": "InstanceUpdateElementCell",
       "required": [
-        "actionLabel",
+        "action_label",
         "value",
-        "valuePosition"
+        "value_position"
       ]
     },
     "LabelRes": {
@@ -6481,7 +7200,7 @@
           "type": "string",
           "description": "This holds an **Actions**."
         },
-        "actionLabel": {
+        "action_label": {
           "$ref": "#/definitions/ActionLabel",
           "description": "This holds an **ActionLabel**."
         }
@@ -6490,31 +7209,31 @@
       "title": "LabelResponse",
       "required": [
         "user_action",
-        "actionLabel"
+        "action_label"
       ]
     },
     "ListInstanceCellMetaDataRes": {
       "type": "object",
       "properties": {
-        "instanceId": {
+        "instance_id": {
           "type": "string",
           "description": "The special UUID identifying an **Instance**."
         },
-        "actionLabel": {
+        "action_label": {
           "type": "string",
           "description": "The unique name of the **ActionLabel**."
         },
-        "valuePosition": {
+        "value_position": {
           "type": "integer",
           "format": "int64",
           "description": "The 1-based position of the value within the values for an **ActionLabel**"
         },
-        "totalMetaDataEntries": {
+        "total_meta_data_entries": {
           "type": "integer",
           "format": "int64",
           "description": "Total number of MetaData entries for this **InstanceCell** returned"
         },
-        "metaData": {
+        "meta_data": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/MetaDataOut"
@@ -6525,26 +7244,26 @@
       "description": "Holds all the MetaData information for an **Instance**.",
       "title": "ListInstanceCellMetaDataRes",
       "required": [
-        "instanceId",
-        "actionLabel",
-        "valuePosition",
-        "metaData",
-        "totalMetaDataEntries"
+        "instance_id",
+        "action_label",
+        "value_position",
+        "meta_data",
+        "total_meta_data_entries"
       ]
     },
     "ListInstanceMetaDataRes": {
       "type": "object",
       "properties": {
-        "instanceId": {
+        "instance_id": {
           "type": "string",
           "description": "The special UUID identifying an **Instance**."
         },
-        "totalMetaDataEntries": {
+        "total_meta_data_entries": {
           "type": "integer",
           "format": "int64",
           "description": "Total number of MetaData entries attached to this **Instance**"
         },
-        "metaData": {
+        "meta_data": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/MetaDataOut"
@@ -6555,15 +7274,15 @@
       "description": "Holds all the MetaData information for an **Instance**.",
       "title": "ListInstanceMetaDataResponse",
       "required": [
-        "instanceId",
-        "metaData",
-        "totalMetaDataEntries"
+        "instance_id",
+        "meta_data",
+        "total_meta_data_entries"
       ]
     },
     "ListRolesRes": {
       "type": "object",
       "properties": {
-        "totalRoles": {
+        "total_roles": {
           "type": "integer",
           "format": "int64",
           "description": "Total number of roles in the system"
@@ -6580,13 +7299,13 @@
       "title": "ListRolesResponse",
       "required": [
         "roles",
-        "totalRoles"
+        "total_roles"
       ]
     },
     "ListUserRolesRes": {
       "type": "object",
       "properties": {
-        "totalRoles": {
+        "total_roles": {
           "type": "integer",
           "format": "int64",
           "description": "Total number of roles in the system."
@@ -6603,13 +7322,13 @@
       "title": "ListUserRolesResponse",
       "required": [
         "roles",
-        "totalRoles"
+        "total_roles"
       ]
     },
     "ListUsersRes": {
       "type": "object",
       "properties": {
-        "totalUsers": {
+        "total_users": {
           "type": "integer",
           "format": "int64",
           "description": "Total number of users in the system"
@@ -6626,7 +7345,7 @@
       "title": "ListUsersResponse",
       "required": [
         "users",
-        "totalUsers"
+        "total_users"
       ]
     },
     "LoginReq": {
@@ -6673,20 +7392,20 @@
     "MetaDataKey": {
       "type": "object",
       "properties": {
-        "keyName": {
+        "key_name": {
           "type": "string",
           "description": "The unique name of a **MetaDataKey**."
         },
-        "defaultDataType": {
+        "default_data_type": {
           "$ref": "#/definitions/DataType",
           "description": "The **DataType** for this **ActionLabel**.\u003cbr\u003eThis **DataType** will be used when creating **Instances** with this **ActionLabel**."
         },
-        "maxOccurrence": {
+        "max_occurrence": {
           "type": "integer",
           "format": "int64",
           "description": "How many values at most can be stored in the **MetaDataKey** value array for one use.\u003cbr\u003eNot setting this property or setting it to 0, will mean to the maximum based on system settings."
         },
-        "alternativeDataTypes": {
+        "alternative_data_types": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/DataType"
@@ -6697,21 +7416,21 @@
       "description": "Message to hold a **MetaDataKey*",
       "title": "MetaDataKey",
       "required": [
-        "keyName",
-        "defaultDataType",
-        "maxOccurrence",
-        "alternativeDataTypes"
+        "key_name",
+        "default_data_type",
+        "max_occurrence",
+        "alternative_data_types"
       ]
     },
     "MetaDataKeyArrayRes": {
       "type": "object",
       "properties": {
-        "totalMetaDataKeys": {
+        "total_meta_data_keys": {
           "type": "integer",
           "format": "int64",
           "description": "Total number of **MetadataKeys** in the system."
         },
-        "metaDataKeys": {
+        "meta_data_keys": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/MetaDataKey"
@@ -6722,13 +7441,13 @@
       "description": "Response that holds **MetaDataKeys**",
       "title": "MetaDataKeyArrayResponse",
       "required": [
-        "metaDataKeys"
+        "meta_data_keys"
       ]
     },
     "MetaDataKeyRes": {
       "type": "object",
       "properties": {
-        "metaDataKey": {
+        "meta_data_key": {
           "$ref": "#/definitions/MetaDataKey",
           "description": "A single **MetaDataKey** definition"
         }
@@ -6736,13 +7455,13 @@
       "description": "Response that holds a **MetaDataKey**",
       "title": "MetaDataKeyResponse",
       "required": [
-        "metaDataKey"
+        "meta_data_key"
       ]
     },
     "MetaDataKeyValue": {
       "type": "object",
       "properties": {
-        "keyName": {
+        "key_name": {
           "type": "string",
           "description": "is the MetaDataKey name"
         },
@@ -6765,14 +7484,14 @@
       "description": "MetaData Key Value for inserts",
       "title": "MetaDataKeyValue",
       "required": [
-        "keyName",
+        "key_name",
         "values"
       ]
     },
     "MetaDataOut": {
       "type": "object",
       "properties": {
-        "metaDataKeyValue": {
+        "meta_data_key_value": {
           "$ref": "#/definitions/MetaDataRecord",
           "description": "A MetaData record."
         }
@@ -6783,7 +7502,7 @@
     "MetaDataRecord": {
       "type": "object",
       "properties": {
-        "keyName": {
+        "key_name": {
           "type": "string",
           "description": "is the MetaDataKey name"
         },
@@ -6794,7 +7513,7 @@
           },
           "description": "is the string value of the MetaDataValue"
         },
-        "dataType": {
+        "data_type": {
           "$ref": "#/definitions/DataType",
           "description": "Is the MetaData DataType for all the values."
         }
@@ -6817,7 +7536,7 @@
     "ObjectRef": {
       "type": "object",
       "properties": {
-        "refUri": {
+        "ref_uri": {
           "type": "string",
           "description": "The URI referencing the **Object**."
         },
@@ -6832,7 +7551,7 @@
     "ObjectRes": {
       "type": "object",
       "properties": {
-        "objectRef": {
+        "object_ref": {
           "$ref": "#/definitions/ObjectRef",
           "description": "The **ObjectReference**."
         }
@@ -6840,7 +7559,29 @@
       "description": "This holds the Object reference URI",
       "title": "ObjectResponse",
       "required": [
-        "objectRef"
+        "object_ref"
+      ]
+    },
+    "ObjectUUIDArrayRes": {
+      "type": "object",
+      "properties": {
+        "total_objects": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Total number of **Object** UUIDs in the system"
+        },
+        "object_uuids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "This holds an array of **Object** UUIDs."
+        }
+      },
+      "description": "Response which holds an array of **Object** UUIDs.",
+      "required": [
+        "objects",
+        "total_objects"
       ]
     },
     "OrderField": {
@@ -6856,16 +7597,74 @@
     "PlotRes": {
       "type": "object",
       "properties": {
-        "plotName": {
+        "plot_name": {
           "type": "string",
           "description": "Name of the plot"
         },
-        "plotJson": {
+        "plot_json": {
           "type": "string",
           "description": "JSON data of the Plot"
         }
       },
       "description": "Returns **PlotData** which match the filter"
+    },
+    "QueryBindReq": {
+      "type": "object",
+      "properties": {
+        "statement": {
+          "type": "string",
+          "description": "The name of the prepared Statement"
+        },
+        "portal": {
+          "type": "string",
+          "description": "The name of the portal, this is what the execute references"
+        },
+        "parameters": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DQLParam"
+          },
+          "description": "The DQL parameter."
+        }
+      },
+      "description": "Performs the Bind of Parameter values",
+      "required": [
+        "parameters"
+      ]
+    },
+    "QueryCancelReq": {
+      "type": "object",
+      "properties": {
+        "portal": {
+          "type": "string",
+          "description": "The portal of which the query is executing."
+        }
+      },
+      "description": "Cancels the execution of a portal.",
+      "required": [
+        "session_uuid"
+      ]
+    },
+    "QueryCloseReq": {
+      "type": "object",
+      "properties": {
+        "result_handle": {
+          "type": "string",
+          "description": "[DEPRECATED] The unique identifier for the DQL Result to close. Legacy compatibility field, use close_for instead."
+        },
+        "statement": {
+          "type": "string",
+          "description": "The name of the prepared Statement"
+        },
+        "portal": {
+          "type": "string",
+          "description": "The name of the portal, this is what the execute references"
+        }
+      },
+      "description": "Cleans up the session data for weither a portal or a statement.\nIf a statement close is issued all associated portals are closed too.",
+      "required": [
+        "close_for"
+      ]
     },
     "QueryDataElementsReq": {
       "type": "object",
@@ -6881,7 +7680,7 @@
           },
           "description": "List of allowed **Actions** for the returned **DataElement**.\u003cbr\u003eIf left empty the search scope will include all **Actions**."
         },
-        "dataTypes": {
+        "data_types": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/DataType"
@@ -6895,12 +7694,12 @@
           },
           "description": "List of **Instance** - filters for the returned **DataElement**.\u003cbr\u003eIf left empty no additional filter will by applied.\nTo limit the ActionLabel to a specific **Action** or specific **Actions** use the actions property."
         },
-        "maxLength": {
+        "max_length": {
           "type": "integer",
           "format": "int64",
           "description": "Defines the maximum length of the **DataElement** to be returned."
         },
-        "componentTypes": {
+        "component_types": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/ComponentType"
@@ -6908,7 +7707,7 @@
           "description": "List of allowed **ComponentTypes** for the returned **DataElement**.\u003cbr\u003eIf left empty all **ComponentTypes** will be returned.",
           "title": "int64 top = 6 [\n       (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {\n           description: \"Defines the topN **DataElement** to be returned based on occurrence.\"\n       }\n   ];"
         },
-        "withComponentTypeSplit": {
+        "with_component_type_split": {
           "type": "boolean",
           "description": "Flag to enable or disable the list split up by **ComponentType** for the resulting **DataElements** the default is off."
         }
@@ -6921,7 +7720,7 @@
     "QueryDataElementsRes": {
       "type": "object",
       "properties": {
-        "totalDataelements": {
+        "total_dataelements": {
           "type": "integer",
           "format": "int64",
           "description": "Number of found **DataElements**"
@@ -6936,8 +7735,167 @@
       },
       "description": "Returns **DataElements** which match a contains value",
       "required": [
-        "totalDataelements",
+        "total_dataelements",
         "dataelements"
+      ]
+    },
+    "QueryDescribePortalReq": {
+      "type": "object",
+      "properties": {
+        "portal": {
+          "type": "string",
+          "description": "The name of the portal, this is what the execute references"
+        }
+      },
+      "description": "Performs the Describe for wither a statement or a portal.\nA statement description will return the definition for both the Parameters as well as the ActionLabels.\nA portal description will just return the ActionLabels.",
+      "required": [
+        "portal"
+      ]
+    },
+    "QueryDescribePortalRes": {
+      "type": "object",
+      "properties": {
+        "result_labels": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ResultLabelWithOverride"
+          },
+          "description": "The **ActionLabels** of the result"
+        },
+        "parameters": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DQLParam"
+          },
+          "description": "The DQL parameter."
+        },
+        "type": {
+          "$ref": "#/definitions/DQLType",
+          "description": "The type of the executed query"
+        }
+      },
+      "description": "Returns the description of the ActionLabels and DQL-Parameter",
+      "required": [
+        "result_labels"
+      ]
+    },
+    "QueryDescribeStatementReq": {
+      "type": "object",
+      "properties": {
+        "statement": {
+          "type": "string",
+          "description": "The name of the prepared Statement"
+        }
+      },
+      "description": "Performs the Describe for wither a statement or a portal.\nA statement description will return the definition for both the Parameters as well as the ActionLabels.\nA portal description will just return the ActionLabels.",
+      "required": [
+        "statement"
+      ]
+    },
+    "QueryDescribeStatementRes": {
+      "type": "object",
+      "properties": {
+        "result_labels": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ResultLabelWithOverride"
+          },
+          "description": "The **ActionLabels** of the statement"
+        },
+        "parameter_descriptions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DQLParamDescription"
+          },
+          "description": "The Parameter descriptions of the statement"
+        },
+        "type": {
+          "$ref": "#/definitions/DQLType",
+          "description": "The type of the executed query"
+        }
+      },
+      "description": "Returns the description of the ActionLabels",
+      "required": [
+        "result_labels"
+      ]
+    },
+    "QueryExecuteReq": {
+      "type": "object",
+      "properties": {
+        "portal": {
+          "type": "string",
+          "description": "The name of the portal, this is what the execute references"
+        },
+        "window": {
+          "$ref": "#/definitions/Window",
+          "description": "The window of rows within the result to be returned ... limit 0 means all rows"
+        }
+      },
+      "description": "Executes a prepared and bound query",
+      "required": [
+        "portal",
+        "row_limit"
+      ]
+    },
+    "QueryExecuteRes": {
+      "type": "object",
+      "properties": {
+        "rows": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ResultRow"
+          },
+          "description": "**Instance** rows"
+        },
+        "alternative_data_types": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ResultValueAlternativeMetaDataPosition"
+          },
+          "description": "This is propegated if any cell would have a dataype override from the default."
+        },
+        "completed": {
+          "type": "boolean",
+          "description": "Set to true when all rows have been fetched"
+        },
+        "type": {
+          "$ref": "#/definitions/DQLType",
+          "description": "The type of the executed query"
+        },
+        "count": {
+          "type": "string",
+          "format": "int64",
+          "description": "The total count of the executed query"
+        }
+      },
+      "description": "an array of ResultRow messages for the list request",
+      "title": "QueryExecuteResponse",
+      "required": [
+        "rows"
+      ]
+    },
+    "QueryParseReq": {
+      "type": "object",
+      "properties": {
+        "statement": {
+          "type": "string",
+          "description": "The name for the Statement for later reference"
+        },
+        "dql": {
+          "type": "string",
+          "description": "The DQL string"
+        },
+        "parameter_descriptions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DQLParamDescription"
+          },
+          "description": "The Parameter descriptions of the statement"
+        }
+      },
+      "description": "DynizerQuery Statement to be parsed",
+      "required": [
+        "dql"
       ]
     },
     "QueryResultRes": {
@@ -6950,12 +7908,12 @@
           },
           "description": "**Instance** rows"
         },
-        "alternativeDataTypes": {
+        "alternative_data_types": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/ResultValueAlternativeMetaDataPosition"
           },
-          "description": "This is propergated if any cell would have a dataype override from the default."
+          "description": "This is propegated if any cell would have a dataype override from the default."
         }
       },
       "description": "an array of ResultRow messages for the list request",
@@ -6967,14 +7925,14 @@
     "ReadActionInstancesRes": {
       "type": "object",
       "properties": {
-        "resultLabels": {
+        "result_labels": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/ResultLabel"
           },
           "description": "All the **ActionLabels** of the **Instance** rows."
         },
-        "totalInstances": {
+        "total_instances": {
           "type": "integer",
           "format": "int64",
           "description": "Total number of **Instancs** for this **Action**."
@@ -6986,7 +7944,7 @@
           },
           "description": "The actual **Action**-**Instance** rows with data."
         },
-        "alternativeDataTypes": {
+        "alternative_data_types": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/ResultValueAlternativeMetaDataPosition"
@@ -6997,33 +7955,33 @@
       "description": "Response the **Instances** for an **Action**",
       "title": "ReadActionInstancesResponse",
       "required": [
-        "resultLabels",
+        "result_labels",
         "rows",
-        "totalInstances",
-        "alternativeDataTypes"
+        "total_instances",
+        "alternative_data_types"
       ]
     },
     "ResultLabel": {
       "type": "object",
       "properties": {
-        "actionName": {
+        "action_name": {
           "type": "string",
           "description": "This is the name of the **Action** for which the **Instance** will be created"
         },
-        "resultLabelName": {
+        "result_label_name": {
           "type": "string",
           "description": "The unique name of the **ActionLabel**."
         },
-        "resultLabelIndex": {
+        "result_label_index": {
           "type": "integer",
           "format": "int64",
           "description": "The relative index within the **ActionLabel**."
         },
-        "componentType": {
+        "component_type": {
           "$ref": "#/definitions/ComponentType",
           "description": "The **ComponentType** of the **ActionLabel**"
         },
-        "defaultDataType": {
+        "default_data_type": {
           "$ref": "#/definitions/DataType",
           "description": "The default **DataType** of the **ActionLabel**.\u003cbr\u003eIf an **InstanceCell* has that overwritten, than this will be provided with the specific cell data row"
         }
@@ -7031,10 +7989,42 @@
       "description": "Message to hold a result label",
       "title": "ResultLabel"
     },
+    "ResultLabelWithOverride": {
+      "type": "object",
+      "properties": {
+        "action_name": {
+          "type": "string",
+          "description": "This is the name of the **Action** for which the **Instance** will be created"
+        },
+        "result_label_name": {
+          "type": "string",
+          "description": "The unique name of the **ActionLabel**."
+        },
+        "result_label_index": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The relative index within the **ActionLabel**."
+        },
+        "component_type": {
+          "$ref": "#/definitions/ComponentType",
+          "description": "The **ComponentType** of the **ActionLabel**"
+        },
+        "default_data_type": {
+          "$ref": "#/definitions/DataType",
+          "description": "The default **DataType** of the **ActionLabel**.\u003cbr\u003eIf an **InstanceCell* has that overwritten, than this will be provided with the specific cell data row"
+        },
+        "override_data_type": {
+          "$ref": "#/definitions/DataType",
+          "description": "The override **DataType** of the **ActionLabel**.\u003cbr\u003eIf **InstanceCells* have more than one datatype, the override datatype will specify what to use as general datatype"
+        }
+      },
+      "description": "Message to hold a result label",
+      "title": "ResultLabelWithOverride"
+    },
     "ResultRow": {
       "type": "object",
       "properties": {
-        "instanceCellValues": {
+        "instance_cell_values": {
           "type": "array",
           "items": {
             "type": "string"
@@ -7058,7 +8048,7 @@
           "format": "int64",
           "description": "The absolut cell number in the row.\u003cbr\u003e The value is 1-based."
         },
-        "dataType": {
+        "data_type": {
           "$ref": "#/definitions/DataType",
           "description": "This **DataType** different from the default **DataType** was used when creating the entry."
         }
@@ -7069,16 +8059,16 @@
     "SelectDQLResult": {
       "type": "object",
       "properties": {
-        "resultCount": {
+        "result_count": {
           "type": "integer",
           "format": "int64",
           "description": "Number of result records."
         },
-        "resultHandle": {
+        "result_handle": {
           "type": "string",
           "description": "The Hhandle of the result.\u003cbr\u003eUsed to walk the result with a window or a stream."
         },
-        "resultLabels": {
+        "result_labels": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/ResultLabel"
@@ -7120,7 +8110,7 @@
     "SessionID": {
       "type": "object",
       "properties": {
-        "sessionId": {
+        "session_id": {
           "type": "string",
           "description": "The Dynizer session ID"
         }
@@ -7128,7 +8118,82 @@
       "description": "Holds Dynizer session ID",
       "title": "SessionID",
       "required": [
-        "sessionId"
+        "session_id"
+      ]
+    },
+    "SimpleQueryRes": {
+      "type": "object",
+      "properties": {
+        "result": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SimpleQueryResItem"
+          },
+          "description": "The list of results to the simple query"
+        }
+      },
+      "description": "The answers to the simple query, one for each query in the full string",
+      "required": [
+        "result"
+      ]
+    },
+    "SimpleQueryResItem": {
+      "type": "object",
+      "properties": {
+        "select_result": {
+          "$ref": "#/definitions/SimpleSelectResult",
+          "description": "Holds a SELECT result"
+        },
+        "rows_affected": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Number of rows affected by the DQL statement."
+        },
+        "type": {
+          "$ref": "#/definitions/DQLType",
+          "description": "The type of the executed query"
+        }
+      },
+      "description": "The answer to a part of the simple query, either the rows affected for INSERT, UPDATE, DELETE, DROP, ... or the LabelDescription and rows for SELECT",
+      "required": [
+        "kind"
+      ]
+    },
+    "SimpleSelectResult": {
+      "type": "object",
+      "properties": {
+        "result_count": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Number of result records."
+        },
+        "result_labels": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ResultLabelWithOverride"
+          },
+          "description": "The **ActionLabels** of the result"
+        },
+        "rows": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ResultRow"
+          },
+          "description": "**Instance** rows"
+        },
+        "alternative_data_types": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ResultValueAlternativeMetaDataPosition"
+          },
+          "description": "This is propagated if any cell would have a datatype override from the default."
+        }
+      },
+      "description": "LabelDescription and rows for SELECT",
+      "required": [
+        "result_count",
+        "result_labels",
+        "rows"
       ]
     },
     "SortOrder": {
@@ -7144,10 +8209,10 @@
     "StreamInstanceIDRes": {
       "type": "object",
       "properties": {
-        "userReference": {
+        "user_reference": {
           "type": "string"
         },
-        "instanceId": {
+        "instance_id": {
           "type": "string"
         },
         "error": {
@@ -7177,11 +8242,11 @@
           "type": "string",
           "description": "The string Value of the returned **DataElement**."
         },
-        "dataType": {
+        "data_type": {
           "$ref": "#/definitions/DataType",
           "description": "The **DataTypes** of the returned **DataElement**."
         },
-        "numInstances": {
+        "num_instances": {
           "type": "integer",
           "format": "int64",
           "description": "Indicates in how many different **Instances** the **DataElement** was found."
@@ -7190,14 +8255,14 @@
       "description": "Returns **DataElements** which match a contains value",
       "required": [
         "value",
-        "dataType",
-        "numInstances"
+        "data_type",
+        "num_instances"
       ]
     },
     "User": {
       "type": "object",
       "properties": {
-        "userName": {
+        "user_name": {
           "type": "string",
           "description": "Unique name of user."
         },
@@ -7216,7 +8281,7 @@
       "description": "Defines user in the Dynizer",
       "title": "User",
       "required": [
-        "userName",
+        "user_name",
         "roles",
         "enabled"
       ]
@@ -7224,17 +8289,17 @@
     "UserCountRes": {
       "type": "object",
       "properties": {
-        "activeUsers": {
+        "active_users": {
           "type": "integer",
           "format": "int64",
           "description": "Number of user which are active and can login."
         },
-        "disabledUsers": {
+        "disabled_users": {
           "type": "integer",
           "format": "int64",
           "description": "Number of user which are not active and are login inhibited."
         },
-        "totalUsers": {
+        "total_users": {
           "type": "integer",
           "format": "int64",
           "description": "Number of *ALL* users independent of the state."
@@ -7243,9 +8308,9 @@
       "description": "Holds the count of all types of users and the total count.",
       "title": "User Count Response",
       "required": [
-        "activeUsers",
-        "disabledUsers",
-        "totalUsers"
+        "active_users",
+        "disabled_users",
+        "total_users"
       ]
     },
     "UserRes": {
@@ -7297,7 +8362,7 @@
           "type": "string",
           "description": "The mode of the **Dynizer**"
         },
-        "buildDate": {
+        "build_date": {
           "type": "string",
           "description": "The date of the **Dynizer** build"
         },
@@ -7312,7 +8377,7 @@
         "version",
         "build",
         "mode",
-        "buildDate",
+        "build_date",
         "commit"
       ]
     },
@@ -7329,6 +8394,10 @@
           "type": "integer",
           "format": "int64",
           "description": "Defines the offset at which to start reading.\u003cbr\u003eAn offset of 0 will bean to start from the first possible record."
+        },
+        "relative": {
+          "type": "boolean",
+          "description": "The Dynizer keeps track of the last read position, this flag indicates wether the offset is relative to the current read position or absolute."
         }
       },
       "description": "Keeping limit and offset together",
