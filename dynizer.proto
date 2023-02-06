@@ -1129,7 +1129,7 @@ message AddActionLabelReq {
 
     uint32 min_occurrence = 6 [
         (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-            description: "Allows to set minimum number of values, which need to be provided when using this **ActionLabell*** in an **Instance**."
+            description: "Allows to set minimum number of values that need to be provided when using this **ActionLabel*** in an **Instance**."
             type: INTEGER
             minimum: 0
         }
@@ -1137,7 +1137,7 @@ message AddActionLabelReq {
 
     uint32 max_occurrence = 7 [
         (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-            description: "Allows to set maximum number of values, which need to be provided when using this **ActionLabell*** in an **Instance**.<br>This value needs to be either zero or it can be equal or greater then *min_occurrence*.<br>Setting it to 0 will be interpreted as open-ended."
+            description: "Allows to set maximum number of values that can be provided when using this **ActionLabel*** in an **Instance**.<br>This value needs to be either zero or it can be equal or greater then *min_occurrence*.<br>Setting it to 0 will be interpreted as open-ended."
             type: INTEGER
             minimum: 0
         }
@@ -1191,7 +1191,7 @@ message UpdateActionLabelReq {
 
     uint32 min_occurrence = 5 [
         (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-            description: "Allows to set minimum number of values, which need to be provided when using this **ActionLabell*** in an **Instance**."
+            description: "Allows to set the minimum number of values that need to be provided when using this **ActionLabel*** in an **Instance**. Not providing a value will be interpreted as 0."
             type: INTEGER
             minimum: 0
         }
@@ -1199,7 +1199,7 @@ message UpdateActionLabelReq {
 
     uint32 max_occurrence = 6 [
         (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-            description: "Allows to set maximum number of values, which need to be provided when using this **ActionLabell*** in an **Instance**.<br>This value needs to be either zero or it can be equal or greater then *min_occurrence*.<br>Setting it to 0 will be interpreted as open-ended."
+            description: "Allows to set the maximum number of values that can be provided when using this **ActionLabel*** in an **Instance**.<br>This value needs to be either zero or it can be equal or greater then *min_occurrence*.<br>Setting it to 0 will be interpreted as open-ended. Not providing a value will be interpreted as 0."
             type: INTEGER
             minimum: 0
         }
@@ -1216,18 +1216,6 @@ message UpdateActionLabelReq {
             description: "Flag to define the behaviour if the update will cause a violation of existing **Instances**.<br>If set to <span style=\"color:blue\">true</span> the **Instances** in violation will be marked as deleted."
         }
     ];
-
-    // bool update_min = 9 [
-    //     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-    //         description: "use this flag to indicate that **min_occurrence** shall be updated"
-    //     }
-    // ];
-
-    // bool update_max = 10 [
-    //     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-    //         description: "use this flag to indicate that **max_occurrence** shall be updated"
-    //     }
-    // ];
 
     // bool update_alternative_data_types = 11 [
     //     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
@@ -3494,7 +3482,7 @@ message ActionLabel {
 
     uint32 min_occurrence = 4 [
         (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-            description: "Allows to set minimum number of values, which need to be provided when using this **ActionLabel*** in an **Instance**."
+            description: "Allows to set minimum number of values that need to be provided when using this **ActionLabel*** in an **Instance**."
             type: INTEGER
             minimum: 0
         }
@@ -3502,7 +3490,7 @@ message ActionLabel {
 
     uint32 max_occurrence = 5 [
         (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-            description: "Allows to set maximum number of values, which need to be provided when using this **ActionLabel*** in an **Instance**.<br>This value needs to be either zero or it can be equal or greater then *min_occurrence*.<br>Setting it to 0 will be interpreted as open-ended."
+            description: "Allows to set maximum number of values that can be provided when using this **ActionLabel*** in an **Instance**.<br>This value needs to be either zero or it can be equal or greater then *min_occurrence*.<br>Setting it to 0 will be interpreted as open-ended."
             type: INTEGER
             minimum: 0
         }

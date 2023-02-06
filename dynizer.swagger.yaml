@@ -211,11 +211,11 @@ paths:
               min_occurrence:
                 type: integer
                 format: int64
-                description: Allows to set minimum number of values, which need to be provided when using this **ActionLabell*** in an **Instance**.
+                description: Allows to set minimum number of values that need to be provided when using this **ActionLabel*** in an **Instance**.
               max_occurrence:
                 type: integer
                 format: int64
-                description: Allows to set maximum number of values, which need to be provided when using this **ActionLabell*** in an **Instance**.<br>This value needs to be either zero or it can be equal or greater then *min_occurrence*.<br>Setting it to 0 will be interpreted as open-ended.
+                description: Allows to set maximum number of values that can be provided when using this **ActionLabel*** in an **Instance**.<br>This value needs to be either zero or it can be equal or greater then *min_occurrence*.<br>Setting it to 0 will be interpreted as open-ended.
               alternative_data_types:
                 type: array
                 items:
@@ -348,11 +348,11 @@ paths:
               min_occurrence:
                 type: integer
                 format: int64
-                description: Allows to set minimum number of values, which need to be provided when using this **ActionLabell*** in an **Instance**.
+                description: Allows to set the minimum number of values that need to be provided when using this **ActionLabel*** in an **Instance**. Not providing a value will be interpreted as 0.
               max_occurrence:
                 type: integer
                 format: int64
-                description: Allows to set maximum number of values, which need to be provided when using this **ActionLabell*** in an **Instance**.<br>This value needs to be either zero or it can be equal or greater then *min_occurrence*.<br>Setting it to 0 will be interpreted as open-ended.
+                description: Allows to set the maximum number of values that can be provided when using this **ActionLabel*** in an **Instance**.<br>This value needs to be either zero or it can be equal or greater then *min_occurrence*.<br>Setting it to 0 will be interpreted as open-ended. Not providing a value will be interpreted as 0.
               alternative_data_types:
                 type: array
                 items:
@@ -4125,11 +4125,11 @@ definitions:
       min_occurrence:
         type: integer
         format: int64
-        description: Allows to set minimum number of values, which need to be provided when using this **ActionLabel*** in an **Instance**.
+        description: Allows to set minimum number of values that need to be provided when using this **ActionLabel*** in an **Instance**.
       max_occurrence:
         type: integer
         format: int64
-        description: Allows to set maximum number of values, which need to be provided when using this **ActionLabel*** in an **Instance**.<br>This value needs to be either zero or it can be equal or greater then *min_occurrence*.<br>Setting it to 0 will be interpreted as open-ended.
+        description: Allows to set maximum number of values that can be provided when using this **ActionLabel*** in an **Instance**.<br>This value needs to be either zero or it can be equal or greater then *min_occurrence*.<br>Setting it to 0 will be interpreted as open-ended.
       alternative_data_types:
         type: array
         items:
