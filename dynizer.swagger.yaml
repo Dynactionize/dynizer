@@ -1483,10 +1483,11 @@ paths:
              - DT_Text: FullTextIndex large object
              - DT_Blob: Binary large object
              - DT_Clob: Character large object
+             - DT_Document: Document large object, stores/indexes document analysis output
              - DT_Any: DT_Date = 16;
             DT_Time = 17;
-            special flag to indiacte all DataTypes, to be used in AlternativeDataTypes for ActionLabels and MetaDataKeys
-             - DT_Delete: special flag to indiacte thet the value is to be removed
+            special flag to indicate all DataTypes, to be used in AlternativeDataTypes for ActionLabels and MetaDataKeys
+             - DT_Delete: special flag to indicate that the value is to be removed
           in: query
           required: false
           type: string
@@ -1506,6 +1507,7 @@ paths:
             - DT_Text
             - DT_Blob
             - DT_Clob
+            - DT_Document
             - DT_Any
             - DT_Delete
           default: InvalidDataType
@@ -1858,10 +1860,11 @@ paths:
              - DT_Text: FullTextIndex large object
              - DT_Blob: Binary large object
              - DT_Clob: Character large object
+             - DT_Document: Document large object, stores/indexes document analysis output
              - DT_Any: DT_Date = 16;
             DT_Time = 17;
-            special flag to indiacte all DataTypes, to be used in AlternativeDataTypes for ActionLabels and MetaDataKeys
-             - DT_Delete: special flag to indiacte thet the value is to be removed
+            special flag to indicate all DataTypes, to be used in AlternativeDataTypes for ActionLabels and MetaDataKeys
+             - DT_Delete: special flag to indicate that the value is to be removed
           in: query
           required: false
           type: string
@@ -1881,6 +1884,7 @@ paths:
             - DT_Text
             - DT_Blob
             - DT_Clob
+            - DT_Document
             - DT_Any
             - DT_Delete
           default: InvalidDataType
@@ -2201,10 +2205,11 @@ paths:
              - DT_Text: FullTextIndex large object
              - DT_Blob: Binary large object
              - DT_Clob: Character large object
+             - DT_Document: Document large object, stores/indexes document analysis output
              - DT_Any: DT_Date = 16;
             DT_Time = 17;
-            special flag to indiacte all DataTypes, to be used in AlternativeDataTypes for ActionLabels and MetaDataKeys
-             - DT_Delete: special flag to indiacte thet the value is to be removed
+            special flag to indicate all DataTypes, to be used in AlternativeDataTypes for ActionLabels and MetaDataKeys
+             - DT_Delete: special flag to indicate that the value is to be removed
           in: query
           required: false
           type: string
@@ -2224,6 +2229,7 @@ paths:
             - DT_Text
             - DT_Blob
             - DT_Clob
+            - DT_Document
             - DT_Any
             - DT_Delete
           default: InvalidDataType
@@ -2832,6 +2838,7 @@ paths:
             - ODT_Text
             - ODT_Blob
             - ODT_Clob
+            - ODT_Document
         - name: ref_uuid
           description: The **ObjectReference** UUID for which the bytes will be cleared.
           in: path
@@ -4675,6 +4682,7 @@ definitions:
       - DT_Text
       - DT_Blob
       - DT_Clob
+      - DT_Document
       - DT_Any
       - DT_Delete
     default: InvalidDataType
@@ -4693,10 +4701,11 @@ definitions:
        - DT_Text: FullTextIndex large object
        - DT_Blob: Binary large object
        - DT_Clob: Character large object
+       - DT_Document: Document large object, stores/indexes document analysis output
        - DT_Any: DT_Date = 16;
       DT_Time = 17;
-      special flag to indiacte all DataTypes, to be used in AlternativeDataTypes for ActionLabels and MetaDataKeys
-       - DT_Delete: special flag to indiacte thet the value is to be removed
+      special flag to indicate all DataTypes, to be used in AlternativeDataTypes for ActionLabels and MetaDataKeys
+       - DT_Delete: special flag to indicate that the value is to be removed
     title: DataType
   DataTypeFormat:
     type: object
@@ -5348,11 +5357,13 @@ definitions:
       - ODT_Text
       - ODT_Blob
       - ODT_Clob
+      - ODT_Document
     default: InvalidObjectDataType
     description: |-
-      - ODT_Text: object is of type TEXT, which can be indexed by the FullTextIndex (if enabled)
+      - ODT_Text: object is of type TEXT, which can be indexed by the FullTextIndex
        - ODT_Blob: object is of type binary
        - ODT_Clob: object is of type character
+       - ODT_Document: object is of type character, indexed by FullTextIndex
     title: ObjectDataType
   ObjectRef:
     type: object

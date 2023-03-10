@@ -2149,7 +2149,7 @@
           },
           {
             "name": "spec.data_type",
-            "description": "overwrites the default_data_type from the default value\n\n - DT_Integer: Integer\n - DT_String: String\n - DT_Boolean: Boolean\n - DT_Decimal: Decimal fixed\n - DT_Timestamp: Timestamp\n - DT_Uri: URI\n - DT_Void: VOID is a designated DataType to indicate no value\n - DT_Float: Float\n - DT_UnsignedInteger: UInt\n - DT_Binary: Byte Array\n - DT_Uuid: UUID\n - DT_Text: FullTextIndex large object\n - DT_Blob: Binary large object\n - DT_Clob: Character large object\n - DT_Any: DT_Date = 16;\nDT_Time = 17;\nspecial flag to indiacte all DataTypes, to be used in AlternativeDataTypes for ActionLabels and MetaDataKeys\n - DT_Delete: special flag to indiacte thet the value is to be removed",
+            "description": "overwrites the default_data_type from the default value\n\n - DT_Integer: Integer\n - DT_String: String\n - DT_Boolean: Boolean\n - DT_Decimal: Decimal fixed\n - DT_Timestamp: Timestamp\n - DT_Uri: URI\n - DT_Void: VOID is a designated DataType to indicate no value\n - DT_Float: Float\n - DT_UnsignedInteger: UInt\n - DT_Binary: Byte Array\n - DT_Uuid: UUID\n - DT_Text: FullTextIndex large object\n - DT_Blob: Binary large object\n - DT_Clob: Character large object\n - DT_Document: Document large object, stores/indexes document analysis output\n - DT_Any: DT_Date = 16;\nDT_Time = 17;\nspecial flag to indicate all DataTypes, to be used in AlternativeDataTypes for ActionLabels and MetaDataKeys\n - DT_Delete: special flag to indicate that the value is to be removed",
             "in": "query",
             "required": false,
             "type": "string",
@@ -2169,6 +2169,7 @@
               "DT_Text",
               "DT_Blob",
               "DT_Clob",
+              "DT_Document",
               "DT_Any",
               "DT_Delete"
             ],
@@ -2782,7 +2783,7 @@
           },
           {
             "name": "spec.data_type",
-            "description": "overwrites the default_data_type from the default value\n\n - DT_Integer: Integer\n - DT_String: String\n - DT_Boolean: Boolean\n - DT_Decimal: Decimal fixed\n - DT_Timestamp: Timestamp\n - DT_Uri: URI\n - DT_Void: VOID is a designated DataType to indicate no value\n - DT_Float: Float\n - DT_UnsignedInteger: UInt\n - DT_Binary: Byte Array\n - DT_Uuid: UUID\n - DT_Text: FullTextIndex large object\n - DT_Blob: Binary large object\n - DT_Clob: Character large object\n - DT_Any: DT_Date = 16;\nDT_Time = 17;\nspecial flag to indiacte all DataTypes, to be used in AlternativeDataTypes for ActionLabels and MetaDataKeys\n - DT_Delete: special flag to indiacte thet the value is to be removed",
+            "description": "overwrites the default_data_type from the default value\n\n - DT_Integer: Integer\n - DT_String: String\n - DT_Boolean: Boolean\n - DT_Decimal: Decimal fixed\n - DT_Timestamp: Timestamp\n - DT_Uri: URI\n - DT_Void: VOID is a designated DataType to indicate no value\n - DT_Float: Float\n - DT_UnsignedInteger: UInt\n - DT_Binary: Byte Array\n - DT_Uuid: UUID\n - DT_Text: FullTextIndex large object\n - DT_Blob: Binary large object\n - DT_Clob: Character large object\n - DT_Document: Document large object, stores/indexes document analysis output\n - DT_Any: DT_Date = 16;\nDT_Time = 17;\nspecial flag to indicate all DataTypes, to be used in AlternativeDataTypes for ActionLabels and MetaDataKeys\n - DT_Delete: special flag to indicate that the value is to be removed",
             "in": "query",
             "required": false,
             "type": "string",
@@ -2802,6 +2803,7 @@
               "DT_Text",
               "DT_Blob",
               "DT_Clob",
+              "DT_Document",
               "DT_Any",
               "DT_Delete"
             ],
@@ -3215,7 +3217,7 @@
           },
           {
             "name": "spec.data_type",
-            "description": "overwrites the default_data_type from the default value\n\n - DT_Integer: Integer\n - DT_String: String\n - DT_Boolean: Boolean\n - DT_Decimal: Decimal fixed\n - DT_Timestamp: Timestamp\n - DT_Uri: URI\n - DT_Void: VOID is a designated DataType to indicate no value\n - DT_Float: Float\n - DT_UnsignedInteger: UInt\n - DT_Binary: Byte Array\n - DT_Uuid: UUID\n - DT_Text: FullTextIndex large object\n - DT_Blob: Binary large object\n - DT_Clob: Character large object\n - DT_Any: DT_Date = 16;\nDT_Time = 17;\nspecial flag to indiacte all DataTypes, to be used in AlternativeDataTypes for ActionLabels and MetaDataKeys\n - DT_Delete: special flag to indiacte thet the value is to be removed",
+            "description": "overwrites the default_data_type from the default value\n\n - DT_Integer: Integer\n - DT_String: String\n - DT_Boolean: Boolean\n - DT_Decimal: Decimal fixed\n - DT_Timestamp: Timestamp\n - DT_Uri: URI\n - DT_Void: VOID is a designated DataType to indicate no value\n - DT_Float: Float\n - DT_UnsignedInteger: UInt\n - DT_Binary: Byte Array\n - DT_Uuid: UUID\n - DT_Text: FullTextIndex large object\n - DT_Blob: Binary large object\n - DT_Clob: Character large object\n - DT_Document: Document large object, stores/indexes document analysis output\n - DT_Any: DT_Date = 16;\nDT_Time = 17;\nspecial flag to indicate all DataTypes, to be used in AlternativeDataTypes for ActionLabels and MetaDataKeys\n - DT_Delete: special flag to indicate that the value is to be removed",
             "in": "query",
             "required": false,
             "type": "string",
@@ -3235,6 +3237,7 @@
               "DT_Text",
               "DT_Blob",
               "DT_Clob",
+              "DT_Document",
               "DT_Any",
               "DT_Delete"
             ],
@@ -4028,7 +4031,8 @@
               "InvalidObjectDataType",
               "ODT_Text",
               "ODT_Blob",
-              "ODT_Clob"
+              "ODT_Clob",
+              "ODT_Document"
             ]
           },
           {
@@ -6648,11 +6652,12 @@
         "DT_Text",
         "DT_Blob",
         "DT_Clob",
+        "DT_Document",
         "DT_Any",
         "DT_Delete"
       ],
       "default": "InvalidDataType",
-      "description": "- DT_Integer: Integer\n - DT_String: String\n - DT_Boolean: Boolean\n - DT_Decimal: Decimal fixed\n - DT_Timestamp: Timestamp\n - DT_Uri: URI\n - DT_Void: VOID is a designated DataType to indicate no value\n - DT_Float: Float\n - DT_UnsignedInteger: UInt\n - DT_Binary: Byte Array\n - DT_Uuid: UUID\n - DT_Text: FullTextIndex large object\n - DT_Blob: Binary large object\n - DT_Clob: Character large object\n - DT_Any: DT_Date = 16;\nDT_Time = 17;\nspecial flag to indiacte all DataTypes, to be used in AlternativeDataTypes for ActionLabels and MetaDataKeys\n - DT_Delete: special flag to indiacte thet the value is to be removed",
+      "description": "- DT_Integer: Integer\n - DT_String: String\n - DT_Boolean: Boolean\n - DT_Decimal: Decimal fixed\n - DT_Timestamp: Timestamp\n - DT_Uri: URI\n - DT_Void: VOID is a designated DataType to indicate no value\n - DT_Float: Float\n - DT_UnsignedInteger: UInt\n - DT_Binary: Byte Array\n - DT_Uuid: UUID\n - DT_Text: FullTextIndex large object\n - DT_Blob: Binary large object\n - DT_Clob: Character large object\n - DT_Document: Document large object, stores/indexes document analysis output\n - DT_Any: DT_Date = 16;\nDT_Time = 17;\nspecial flag to indicate all DataTypes, to be used in AlternativeDataTypes for ActionLabels and MetaDataKeys\n - DT_Delete: special flag to indicate that the value is to be removed",
       "title": "DataType"
     },
     "DataTypeFormat": {
@@ -7527,10 +7532,11 @@
         "InvalidObjectDataType",
         "ODT_Text",
         "ODT_Blob",
-        "ODT_Clob"
+        "ODT_Clob",
+        "ODT_Document"
       ],
       "default": "InvalidObjectDataType",
-      "description": "- ODT_Text: object is of type TEXT, which can be indexed by the FullTextIndex (if enabled)\n - ODT_Blob: object is of type binary\n - ODT_Clob: object is of type character",
+      "description": "- ODT_Text: object is of type TEXT, which can be indexed by the FullTextIndex\n - ODT_Blob: object is of type binary\n - ODT_Clob: object is of type character\n - ODT_Document: object is of type character, indexed by FullTextIndex",
       "title": "ObjectDataType"
     },
     "ObjectRef": {
