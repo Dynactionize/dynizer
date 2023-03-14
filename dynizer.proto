@@ -2517,7 +2517,7 @@ message DataTypeFormat {
 
     bool share_name_override = 5 [
         (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-            description: "Defines if the **ShareName** value is used to either clear the **ShareName** if a default is set or to use one or to use one which differs from the default one."
+            description: "Defines if the **ShareName** value is used to either clear the **ShareName** if a default is set or to use one which differs from the default one."
         }
     ];
 
