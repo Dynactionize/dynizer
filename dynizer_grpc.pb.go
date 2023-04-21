@@ -209,8 +209,6 @@ type DynizerClient interface {
 	DynizerFilteredPlot(ctx context.Context, in *FilteredPlotReq, opts ...grpc.CallOption) (*PlotRes, error)
 	// Create ShareName
 	CreateShareName(ctx context.Context, in *CreateShareNameReq, opts ...grpc.CallOption) (*EmptyRes, error)
-	// Create ShareNameValue
-	CreateShareNameValue(ctx context.Context, in *CreateShareNameValueReq, opts ...grpc.CallOption) (*EmptyRes, error)
 	// Update ShareNameValue
 	UpdateShareNameValue(ctx context.Context, in *UpdateShareNameValueReq, opts ...grpc.CallOption) (*EmptyRes, error)
 	// Delete ShareNameValue
@@ -1200,15 +1198,6 @@ func (c *dynizerClient) CreateShareName(ctx context.Context, in *CreateShareName
 	return out, nil
 }
 
-func (c *dynizerClient) CreateShareNameValue(ctx context.Context, in *CreateShareNameValueReq, opts ...grpc.CallOption) (*EmptyRes, error) {
-	out := new(EmptyRes)
-	err := c.cc.Invoke(ctx, "/Dynizer/CreateShareNameValue", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 func (c *dynizerClient) UpdateShareNameValue(ctx context.Context, in *UpdateShareNameValueReq, opts ...grpc.CallOption) (*EmptyRes, error) {
 	out := new(EmptyRes)
 	err := c.cc.Invoke(ctx, "/Dynizer/UpdateShareNameValue", in, out, opts...)
@@ -1499,8 +1488,6 @@ type DynizerServer interface {
 	DynizerFilteredPlot(context.Context, *FilteredPlotReq) (*PlotRes, error)
 	// Create ShareName
 	CreateShareName(context.Context, *CreateShareNameReq) (*EmptyRes, error)
-	// Create ShareNameValue
-	CreateShareNameValue(context.Context, *CreateShareNameValueReq) (*EmptyRes, error)
 	// Update ShareNameValue
 	UpdateShareNameValue(context.Context, *UpdateShareNameValueReq) (*EmptyRes, error)
 	// Delete ShareNameValue
@@ -1817,9 +1804,6 @@ func (UnimplementedDynizerServer) DynizerFilteredPlot(context.Context, *Filtered
 }
 func (UnimplementedDynizerServer) CreateShareName(context.Context, *CreateShareNameReq) (*EmptyRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateShareName not implemented")
-}
-func (UnimplementedDynizerServer) CreateShareNameValue(context.Context, *CreateShareNameValueReq) (*EmptyRes, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateShareNameValue not implemented")
 }
 func (UnimplementedDynizerServer) UpdateShareNameValue(context.Context, *UpdateShareNameValueReq) (*EmptyRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateShareNameValue not implemented")
@@ -3617,24 +3601,6 @@ func _Dynizer_CreateShareName_Handler(srv interface{}, ctx context.Context, dec 
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Dynizer_CreateShareNameValue_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CreateShareNameValueReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(DynizerServer).CreateShareNameValue(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/Dynizer/CreateShareNameValue",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DynizerServer).CreateShareNameValue(ctx, req.(*CreateShareNameValueReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 func _Dynizer_UpdateShareNameValue_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(UpdateShareNameValueReq)
 	if err := dec(in); err != nil {
@@ -4207,10 +4173,6 @@ var Dynizer_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CreateShareName",
 			Handler:    _Dynizer_CreateShareName_Handler,
-		},
-		{
-			MethodName: "CreateShareNameValue",
-			Handler:    _Dynizer_CreateShareNameValue_Handler,
 		},
 		{
 			MethodName: "UpdateShareNameValue",

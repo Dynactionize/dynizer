@@ -3528,47 +3528,6 @@ paths:
       tags:
         - ShareName
   /api/v2/sharename/{share_name}/value:
-    post:
-      summary: Create ShareNameValue
-      description: Creates a new Value for an existing **ShareName**
-      operationId: CreateShareNameValue
-      responses:
-        "200":
-          description: A successful response.
-          schema:
-            $ref: '#/definitions/EmptyRes'
-        "401":
-          description: Unauthorized call
-          schema:
-            $ref: '#/definitions/ErrorResponse'
-        "500":
-          description: Unexpected internal error
-          schema:
-            $ref: '#/definitions/ErrorResponse'
-        default:
-          description: An unexpected error response.
-          schema:
-            $ref: '#/definitions/rpcStatus'
-      parameters:
-        - name: share_name
-          description: Name of the share
-          in: path
-          required: true
-          type: string
-        - name: body
-          in: body
-          required: true
-          schema:
-            type: object
-            properties:
-              value:
-                type: string
-                description: Value for the share
-            description: Creates a new Value for a **ShareName**
-            required:
-              - value
-      tags:
-        - ShareName
     patch:
       summary: Update ShareNameValue
       description: Updates a new Value for an existing **ShareName**
