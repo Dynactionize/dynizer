@@ -1516,16 +1516,6 @@ paths:
           in: query
           required: false
           type: string
-        - name: spec.share_name_override
-          description: Defines if the **ShareName** value is used to either clear the **ShareName** if a default is set or to use one which differs from the default one.
-          in: query
-          required: false
-          type: boolean
-        - name: spec.share_name
-          description: The **ShareName** to use by default when an new instance is created and a value is set for this **ActionLabel**
-          in: query
-          required: false
-          type: string
       tags:
         - MetaData
         - Instances ActionLabels MetaData
@@ -1893,16 +1883,6 @@ paths:
           in: query
           required: false
           type: string
-        - name: spec.share_name_override
-          description: Defines if the **ShareName** value is used to either clear the **ShareName** if a default is set or to use one which differs from the default one.
-          in: query
-          required: false
-          type: boolean
-        - name: spec.share_name
-          description: The **ShareName** to use by default when an new instance is created and a value is set for this **ActionLabel**
-          in: query
-          required: false
-          type: string
       tags:
         - MetaData
         - Instances Cells MetaData
@@ -2235,16 +2215,6 @@ paths:
           default: InvalidDataType
         - name: spec.format
           description: is a format string which allows to specify on how the input-value is to be parsed from string to the internal DataType for storing
-          in: query
-          required: false
-          type: string
-        - name: spec.share_name_override
-          description: Defines if the **ShareName** value is used to either clear the **ShareName** if a default is set or to use one which differs from the default one.
-          in: query
-          required: false
-          type: boolean
-        - name: spec.share_name
-          description: The **ShareName** to use by default when an new instance is created and a value is set for this **ActionLabel**
           in: query
           required: false
           type: string
@@ -4675,12 +4645,6 @@ definitions:
       format:
         type: string
         description: is a format string which allows to specify on how the input-value is to be parsed from string to the internal DataType for storing
-      share_name_override:
-        type: boolean
-        description: Defines if the **ShareName** value is used to either clear the **ShareName** if a default is set or to use one which differs from the default one.
-      share_name:
-        type: string
-        description: The **ShareName** to use by default when an new instance is created and a value is set for this **ActionLabel**
     description: DataType override, and an optional format string
     title: DataTypeFormat
   DownloadObjectDataRes:
