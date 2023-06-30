@@ -22,190 +22,190 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type DynizerClient interface {
-	//Login
+	// Login
 	Login(ctx context.Context, in *LoginReq, opts ...grpc.CallOption) (*LoginRes, error)
-	//Service Login
+	// Service Login
 	ServiceLogin(ctx context.Context, in *ServiceLoginReq, opts ...grpc.CallOption) (*LoginRes, error)
-	//Logout
+	// Logout
 	Logout(ctx context.Context, in *EmptyReq, opts ...grpc.CallOption) (*EmptyRes, error)
-	//Validate Token
+	// Validate Token
 	ValidateToken(ctx context.Context, in *TokenReq, opts ...grpc.CallOption) (*SessionID, error)
-	//Issue ServiceToken
+	// Issue ServiceToken
 	IssueServiceToken(ctx context.Context, in *EmptyReq, opts ...grpc.CallOption) (*ServiceTokenRes, error)
-	//List Roles
+	// List Roles
 	ListRoles(ctx context.Context, in *EmptyReq, opts ...grpc.CallOption) (*ListRolesRes, error)
-	//Add User
+	// Add User
 	AddUser(ctx context.Context, in *AddUserReq, opts ...grpc.CallOption) (*EmptyRes, error)
-	//Assign User Role
+	// Assign User Role
 	AssignUserRole(ctx context.Context, in *UserRoleReq, opts ...grpc.CallOption) (*EmptyRes, error)
-	//Revoke User Role
+	// Revoke User Role
 	RevokeUserRole(ctx context.Context, in *UserRoleReq, opts ...grpc.CallOption) (*EmptyRes, error)
-	//Enable User
+	// Enable User
 	EnableUser(ctx context.Context, in *UserReq, opts ...grpc.CallOption) (*EmptyRes, error)
-	//Disable User
+	// Disable User
 	DisableUser(ctx context.Context, in *UserReq, opts ...grpc.CallOption) (*EmptyRes, error)
-	//Set User Password
+	// Set User Password
 	SetUserPassword(ctx context.Context, in *SetUserPasswordReq, opts ...grpc.CallOption) (*EmptyRes, error)
-	//Change My Password
+	// Change My Password
 	ChangeMyPassword(ctx context.Context, in *ChangePasswordReq, opts ...grpc.CallOption) (*EmptyRes, error)
-	//Get User
+	// Get User
 	GetUser(ctx context.Context, in *UserReq, opts ...grpc.CallOption) (*UserRes, error)
-	//Get My Profile
+	// Get My Profile
 	GetMyProfile(ctx context.Context, in *EmptyReq, opts ...grpc.CallOption) (*UserRes, error)
-	//Delete User
+	// Delete User
 	DeleteUser(ctx context.Context, in *UserReq, opts ...grpc.CallOption) (*EmptyRes, error)
-	//Get User Count
+	// Get User Count
 	GetUserCount(ctx context.Context, in *EmptyReq, opts ...grpc.CallOption) (*UserCountRes, error)
-	//List Users
+	// List Users
 	ListUsers(ctx context.Context, in *WindowReq, opts ...grpc.CallOption) (*ListUsersRes, error)
-	//List User Roles
+	// List User Roles
 	ListUserRoles(ctx context.Context, in *UserReq, opts ...grpc.CallOption) (*ListUserRolesRes, error)
-	//Get My Roles
+	// Get My Roles
 	GetMyRoles(ctx context.Context, in *EmptyReq, opts ...grpc.CallOption) (*ListUserRolesRes, error)
-	//Check User Name
+	// Check User Name
 	CheckUserName(ctx context.Context, in *UserReq, opts ...grpc.CallOption) (*EmptyRes, error)
-	//Check Password
+	// Check Password
 	CheckPassword(ctx context.Context, in *CheckPasswordReq, opts ...grpc.CallOption) (*CheckPasswordRes, error)
-	//Create ActionType
+	// Create ActionType
 	CreateActionType(ctx context.Context, in *CreateActionTypeReq, opts ...grpc.CallOption) (*EmptyRes, error)
-	//Update ActionType
+	// Update ActionType
 	UpdateActionType(ctx context.Context, in *UpdateActionTypeReq, opts ...grpc.CallOption) (*EmptyRes, error)
-	//Read ActionType
+	// Read ActionType
 	ReadActionType(ctx context.Context, in *ActionTypeReq, opts ...grpc.CallOption) (*ActionTypeRes, error)
-	//Check Action Name
+	// Check Action Name
 	CheckActionName(ctx context.Context, in *CheckActionNameReq, opts ...grpc.CallOption) (*EmptyRes, error)
-	//Create Action
+	// Create Action
 	CreateAction(ctx context.Context, in *CreateActionReq, opts ...grpc.CallOption) (*EmptyRes, error)
-	//Update Action
+	// Update Action
 	UpdateAction(ctx context.Context, in *UpdateActionReq, opts ...grpc.CallOption) (*EmptyRes, error)
-	//Delete Action
+	// Delete Action
 	DeleteAction(ctx context.Context, in *DeleteActionReq, opts ...grpc.CallOption) (*EmptyRes, error)
-	//Read Action
+	// Read Action
 	ReadAction(ctx context.Context, in *ActionReq, opts ...grpc.CallOption) (*ActionRes, error)
-	//Count Actions
+	// Count Actions
 	CountActions(ctx context.Context, in *CountActionReq, opts ...grpc.CallOption) (*CountRes, error)
-	//List Action Names
+	// List Action Names
 	ListActionNames(ctx context.Context, in *ListActionNamesWindowReq, opts ...grpc.CallOption) (*ActionNameArrayRes, error)
-	//Check ActionLabel Name
+	// Check ActionLabel Name
 	CheckActionLabelName(ctx context.Context, in *CheckActionLabelNameReq, opts ...grpc.CallOption) (*EmptyRes, error)
-	//Add ActionLabel
+	// Add ActionLabel
 	AddActionLabel(ctx context.Context, in *AddActionLabelReq, opts ...grpc.CallOption) (*EmptyRes, error)
-	//Update ActionLabel
+	// Update ActionLabel
 	UpdateActionLabel(ctx context.Context, in *UpdateActionLabelReq, opts ...grpc.CallOption) (*EmptyRes, error)
-	//Delete ActionLabel
+	// Delete ActionLabel
 	DeleteActionLabel(ctx context.Context, in *ActionLabelReq, opts ...grpc.CallOption) (*EmptyRes, error)
-	//Read ActionLabel
+	// Read ActionLabel
 	ReadActionLabel(ctx context.Context, in *ActionLabelReq, opts ...grpc.CallOption) (*LabelRes, error)
-	//Create Object
+	// Create Object
 	CreateObject(ctx context.Context, in *CreateObjectReq, opts ...grpc.CallOption) (*ObjectRes, error)
-	//Clear Object Data
+	// Clear Object Data
 	ClearObjectData(ctx context.Context, in *ClearObjectDataReq, opts ...grpc.CallOption) (*EmptyRes, error)
-	//Delete Object
+	// Delete Object
 	DeleteObject(ctx context.Context, in *DeleteObjectReq, opts ...grpc.CallOption) (*EmptyRes, error)
-	//Stream Object Data IN
+	// Stream Object Data IN
 	StreamObjectDataIn(ctx context.Context, opts ...grpc.CallOption) (Dynizer_StreamObjectDataInClient, error)
-	//Stream Object Data OUT
+	// Stream Object Data OUT
 	StreamObjectDataOut(ctx context.Context, in *StreamObjectDataOutReq, opts ...grpc.CallOption) (Dynizer_StreamObjectDataOutClient, error)
 	// Upload Object Data
 	UploadObjectData(ctx context.Context, in *UploadObjectDataReq, opts ...grpc.CallOption) (*EmptyRes, error)
-	//Download Object Data
+	// Download Object Data
 	DownloadObjectData(ctx context.Context, in *DownloadObjectDataReq, opts ...grpc.CallOption) (*DownloadObjectDataRes, error)
-	//List Object UUIDs
+	// List Object UUIDs
 	ListObjectUUIDS(ctx context.Context, in *EmptyReq, opts ...grpc.CallOption) (*ObjectUUIDArrayRes, error)
-	//Delete all Objects
+	// Delete all Objects
 	DeleteAllObjects(ctx context.Context, in *EmptyReq, opts ...grpc.CallOption) (*EmptyRes, error)
-	//Create Instance
+	// Create Instance
 	CreateInstance(ctx context.Context, in *CreateInstanceReq, opts ...grpc.CallOption) (*InstanceIDRes, error)
 	StreamInstances(ctx context.Context, opts ...grpc.CallOption) (Dynizer_StreamInstancesClient, error)
-	//Update Instance
+	// Update Instance
 	UpdateInstance(ctx context.Context, in *UpdateInstanceReq, opts ...grpc.CallOption) (*EmptyRes, error)
-	//Delete Instance
+	// Delete Instance
 	DeleteInstance(ctx context.Context, in *InstanceReq, opts ...grpc.CallOption) (*EmptyRes, error)
-	//Read Instance
+	// Read Instance
 	ReadInstance(ctx context.Context, in *InstanceReq, opts ...grpc.CallOption) (*InstanceRes, error)
-	//Read Action Instances
+	// Read Action Instances
 	ReadActionInstances(ctx context.Context, in *ReadActionInstancesReq, opts ...grpc.CallOption) (*ReadActionInstancesRes, error)
-	//Dynizer Query
+	// Dynizer Query
 	DynizerQuery(ctx context.Context, in *DQLReq, opts ...grpc.CallOption) (*DQLRes, error)
-	//Query Result Next
+	// Query Result Next
 	QueryResultNext(ctx context.Context, in *QueryResultReq, opts ...grpc.CallOption) (*QueryResultRes, error)
-	//QueryResultClose
+	// QueryResultClose
 	QueryResultClose(ctx context.Context, in *QueryCloseReq, opts ...grpc.CallOption) (*EmptyRes, error)
-	//Query Result Streamed
+	// Query Result Streamed
 	QueryResultStreamed(ctx context.Context, in *QueryResultReq, opts ...grpc.CallOption) (Dynizer_QueryResultStreamedClient, error)
-	//Check MetaDataKey Name
+	// Check MetaDataKey Name
 	CheckMetaDataKeyName(ctx context.Context, in *CheckMetaDataKeyNameReq, opts ...grpc.CallOption) (*EmptyRes, error)
-	//Create MetaDataKey
+	// Create MetaDataKey
 	CreateMetaDataKey(ctx context.Context, in *CreateMetaDataKeyReq, opts ...grpc.CallOption) (*EmptyRes, error)
-	//Read MetaDataKey
+	// Read MetaDataKey
 	ReadMetaDataKey(ctx context.Context, in *MetaDataKeyReq, opts ...grpc.CallOption) (*MetaDataKeyRes, error)
-	//Update MetaDataKey
+	// Update MetaDataKey
 	UpdateMetaDataKey(ctx context.Context, in *UpdateMetaDataKeyReq, opts ...grpc.CallOption) (*EmptyRes, error)
-	//Delete MetaDataKey
+	// Delete MetaDataKey
 	DeleteMetaDataKey(ctx context.Context, in *DeleteMetaDataKeyReq, opts ...grpc.CallOption) (*EmptyRes, error)
-	//Count MetaDataKeys
+	// Count MetaDataKeys
 	CountMetaDataKeys(ctx context.Context, in *EmptyReq, opts ...grpc.CallOption) (*CountRes, error)
-	//List MetaDataKeys
+	// List MetaDataKeys
 	ListMetaDataKeys(ctx context.Context, in *ListMetaDataKeysReq, opts ...grpc.CallOption) (*MetaDataKeyArrayRes, error)
-	//Add Instance MetaData
+	// Add Instance MetaData
 	AddInstanceMetaData(ctx context.Context, in *AddInstanceMetaDataReq, opts ...grpc.CallOption) (*EmptyRes, error)
-	//Remove Instance MetaData
+	// Remove Instance MetaData
 	RemoveInstanceMetaData(ctx context.Context, in *InstanceMetaDataKeyReq, opts ...grpc.CallOption) (*EmptyRes, error)
-	//Add Instance MetaData Value
+	// Add Instance MetaData Value
 	AddInstanceMetaDataValue(ctx context.Context, in *AddInstanceMetaDataValueReq, opts ...grpc.CallOption) (*EmptyRes, error)
-	//Remove Instance MetaData Value
+	// Remove Instance MetaData Value
 	RemoveInstanceMetaDataValue(ctx context.Context, in *InstanceMetaDataKeyValueReq, opts ...grpc.CallOption) (*EmptyRes, error)
-	//Get Instance MetaData Values
+	// Get Instance MetaData Values
 	GetInstanceMetaDataValues(ctx context.Context, in *InstanceMetaDataKeyReq, opts ...grpc.CallOption) (*GetInstanceMetaDataKeyRes, error)
-	//Count Instance MetaDataKeys
+	// Count Instance MetaDataKeys
 	CountInstanceMetaDataKeys(ctx context.Context, in *InstanceReq, opts ...grpc.CallOption) (*CountRes, error)
-	//Count Instance MetaDataKey Values
+	// Count Instance MetaDataKey Values
 	CountInstanceMetaDataKeyValues(ctx context.Context, in *InstanceMetaDataKeyReq, opts ...grpc.CallOption) (*CountRes, error)
-	//List Instance MetaData
+	// List Instance MetaData
 	ListInstanceMetaData(ctx context.Context, in *InstanceReq, opts ...grpc.CallOption) (*ListInstanceMetaDataRes, error)
-	//Add Instance ActionLabel MetaData
+	// Add Instance ActionLabel MetaData
 	AddInstanceActionLabelMetaData(ctx context.Context, in *AddInstanceActionLabelMetaDataReq, opts ...grpc.CallOption) (*EmptyRes, error)
-	//Remove Instance ActionLabel MetaData
+	// Remove Instance ActionLabel MetaData
 	RemoveInstanceActionLabelMetaData(ctx context.Context, in *InstanceActionLabelMetaDataKeyReq, opts ...grpc.CallOption) (*EmptyRes, error)
-	//Add Instance ActionLabel MetaData Value
+	// Add Instance ActionLabel MetaData Value
 	AddInstanceActionLabelMetaDataValue(ctx context.Context, in *AddInstanceActionLabelMetaDataValueReq, opts ...grpc.CallOption) (*EmptyRes, error)
-	//Remove Instance ActionLabel MetaData Value
+	// Remove Instance ActionLabel MetaData Value
 	RemoveInstanceActionLabelMetaDataValue(ctx context.Context, in *InstanceActionLabelMetaDataValueReq, opts ...grpc.CallOption) (*EmptyRes, error)
-	//Add InstanceCell MetaData
+	// Add InstanceCell MetaData
 	AddInstanceCellMetaData(ctx context.Context, in *AddInstanceCellMetaDataReq, opts ...grpc.CallOption) (*EmptyRes, error)
-	//Remove InstanceCell MetaData
+	// Remove InstanceCell MetaData
 	RemoveInstanceCellMetaData(ctx context.Context, in *InstanceCellMetaDataKeyReq, opts ...grpc.CallOption) (*EmptyRes, error)
-	//Add InstanceCell MetaData Value
+	// Add InstanceCell MetaData Value
 	AddInstanceCellMetaDataValue(ctx context.Context, in *AddInstanceCellMetaDataValueReq, opts ...grpc.CallOption) (*EmptyRes, error)
-	//Remove InstanceCell MetaData Value
+	// Remove InstanceCell MetaData Value
 	RemoveInstanceCellMetaDataValue(ctx context.Context, in *InstanceCellMetaDataKeyValueReq, opts ...grpc.CallOption) (*EmptyRes, error)
-	//Get InstanceCell MetaData
+	// Get InstanceCell MetaData
 	GetInstanceCellMetaDataValues(ctx context.Context, in *InstanceCellMetaDataKeyReq, opts ...grpc.CallOption) (*GetInstanceCellMetaDataKeyRes, error)
-	//Count InstanceCell MetaDataKeys
+	// Count InstanceCell MetaDataKeys
 	CountInstanceCellMetaDataKeys(ctx context.Context, in *InstanceCellMetaDataReq, opts ...grpc.CallOption) (*CountRes, error)
-	//Count InstanceCell MetaDataKey Values
+	// Count InstanceCell MetaDataKey Values
 	CountInstanceCellMetaDataKeyValues(ctx context.Context, in *InstanceCellMetaDataKeyReq, opts ...grpc.CallOption) (*CountRes, error)
-	//List InstanceCell MetaData
+	// List InstanceCell MetaData
 	ListInstanceCellMetaData(ctx context.Context, in *InstanceCellMetaDataReq, opts ...grpc.CallOption) (*ListInstanceCellMetaDataRes, error)
 	GetDynizerConfiguration(ctx context.Context, in *EmptyReq, opts ...grpc.CallOption) (*GetDynizerConfigurationRes, error)
 	ExportUserActions(ctx context.Context, in *ExportUserActionsReq, opts ...grpc.CallOption) (*ExportUserActionsRes, error)
 	ImportUserActions(ctx context.Context, in *ImportUserActionsReq, opts ...grpc.CallOption) (*EmptyRes, error)
 	DropData(ctx context.Context, in *EmptyReq, opts ...grpc.CallOption) (*EmptyRes, error)
-	//Get Dynizer Version
+	// Get Dynizer Version
 	GetDynizerVersion(ctx context.Context, in *EmptyReq, opts ...grpc.CallOption) (*VersionRes, error)
-	//Create a new Link via Action Label
+	// Create a new Link via Action Label
 	CreateActionLabelLink(ctx context.Context, in *ActionLabelLinkReq, opts ...grpc.CallOption) (*EmptyRes, error)
-	//Read a Link via Action Label
+	// Read a Link via Action Label
 	GetActionLabelLink(ctx context.Context, in *ActionLabelLinkNameReq, opts ...grpc.CallOption) (*ActionLabelLinkRes, error)
-	//Query DataElements Contains
+	// Query DataElements Contains
 	QueryDataElements(ctx context.Context, in *QueryDataElementsReq, opts ...grpc.CallOption) (*QueryDataElementsRes, error)
-	//Query DataElements TopN
+	// Query DataElements TopN
 	GetTopNDataElements(ctx context.Context, in *GetTopNDataElementsReq, opts ...grpc.CallOption) (*GetTopNDataElementsRes, error)
-	//Dynizer Filtered Query
+	// Dynizer Filtered Query
 	DynizerFilteredQuery(ctx context.Context, in *FilterQueryReq, opts ...grpc.CallOption) (*DQLRes, error)
-	//Dynizer Index rebuild
+	// Dynizer Index rebuild
 	ReIndex(ctx context.Context, in *ReIndexReq, opts ...grpc.CallOption) (*EmptyRes, error)
-	//Dynizer Filtered Plot
+	// Dynizer Filtered Plot
 	DynizerFilteredPlot(ctx context.Context, in *FilteredPlotReq, opts ...grpc.CallOption) (*PlotRes, error)
 	// Create ShareName
 	CreateShareName(ctx context.Context, in *CreateShareNameReq, opts ...grpc.CallOption) (*EmptyRes, error)
@@ -1301,190 +1301,190 @@ func (c *dynizerClient) FindActionLabelLinks(ctx context.Context, in *FindAction
 // All implementations must embed UnimplementedDynizerServer
 // for forward compatibility
 type DynizerServer interface {
-	//Login
+	// Login
 	Login(context.Context, *LoginReq) (*LoginRes, error)
-	//Service Login
+	// Service Login
 	ServiceLogin(context.Context, *ServiceLoginReq) (*LoginRes, error)
-	//Logout
+	// Logout
 	Logout(context.Context, *EmptyReq) (*EmptyRes, error)
-	//Validate Token
+	// Validate Token
 	ValidateToken(context.Context, *TokenReq) (*SessionID, error)
-	//Issue ServiceToken
+	// Issue ServiceToken
 	IssueServiceToken(context.Context, *EmptyReq) (*ServiceTokenRes, error)
-	//List Roles
+	// List Roles
 	ListRoles(context.Context, *EmptyReq) (*ListRolesRes, error)
-	//Add User
+	// Add User
 	AddUser(context.Context, *AddUserReq) (*EmptyRes, error)
-	//Assign User Role
+	// Assign User Role
 	AssignUserRole(context.Context, *UserRoleReq) (*EmptyRes, error)
-	//Revoke User Role
+	// Revoke User Role
 	RevokeUserRole(context.Context, *UserRoleReq) (*EmptyRes, error)
-	//Enable User
+	// Enable User
 	EnableUser(context.Context, *UserReq) (*EmptyRes, error)
-	//Disable User
+	// Disable User
 	DisableUser(context.Context, *UserReq) (*EmptyRes, error)
-	//Set User Password
+	// Set User Password
 	SetUserPassword(context.Context, *SetUserPasswordReq) (*EmptyRes, error)
-	//Change My Password
+	// Change My Password
 	ChangeMyPassword(context.Context, *ChangePasswordReq) (*EmptyRes, error)
-	//Get User
+	// Get User
 	GetUser(context.Context, *UserReq) (*UserRes, error)
-	//Get My Profile
+	// Get My Profile
 	GetMyProfile(context.Context, *EmptyReq) (*UserRes, error)
-	//Delete User
+	// Delete User
 	DeleteUser(context.Context, *UserReq) (*EmptyRes, error)
-	//Get User Count
+	// Get User Count
 	GetUserCount(context.Context, *EmptyReq) (*UserCountRes, error)
-	//List Users
+	// List Users
 	ListUsers(context.Context, *WindowReq) (*ListUsersRes, error)
-	//List User Roles
+	// List User Roles
 	ListUserRoles(context.Context, *UserReq) (*ListUserRolesRes, error)
-	//Get My Roles
+	// Get My Roles
 	GetMyRoles(context.Context, *EmptyReq) (*ListUserRolesRes, error)
-	//Check User Name
+	// Check User Name
 	CheckUserName(context.Context, *UserReq) (*EmptyRes, error)
-	//Check Password
+	// Check Password
 	CheckPassword(context.Context, *CheckPasswordReq) (*CheckPasswordRes, error)
-	//Create ActionType
+	// Create ActionType
 	CreateActionType(context.Context, *CreateActionTypeReq) (*EmptyRes, error)
-	//Update ActionType
+	// Update ActionType
 	UpdateActionType(context.Context, *UpdateActionTypeReq) (*EmptyRes, error)
-	//Read ActionType
+	// Read ActionType
 	ReadActionType(context.Context, *ActionTypeReq) (*ActionTypeRes, error)
-	//Check Action Name
+	// Check Action Name
 	CheckActionName(context.Context, *CheckActionNameReq) (*EmptyRes, error)
-	//Create Action
+	// Create Action
 	CreateAction(context.Context, *CreateActionReq) (*EmptyRes, error)
-	//Update Action
+	// Update Action
 	UpdateAction(context.Context, *UpdateActionReq) (*EmptyRes, error)
-	//Delete Action
+	// Delete Action
 	DeleteAction(context.Context, *DeleteActionReq) (*EmptyRes, error)
-	//Read Action
+	// Read Action
 	ReadAction(context.Context, *ActionReq) (*ActionRes, error)
-	//Count Actions
+	// Count Actions
 	CountActions(context.Context, *CountActionReq) (*CountRes, error)
-	//List Action Names
+	// List Action Names
 	ListActionNames(context.Context, *ListActionNamesWindowReq) (*ActionNameArrayRes, error)
-	//Check ActionLabel Name
+	// Check ActionLabel Name
 	CheckActionLabelName(context.Context, *CheckActionLabelNameReq) (*EmptyRes, error)
-	//Add ActionLabel
+	// Add ActionLabel
 	AddActionLabel(context.Context, *AddActionLabelReq) (*EmptyRes, error)
-	//Update ActionLabel
+	// Update ActionLabel
 	UpdateActionLabel(context.Context, *UpdateActionLabelReq) (*EmptyRes, error)
-	//Delete ActionLabel
+	// Delete ActionLabel
 	DeleteActionLabel(context.Context, *ActionLabelReq) (*EmptyRes, error)
-	//Read ActionLabel
+	// Read ActionLabel
 	ReadActionLabel(context.Context, *ActionLabelReq) (*LabelRes, error)
-	//Create Object
+	// Create Object
 	CreateObject(context.Context, *CreateObjectReq) (*ObjectRes, error)
-	//Clear Object Data
+	// Clear Object Data
 	ClearObjectData(context.Context, *ClearObjectDataReq) (*EmptyRes, error)
-	//Delete Object
+	// Delete Object
 	DeleteObject(context.Context, *DeleteObjectReq) (*EmptyRes, error)
-	//Stream Object Data IN
+	// Stream Object Data IN
 	StreamObjectDataIn(Dynizer_StreamObjectDataInServer) error
-	//Stream Object Data OUT
+	// Stream Object Data OUT
 	StreamObjectDataOut(*StreamObjectDataOutReq, Dynizer_StreamObjectDataOutServer) error
 	// Upload Object Data
 	UploadObjectData(context.Context, *UploadObjectDataReq) (*EmptyRes, error)
-	//Download Object Data
+	// Download Object Data
 	DownloadObjectData(context.Context, *DownloadObjectDataReq) (*DownloadObjectDataRes, error)
-	//List Object UUIDs
+	// List Object UUIDs
 	ListObjectUUIDS(context.Context, *EmptyReq) (*ObjectUUIDArrayRes, error)
-	//Delete all Objects
+	// Delete all Objects
 	DeleteAllObjects(context.Context, *EmptyReq) (*EmptyRes, error)
-	//Create Instance
+	// Create Instance
 	CreateInstance(context.Context, *CreateInstanceReq) (*InstanceIDRes, error)
 	StreamInstances(Dynizer_StreamInstancesServer) error
-	//Update Instance
+	// Update Instance
 	UpdateInstance(context.Context, *UpdateInstanceReq) (*EmptyRes, error)
-	//Delete Instance
+	// Delete Instance
 	DeleteInstance(context.Context, *InstanceReq) (*EmptyRes, error)
-	//Read Instance
+	// Read Instance
 	ReadInstance(context.Context, *InstanceReq) (*InstanceRes, error)
-	//Read Action Instances
+	// Read Action Instances
 	ReadActionInstances(context.Context, *ReadActionInstancesReq) (*ReadActionInstancesRes, error)
-	//Dynizer Query
+	// Dynizer Query
 	DynizerQuery(context.Context, *DQLReq) (*DQLRes, error)
-	//Query Result Next
+	// Query Result Next
 	QueryResultNext(context.Context, *QueryResultReq) (*QueryResultRes, error)
-	//QueryResultClose
+	// QueryResultClose
 	QueryResultClose(context.Context, *QueryCloseReq) (*EmptyRes, error)
-	//Query Result Streamed
+	// Query Result Streamed
 	QueryResultStreamed(*QueryResultReq, Dynizer_QueryResultStreamedServer) error
-	//Check MetaDataKey Name
+	// Check MetaDataKey Name
 	CheckMetaDataKeyName(context.Context, *CheckMetaDataKeyNameReq) (*EmptyRes, error)
-	//Create MetaDataKey
+	// Create MetaDataKey
 	CreateMetaDataKey(context.Context, *CreateMetaDataKeyReq) (*EmptyRes, error)
-	//Read MetaDataKey
+	// Read MetaDataKey
 	ReadMetaDataKey(context.Context, *MetaDataKeyReq) (*MetaDataKeyRes, error)
-	//Update MetaDataKey
+	// Update MetaDataKey
 	UpdateMetaDataKey(context.Context, *UpdateMetaDataKeyReq) (*EmptyRes, error)
-	//Delete MetaDataKey
+	// Delete MetaDataKey
 	DeleteMetaDataKey(context.Context, *DeleteMetaDataKeyReq) (*EmptyRes, error)
-	//Count MetaDataKeys
+	// Count MetaDataKeys
 	CountMetaDataKeys(context.Context, *EmptyReq) (*CountRes, error)
-	//List MetaDataKeys
+	// List MetaDataKeys
 	ListMetaDataKeys(context.Context, *ListMetaDataKeysReq) (*MetaDataKeyArrayRes, error)
-	//Add Instance MetaData
+	// Add Instance MetaData
 	AddInstanceMetaData(context.Context, *AddInstanceMetaDataReq) (*EmptyRes, error)
-	//Remove Instance MetaData
+	// Remove Instance MetaData
 	RemoveInstanceMetaData(context.Context, *InstanceMetaDataKeyReq) (*EmptyRes, error)
-	//Add Instance MetaData Value
+	// Add Instance MetaData Value
 	AddInstanceMetaDataValue(context.Context, *AddInstanceMetaDataValueReq) (*EmptyRes, error)
-	//Remove Instance MetaData Value
+	// Remove Instance MetaData Value
 	RemoveInstanceMetaDataValue(context.Context, *InstanceMetaDataKeyValueReq) (*EmptyRes, error)
-	//Get Instance MetaData Values
+	// Get Instance MetaData Values
 	GetInstanceMetaDataValues(context.Context, *InstanceMetaDataKeyReq) (*GetInstanceMetaDataKeyRes, error)
-	//Count Instance MetaDataKeys
+	// Count Instance MetaDataKeys
 	CountInstanceMetaDataKeys(context.Context, *InstanceReq) (*CountRes, error)
-	//Count Instance MetaDataKey Values
+	// Count Instance MetaDataKey Values
 	CountInstanceMetaDataKeyValues(context.Context, *InstanceMetaDataKeyReq) (*CountRes, error)
-	//List Instance MetaData
+	// List Instance MetaData
 	ListInstanceMetaData(context.Context, *InstanceReq) (*ListInstanceMetaDataRes, error)
-	//Add Instance ActionLabel MetaData
+	// Add Instance ActionLabel MetaData
 	AddInstanceActionLabelMetaData(context.Context, *AddInstanceActionLabelMetaDataReq) (*EmptyRes, error)
-	//Remove Instance ActionLabel MetaData
+	// Remove Instance ActionLabel MetaData
 	RemoveInstanceActionLabelMetaData(context.Context, *InstanceActionLabelMetaDataKeyReq) (*EmptyRes, error)
-	//Add Instance ActionLabel MetaData Value
+	// Add Instance ActionLabel MetaData Value
 	AddInstanceActionLabelMetaDataValue(context.Context, *AddInstanceActionLabelMetaDataValueReq) (*EmptyRes, error)
-	//Remove Instance ActionLabel MetaData Value
+	// Remove Instance ActionLabel MetaData Value
 	RemoveInstanceActionLabelMetaDataValue(context.Context, *InstanceActionLabelMetaDataValueReq) (*EmptyRes, error)
-	//Add InstanceCell MetaData
+	// Add InstanceCell MetaData
 	AddInstanceCellMetaData(context.Context, *AddInstanceCellMetaDataReq) (*EmptyRes, error)
-	//Remove InstanceCell MetaData
+	// Remove InstanceCell MetaData
 	RemoveInstanceCellMetaData(context.Context, *InstanceCellMetaDataKeyReq) (*EmptyRes, error)
-	//Add InstanceCell MetaData Value
+	// Add InstanceCell MetaData Value
 	AddInstanceCellMetaDataValue(context.Context, *AddInstanceCellMetaDataValueReq) (*EmptyRes, error)
-	//Remove InstanceCell MetaData Value
+	// Remove InstanceCell MetaData Value
 	RemoveInstanceCellMetaDataValue(context.Context, *InstanceCellMetaDataKeyValueReq) (*EmptyRes, error)
-	//Get InstanceCell MetaData
+	// Get InstanceCell MetaData
 	GetInstanceCellMetaDataValues(context.Context, *InstanceCellMetaDataKeyReq) (*GetInstanceCellMetaDataKeyRes, error)
-	//Count InstanceCell MetaDataKeys
+	// Count InstanceCell MetaDataKeys
 	CountInstanceCellMetaDataKeys(context.Context, *InstanceCellMetaDataReq) (*CountRes, error)
-	//Count InstanceCell MetaDataKey Values
+	// Count InstanceCell MetaDataKey Values
 	CountInstanceCellMetaDataKeyValues(context.Context, *InstanceCellMetaDataKeyReq) (*CountRes, error)
-	//List InstanceCell MetaData
+	// List InstanceCell MetaData
 	ListInstanceCellMetaData(context.Context, *InstanceCellMetaDataReq) (*ListInstanceCellMetaDataRes, error)
 	GetDynizerConfiguration(context.Context, *EmptyReq) (*GetDynizerConfigurationRes, error)
 	ExportUserActions(context.Context, *ExportUserActionsReq) (*ExportUserActionsRes, error)
 	ImportUserActions(context.Context, *ImportUserActionsReq) (*EmptyRes, error)
 	DropData(context.Context, *EmptyReq) (*EmptyRes, error)
-	//Get Dynizer Version
+	// Get Dynizer Version
 	GetDynizerVersion(context.Context, *EmptyReq) (*VersionRes, error)
-	//Create a new Link via Action Label
+	// Create a new Link via Action Label
 	CreateActionLabelLink(context.Context, *ActionLabelLinkReq) (*EmptyRes, error)
-	//Read a Link via Action Label
+	// Read a Link via Action Label
 	GetActionLabelLink(context.Context, *ActionLabelLinkNameReq) (*ActionLabelLinkRes, error)
-	//Query DataElements Contains
+	// Query DataElements Contains
 	QueryDataElements(context.Context, *QueryDataElementsReq) (*QueryDataElementsRes, error)
-	//Query DataElements TopN
+	// Query DataElements TopN
 	GetTopNDataElements(context.Context, *GetTopNDataElementsReq) (*GetTopNDataElementsRes, error)
-	//Dynizer Filtered Query
+	// Dynizer Filtered Query
 	DynizerFilteredQuery(context.Context, *FilterQueryReq) (*DQLRes, error)
-	//Dynizer Index rebuild
+	// Dynizer Index rebuild
 	ReIndex(context.Context, *ReIndexReq) (*EmptyRes, error)
-	//Dynizer Filtered Plot
+	// Dynizer Filtered Plot
 	DynizerFilteredPlot(context.Context, *FilteredPlotReq) (*PlotRes, error)
 	// Create ShareName
 	CreateShareName(context.Context, *CreateShareNameReq) (*EmptyRes, error)

@@ -22,18 +22,18 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-//ComponentType
+// ComponentType
 type ComponentType int32
 
 const (
 	ComponentType_InvalidComponentType ComponentType = 0
-	//subject data category
+	// subject data category
 	ComponentType_Who ComponentType = 1
-	//object data category
+	// object data category
 	ComponentType_What ComponentType = 2
-	//spatial data category
+	// spatial data category
 	ComponentType_Where ComponentType = 3
-	//temporal data category
+	// temporal data category
 	ComponentType_When ComponentType = 4
 )
 
@@ -82,46 +82,46 @@ func (ComponentType) EnumDescriptor() ([]byte, []int) {
 	return file_dynizer_proto_rawDescGZIP(), []int{0}
 }
 
-//DataType
+// DataType
 type DataType int32
 
 const (
 	DataType_InvalidDataType DataType = 0
-	//Integer
+	// Integer
 	DataType_DT_Integer DataType = 1
-	//String
+	// String
 	DataType_DT_String DataType = 2
-	//Boolean
+	// Boolean
 	DataType_DT_Boolean DataType = 3
-	//Decimal fixed
+	// Decimal fixed
 	DataType_DT_Decimal DataType = 4
-	//Timestamp
+	// Timestamp
 	DataType_DT_Timestamp DataType = 5
-	//URI
+	// URI
 	DataType_DT_Uri DataType = 6
-	//VOID is a designated DataType to indicate no value
+	// VOID is a designated DataType to indicate no value
 	DataType_DT_Void DataType = 7
-	//Float
+	// Float
 	DataType_DT_Float DataType = 8
-	//UInt
+	// UInt
 	DataType_DT_UnsignedInteger DataType = 9
-	//Byte Array
+	// Byte Array
 	DataType_DT_Binary DataType = 10
-	//UUID
+	// UUID
 	DataType_DT_Uuid DataType = 11
-	//FullTextIndex large object
+	// FullTextIndex large object
 	DataType_DT_Text DataType = 12
-	//Binary large object
+	// Binary large object
 	DataType_DT_Blob DataType = 13
-	//Character large object
+	// Character large object
 	DataType_DT_Clob DataType = 14
-	//Document large object, stores/indexes document analysis output
+	// Document large object, stores/indexes document analysis output
 	DataType_DT_Document DataType = 15
 	// DT_Date = 16;
 	// DT_Time = 17;
-	//special flag to indicate all DataTypes, to be used in AlternativeDataTypes for ActionLabels and MetaDataKeys
+	// special flag to indicate all DataTypes, to be used in AlternativeDataTypes for ActionLabels and MetaDataKeys
 	DataType_DT_Any DataType = 100000
-	//special flag to indicate that the value is to be removed
+	// special flag to indicate that the value is to be removed
 	DataType_DT_Delete DataType = 100001
 )
 
@@ -196,18 +196,18 @@ func (DataType) EnumDescriptor() ([]byte, []int) {
 	return file_dynizer_proto_rawDescGZIP(), []int{1}
 }
 
-//ObjectDataType
+// ObjectDataType
 type ObjectDataType int32
 
 const (
 	ObjectDataType_InvalidObjectDataType ObjectDataType = 0
-	//object is of type TEXT, which can be indexed by the FullTextIndex
+	// object is of type TEXT, which can be indexed by the FullTextIndex
 	ObjectDataType_ODT_Text ObjectDataType = 12
-	//object is of type binary
+	// object is of type binary
 	ObjectDataType_ODT_Blob ObjectDataType = 13
-	//object is of type character
+	// object is of type character
 	ObjectDataType_ODT_Clob ObjectDataType = 14
-	//object is of type character, indexed by FullTextIndex
+	// object is of type character, indexed by FullTextIndex
 	ObjectDataType_ODT_Document ObjectDataType = 15
 )
 
@@ -256,13 +256,13 @@ func (ObjectDataType) EnumDescriptor() ([]byte, []int) {
 	return file_dynizer_proto_rawDescGZIP(), []int{2}
 }
 
-//SortOrder
+// SortOrder
 type SortOrder int32
 
 const (
 	// order ascending
 	SortOrder_Asc SortOrder = 0
-	//order descending
+	// order descending
 	SortOrder_Desc SortOrder = 1
 )
 
@@ -305,13 +305,13 @@ func (SortOrder) EnumDescriptor() ([]byte, []int) {
 	return file_dynizer_proto_rawDescGZIP(), []int{3}
 }
 
-//OrderField
+// OrderField
 type OrderField int32
 
 const (
-	//order by created
+	// order by created
 	OrderField_Created OrderField = 0
-	//order by name
+	// order by name
 	OrderField_Name OrderField = 1
 )
 
@@ -542,6 +542,7 @@ type ErrorArg struct {
 	unknownFields protoimpl.UnknownFields
 
 	// Types that are assignable to Arg:
+	//
 	//	*ErrorArg_IntArg
 	//	*ErrorArg_BoolArg
 	//	*ErrorArg_StringArg
@@ -658,7 +659,7 @@ func (*ErrorArg_DoubleArg) isErrorArg_Arg() {}
 
 func (*ErrorArg_BytesArg) isErrorArg_Arg() {}
 
-//ErrorResponse
+// ErrorResponse
 type ErrorResponse struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -746,7 +747,7 @@ func (x *ErrorResponse) GetArgs() []*ErrorArg {
 	return nil
 }
 
-//LoginRequest
+// LoginRequest
 type LoginReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -802,7 +803,7 @@ func (x *LoginReq) GetPassword() string {
 	return ""
 }
 
-//ServiceLoginReq
+// ServiceLoginReq
 type ServiceLoginReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -850,7 +851,7 @@ func (x *ServiceLoginReq) GetToken() string {
 	return ""
 }
 
-//TokenRequest
+// TokenRequest
 type TokenReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -898,7 +899,7 @@ func (x *TokenReq) GetToken() string {
 	return ""
 }
 
-//AddUserRequest
+// AddUserRequest
 type AddUserReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -970,7 +971,7 @@ func (x *AddUserReq) GetDisabled() bool {
 	return false
 }
 
-//UserRoleRequest
+// UserRoleRequest
 type UserRoleReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -1026,7 +1027,7 @@ func (x *UserRoleReq) GetRole() *DynizerRole {
 	return nil
 }
 
-//UserRequest
+// UserRequest
 type UserReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -1074,7 +1075,7 @@ func (x *UserReq) GetUser() string {
 	return ""
 }
 
-//CheckPasswordReq
+// CheckPasswordReq
 type CheckPasswordReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -1122,7 +1123,7 @@ func (x *CheckPasswordReq) GetPassword() string {
 	return ""
 }
 
-//WindowRequest
+// WindowRequest
 type WindowReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -1170,7 +1171,7 @@ func (x *WindowReq) GetWindow() *Window {
 	return nil
 }
 
-//ListActionNamesWindowReq
+// ListActionNamesWindowReq
 type ListActionNamesWindowReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -1242,7 +1243,7 @@ func (x *ListActionNamesWindowReq) GetOrderDirection() SortOrder {
 	return SortOrder_Asc
 }
 
-//SetUserPasswordRequest
+// SetUserPasswordRequest
 type SetUserPasswordReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -1298,7 +1299,7 @@ func (x *SetUserPasswordReq) GetNewPassword() string {
 	return ""
 }
 
-//ChangePasswordRequest
+// ChangePasswordRequest
 type ChangePasswordReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -1354,7 +1355,7 @@ func (x *ChangePasswordReq) GetNewPassword() string {
 	return ""
 }
 
-//CheckActionNameRequest
+// CheckActionNameRequest
 type CheckActionNameReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -1402,7 +1403,7 @@ func (x *CheckActionNameReq) GetActionName() string {
 	return ""
 }
 
-//CreateActionRequest
+// CreateActionRequest
 type CreateActionReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -1513,7 +1514,7 @@ func (x *ActionName) GetName() string {
 	return ""
 }
 
-//UpdateActionRequest
+// UpdateActionRequest
 type UpdateActionReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -1569,7 +1570,7 @@ func (x *UpdateActionReq) GetNewActionName() *ActionName {
 	return nil
 }
 
-//DeleteActionReq
+// DeleteActionReq
 type DeleteActionReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -1625,7 +1626,7 @@ func (x *DeleteActionReq) GetCascade() bool {
 	return false
 }
 
-//ActionRequest
+// ActionRequest
 type ActionReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -1673,7 +1674,7 @@ func (x *ActionReq) GetActionName() string {
 	return ""
 }
 
-//ActionResponse
+// ActionResponse
 type ActionRes struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -1721,7 +1722,7 @@ func (x *ActionRes) GetAction() *Action {
 	return nil
 }
 
-//CreateActionTypeRequest
+// CreateActionTypeRequest
 type CreateActionTypeReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -1824,7 +1825,7 @@ func (x *ActionTypeLabel) GetLabel() string {
 	return ""
 }
 
-//UpdateActionTypeRequest
+// UpdateActionTypeRequest
 type UpdateActionTypeReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -1880,7 +1881,7 @@ func (x *UpdateActionTypeReq) GetNewActionTypeLabel() *ActionTypeLabel {
 	return nil
 }
 
-//DeleteActionTypeRequest
+// DeleteActionTypeRequest
 type DeleteActionTypeReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -1936,7 +1937,7 @@ func (x *DeleteActionTypeReq) GetCascade() bool {
 	return false
 }
 
-//ActionTypeRequest
+// ActionTypeRequest
 type ActionTypeReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -1984,7 +1985,7 @@ func (x *ActionTypeReq) GetActionTypeLabel() string {
 	return ""
 }
 
-//ActionTypeResponse
+// ActionTypeResponse
 type ActionTypeRes struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -2040,7 +2041,7 @@ func (x *ActionTypeRes) GetActionTypeLabel() string {
 	return ""
 }
 
-//EmptyRequest
+// EmptyRequest
 type EmptyReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -2079,7 +2080,7 @@ func (*EmptyReq) Descriptor() ([]byte, []int) {
 	return file_dynizer_proto_rawDescGZIP(), []int{27}
 }
 
-//CheckActionLabelNameRequest
+// CheckActionLabelNameRequest
 type CheckActionLabelNameReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -2135,7 +2136,7 @@ func (x *CheckActionLabelNameReq) GetActionLabel() string {
 	return ""
 }
 
-//AddActionLabelRequest
+// AddActionLabelRequest
 type AddActionLabelReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -2247,7 +2248,7 @@ func (x *AddActionLabelReq) GetShareName() string {
 	return ""
 }
 
-//UpdateActionLabelReq
+// UpdateActionLabelReq
 type UpdateActionLabelReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -2351,7 +2352,7 @@ func (x *UpdateActionLabelReq) GetCascade() bool {
 	return false
 }
 
-//ActionLabelRequest
+// ActionLabelRequest
 type ActionLabelReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -2407,7 +2408,7 @@ func (x *ActionLabelReq) GetActionLabel() string {
 	return ""
 }
 
-//CreateObjectRequest
+// CreateObjectRequest
 type CreateObjectReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -2455,7 +2456,7 @@ func (x *CreateObjectReq) GetType() ObjectDataType {
 	return ObjectDataType_InvalidObjectDataType
 }
 
-//ObjectResponse
+// ObjectResponse
 type ObjectRes struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -2503,7 +2504,7 @@ func (x *ObjectRes) GetObjectRef() *ObjectRef {
 	return nil
 }
 
-//ClearObjectDataRequest
+// ClearObjectDataRequest
 type ClearObjectDataReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -2559,7 +2560,7 @@ func (x *ClearObjectDataReq) GetRefUuid() string {
 	return ""
 }
 
-//DeleteObjectRequest
+// DeleteObjectRequest
 type DeleteObjectReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -2615,7 +2616,7 @@ func (x *DeleteObjectReq) GetRefUuid() string {
 	return ""
 }
 
-//StreamObjectDataRequest
+// StreamObjectDataRequest
 type StreamObjectDataInReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -2671,7 +2672,7 @@ func (x *StreamObjectDataInReq) GetData() []byte {
 	return nil
 }
 
-//ObjectDataOutRequest
+// ObjectDataOutRequest
 type StreamObjectDataOutReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -2727,7 +2728,7 @@ func (x *StreamObjectDataOutReq) GetRefUuid() string {
 	return ""
 }
 
-//StreamObjectDataOutResponse
+// StreamObjectDataOutResponse
 type StreamObjectDataOutRes struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -2775,7 +2776,7 @@ func (x *StreamObjectDataOutRes) GetData() []byte {
 	return nil
 }
 
-//DownloadObjectDataRequest
+// DownloadObjectDataRequest
 type DownloadObjectDataReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -2831,7 +2832,7 @@ func (x *DownloadObjectDataReq) GetRefUuid() string {
 	return ""
 }
 
-//DownloadObjectDataResponse
+// DownloadObjectDataResponse
 type DownloadObjectDataRes struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -2879,7 +2880,7 @@ func (x *DownloadObjectDataRes) GetData() []byte {
 	return nil
 }
 
-//UploadObjectDataRequest
+// UploadObjectDataRequest
 type UploadObjectDataReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -2998,7 +2999,7 @@ func (x *ObjectUUIDArrayRes) GetObjectUuids() []string {
 	return nil
 }
 
-//CreateInstanceRequest
+// CreateInstanceRequest
 type CreateInstanceReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -3117,7 +3118,7 @@ func (x *StreamInstanceReq) GetInstance() *CreateInstanceReq {
 	return nil
 }
 
-//UpdateInstanceRequest
+// UpdateInstanceRequest
 type UpdateInstanceReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -3173,7 +3174,7 @@ func (x *UpdateInstanceReq) GetInstanceCellElements() []*InstanceUpdateElementCe
 	return nil
 }
 
-//InstanceRequest
+// InstanceRequest
 type InstanceReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -3221,7 +3222,7 @@ func (x *InstanceReq) GetInstanceId() string {
 	return ""
 }
 
-//ReadActionInstancesRequest
+// ReadActionInstancesRequest
 type ReadActionInstancesReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -3324,7 +3325,7 @@ func (x *CountActionReq) GetActionTypeLabel() string {
 	return ""
 }
 
-//DynizerQueryLanguageRequest
+// DynizerQueryLanguageRequest
 type DQLReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -3380,7 +3381,7 @@ func (x *DQLReq) GetParameters() []*DQLParam {
 	return nil
 }
 
-//QueryResultRequest
+// QueryResultRequest
 type QueryResultReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -3436,7 +3437,7 @@ func (x *QueryResultReq) GetWindow() *Window {
 	return nil
 }
 
-//CheckMetaDataKeyNameRequest
+// CheckMetaDataKeyNameRequest
 type CheckMetaDataKeyNameReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -3484,7 +3485,7 @@ func (x *CheckMetaDataKeyNameReq) GetKeyName() string {
 	return ""
 }
 
-//CreateMetaDataKeyRequest
+// CreateMetaDataKeyRequest
 type CreateMetaDataKeyReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -3556,7 +3557,7 @@ func (x *CreateMetaDataKeyReq) GetAlternativeDataTypes() []DataType {
 	return nil
 }
 
-//DeactivateMetaDataKeyReq
+// DeactivateMetaDataKeyReq
 type DeactivateMetaDataKeyReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -3604,7 +3605,7 @@ func (x *DeactivateMetaDataKeyReq) GetKeyName() string {
 	return ""
 }
 
-//UpdateMetaDataKeyRequest
+// UpdateMetaDataKeyRequest
 type UpdateMetaDataKeyReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -3684,7 +3685,7 @@ func (x *UpdateMetaDataKeyReq) GetAlternativeDataTypes() []DataType {
 	return nil
 }
 
-//MetaDataKeyRequest
+// MetaDataKeyRequest
 type MetaDataKeyReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -3732,7 +3733,7 @@ func (x *MetaDataKeyReq) GetKeyName() string {
 	return ""
 }
 
-//DeleteMetaDataKeyRequest
+// DeleteMetaDataKeyRequest
 type DeleteMetaDataKeyReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -3788,7 +3789,7 @@ func (x *DeleteMetaDataKeyReq) GetCascade() bool {
 	return false
 }
 
-//ListMetaDataKeysRequest
+// ListMetaDataKeysRequest
 type ListMetaDataKeysReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -3836,7 +3837,7 @@ func (x *ListMetaDataKeysReq) GetWindow() *Window {
 	return nil
 }
 
-//AddInstanceMetaDataRequest
+// AddInstanceMetaDataRequest
 type AddInstanceMetaDataReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -3908,7 +3909,7 @@ func (x *AddInstanceMetaDataReq) GetSpecs() []*ValueSpec {
 	return nil
 }
 
-//AddInstanceMetaDataValueRequest
+// AddInstanceMetaDataValueRequest
 type AddInstanceMetaDataValueReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -3980,7 +3981,7 @@ func (x *AddInstanceMetaDataValueReq) GetSpec() *DataTypeFormat {
 	return nil
 }
 
-//InstanceMetaDataKeyRequest
+// InstanceMetaDataKeyRequest
 type InstanceMetaDataKeyReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -4036,7 +4037,7 @@ func (x *InstanceMetaDataKeyReq) GetKeyName() string {
 	return ""
 }
 
-//InstanceMetaDataKeyValueRequest
+// InstanceMetaDataKeyValueRequest
 type InstanceMetaDataKeyValueReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -4108,7 +4109,7 @@ func (x *InstanceMetaDataKeyValueReq) GetSpec() *DataTypeFormat {
 	return nil
 }
 
-//AddInstanceActionLabelMetaDataRequest
+// AddInstanceActionLabelMetaDataRequest
 type AddInstanceActionLabelMetaDataReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -4188,7 +4189,7 @@ func (x *AddInstanceActionLabelMetaDataReq) GetSpecs() []*ValueSpec {
 	return nil
 }
 
-//InstanceActionLabelMetaDataKeyRequest
+// InstanceActionLabelMetaDataKeyRequest
 type InstanceActionLabelMetaDataKeyReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -4252,7 +4253,7 @@ func (x *InstanceActionLabelMetaDataKeyReq) GetKeyName() string {
 	return ""
 }
 
-//InstanceActionLabelMetaDataRequest
+// InstanceActionLabelMetaDataRequest
 type InstanceActionLabelMetaDataReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -4308,7 +4309,7 @@ func (x *InstanceActionLabelMetaDataReq) GetActionLabel() string {
 	return ""
 }
 
-//AddInstanceCellMetaDataRequest
+// AddInstanceCellMetaDataRequest
 type AddInstanceCellMetaDataReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -4396,7 +4397,7 @@ func (x *AddInstanceCellMetaDataReq) GetSpecs() []*ValueSpec {
 	return nil
 }
 
-//InstanceCellMetaDataKeyRequest
+// InstanceCellMetaDataKeyRequest
 type InstanceCellMetaDataKeyReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -4468,7 +4469,7 @@ func (x *InstanceCellMetaDataKeyReq) GetKeyName() string {
 	return ""
 }
 
-//InstanceCellMetaDataRequest
+// InstanceCellMetaDataRequest
 type InstanceCellMetaDataReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -4532,7 +4533,7 @@ func (x *InstanceCellMetaDataReq) GetValuePosition() uint32 {
 	return 0
 }
 
-//StatsMetaDataKeyUsageRequest
+// StatsMetaDataKeyUsageRequest
 type StatsMetaDataKeyUsageReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -4580,7 +4581,7 @@ func (x *StatsMetaDataKeyUsageReq) GetKeyName() string {
 	return ""
 }
 
-//StatsMetaDataKeyValueUsageRequest
+// StatsMetaDataKeyValueUsageRequest
 type StatsMetaDataKeyValueUsageReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -4644,7 +4645,7 @@ func (x *StatsMetaDataKeyValueUsageReq) GetSpec() *DataTypeFormat {
 	return nil
 }
 
-//ListMetaDataKeyLinksRequest
+// ListMetaDataKeyLinksRequest
 type ListMetaDataKeyLinksReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -4700,7 +4701,7 @@ func (x *ListMetaDataKeyLinksReq) GetWindow() *Window {
 	return nil
 }
 
-//AddInstanceActionLabelMetaDataValueRequest
+// AddInstanceActionLabelMetaDataValueRequest
 type AddInstanceActionLabelMetaDataValueReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -4780,7 +4781,7 @@ func (x *AddInstanceActionLabelMetaDataValueReq) GetSpec() *DataTypeFormat {
 	return nil
 }
 
-//InstanceActionLabelMetaDataValueRequest
+// InstanceActionLabelMetaDataValueRequest
 type InstanceActionLabelMetaDataValueReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -4860,7 +4861,7 @@ func (x *InstanceActionLabelMetaDataValueReq) GetSpec() *DataTypeFormat {
 	return nil
 }
 
-//InstanceCellMetaDataKeyValueRequest
+// InstanceCellMetaDataKeyValueRequest
 type InstanceCellMetaDataKeyValueReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -4948,7 +4949,7 @@ func (x *InstanceCellMetaDataKeyValueReq) GetSpec() *DataTypeFormat {
 	return nil
 }
 
-//AddInstanceCellMetaDataValueRequest
+// AddInstanceCellMetaDataValueRequest
 type AddInstanceCellMetaDataValueReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -5099,7 +5100,7 @@ func (x *MetaDataValue) GetFormat() string {
 	return ""
 }
 
-//InstanceElement
+// InstanceElement
 type InstanceElement struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -5171,7 +5172,7 @@ func (x *InstanceElement) GetMetaData() []*InstanceElementMetaData {
 	return nil
 }
 
-//ValueSpec
+// ValueSpec
 type ValueSpec struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -5227,7 +5228,7 @@ func (x *ValueSpec) GetOverride() *DataTypeFormat {
 	return nil
 }
 
-//InstanceElementMetaData
+// InstanceElementMetaData
 type InstanceElementMetaData struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -5283,7 +5284,7 @@ func (x *InstanceElementMetaData) GetMetaDataKeyValues() *MetaDataKeyValue {
 	return nil
 }
 
-//MetaDataKeyValue
+// MetaDataKeyValue
 type MetaDataKeyValue struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -5292,9 +5293,11 @@ type MetaDataKeyValue struct {
 	KeyName string   `protobuf:"bytes,1,opt,name=key_name,json=keyName,proto3" json:"key_name,omitempty"`
 	Values  []string `protobuf:"bytes,2,rep,name=values,proto3" json:"values,omitempty"`
 	// DataTypeFormat override = 3 [
-	//     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-	//         description: "overwrites the default_data_type from the MetaDataKey definition and/or provides a format string to parse the values"
-	//     }
+	//
+	//	(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+	//	    description: "overwrites the default_data_type from the MetaDataKey definition and/or provides a format string to parse the values"
+	//	}
+	//
 	// ];
 	Specs []*ValueSpec `protobuf:"bytes,4,rep,name=specs,proto3" json:"specs,omitempty"`
 }
@@ -5352,7 +5355,7 @@ func (x *MetaDataKeyValue) GetSpecs() []*ValueSpec {
 	return nil
 }
 
-//DataTypeFormat
+// DataTypeFormat
 type DataTypeFormat struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -5408,7 +5411,7 @@ func (x *DataTypeFormat) GetFormat() string {
 	return ""
 }
 
-//InstanceUpdateElementCell
+// InstanceUpdateElementCell
 type InstanceUpdateElementCell struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -5480,7 +5483,7 @@ func (x *InstanceUpdateElementCell) GetOverride() *DataTypeFormat {
 	return nil
 }
 
-//EmptyResponse
+// EmptyResponse
 type EmptyRes struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -5519,7 +5522,7 @@ func (*EmptyRes) Descriptor() ([]byte, []int) {
 	return file_dynizer_proto_rawDescGZIP(), []int{82}
 }
 
-//LoginResponse
+// LoginResponse
 type LoginRes struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -5575,7 +5578,7 @@ func (x *LoginRes) GetRoles() []*DynizerRole {
 	return nil
 }
 
-//ServiceTokenResponse
+// ServiceTokenResponse
 type ServiceTokenRes struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -5623,7 +5626,7 @@ func (x *ServiceTokenRes) GetToken() string {
 	return ""
 }
 
-//UserResponse
+// UserResponse
 type UserRes struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -5671,7 +5674,7 @@ func (x *UserRes) GetUser() *User {
 	return nil
 }
 
-//ListUsersResponse
+// ListUsersResponse
 type ListUsersRes struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -5727,7 +5730,7 @@ func (x *ListUsersRes) GetUsers() []*User {
 	return nil
 }
 
-//ActionNameArrayResponse
+// ActionNameArrayResponse
 type ActionNameArrayRes struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -5783,7 +5786,7 @@ func (x *ActionNameArrayRes) GetActionNames() []string {
 	return nil
 }
 
-//LabelResponse
+// LabelResponse
 type LabelRes struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -5839,7 +5842,7 @@ func (x *LabelRes) GetActionLabel() *ActionLabel {
 	return nil
 }
 
-//InstanceIDResponse
+// InstanceIDResponse
 type InstanceIDRes struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -5950,7 +5953,7 @@ func (x *StreamInstanceIDRes) GetError() *ErrorResponse {
 	return nil
 }
 
-//InstanceRes response which returns one Action Instance row
+// InstanceRes response which returns one Action Instance row
 type InstanceRes struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -6022,7 +6025,7 @@ func (x *InstanceRes) GetAlternativeDataTypes() []*ResultValueAlternativeMetaDat
 	return nil
 }
 
-//ActionInstanceResponse
+// ActionInstanceResponse
 type ActionInstanceRes struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -6086,7 +6089,7 @@ func (x *ActionInstanceRes) GetAlternativeDataTypes() []*ResultValueAlternativeM
 	return nil
 }
 
-//CountResponse
+// CountResponse
 type CountRes struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -6134,7 +6137,7 @@ func (x *CountRes) GetCount() int64 {
 	return 0
 }
 
-//User Count Response
+// User Count Response
 type UserCountRes struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -6198,7 +6201,7 @@ func (x *UserCountRes) GetTotalUsers() int64 {
 	return 0
 }
 
-//DynizerQueryResponse
+// DynizerQueryResponse
 type DQLRes struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -6207,6 +6210,7 @@ type DQLRes struct {
 	// oneof KIND  // TODO: check this in the documentation...
 	//
 	// Types that are assignable to Kind:
+	//
 	//	*DQLRes_SelectResult
 	//	*DQLRes_RowsAffected
 	Kind isDQLRes_Kind `protobuf_oneof:"kind"`
@@ -6281,7 +6285,7 @@ func (*DQLRes_SelectResult) isDQLRes_Kind() {}
 
 func (*DQLRes_RowsAffected) isDQLRes_Kind() {}
 
-//ListRolesResponse
+// ListRolesResponse
 type ListRolesRes struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -6337,7 +6341,7 @@ func (x *ListRolesRes) GetRoles() []*DynizerRole {
 	return nil
 }
 
-//ListUserRolesResponse
+// ListUserRolesResponse
 type ListUserRolesRes struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -6393,7 +6397,7 @@ func (x *ListUserRolesRes) GetRoles() []*DynizerRole {
 	return nil
 }
 
-//ReadActionInstancesResponse
+// ReadActionInstancesResponse
 type ReadActionInstancesRes struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -6465,7 +6469,7 @@ func (x *ReadActionInstancesRes) GetAlternativeDataTypes() []*ResultValueAlterna
 	return nil
 }
 
-//MetaDataKeyResponse
+// MetaDataKeyResponse
 type MetaDataKeyRes struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -6513,7 +6517,7 @@ func (x *MetaDataKeyRes) GetMetaDataKey() *MetaDataKey {
 	return nil
 }
 
-//MetaDataKeyArrayResponse
+// MetaDataKeyArrayResponse
 type MetaDataKeyArrayRes struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -6569,7 +6573,7 @@ func (x *MetaDataKeyArrayRes) GetMetaDataKeys() []*MetaDataKey {
 	return nil
 }
 
-//ListInstanceMetaDataResponse
+// ListInstanceMetaDataResponse
 type ListInstanceMetaDataRes struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -6633,7 +6637,7 @@ func (x *ListInstanceMetaDataRes) GetMetaData() []*MetaDataOut {
 	return nil
 }
 
-//GetInstanceMetaDataKeyResponse
+// GetInstanceMetaDataKeyResponse
 type GetInstanceMetaDataKeyRes struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -6689,7 +6693,7 @@ func (x *GetInstanceMetaDataKeyRes) GetMetaData() *MetaDataOut {
 	return nil
 }
 
-//ListInstanceCellMetaDataRes
+// ListInstanceCellMetaDataRes
 type ListInstanceCellMetaDataRes struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -6769,7 +6773,7 @@ func (x *ListInstanceCellMetaDataRes) GetMetaData() []*MetaDataOut {
 	return nil
 }
 
-//GetInstanceCellMetaDataKeyResponse
+// GetInstanceCellMetaDataKeyResponse
 type GetInstanceCellMetaDataKeyRes struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -6841,7 +6845,7 @@ func (x *GetInstanceCellMetaDataKeyRes) GetMetaData() *MetaDataOut {
 	return nil
 }
 
-//StatsMetaUsageResponse
+// StatsMetaUsageResponse
 type StatsMetaUsageRes struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -6969,7 +6973,7 @@ func (x *CheckPasswordRes) GetFailReason() string {
 	return ""
 }
 
-//DynizerRole
+// DynizerRole
 type DynizerRole struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -7017,7 +7021,7 @@ func (x *DynizerRole) GetName() string {
 	return ""
 }
 
-//User
+// User
 type User struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -7081,7 +7085,7 @@ func (x *User) GetEnabled() bool {
 	return false
 }
 
-//DDLResult
+// DDLResult
 type DDLResult struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -7120,7 +7124,7 @@ func (*DDLResult) Descriptor() ([]byte, []int) {
 	return file_dynizer_proto_rawDescGZIP(), []int{109}
 }
 
-//SelectDQLResult
+// SelectDQLResult
 type SelectDQLResult struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -7184,7 +7188,7 @@ func (x *SelectDQLResult) GetResultLabels() []*ResultLabel {
 	return nil
 }
 
-//ResultLabel
+// ResultLabel
 type ResultLabel struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -7264,7 +7268,7 @@ func (x *ResultLabel) GetDefaultDataType() DataType {
 	return DataType_InvalidDataType
 }
 
-//ResultLabelWithOverride
+// ResultLabelWithOverride
 type ResultLabelWithOverride struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -7352,7 +7356,7 @@ func (x *ResultLabelWithOverride) GetOverrideDataType() DataType {
 	return DataType_InvalidDataType
 }
 
-//ResultValueAlternativeMetaDataPosition
+// ResultValueAlternativeMetaDataPosition
 type ResultValueAlternativeMetaDataPosition struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -7416,7 +7420,7 @@ func (x *ResultValueAlternativeMetaDataPosition) GetDataType() DataType {
 	return DataType_InvalidDataType
 }
 
-//ResultRow
+// ResultRow
 type ResultRow struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -7464,7 +7468,7 @@ func (x *ResultRow) GetInstanceCellValues() []string {
 	return nil
 }
 
-//ActionInstanceRecord
+// ActionInstanceRecord
 type ActionInstanceRecord struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -7520,7 +7524,7 @@ func (x *ActionInstanceRecord) GetInstanceCellValues() []string {
 	return nil
 }
 
-//Action
+// Action
 type Action struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -7576,7 +7580,7 @@ func (x *Action) GetActionLabels() []*ActionLabel {
 	return nil
 }
 
-//ObjectReference
+// ObjectReference
 type ObjectRef struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -7632,7 +7636,7 @@ func (x *ObjectRef) GetType() ObjectDataType {
 	return ObjectDataType_InvalidObjectDataType
 }
 
-//ActionLabel
+// ActionLabel
 type ActionLabel struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -7728,7 +7732,7 @@ func (x *ActionLabel) GetShareName() string {
 	return ""
 }
 
-//MetaDataKey
+// MetaDataKey
 type MetaDataKey struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -7800,7 +7804,7 @@ func (x *MetaDataKey) GetAlternativeDataTypes() []DataType {
 	return nil
 }
 
-//MetaDataOut
+// MetaDataOut
 type MetaDataOut struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -7848,7 +7852,7 @@ func (x *MetaDataOut) GetMetaDataKeyValue() *MetaDataRecord {
 	return nil
 }
 
-//MetaDataRecord
+// MetaDataRecord
 type MetaDataRecord struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -7912,7 +7916,7 @@ func (x *MetaDataRecord) GetDataType() DataType {
 	return DataType_InvalidDataType
 }
 
-//Window
+// Window
 type Window struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -7984,6 +7988,7 @@ type DQLParam struct {
 
 	Index uint32 `protobuf:"varint,1,opt,name=index,proto3" json:"index,omitempty"`
 	// Types that are assignable to Value:
+	//
 	//	*DQLParam_StringValue
 	//	*DQLParam_BinaryValue
 	Value isDQLParam_Value `protobuf_oneof:"value"`
@@ -8073,7 +8078,7 @@ func (*DQLParam_StringValue) isDQLParam_Value() {}
 
 func (*DQLParam_BinaryValue) isDQLParam_Value() {}
 
-//SessionID
+// SessionID
 type SessionID struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -8121,7 +8126,7 @@ func (x *SessionID) GetSessionId() string {
 	return ""
 }
 
-//ConfigKV
+// ConfigKV
 type ConfigKV struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -8129,6 +8134,7 @@ type ConfigKV struct {
 
 	ConfigKey string `protobuf:"bytes,1,opt,name=config_key,json=configKey,proto3" json:"config_key,omitempty"`
 	// Types that are assignable to ConfigValue:
+	//
 	//	*ConfigKV_NumericValue
 	//	*ConfigKV_StringValue
 	ConfigValue isConfigKV_ConfigValue `protobuf_oneof:"config_value"`
@@ -8210,7 +8216,7 @@ func (*ConfigKV_NumericValue) isConfigKV_ConfigValue() {}
 
 func (*ConfigKV_StringValue) isConfigKV_ConfigValue() {}
 
-//GetDynizerConfigurationResponse
+// GetDynizerConfigurationResponse
 type GetDynizerConfigurationRes struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -8258,7 +8264,7 @@ func (x *GetDynizerConfigurationRes) GetConfigKeyValues() []*ConfigKV {
 	return nil
 }
 
-//ExportUserActionsRequest
+// ExportUserActionsRequest
 type ExportUserActionsReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -8306,7 +8312,7 @@ func (x *ExportUserActionsReq) GetActions() []string {
 	return nil
 }
 
-//ExportUserActionsResponse
+// ExportUserActionsResponse
 type ExportUserActionsRes struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -8354,7 +8360,7 @@ func (x *ExportUserActionsRes) GetActions() []*Action {
 	return nil
 }
 
-//ImportUserActionsRequest
+// ImportUserActionsRequest
 type ImportUserActionsReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -8410,7 +8416,7 @@ func (x *ImportUserActionsReq) GetIfNotExists() bool {
 	return false
 }
 
-//ActionLabelLinkResponse
+// ActionLabelLinkResponse
 type ActionLabelLinkRes struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -8466,7 +8472,7 @@ func (x *ActionLabelLinkRes) GetActionLabelPair() *ActionLabelLinkPair {
 	return nil
 }
 
-//ActionLabelSelector
+// ActionLabelSelector
 type ActionLabelSelector struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -8522,7 +8528,7 @@ func (x *ActionLabelSelector) GetActionLabel() string {
 	return ""
 }
 
-//ActionLabelLinkPair
+// ActionLabelLinkPair
 type ActionLabelLinkPair struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -8578,7 +8584,7 @@ func (x *ActionLabelLinkPair) GetSecondActionLabel() *ActionLabelSelector {
 	return nil
 }
 
-//ActionLabelLinkRequest
+// ActionLabelLinkRequest
 type ActionLabelLinkReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -8642,7 +8648,7 @@ func (x *ActionLabelLinkReq) GetSyncBuild() bool {
 	return false
 }
 
-//ActionLabelLinkNameRequest
+// ActionLabelLinkNameRequest
 type ActionLabelLinkNameReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -8690,7 +8696,7 @@ func (x *ActionLabelLinkNameReq) GetActionLabelLinkName() string {
 	return ""
 }
 
-//GetVersionResponse
+// GetVersionResponse
 type VersionRes struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -8843,11 +8849,13 @@ type QueryDataElementsReq struct {
 	DataTypes []DataType        `protobuf:"varint,3,rep,packed,name=data_types,json=dataTypes,proto3,enum=DataType" json:"data_types,omitempty"`
 	Filters   []*InstanceFilter `protobuf:"bytes,4,rep,name=filters,proto3" json:"filters,omitempty"`
 	MaxLength int64             `protobuf:"varint,5,opt,name=max_length,json=maxLength,proto3" json:"max_length,omitempty"`
-	//    int64 top = 6 [
-	//        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-	//            description: "Defines the topN **DataElement** to be returned based on occurrence."
-	//        }
-	//    ];
+	// int64 top = 6 [
+	//
+	//	(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+	//	    description: "Defines the topN **DataElement** to be returned based on occurrence."
+	//	}
+	//
+	// ];
 	ComponentTypes         []ComponentType `protobuf:"varint,7,rep,packed,name=component_types,json=componentTypes,proto3,enum=ComponentType" json:"component_types,omitempty"`
 	WithComponentTypeSplit bool            `protobuf:"varint,8,opt,name=with_component_type_split,json=withComponentTypeSplit,proto3" json:"with_component_type_split,omitempty"`
 }
@@ -10133,6 +10141,7 @@ type SimpleQueryResItem struct {
 	unknownFields protoimpl.UnknownFields
 
 	// Types that are assignable to Kind:
+	//
 	//	*SimpleQueryResItem_SelectResult
 	//	*SimpleQueryResItem_RowsAffected
 	Kind isSimpleQueryResItem_Kind `protobuf_oneof:"kind"`
@@ -10670,6 +10679,7 @@ type QueryCloseReq struct {
 
 	ResultHandle string `protobuf:"bytes,1,opt,name=result_handle,json=resultHandle,proto3" json:"result_handle,omitempty"`
 	// Types that are assignable to CloseFor:
+	//
 	//	*QueryCloseReq_Statement
 	//	*QueryCloseReq_Portal
 	CloseFor isQueryCloseReq_CloseFor `protobuf_oneof:"close_for"`
@@ -10854,7 +10864,7 @@ func (x *DQLParamDescription) GetDataType() DataType {
 	return DataType_InvalidDataType
 }
 
-//FindActionLabelLinksRequest
+// FindActionLabelLinksRequest
 type FindActionLabelLinksReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
