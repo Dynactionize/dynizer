@@ -723,7 +723,7 @@
               "properties": {
                 "new_action_label_name": {
                   "type": "string",
-                  "description": "The new unique name of the **ActionLabel** within the **Action.\u003cbr\u003eUse the CheckActionLabelName, call to verify the name, without creating it."
+                  "description": "The new unique name of the **ActionLabel** within the **Action**.\u003cbr\u003eUse the CheckActionLabelName, call to verify the name, without creating it."
                 },
                 "default_data_type": {
                   "$ref": "#/definitions/DataType",
@@ -2702,7 +2702,7 @@
     "/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/position/{value_position}/keys/{key_name}/values/{value}": {
       "delete": {
         "summary": "Remove InstanceCell MetaData Value",
-        "description": "Removes an existing value from the values of a particular **MetaDataKey** linked to an **InstanceCell*.\u003cbr\u003eIf the value is not in the array of values, an error is returned.",
+        "description": "Removes an existing value from the values of a particular **MetaDataKey** linked to an **InstanceCell*.\u003cbr\u003eIf the value is not in the array of values, an error is returned. The value is case sensitive.",
         "operationId": "RemoveInstanceCellMetaDataValue",
         "responses": {
           "200": {

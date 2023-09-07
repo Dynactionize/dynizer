@@ -1183,7 +1183,7 @@ message UpdateActionLabelReq {
 
     string new_action_label_name = 3 [
         (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-            description: "The new unique name of the **ActionLabel** within the **Action.<br>Use the CheckActionLabelName, call to verify the name, without creating it."
+            description: "The new unique name of the **ActionLabel** within the **Action**.<br>Use the CheckActionLabelName, call to verify the name, without creating it."
         }
     ];
 
@@ -5879,7 +5879,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "RemoveInstanceCellMetaDataValue";
             tags: ["MetaData", "Instances Cells MetaData"]
-            description: "Removes an existing value from the values of a particular **MetaDataKey** linked to an **InstanceCell*.<br>If the value is not in the array of values, an error is returned."
+            description: "Removes an existing value from the values of a particular **MetaDataKey** linked to an **InstanceCell*.<br>If the value is not in the array of values, an error is returned. The value is case sensitive."
         };
     }
 
