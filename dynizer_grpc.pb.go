@@ -72,6 +72,8 @@ type DynizerClient interface {
 	UpdateActionType(ctx context.Context, in *UpdateActionTypeReq, opts ...grpc.CallOption) (*EmptyRes, error)
 	// Read ActionType
 	ReadActionType(ctx context.Context, in *ActionTypeReq, opts ...grpc.CallOption) (*ActionTypeRes, error)
+	// List Action Types
+	ListActionTypes(ctx context.Context, in *WindowReq, opts ...grpc.CallOption) (*ActionTypeArrayRes, error)
 	// Check Action Name
 	CheckActionName(ctx context.Context, in *CheckActionNameReq, opts ...grpc.CallOption) (*EmptyRes, error)
 	// Create Action
@@ -460,6 +462,15 @@ func (c *dynizerClient) UpdateActionType(ctx context.Context, in *UpdateActionTy
 func (c *dynizerClient) ReadActionType(ctx context.Context, in *ActionTypeReq, opts ...grpc.CallOption) (*ActionTypeRes, error) {
 	out := new(ActionTypeRes)
 	err := c.cc.Invoke(ctx, "/Dynizer/ReadActionType", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *dynizerClient) ListActionTypes(ctx context.Context, in *WindowReq, opts ...grpc.CallOption) (*ActionTypeArrayRes, error) {
+	out := new(ActionTypeArrayRes)
+	err := c.cc.Invoke(ctx, "/Dynizer/ListActionTypes", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -1351,6 +1362,8 @@ type DynizerServer interface {
 	UpdateActionType(context.Context, *UpdateActionTypeReq) (*EmptyRes, error)
 	// Read ActionType
 	ReadActionType(context.Context, *ActionTypeReq) (*ActionTypeRes, error)
+	// List Action Types
+	ListActionTypes(context.Context, *WindowReq) (*ActionTypeArrayRes, error)
 	// Check Action Name
 	CheckActionName(context.Context, *CheckActionNameReq) (*EmptyRes, error)
 	// Create Action
@@ -1591,6 +1604,9 @@ func (UnimplementedDynizerServer) UpdateActionType(context.Context, *UpdateActio
 }
 func (UnimplementedDynizerServer) ReadActionType(context.Context, *ActionTypeReq) (*ActionTypeRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ReadActionType not implemented")
+}
+func (UnimplementedDynizerServer) ListActionTypes(context.Context, *WindowReq) (*ActionTypeArrayRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListActionTypes not implemented")
 }
 func (UnimplementedDynizerServer) CheckActionName(context.Context, *CheckActionNameReq) (*EmptyRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CheckActionName not implemented")
@@ -2297,6 +2313,24 @@ func _Dynizer_ReadActionType_Handler(srv interface{}, ctx context.Context, dec f
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(DynizerServer).ReadActionType(ctx, req.(*ActionTypeReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Dynizer_ListActionTypes_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(WindowReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DynizerServer).ListActionTypes(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/Dynizer/ListActionTypes",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DynizerServer).ListActionTypes(ctx, req.(*WindowReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -3905,6 +3939,10 @@ var Dynizer_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ReadActionType",
 			Handler:    _Dynizer_ReadActionType_Handler,
+		},
+		{
+			MethodName: "ListActionTypes",
+			Handler:    _Dynizer_ListActionTypes_Handler,
 		},
 		{
 			MethodName: "CheckActionName",

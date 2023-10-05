@@ -836,6 +836,65 @@
       }
     },
     "/api/v2/actiontypes": {
+      "get": {
+        "summary": "List Action Types",
+        "description": "Returns a list of **ActionTypes**.\u003cbr\u003eProviding the optional window, paging is supported.",
+        "operationId": "ListActionTypes",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ActionTypeArrayRes"
+            }
+          },
+          "401": {
+            "description": "Unauthorized call",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Unexpected internal error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "window.limit",
+            "description": "Defines how many records at max are returned.\u003cbr\u003eIf fewer records are available, all will be returned.\u003cbr\u003eSetting this to -1 will be interpreted as no limit",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "window.offset",
+            "description": "Defines the offset at which to start reading.\u003cbr\u003eAn offset of 0 will bean to start from the first possible record.",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "window.relative",
+            "description": "The Dynizer keeps track of the last read position, this flag indicates wether the offset is relative to the current read position or absolute.",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          }
+        ],
+        "tags": [
+          "ActionTypes"
+        ]
+      },
       "post": {
         "summary": "Create ActionType",
         "description": "Creates a new **ActionType**",
@@ -6055,6 +6114,29 @@
       "title": "ActionResponse",
       "required": [
         "action"
+      ]
+    },
+    "ActionTypeArrayRes": {
+      "type": "object",
+      "properties": {
+        "total_action_types": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Total number of **ActionTypes** in the system."
+        },
+        "action_type_labels": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Array of **ActionTypeLabels** within the requested window."
+        }
+      },
+      "description": "Response that holds **ActionTypes**",
+      "title": "ActionTypeArrayRes",
+      "required": [
+        "action_type_labels",
+        "total_action_types"
       ]
     },
     "ActionTypeLabel": {

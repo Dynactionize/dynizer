@@ -1061,6 +1061,30 @@ message ActionTypeRes {
     ];
 }
 
+//ActionTypeArrayRes
+message ActionTypeArrayRes {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+          required: ["action_type_labels", "total_action_types"]
+          description: "Response that holds **ActionTypes**"
+        }
+    };
+
+    int64 total_action_types = 1 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+            description: "Total number of **ActionTypes** in the system."
+            type: INTEGER
+            minimum: 0
+        }
+    ];
+
+    repeated string action_type_labels = 2 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+            description: "Array of **ActionTypeLabels** within the requested window."
+        }
+    ];
+}
+
 //EmptyRequest
 message EmptyReq {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
@@ -5174,6 +5198,18 @@ service Dynizer {
             operation_id: "ReadActionType";
             tags: ["ActionTypes"]
             description: "Reads an **ActionType** definition with all **ActionLabels**"
+        };
+    }
+
+    //List Action Types
+    rpc ListActionTypes(WindowReq) returns(ActionTypeArrayRes) {
+        option (google.api.http) = {
+            get: "/api/v2/actiontypes"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            operation_id: "ListActionTypes";
+            tags: ["ActionTypes"]
+            description:"Returns a list of **ActionTypes**.<br>Providing the optional window, paging is supported."
         };
     }
 
