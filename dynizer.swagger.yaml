@@ -4604,6 +4604,11 @@ definitions:
       - DQL_Begin
       - DQL_Commit
       - DQL_Rollback
+      - DQL_Discard
+      - DQL_Prepare
+      - DQL_Execute
+      - DQL_Deallocate
+      - DQL_Explain
     default: DQL_None
     description: |-
       - DQL_None: Empty query type
@@ -4622,6 +4627,11 @@ definitions:
        - DQL_Begin: Type of a BEGIN query => Not implemented, no-op
        - DQL_Commit: Type of a COMMIT query => Not implemented, no-op
        - DQL_Rollback: Type of a ROLLBACK query => Not implemented, no-op
+       - DQL_Discard: Type of a DISCARD query => Not implemented, no-op
+       - DQL_Prepare: Type of a PREPARE query
+       - DQL_Execute: Type of a EXECUTE query
+       - DQL_Deallocate: Type of a DEALLOCATE query
+       - DQL_Explain: Type of a EXPLAIN query
     title: DQLType
   DataElement:
     type: object
@@ -5601,9 +5611,13 @@ definitions:
         $ref: '#/definitions/DQLType'
         description: The type of the executed query
       count:
-        type: string
+        type: integer
         format: int64
         description: The total count of the executed query
+      rows_affected:
+        type: integer
+        format: int64
+        description: Number of rows affected by the DQL statement.
     description: an array of ResultRow messages for the list request
     title: QueryExecuteResponse
     required:

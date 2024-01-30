@@ -6569,10 +6569,15 @@
         "DQL_DropTable",
         "DQL_Begin",
         "DQL_Commit",
-        "DQL_Rollback"
+        "DQL_Rollback",
+        "DQL_Discard",
+        "DQL_Prepare",
+        "DQL_Execute",
+        "DQL_Deallocate",
+        "DQL_Explain"
       ],
       "default": "DQL_None",
-      "description": "- DQL_None: Empty query type\n - DQL_Set: Type of a SET query\n - DQL_Show: Type of a SHOW query\n - DQL_Select: Type of a SELECT query\n - DQL_Insert: Type of a INSERT query\n - DQL_Update: Type of a UPDATE query\n - DQL_Delete: Type of a DELETE query\n - DQL_CreateSchema: Type of a CREATE SCHEMA query\n - DQL_CreateTable: Type of a CREATE_TABLE query\n - DQL_AlterSchema: Type of a ALTER SCHEMA query\n - DQL_AlterTable: Type of a ALTER TABLE query\n - DQL_DropSchema: Type of a DROP SCHEMA query\n - DQL_DropTable: Type of a DROP TABLE query\n - DQL_Begin: Type of a BEGIN query =\u003e Not implemented, no-op\n - DQL_Commit: Type of a COMMIT query =\u003e Not implemented, no-op\n - DQL_Rollback: Type of a ROLLBACK query =\u003e Not implemented, no-op",
+      "description": "- DQL_None: Empty query type\n - DQL_Set: Type of a SET query\n - DQL_Show: Type of a SHOW query\n - DQL_Select: Type of a SELECT query\n - DQL_Insert: Type of a INSERT query\n - DQL_Update: Type of a UPDATE query\n - DQL_Delete: Type of a DELETE query\n - DQL_CreateSchema: Type of a CREATE SCHEMA query\n - DQL_CreateTable: Type of a CREATE_TABLE query\n - DQL_AlterSchema: Type of a ALTER SCHEMA query\n - DQL_AlterTable: Type of a ALTER TABLE query\n - DQL_DropSchema: Type of a DROP SCHEMA query\n - DQL_DropTable: Type of a DROP TABLE query\n - DQL_Begin: Type of a BEGIN query =\u003e Not implemented, no-op\n - DQL_Commit: Type of a COMMIT query =\u003e Not implemented, no-op\n - DQL_Rollback: Type of a ROLLBACK query =\u003e Not implemented, no-op\n - DQL_Discard: Type of a DISCARD query =\u003e Not implemented, no-op\n - DQL_Prepare: Type of a PREPARE query\n - DQL_Execute: Type of a EXECUTE query\n - DQL_Deallocate: Type of a DEALLOCATE query\n - DQL_Explain: Type of a EXPLAIN query",
       "title": "DQLType"
     },
     "DataElement": {
@@ -7840,9 +7845,14 @@
           "description": "The type of the executed query"
         },
         "count": {
-          "type": "string",
+          "type": "integer",
           "format": "int64",
           "description": "The total count of the executed query"
+        },
+        "rows_affected": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Number of rows affected by the DQL statement."
         }
       },
       "description": "an array of ResultRow messages for the list request",

@@ -594,6 +594,16 @@ enum DQLType {
     DQL_Commit = 14;
     // Type of a ROLLBACK query => Not implemented, no-op
     DQL_Rollback = 15;
+	// Type of a DISCARD query => Not implemented, no-op
+	DQL_Discard = 16;
+	// Type of a PREPARE query
+	DQL_Prepare = 17;
+	// Type of a EXECUTE query
+	DQL_Execute = 18;
+	// Type of a DEALLOCATE query
+	DQL_Deallocate = 19;
+	// Type of a EXPLAIN query
+	DQL_Explain = 20;
 }
 
 //LoginRequest
@@ -4463,6 +4473,16 @@ message QueryExecuteRes {
   int64 count = 5 [
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
       description: "The total count of the executed query"
+      type: INTEGER
+      minimum: 0
+    }
+  ];
+
+  int64 rows_affected = 6 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      description: "Number of rows affected by the DQL statement."
+      type: INTEGER
+      minimum: 0
     }
   ];
 }
