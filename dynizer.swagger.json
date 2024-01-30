@@ -546,7 +546,7 @@
                   "items": {
                     "$ref": "#/definitions/DataType"
                   },
-                  "description": "List of additional allowed **DataTypes** for this **ActionLabel**.\u003cbr\u003eIf left empty only the *default_data_type* is allowed for the values of this **ActionLabel**."
+                  "description": "List of additional allowed **DataTypes** for this **ActionLabel**.\u003cbr\u003eIf left empty only the *default_data_type* is allowed for the values of this **ActionLabel**.\u003cbr\u003eProvide **DT_Any** as the only element to allow all **DataTypes**."
                 },
                 "share_name": {
                   "type": "string",
@@ -621,7 +621,7 @@
       },
       "delete": {
         "summary": "Delete ActionLabel",
-        "description": "Delete a **UserLabel**, will prevent any new **Instances** with this **ActionLabel** can be created.\u003cbr\u003eAllready created **Instances** will not be affected.",
+        "description": "Delete a **UserLabel**, will prevent any new **Instances** with this **ActionLabel** can be created.\u003cbr\u003eAlready created **Instances** will not be affected.",
         "operationId": "DeleteActionLabel",
         "responses": {
           "200": {
@@ -671,7 +671,7 @@
       },
       "put": {
         "summary": "Update ActionLabel",
-        "description": "Updates a **ActionLabel** for an **Action**.\u003cbr\u003eIf the *cascade* flag is set to true, all **Instances** for the **Action** which would violate the **ActionLabel** defition, will get makred as deleted.",
+        "description": "Updates a **ActionLabel** for an **Action**.\u003cbr\u003eIf the *cascade* flag is set to true, all **Instances** for the **Action** which would violate the **ActionLabel** defition, will get marked as deleted.",
         "operationId": "UpdateActionLabel",
         "responses": {
           "200": {
@@ -723,7 +723,7 @@
               "properties": {
                 "new_action_label_name": {
                   "type": "string",
-                  "description": "The new unique name of the **ActionLabel** within the **Action**.\u003cbr\u003eUse the CheckActionLabelName, call to verify the name, without creating it."
+                  "description": "The new unique name of the **ActionLabel** within the **Action**.\u003cbr\u003eUse the CheckActionLabelName call to verify the name, without creating it."
                 },
                 "default_data_type": {
                   "$ref": "#/definitions/DataType",
@@ -751,7 +751,7 @@
                   "description": "Flag to define the behaviour if the update will cause a violation of existing **Instances**.\u003cbr\u003eIf set to \u003cspan style=\"color:blue\"\u003etrue\u003c/span\u003e the **Instances** in violation will be marked as deleted."
                 }
               },
-              "description": "Use this to modify an **ActionLabel** associated to an **Action**",
+              "description": "Use this to modify an **ActionLabel** associated to an **Action**. To ensure data integrity, please provide values for the fields alternative_data_types, min_occurrence, and max_occurrence. If these fields are omitted, they will be reset. Other fields can be safely omitted to retain their current values.",
               "title": "UpdateActionLabelReq",
               "required": [
                 "default_data_type",
@@ -4395,7 +4395,7 @@
     "/api/v2/query/filtered": {
       "post": {
         "summary": "Dynizer Filtered Query",
-        "description": "Sends in a filtered statement to retrive **instances**",
+        "description": "Sends in a filtered statement to retrieve **instances**",
         "operationId": "DynizerFilteredQuery",
         "responses": {
           "200": {
@@ -5916,11 +5916,11 @@
           "items": {
             "$ref": "#/definitions/DataType"
           },
-          "description": "List of additional allowed **DataTypes** for this **ActionLabel**.\u003cbr\u003eIf left empty only the *default_data_type* is allowed for the values of this **ActionLabel**."
+          "description": "List of additional allowed **DataTypes** for this **ActionLabel**.\u003cbr\u003eIf left empty only the *default_data_type* is allowed for the values of this **ActionLabel**.\u003cbr\u003eProvide **DT_Any** as the only element to allow all **DataTypes**."
         },
         "share_name": {
           "type": "string",
-          "description": "The **ShareName** to use by default when an new instance is created and a value is set for this **ActionLabel**"
+          "description": "The **ShareName** to use by default when a new instance is created and a value is set for this **ActionLabel**"
         }
       },
       "description": "An **ActionLabel** defines a group of columns with the same name and **ComponentType**.\u003cbr\u003eThe default **DataType** is used when no overwrite is used.\u003cbr\u003eMin and Max occurrence is used to limit the amount of values which can be used for an **ActionLabel**.\u003cbr\u003eThe alternative **dataTypes** can be used to constrain which **DataTypes** can be used for the overwrite.\u003cbr\u003eWith it you can define all the **DataTypes** allowed to be used under this **ActionLabel**.",
@@ -6424,7 +6424,7 @@
           "items": {
             "$ref": "#/definitions/DataType"
           },
-          "description": "List of additional allowed **DataTypes** for this **MetaDataKey**.\u003cbr\u003eIf left empty only the *default_data_type* is allowed for the values of this **MetaDataKey**."
+          "description": "List of additional allowed **DataTypes** for this **MetaDataKey**.\u003cbr\u003eIf left empty only the *default_data_type* is allowed for the values of this **MetaDataKey**.\u003cbr\u003eProvide **DT_Any** as the only element to allow all **DataTypes**."
         }
       },
       "description": "Properties to create a new MetaDataKey",
@@ -6569,15 +6569,10 @@
         "DQL_DropTable",
         "DQL_Begin",
         "DQL_Commit",
-        "DQL_Rollback",
-        "DQL_Discard",
-        "DQL_Prepare",
-        "DQL_Execute",
-        "DQL_Deallocate",
-        "DQL_Explain"
+        "DQL_Rollback"
       ],
       "default": "DQL_None",
-      "description": "- DQL_None: Empty query type\n - DQL_Set: Type of a SET query\n - DQL_Show: Type of a SHOW query\n - DQL_Select: Type of a SELECT query\n - DQL_Insert: Type of a INSERT query\n - DQL_Update: Type of a UPDATE query\n - DQL_Delete: Type of a DELETE query\n - DQL_CreateSchema: Type of a CREATE SCHEMA query\n - DQL_CreateTable: Type of a CREATE_TABLE query\n - DQL_AlterSchema: Type of a ALTER SCHEMA query\n - DQL_AlterTable: Type of a ALTER TABLE query\n - DQL_DropSchema: Type of a DROP SCHEMA query\n - DQL_DropTable: Type of a DROP TABLE query\n - DQL_Begin: Type of a BEGIN query =\u003e Not implemented, no-op\n - DQL_Commit: Type of a COMMIT query =\u003e Not implemented, no-op\n - DQL_Rollback: Type of a ROLLBACK query =\u003e Not implemented, no-op\n - DQL_Discard: Type of a DISCARD query =\u003e Not implemented, no-op\n - DQL_Prepare: Type of a PREPARE query\n - DQL_Execute: Type of a EXECUTE query\n - DQL_Deallocate: Type of a DEALLOCATE query\n - DQL_Explain: Type of a EXPLAIN query",
+      "description": "- DQL_None: Empty query type\n - DQL_Set: Type of a SET query\n - DQL_Show: Type of a SHOW query\n - DQL_Select: Type of a SELECT query\n - DQL_Insert: Type of a INSERT query\n - DQL_Update: Type of a UPDATE query\n - DQL_Delete: Type of a DELETE query\n - DQL_CreateSchema: Type of a CREATE SCHEMA query\n - DQL_CreateTable: Type of a CREATE_TABLE query\n - DQL_AlterSchema: Type of a ALTER SCHEMA query\n - DQL_AlterTable: Type of a ALTER TABLE query\n - DQL_DropSchema: Type of a DROP SCHEMA query\n - DQL_DropTable: Type of a DROP TABLE query\n - DQL_Begin: Type of a BEGIN query =\u003e Not implemented, no-op\n - DQL_Commit: Type of a COMMIT query =\u003e Not implemented, no-op\n - DQL_Rollback: Type of a ROLLBACK query =\u003e Not implemented, no-op",
       "title": "DQLType"
     },
     "DataElement": {
@@ -7179,14 +7174,14 @@
       "properties": {
         "action": {
           "type": "string",
-          "description": "This holds an **Actions**."
+          "description": "This holds an **Action**."
         },
         "action_label": {
           "$ref": "#/definitions/ActionLabel",
           "description": "This holds an **ActionLabel**."
         }
       },
-      "description": "Response which holds an **Action** annd all its **ActionLabels**.",
+      "description": "Response that holds an **Action** and all its **ActionLabels**.",
       "title": "LabelResponse",
       "required": [
         "user_action",
@@ -7845,14 +7840,9 @@
           "description": "The type of the executed query"
         },
         "count": {
-          "type": "integer",
+          "type": "string",
           "format": "int64",
           "description": "The total count of the executed query"
-        },
-        "rows_affected": {
-          "type": "integer",
-          "format": "int64",
-          "description": "Number of rows affected by the DQL statement."
         }
       },
       "description": "an array of ResultRow messages for the list request",
@@ -8053,7 +8043,7 @@
         },
         "result_handle": {
           "type": "string",
-          "description": "The Hhandle of the result.\u003cbr\u003eUsed to walk the result with a window or a stream."
+          "description": "The Handle of the result.\u003cbr\u003eUsed to walk the result with a window or a stream."
         },
         "result_labels": {
           "type": "array",

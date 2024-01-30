@@ -220,7 +220,7 @@ paths:
                 type: array
                 items:
                   $ref: '#/definitions/DataType'
-                description: List of additional allowed **DataTypes** for this **ActionLabel**.<br>If left empty only the *default_data_type* is allowed for the values of this **ActionLabel**.
+                description: List of additional allowed **DataTypes** for this **ActionLabel**.<br>If left empty only the *default_data_type* is allowed for the values of this **ActionLabel**.<br>Provide **DT_Any** as the only element to allow all **DataTypes**.
               share_name:
                 type: string
                 description: The **ShareName** to use by default when an new instance is created and a value is set for this **ActionLabel**
@@ -269,7 +269,7 @@ paths:
         - Actions
     delete:
       summary: Delete ActionLabel
-      description: Delete a **UserLabel**, will prevent any new **Instances** with this **ActionLabel** can be created.<br>Allready created **Instances** will not be affected.
+      description: Delete a **UserLabel**, will prevent any new **Instances** with this **ActionLabel** can be created.<br>Already created **Instances** will not be affected.
       operationId: DeleteActionLabel
       responses:
         "200":
@@ -303,7 +303,7 @@ paths:
         - Actions
     put:
       summary: Update ActionLabel
-      description: Updates a **ActionLabel** for an **Action**.<br>If the *cascade* flag is set to true, all **Instances** for the **Action** which would violate the **ActionLabel** defition, will get makred as deleted.
+      description: Updates a **ActionLabel** for an **Action**.<br>If the *cascade* flag is set to true, all **Instances** for the **Action** which would violate the **ActionLabel** defition, will get marked as deleted.
       operationId: UpdateActionLabel
       responses:
         "200":
@@ -341,7 +341,7 @@ paths:
             properties:
               new_action_label_name:
                 type: string
-                description: The new unique name of the **ActionLabel** within the **Action**.<br>Use the CheckActionLabelName, call to verify the name, without creating it.
+                description: The new unique name of the **ActionLabel** within the **Action**.<br>Use the CheckActionLabelName call to verify the name, without creating it.
               default_data_type:
                 $ref: '#/definitions/DataType'
                 description: The **DataType** for this **ActionLabel**.<br>This **DataType** will be used when creating **Instances** with this **ActionLabel**.
@@ -361,7 +361,7 @@ paths:
               cascade:
                 type: boolean
                 description: Flag to define the behaviour if the update will cause a violation of existing **Instances**.<br>If set to <span style="color:blue">true</span> the **Instances** in violation will be marked as deleted.
-            description: Use this to modify an **ActionLabel** associated to an **Action**
+            description: Use this to modify an **ActionLabel** associated to an **Action**. To ensure data integrity, please provide values for the fields alternative_data_types, min_occurrence, and max_occurrence. If these fields are omitted, they will be reset. Other fields can be safely omitted to retain their current values.
             title: UpdateActionLabelReq
             required:
               - default_data_type
@@ -3220,7 +3220,7 @@ paths:
   /api/v2/query/filtered:
     post:
       summary: Dynizer Filtered Query
-      description: Sends in a filtered statement to retrive **instances**
+      description: Sends in a filtered statement to retrieve **instances**
       operationId: DynizerFilteredQuery
       responses:
         "200":
@@ -4111,10 +4111,10 @@ definitions:
         type: array
         items:
           $ref: '#/definitions/DataType'
-        description: List of additional allowed **DataTypes** for this **ActionLabel**.<br>If left empty only the *default_data_type* is allowed for the values of this **ActionLabel**.
+        description: List of additional allowed **DataTypes** for this **ActionLabel**.<br>If left empty only the *default_data_type* is allowed for the values of this **ActionLabel**.<br>Provide **DT_Any** as the only element to allow all **DataTypes**.
       share_name:
         type: string
-        description: The **ShareName** to use by default when an new instance is created and a value is set for this **ActionLabel**
+        description: The **ShareName** to use by default when a new instance is created and a value is set for this **ActionLabel**
     description: An **ActionLabel** defines a group of columns with the same name and **ComponentType**.<br>The default **DataType** is used when no overwrite is used.<br>Min and Max occurrence is used to limit the amount of values which can be used for an **ActionLabel**.<br>The alternative **dataTypes** can be used to constrain which **DataTypes** can be used for the overwrite.<br>With it you can define all the **DataTypes** allowed to be used under this **ActionLabel**.
     title: ActionLabel
     required:
@@ -4492,7 +4492,7 @@ definitions:
         type: array
         items:
           $ref: '#/definitions/DataType'
-        description: List of additional allowed **DataTypes** for this **MetaDataKey**.<br>If left empty only the *default_data_type* is allowed for the values of this **MetaDataKey**.
+        description: List of additional allowed **DataTypes** for this **MetaDataKey**.<br>If left empty only the *default_data_type* is allowed for the values of this **MetaDataKey**.<br>Provide **DT_Any** as the only element to allow all **DataTypes**.
     description: Properties to create a new MetaDataKey
     title: CreateMetaDataKeyRequest
     required:
@@ -4604,11 +4604,6 @@ definitions:
       - DQL_Begin
       - DQL_Commit
       - DQL_Rollback
-      - DQL_Discard
-      - DQL_Prepare
-      - DQL_Execute
-      - DQL_Deallocate
-      - DQL_Explain
     default: DQL_None
     description: |-
       - DQL_None: Empty query type
@@ -4627,11 +4622,6 @@ definitions:
        - DQL_Begin: Type of a BEGIN query => Not implemented, no-op
        - DQL_Commit: Type of a COMMIT query => Not implemented, no-op
        - DQL_Rollback: Type of a ROLLBACK query => Not implemented, no-op
-       - DQL_Discard: Type of a DISCARD query => Not implemented, no-op
-       - DQL_Prepare: Type of a PREPARE query
-       - DQL_Execute: Type of a EXECUTE query
-       - DQL_Deallocate: Type of a DEALLOCATE query
-       - DQL_Explain: Type of a EXPLAIN query
     title: DQLType
   DataElement:
     type: object
@@ -5098,11 +5088,11 @@ definitions:
     properties:
       action:
         type: string
-        description: This holds an **Actions**.
+        description: This holds an **Action**.
       action_label:
         $ref: '#/definitions/ActionLabel'
         description: This holds an **ActionLabel**.
-    description: Response which holds an **Action** annd all its **ActionLabels**.
+    description: Response that holds an **Action** and all its **ActionLabels**.
     title: LabelResponse
     required:
       - user_action
@@ -5611,13 +5601,9 @@ definitions:
         $ref: '#/definitions/DQLType'
         description: The type of the executed query
       count:
-        type: integer
+        type: string
         format: int64
         description: The total count of the executed query
-      rows_affected:
-        type: integer
-        format: int64
-        description: Number of rows affected by the DQL statement.
     description: an array of ResultRow messages for the list request
     title: QueryExecuteResponse
     required:
@@ -5765,7 +5751,7 @@ definitions:
         description: Number of result records.
       result_handle:
         type: string
-        description: The Hhandle of the result.<br>Used to walk the result with a window or a stream.
+        description: The Handle of the result.<br>Used to walk the result with a window or a stream.
       result_labels:
         type: array
         items:
