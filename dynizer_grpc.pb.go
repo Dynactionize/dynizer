@@ -195,10 +195,6 @@ type DynizerClient interface {
 	DropData(ctx context.Context, in *EmptyReq, opts ...grpc.CallOption) (*EmptyRes, error)
 	// Get Dynizer Version
 	GetDynizerVersion(ctx context.Context, in *EmptyReq, opts ...grpc.CallOption) (*VersionRes, error)
-	// Create a new Link via Action Label
-	CreateActionLabelLink(ctx context.Context, in *ActionLabelLinkReq, opts ...grpc.CallOption) (*EmptyRes, error)
-	// Read a Link via Action Label
-	GetActionLabelLink(ctx context.Context, in *ActionLabelLinkNameReq, opts ...grpc.CallOption) (*ActionLabelLinkRes, error)
 	// Query DataElements Contains
 	QueryDataElements(ctx context.Context, in *QueryDataElementsReq, opts ...grpc.CallOption) (*QueryDataElementsRes, error)
 	// Query DataElements TopN
@@ -231,7 +227,7 @@ type DynizerClient interface {
 	QueryClose(ctx context.Context, in *QueryCloseReq, opts ...grpc.CallOption) (*EmptyRes, error)
 	// cancels a running query
 	QueryCancel(ctx context.Context, in *QueryCancelReq, opts ...grpc.CallOption) (*EmptyRes, error)
-	// finds the actionlabels with shared datalements within a set of actions
+	// finds the actionlabels with shared dataelements within a set of actions
 	FindActionLabelLinks(ctx context.Context, in *FindActionLabelLinksReq, opts ...grpc.CallOption) (*FindActionLabelLinksRes, error)
 }
 
@@ -1137,24 +1133,6 @@ func (c *dynizerClient) GetDynizerVersion(ctx context.Context, in *EmptyReq, opt
 	return out, nil
 }
 
-func (c *dynizerClient) CreateActionLabelLink(ctx context.Context, in *ActionLabelLinkReq, opts ...grpc.CallOption) (*EmptyRes, error) {
-	out := new(EmptyRes)
-	err := c.cc.Invoke(ctx, "/Dynizer/CreateActionLabelLink", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *dynizerClient) GetActionLabelLink(ctx context.Context, in *ActionLabelLinkNameReq, opts ...grpc.CallOption) (*ActionLabelLinkRes, error) {
-	out := new(ActionLabelLinkRes)
-	err := c.cc.Invoke(ctx, "/Dynizer/GetActionLabelLink", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 func (c *dynizerClient) QueryDataElements(ctx context.Context, in *QueryDataElementsReq, opts ...grpc.CallOption) (*QueryDataElementsRes, error) {
 	out := new(QueryDataElementsRes)
 	err := c.cc.Invoke(ctx, "/Dynizer/QueryDataElements", in, out, opts...)
@@ -1485,10 +1463,6 @@ type DynizerServer interface {
 	DropData(context.Context, *EmptyReq) (*EmptyRes, error)
 	// Get Dynizer Version
 	GetDynizerVersion(context.Context, *EmptyReq) (*VersionRes, error)
-	// Create a new Link via Action Label
-	CreateActionLabelLink(context.Context, *ActionLabelLinkReq) (*EmptyRes, error)
-	// Read a Link via Action Label
-	GetActionLabelLink(context.Context, *ActionLabelLinkNameReq) (*ActionLabelLinkRes, error)
 	// Query DataElements Contains
 	QueryDataElements(context.Context, *QueryDataElementsReq) (*QueryDataElementsRes, error)
 	// Query DataElements TopN
@@ -1521,7 +1495,7 @@ type DynizerServer interface {
 	QueryClose(context.Context, *QueryCloseReq) (*EmptyRes, error)
 	// cancels a running query
 	QueryCancel(context.Context, *QueryCancelReq) (*EmptyRes, error)
-	// finds the actionlabels with shared datalements within a set of actions
+	// finds the actionlabels with shared dataelements within a set of actions
 	FindActionLabelLinks(context.Context, *FindActionLabelLinksReq) (*FindActionLabelLinksRes, error)
 	mustEmbedUnimplementedDynizerServer()
 }
@@ -1796,12 +1770,6 @@ func (UnimplementedDynizerServer) DropData(context.Context, *EmptyReq) (*EmptyRe
 }
 func (UnimplementedDynizerServer) GetDynizerVersion(context.Context, *EmptyReq) (*VersionRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetDynizerVersion not implemented")
-}
-func (UnimplementedDynizerServer) CreateActionLabelLink(context.Context, *ActionLabelLinkReq) (*EmptyRes, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateActionLabelLink not implemented")
-}
-func (UnimplementedDynizerServer) GetActionLabelLink(context.Context, *ActionLabelLinkNameReq) (*ActionLabelLinkRes, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetActionLabelLink not implemented")
 }
 func (UnimplementedDynizerServer) QueryDataElements(context.Context, *QueryDataElementsReq) (*QueryDataElementsRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method QueryDataElements not implemented")
@@ -3491,42 +3459,6 @@ func _Dynizer_GetDynizerVersion_Handler(srv interface{}, ctx context.Context, de
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Dynizer_CreateActionLabelLink_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ActionLabelLinkReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(DynizerServer).CreateActionLabelLink(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/Dynizer/CreateActionLabelLink",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DynizerServer).CreateActionLabelLink(ctx, req.(*ActionLabelLinkReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Dynizer_GetActionLabelLink_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ActionLabelLinkNameReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(DynizerServer).GetActionLabelLink(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/Dynizer/GetActionLabelLink",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DynizerServer).GetActionLabelLink(ctx, req.(*ActionLabelLinkNameReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 func _Dynizer_QueryDataElements_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(QueryDataElementsReq)
 	if err := dec(in); err != nil {
@@ -4179,14 +4111,6 @@ var Dynizer_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetDynizerVersion",
 			Handler:    _Dynizer_GetDynizerVersion_Handler,
-		},
-		{
-			MethodName: "CreateActionLabelLink",
-			Handler:    _Dynizer_CreateActionLabelLink_Handler,
-		},
-		{
-			MethodName: "GetActionLabelLink",
-			Handler:    _Dynizer_GetActionLabelLink_Handler,
 		},
 		{
 			MethodName: "QueryDataElements",

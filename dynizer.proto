@@ -3795,28 +3795,6 @@ message ImportUserActionsReq {
     ];
 }
 
-//ActionLabelLinkResponse
-message ActionLabelLinkRes {
-    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
-        json_schema: {
-          required: ["action_label_link_name", "action_label_pair"]
-          description: "This is ActionLabelLink"
-        }
-    };
-
-    string action_label_link_name = 1 [
-        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-            description: "The user friendly name of the **ActionLabel** link **Actions**."
-        }
-    ];
-
-    ActionLabelLinkPair action_label_pair = 2 [
-        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-            description: "The **ActionLabels** which will be used to link **Actions**."
-        }
-    ];
-}
-
 //ActionLabelSelector
 message ActionLabelSelector {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
@@ -3834,71 +3812,6 @@ message ActionLabelSelector {
     string action_label = 2 [
         (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
             description: "The name of the **ActionLabel**."
-        }
-    ];
-}
-
-//ActionLabelLinkPair
-message ActionLabelLinkPair {
-    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
-        json_schema: {
-          required: ["first_action_label", "second_action_label"]
-          description: "This is used to link **Actions**."
-        }
-    };
-    ActionLabelSelector first_action_label = 1 [
-        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-            description: "The first **ActionLabels** which will be used to link **Actions**."
-        }
-    ];
-    ActionLabelSelector second_action_label = 2 [
-        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-            description: "The second **ActionLabels** which will be used to link **Actions**."
-        }
-    ];
-
-}
-
-//ActionLabelLinkRequest
-message ActionLabelLinkReq {
-    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
-        json_schema: {
-          required: ["action_label_link_name","action_label_pair"]
-          description: "This is used to link **Actions**."
-        }
-    };
-
-    string action_label_link_name = 1 [
-        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-            description: "The user friendly name of the **ActionLabel** link **Actions**."
-        }
-    ];
-
-    ActionLabelLinkPair action_label_pair = 2 [
-        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-            description: "The **ActionLabels** which will be used to link **Actions**."
-        }
-    ];
-
-    bool sync_build = 3 [
-        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-            description: "If set to true, the links are build immediately"
-        }
-    ];
-}
-
-//ActionLabelLinkNameRequest
-message ActionLabelLinkNameReq {
-    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
-        json_schema: {
-          required: ["action_label_link_name"]
-          description: "This is used to link **Actions**."
-        }
-    };
-
-    string action_label_link_name = 1 [
-        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-            description: "The user friendly name of the **ActionLabel** link **Actions**."
         }
     ];
 }
@@ -6045,30 +5958,6 @@ service Dynizer {
         };
     }
 
-    //Create a new Link via Action Label
-    rpc CreateActionLabelLink(ActionLabelLinkReq) returns(EmptyRes) {
-        option (google.api.http) = {
-            post: "/api/v2/actions/link",
-            body: "*",
-        };
-        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-            operation_id: "CreateActionLabelLink";
-            tags: ["Actions"]
-            description: "Define a Link between **Actions** via a **ActionLabel**"
-        };
-    }
-
-    //Read a Link via Action Label
-    rpc GetActionLabelLink(ActionLabelLinkNameReq) returns(ActionLabelLinkRes) {
-        option (google.api.http) = {
-            get: "/api/v2/actions/link/{action_label_link_name}",
-        };
-        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-            operation_id: "GetActionLabelLink";
-            tags: ["Actions"]
-            description: "Reads a Link between **Actions** via a **ActionLabel**"
-        };
-    }
     // StartBulkInstanceInsert and followup calls are grpc ONLY
     // rpc StartBulkInstanceInsert(BulkInstanceInsertStartReq) returns(BuilInstanceInsertRes);
     // rpc BulkInstanceInsert(stream BulkInstanceInsertDataReq) returns(stream StreamInstanceIDRes);
@@ -6296,7 +6185,7 @@ service Dynizer {
     };
   }
 
-    // finds the actionlabels with shared datalements within a set of actions
+  // finds the actionlabels with shared dataelements within a set of actions
   rpc FindActionLabelLinks(FindActionLabelLinksReq) returns(FindActionLabelLinksRes) {
     option (google.api.http) = {
       post: "/api/v2/find_actionlabel_links"
@@ -6305,7 +6194,7 @@ service Dynizer {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       operation_id: "FindActionLabelLinks";
       tags: ["Actions"]
-      description: "Finds the **ActionLabels** with shared datalements within a set of **Actions**"
+      description: "Finds the **ActionLabels** with shared dataelements within a set of **Actions**"
     };
   }
 }

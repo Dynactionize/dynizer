@@ -417,67 +417,6 @@ paths:
           type: boolean
       tags:
         - Actions
-  /api/v2/actions/link:
-    post:
-      summary: Create a new Link via Action Label
-      description: Define a Link between **Actions** via a **ActionLabel**
-      operationId: CreateActionLabelLink
-      responses:
-        "200":
-          description: A successful response.
-          schema:
-            $ref: '#/definitions/EmptyRes'
-        "401":
-          description: Unauthorized call
-          schema:
-            $ref: '#/definitions/ErrorResponse'
-        "500":
-          description: Unexpected internal error
-          schema:
-            $ref: '#/definitions/ErrorResponse'
-        default:
-          description: An unexpected error response.
-          schema:
-            $ref: '#/definitions/rpcStatus'
-      parameters:
-        - name: body
-          description: This is used to link **Actions**.
-          in: body
-          required: true
-          schema:
-            $ref: '#/definitions/ActionLabelLinkReq'
-      tags:
-        - Actions
-  /api/v2/actions/link/{action_label_link_name}:
-    get:
-      summary: Read a Link via Action Label
-      description: Reads a Link between **Actions** via a **ActionLabel**
-      operationId: GetActionLabelLink
-      responses:
-        "200":
-          description: A successful response.
-          schema:
-            $ref: '#/definitions/ActionLabelLinkRes'
-        "401":
-          description: Unauthorized call
-          schema:
-            $ref: '#/definitions/ErrorResponse'
-        "500":
-          description: Unexpected internal error
-          schema:
-            $ref: '#/definitions/ErrorResponse'
-        default:
-          description: An unexpected error response.
-          schema:
-            $ref: '#/definitions/rpcStatus'
-      parameters:
-        - name: action_label_link_name
-          description: The user friendly name of the **ActionLabel** link **Actions**.
-          in: path
-          required: true
-          type: string
-      tags:
-        - Actions
   /api/v2/actions/types/{action_type_label}/count:
     get:
       summary: Count Actions
@@ -970,8 +909,8 @@ paths:
         - DataElements
   /api/v2/find_actionlabel_links:
     post:
-      summary: finds the actionlabels with shared datalements within a set of actions
-      description: Finds the **ActionLabels** with shared datalements within a set of **Actions**
+      summary: finds the actionlabels with shared dataelements within a set of actions
+      description: Finds the **ActionLabels** with shared dataelements within a set of **Actions**
       operationId: FindActionLabelLinks
       responses:
         "200":
@@ -4154,65 +4093,6 @@ definitions:
       - left_total
       - right_total
       - shared_total
-  ActionLabelLinkPair:
-    type: object
-    properties:
-      first_action_label:
-        $ref: '#/definitions/ActionLabelSelector'
-        description: The first **ActionLabels** which will be used to link **Actions**.
-      second_action_label:
-        $ref: '#/definitions/ActionLabelSelector'
-        description: The second **ActionLabels** which will be used to link **Actions**.
-    description: This is used to link **Actions**.
-    title: ActionLabelLinkPair
-    required:
-      - first_action_label
-      - second_action_label
-  ActionLabelLinkReq:
-    type: object
-    properties:
-      action_label_link_name:
-        type: string
-        description: The user friendly name of the **ActionLabel** link **Actions**.
-      action_label_pair:
-        $ref: '#/definitions/ActionLabelLinkPair'
-        description: The **ActionLabels** which will be used to link **Actions**.
-      sync_build:
-        type: boolean
-        description: If set to true, the links are build immediately
-    description: This is used to link **Actions**.
-    title: ActionLabelLinkRequest
-    required:
-      - action_label_link_name
-      - action_label_pair
-  ActionLabelLinkRes:
-    type: object
-    properties:
-      action_label_link_name:
-        type: string
-        description: The user friendly name of the **ActionLabel** link **Actions**.
-      action_label_pair:
-        $ref: '#/definitions/ActionLabelLinkPair'
-        description: The **ActionLabels** which will be used to link **Actions**.
-    description: This is ActionLabelLink
-    title: ActionLabelLinkResponse
-    required:
-      - action_label_link_name
-      - action_label_pair
-  ActionLabelSelector:
-    type: object
-    properties:
-      action_name:
-        type: string
-        description: The name of the **Actions**.
-      action_label:
-        type: string
-        description: The name of the **ActionLabel**.
-    description: This is used to define a unique **Label** withing an **Action**.
-    title: ActionLabelSelector
-    required:
-      - action_name
-      - action_label
   ActionName:
     type: object
     properties:
