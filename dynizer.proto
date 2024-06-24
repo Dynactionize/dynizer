@@ -13,11 +13,11 @@ option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
         title: "Dynizer API";
         version: "2.0";
         contact: {
-            name: "Dynactionize NV";
-            url: "https://dynactionize.com";
-            email: "api-requests@dynactionize.com";
+            name: "Consono";
+            url: "https://www.consono.ai";
+            email: "support@dynactionize.com";
         };
-        description: "This is the [Dynizer API](https://api.dynizer.com)";
+        description: "This is the [Dynizer API](https://www.consono.ai/technology)";
         extensions: {
             key: "x-logo"
             value: {
@@ -25,7 +25,7 @@ option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
                     fields: {
                         key: "url";
                         value: {
-                            string_value: "https://vgd.dynizer.com/app/assets/img/dynizer.logo.svg";
+                            string_value: "https://www.consono.ai/company-logo/consono-logo-inverted.svg";
                         }
                     }
                     fields: {
@@ -37,20 +37,20 @@ option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
                     fields: {
                         key: "altText";
                         value: {
-                            string_value: "Dynizer, where all your data correlates.";
+                            string_value: "Consono Logo";
                         }
                     }
                     fields: {
                         key: "href";
                         value: {
-                            string_value: "https://www.dynizer.com";
+                            string_value: "https://www.consono.ai/technology";
                         }
                     }
                 }
             }
         }
     };
-    host: "api.dynizer.com";
+    host: "*.dynizer.com";
     base_path: "/";
     schemes: HTTPS;
     consumes: "application/json";
@@ -424,7 +424,7 @@ message ErrorArg {
     }
 }
 
-//ErrorResponse
+// ErrorResponse
 message ErrorResponse {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -477,86 +477,86 @@ message ErrorResponse {
     ];
 }
 
-//ComponentType
+// ComponentType
 enum ComponentType {
     InvalidComponentType = 0;
-    //subject data category
+    // subject data category
     Who = 1;
-    //object data category
+    // object data category
     What = 2;
-    //spatial data category
+    // spatial data category
     Where = 3;
-    //temporal data category
+    // temporal data category
     When = 4;
 }
 
-//DataType
+// DataType
 enum DataType {
     InvalidDataType = 0;
-    //Integer
+    // Integer
     DT_Integer = 1;
-    //String
+    // String
     DT_String = 2;
-    //Boolean
+    // Boolean
     DT_Boolean = 3;
-    //Decimal fixed
+    // Decimal fixed
     DT_Decimal = 4;
-    //Timestamp
+    // Timestamp
     DT_Timestamp = 5;
-    //URI
+    // URI
     DT_Uri = 6;
-    //VOID is a designated DataType to indicate no value
+    // VOID is a designated DataType to indicate no value
     DT_Void = 7;
-    //Float
+    // Float
     DT_Float = 8;
-    //UInt
+    // UInt
     DT_UnsignedInteger = 9;
-    //Byte Array
+    // Byte Array
     DT_Binary = 10;
-    //UUID
+    // UUID
     DT_Uuid = 11;
-    //FullTextIndex large object
+    // FullTextIndex large object
     DT_Text = 12;
-    //Binary large object
+    // Binary large object
     DT_Blob = 13;
-     //Character large object
+     // Character large object
     DT_Clob = 14;
-     //Document large object, stores/indexes document analysis output
+     // Document large object, stores/indexes document analysis output
     DT_Document = 15;
     // DT_Date = 16;
     // DT_Time = 17;
-    //special flag to indicate all DataTypes, to be used in AlternativeDataTypes for ActionLabels and MetaDataKeys
+    // special flag to indicate all DataTypes, to be used in AlternativeDataTypes for ActionLabels and MetaDataKeys
     DT_Any = 100000;
-    //special flag to indicate that the value is to be removed
+    // special flag to indicate that the value is to be removed
     DT_Delete = 100001;
 }
 
-//ObjectDataType
+// ObjectDataType
 enum ObjectDataType {
     InvalidObjectDataType = 0;
-    //object is of type TEXT, which can be indexed by the FullTextIndex
+    // object is of type TEXT, which can be indexed by the FullTextIndex
     ODT_Text = 12;
-    //object is of type binary
+    // object is of type binary
     ODT_Blob = 13;
-    //object is of type character
+    // object is of type character
     ODT_Clob = 14;
-    //object is of type character, indexed by FullTextIndex
+    // object is of type character, indexed by FullTextIndex
     ODT_Document = 15;
 }
 
-//SortOrder
+// SortOrder
 enum SortOrder {
     // order ascending
     Asc = 0;
-    //order descending
+    // order descending
     Desc = 1;
 }
 
-//OrderField
+// OrderField
 enum OrderField {
-    //order by created
+    // order by created
     Created = 0;
-    //order by name
+    // order by name
     Name = 1;
 }
 
@@ -606,7 +606,7 @@ enum DQLType {
 	DQL_Explain = 20;
 }
 
-//LoginRequest
+// LoginRequest
 message LoginReq {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -628,7 +628,7 @@ message LoginReq {
     ];
 }
 
-//ServiceLoginReq
+// ServiceLoginReq
 message ServiceLoginReq {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -643,7 +643,7 @@ message ServiceLoginReq {
     ];
 }
 
-//TokenRequest
+// TokenRequest
 message TokenReq {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -658,7 +658,7 @@ message TokenReq {
     ];
 }
 
-//AddUserRequest
+// AddUserRequest
 message AddUserReq {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -692,7 +692,7 @@ message AddUserReq {
     ];
 }
 
-//UserRoleRequest
+// UserRoleRequest
 message UserRoleReq {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -714,7 +714,7 @@ message UserRoleReq {
     ];
 }
 
-//UserRequest
+// UserRequest
 message UserReq {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -730,7 +730,7 @@ message UserReq {
     ];
 }
 
-//CheckPasswordReq
+// CheckPasswordReq
 message CheckPasswordReq {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -746,7 +746,7 @@ message CheckPasswordReq {
     ];
 }
 
-//WindowRequest
+// WindowRequest
 message WindowReq {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -761,7 +761,7 @@ message WindowReq {
     ];
 }
 
-//ListActionNamesWindowReq
+// ListActionNamesWindowReq
 message ListActionNamesWindowReq {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -795,7 +795,7 @@ message ListActionNamesWindowReq {
     ];
 }
 
-//SetUserPasswordRequest
+// SetUserPasswordRequest
 message SetUserPasswordReq {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -817,7 +817,7 @@ message SetUserPasswordReq {
     ];
 }
 
-//ChangePasswordRequest
+// ChangePasswordRequest
 message ChangePasswordReq {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -839,7 +839,7 @@ message ChangePasswordReq {
     ];
 }
 
-//CheckActionNameRequest
+// CheckActionNameRequest
 message CheckActionNameReq {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -855,7 +855,7 @@ message CheckActionNameReq {
     ];
 }
 
-//CreateActionRequest
+// CreateActionRequest
 message CreateActionReq {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -887,7 +887,7 @@ message ActionName {
     string name = 1;
 }
 
-//UpdateActionRequest
+// UpdateActionRequest
 message UpdateActionReq {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -909,7 +909,7 @@ message UpdateActionReq {
     ];
 }
 
-//DeleteActionReq
+// DeleteActionReq
 message DeleteActionReq {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -931,7 +931,7 @@ message DeleteActionReq {
     ];
 }
 
-//ActionRequest
+// ActionRequest
 message ActionReq {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -947,7 +947,7 @@ message ActionReq {
     ];
 }
 
-//ActionResponse
+// ActionResponse
 message ActionRes {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -963,7 +963,7 @@ message ActionRes {
     ];
 }
 
-//CreateActionTypeRequest
+// CreateActionTypeRequest
 message CreateActionTypeReq {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -989,7 +989,7 @@ message ActionTypeLabel {
     string label = 1;
 }
 
-//UpdateActionTypeRequest
+// UpdateActionTypeRequest
 message UpdateActionTypeReq {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -1011,7 +1011,7 @@ message UpdateActionTypeReq {
     ];
 }
 
-//DeleteActionTypeRequest
+// DeleteActionTypeRequest
 message DeleteActionTypeReq {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -1033,7 +1033,7 @@ message DeleteActionTypeReq {
     ];
 }
 
-//ActionTypeRequest
+// ActionTypeRequest
 message ActionTypeReq {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -1049,7 +1049,7 @@ message ActionTypeReq {
     ];
 }
 
-//ActionTypeResponse
+// ActionTypeResponse
 message ActionTypeRes {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -1071,7 +1071,7 @@ message ActionTypeRes {
     ];
 }
 
-//ActionTypeArrayRes
+// ActionTypeArrayRes
 message ActionTypeArrayRes {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -1095,7 +1095,7 @@ message ActionTypeArrayRes {
     ];
 }
 
-//EmptyRequest
+// EmptyRequest
 message EmptyReq {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -1104,7 +1104,7 @@ message EmptyReq {
     };
 }
 
-//CheckActionLabelNameRequest
+// CheckActionLabelNameRequest
 message CheckActionLabelNameReq {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -1126,7 +1126,7 @@ message CheckActionLabelNameReq {
     ];
 }
 
-//AddActionLabelRequest
+// AddActionLabelRequest
 message AddActionLabelReq {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -1194,7 +1194,7 @@ message AddActionLabelReq {
     ];
 }
 
-//UpdateActionLabelReq
+// UpdateActionLabelReq
 message UpdateActionLabelReq {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -1262,7 +1262,7 @@ message UpdateActionLabelReq {
     // ];
 }
 
-//ActionLabelRequest
+// ActionLabelRequest
 message ActionLabelReq {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -1284,7 +1284,7 @@ message ActionLabelReq {
     ];
 }
 
-//CreateObjectRequest
+// CreateObjectRequest
 message CreateObjectReq {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -1300,7 +1300,7 @@ message CreateObjectReq {
     ];
 }
 
-//ObjectResponse
+// ObjectResponse
 message ObjectRes {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -1316,7 +1316,7 @@ message ObjectRes {
     ];
 }
 
-//ClearObjectDataRequest
+// ClearObjectDataRequest
 message ClearObjectDataReq {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -1338,7 +1338,7 @@ message ClearObjectDataReq {
     ];
 }
 
-//DeleteObjectRequest
+// DeleteObjectRequest
 message DeleteObjectReq {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -1360,7 +1360,7 @@ message DeleteObjectReq {
     ];
 }
 
-//StreamObjectDataRequest
+// StreamObjectDataRequest
 message StreamObjectDataInReq {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -1382,7 +1382,7 @@ message StreamObjectDataInReq {
     ];
 }
 
-//ObjectDataOutRequest
+// ObjectDataOutRequest
 message StreamObjectDataOutReq {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -1404,7 +1404,7 @@ message StreamObjectDataOutReq {
     ];
 }
 
-//StreamObjectDataOutResponse
+// StreamObjectDataOutResponse
 message StreamObjectDataOutRes {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -1420,7 +1420,7 @@ message StreamObjectDataOutRes {
     ];
 }
 
-//DownloadObjectDataRequest
+// DownloadObjectDataRequest
 message DownloadObjectDataReq {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -1442,7 +1442,7 @@ message DownloadObjectDataReq {
     ];
 }
 
-//DownloadObjectDataResponse
+// DownloadObjectDataResponse
 message DownloadObjectDataRes {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -1459,7 +1459,7 @@ message DownloadObjectDataRes {
 
 }
 
-//UploadObjectDataRequest
+// UploadObjectDataRequest
 message UploadObjectDataReq {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -1510,7 +1510,7 @@ message ObjectUUIDArrayRes {
     ];
 }
 
-//CreateInstanceRequest
+// CreateInstanceRequest
 message CreateInstanceReq {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -1544,7 +1544,7 @@ message StreamInstanceReq {
     CreateInstanceReq instance = 2;
 }
 
-//UpdateInstanceRequest
+// UpdateInstanceRequest
 message UpdateInstanceReq {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -1565,7 +1565,7 @@ message UpdateInstanceReq {
     ];
 }
 
-//InstanceRequest
+// InstanceRequest
 message InstanceReq {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -1581,7 +1581,7 @@ message InstanceReq {
     ];
 }
 
-//ReadActionInstancesRequest
+// ReadActionInstancesRequest
 message ReadActionInstancesReq {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -1615,7 +1615,7 @@ message CountActionReq {
 }
 
 
-//DynizerQueryLanguageRequest
+// DynizerQueryLanguageRequest
 message DQLReq {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -1637,7 +1637,7 @@ message DQLReq {
     ];
 }
 
-//QueryResultRequest
+// QueryResultRequest
 message QueryResultReq {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -1659,7 +1659,7 @@ message QueryResultReq {
     ];
 }
 
-//CheckMetaDataKeyNameRequest
+// CheckMetaDataKeyNameRequest
 message CheckMetaDataKeyNameReq {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -1675,7 +1675,7 @@ message CheckMetaDataKeyNameReq {
     ];
 }
 
-//CreateMetaDataKeyRequest
+// CreateMetaDataKeyRequest
 message CreateMetaDataKeyReq {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -1711,7 +1711,7 @@ message CreateMetaDataKeyReq {
     ];
 }
 
-//DeactivateMetaDataKeyReq
+// DeactivateMetaDataKeyReq
 message DeactivateMetaDataKeyReq {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -1727,7 +1727,7 @@ message DeactivateMetaDataKeyReq {
     ];
 }
 
-//UpdateMetaDataKeyRequest
+// UpdateMetaDataKeyRequest
 message UpdateMetaDataKeyReq {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -1769,7 +1769,7 @@ message UpdateMetaDataKeyReq {
     ];
 }
 
-//MetaDataKeyRequest
+// MetaDataKeyRequest
 message MetaDataKeyReq {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -1785,7 +1785,7 @@ message MetaDataKeyReq {
     ];
 }
 
-//DeleteMetaDataKeyRequest
+// DeleteMetaDataKeyRequest
 message DeleteMetaDataKeyReq {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -1807,7 +1807,7 @@ message DeleteMetaDataKeyReq {
     ];
 }
 
-//ListMetaDataKeysRequest
+// ListMetaDataKeysRequest
 message ListMetaDataKeysReq {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -1823,7 +1823,7 @@ message ListMetaDataKeysReq {
     ];
 }
 
-//AddInstanceMetaDataRequest
+// AddInstanceMetaDataRequest
 message AddInstanceMetaDataReq {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -1856,7 +1856,7 @@ message AddInstanceMetaDataReq {
     ];
 }
 
-//AddInstanceMetaDataValueRequest
+// AddInstanceMetaDataValueRequest
 message AddInstanceMetaDataValueReq {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -1889,7 +1889,7 @@ message AddInstanceMetaDataValueReq {
     ];
 }
 
-//InstanceMetaDataKeyRequest
+// InstanceMetaDataKeyRequest
 message InstanceMetaDataKeyReq {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -1911,7 +1911,7 @@ message InstanceMetaDataKeyReq {
     ];
 }
 
-//InstanceMetaDataKeyValueRequest
+// InstanceMetaDataKeyValueRequest
 message InstanceMetaDataKeyValueReq {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -1946,7 +1946,7 @@ message InstanceMetaDataKeyValueReq {
 
 }
 
-//AddInstanceActionLabelMetaDataRequest
+// AddInstanceActionLabelMetaDataRequest
 message AddInstanceActionLabelMetaDataReq {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -1986,7 +1986,7 @@ message AddInstanceActionLabelMetaDataReq {
     ];
 }
 
-//InstanceActionLabelMetaDataKeyRequest
+// InstanceActionLabelMetaDataKeyRequest
 message InstanceActionLabelMetaDataKeyReq {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -2014,7 +2014,7 @@ message InstanceActionLabelMetaDataKeyReq {
     ];
 }
 
-//InstanceActionLabelMetaDataRequest
+// InstanceActionLabelMetaDataRequest
 message InstanceActionLabelMetaDataReq {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -2036,7 +2036,7 @@ message InstanceActionLabelMetaDataReq {
     ];
 }
 
-//AddInstanceCellMetaDataRequest
+// AddInstanceCellMetaDataRequest
 message AddInstanceCellMetaDataReq {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -2084,7 +2084,7 @@ message AddInstanceCellMetaDataReq {
     ];
 }
 
-//InstanceCellMetaDataKeyRequest
+// InstanceCellMetaDataKeyRequest
 message InstanceCellMetaDataKeyReq {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -2120,7 +2120,7 @@ message InstanceCellMetaDataKeyReq {
     ];
 }
 
-//InstanceCellMetaDataRequest
+// InstanceCellMetaDataRequest
 message InstanceCellMetaDataReq {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -2149,7 +2149,7 @@ message InstanceCellMetaDataReq {
     ];
 }
 
-//StatsMetaDataKeyUsageRequest
+// StatsMetaDataKeyUsageRequest
 message StatsMetaDataKeyUsageReq {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -2165,7 +2165,7 @@ message StatsMetaDataKeyUsageReq {
     ];
 }
 
-//StatsMetaDataKeyValueUsageRequest
+// StatsMetaDataKeyValueUsageRequest
 message StatsMetaDataKeyValueUsageReq {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -2193,7 +2193,7 @@ message StatsMetaDataKeyValueUsageReq {
     ];
 }
 
-//ListMetaDataKeyLinksRequest
+// ListMetaDataKeyLinksRequest
 message ListMetaDataKeyLinksReq {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -2215,7 +2215,7 @@ message ListMetaDataKeyLinksReq {
     ];
 }
 
-//AddInstanceActionLabelMetaDataValueRequest
+// AddInstanceActionLabelMetaDataValueRequest
 message AddInstanceActionLabelMetaDataValueReq {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -2255,7 +2255,7 @@ message AddInstanceActionLabelMetaDataValueReq {
     ];
 }
 
-//InstanceActionLabelMetaDataValueRequest
+// InstanceActionLabelMetaDataValueRequest
 message InstanceActionLabelMetaDataValueReq {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -2295,7 +2295,7 @@ message InstanceActionLabelMetaDataValueReq {
     ];
 }
 
-//InstanceCellMetaDataKeyValueRequest
+// InstanceCellMetaDataKeyValueRequest
 message InstanceCellMetaDataKeyValueReq {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -2343,7 +2343,7 @@ message InstanceCellMetaDataKeyValueReq {
     ];
 }
 
-//AddInstanceCellMetaDataValueRequest
+// AddInstanceCellMetaDataValueRequest
 message AddInstanceCellMetaDataValueReq {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -2412,7 +2412,7 @@ message MetaDataValue {
     ];
 }
 
-//InstanceElement
+// InstanceElement
 message InstanceElement {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -2446,7 +2446,7 @@ message InstanceElement {
     ];
 }
 
-//ValueSpec
+// ValueSpec
 message ValueSpec {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -2472,7 +2472,7 @@ message ValueSpec {
 
 }
 
-//InstanceElementMetaData
+// InstanceElementMetaData
 message InstanceElementMetaData {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -2496,7 +2496,7 @@ message InstanceElementMetaData {
     ];
 }
 
-//MetaDataKeyValue
+// MetaDataKeyValue
 message MetaDataKeyValue {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -2529,7 +2529,7 @@ message MetaDataKeyValue {
     ];
 }
 
-//DataTypeFormat
+// DataTypeFormat
 message DataTypeFormat {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -2550,7 +2550,7 @@ message DataTypeFormat {
     ];
 }
 
-//InstanceUpdateElementCell
+// InstanceUpdateElementCell
 message InstanceUpdateElementCell {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -2586,7 +2586,7 @@ message InstanceUpdateElementCell {
     ];
 }
 
-//EmptyResponse
+// EmptyResponse
 message EmptyRes {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -2595,7 +2595,7 @@ message EmptyRes {
     };
 }
 
-//LoginResponse
+// LoginResponse
 message LoginRes {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -2617,7 +2617,7 @@ message LoginRes {
     ];
 }
 
-//ServiceTokenResponse
+// ServiceTokenResponse
 message ServiceTokenRes  {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -2633,7 +2633,7 @@ message ServiceTokenRes  {
     ];
 }
 
-//UserResponse
+// UserResponse
 message UserRes {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -2649,7 +2649,7 @@ message UserRes {
     ];
 }
 
-//ListUsersResponse
+// ListUsersResponse
 message ListUsersRes {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -2673,7 +2673,7 @@ message ListUsersRes {
     ];
 }
 
-//ActionNameArrayResponse
+// ActionNameArrayResponse
 message ActionNameArrayRes {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -2697,7 +2697,7 @@ message ActionNameArrayRes {
     ];
 }
 
-//LabelResponse
+// LabelResponse
 message LabelRes {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -2719,7 +2719,7 @@ message LabelRes {
     ];
 }
 
-//InstanceIDResponse
+// InstanceIDResponse
 message InstanceIDRes {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -2741,7 +2741,7 @@ message StreamInstanceIDRes {
     ErrorResponse error = 3;
 }
 
-//InstanceRes response which returns one Action Instance row
+// InstanceRes response which returns one Action Instance row
 message InstanceRes {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -2774,7 +2774,7 @@ message InstanceRes {
     ];
 }
 
-//ActionInstanceResponse
+// ActionInstanceResponse
 message ActionInstanceRes {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -2802,7 +2802,7 @@ message ActionInstanceRes {
     ];
 }
 
-//CountResponse
+// CountResponse
 message CountRes {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -2820,7 +2820,7 @@ message CountRes {
     ];
 }
 
-//User Count Response
+// User Count Response
 message UserCountRes {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -2854,7 +2854,7 @@ message UserCountRes {
     ];
 }
 
-//DynizerQueryResponse
+// DynizerQueryResponse
 message DQLRes {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -2883,7 +2883,7 @@ message DQLRes {
     }
 }
 
-//ListRolesResponse
+// ListRolesResponse
 message ListRolesRes {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -2907,7 +2907,7 @@ message ListRolesRes {
     ];
 }
 
-//ListUserRolesResponse
+// ListUserRolesResponse
 message ListUserRolesRes {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -2931,7 +2931,7 @@ message ListUserRolesRes {
     ];
 }
 
-//ReadActionInstancesResponse
+// ReadActionInstancesResponse
 message ReadActionInstancesRes {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -2967,7 +2967,7 @@ message ReadActionInstancesRes {
     ];
 }
 
-//MetaDataKeyResponse
+// MetaDataKeyResponse
 message MetaDataKeyRes {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -2983,7 +2983,7 @@ message MetaDataKeyRes {
     ];
 }
 
-//MetaDataKeyArrayResponse
+// MetaDataKeyArrayResponse
 message MetaDataKeyArrayRes {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -3007,7 +3007,7 @@ message MetaDataKeyArrayRes {
     ];
 }
 
-//ListInstanceMetaDataResponse
+// ListInstanceMetaDataResponse
 message ListInstanceMetaDataRes {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -3037,7 +3037,7 @@ message ListInstanceMetaDataRes {
     ];
 }
 
-//GetInstanceMetaDataKeyResponse
+// GetInstanceMetaDataKeyResponse
 message GetInstanceMetaDataKeyRes {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -3059,7 +3059,7 @@ message GetInstanceMetaDataKeyRes {
     ];
 }
 
-//ListInstanceCellMetaDataRes
+// ListInstanceCellMetaDataRes
 message ListInstanceCellMetaDataRes {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -3103,7 +3103,7 @@ message ListInstanceCellMetaDataRes {
     ];
 }
 
-//GetInstanceCellMetaDataKeyResponse
+// GetInstanceCellMetaDataKeyResponse
 message GetInstanceCellMetaDataKeyRes {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -3139,7 +3139,7 @@ message GetInstanceCellMetaDataKeyRes {
     ];
 }
 
-//StatsMetaUsageResponse
+// StatsMetaUsageResponse
 message StatsMetaUsageRes {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -3202,7 +3202,7 @@ message CheckPasswordRes {
     ];
 }
 
-//DynizerRole
+// DynizerRole
 message DynizerRole {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -3218,7 +3218,7 @@ message DynizerRole {
     ];
 }
 
-//User
+// User
 message User {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -3245,7 +3245,7 @@ message User {
     ];
 }
 
-//DDLResult
+// DDLResult
 message DDLResult {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -3254,7 +3254,7 @@ message DDLResult {
     };
 }
 
-//SelectDQLResult
+// SelectDQLResult
 message SelectDQLResult {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -3283,7 +3283,7 @@ message SelectDQLResult {
     ];
 }
 
-//ResultLabel
+// ResultLabel
 message ResultLabel {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -3324,7 +3324,7 @@ message ResultLabel {
     ];
 }
 
-//ResultLabelWithOverride
+// ResultLabelWithOverride
 message ResultLabelWithOverride {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -3371,7 +3371,7 @@ message ResultLabelWithOverride {
     ];
 }
 
-//ResultValueAlternativeMetaDataPosition
+// ResultValueAlternativeMetaDataPosition
 message ResultValueAlternativeMetaDataPosition {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -3402,7 +3402,7 @@ message ResultValueAlternativeMetaDataPosition {
     ];
 }
 
-//ResultRow
+// ResultRow
 message ResultRow {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -3417,7 +3417,7 @@ message ResultRow {
     ];
 }
 
-//ActionInstanceRecord
+// ActionInstanceRecord
 message ActionInstanceRecord {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -3438,7 +3438,7 @@ message ActionInstanceRecord {
     ];
 }
 
-//Action
+// Action
 message Action {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -3458,7 +3458,7 @@ message Action {
     ];
 }
 
-//ObjectReference
+// ObjectReference
 message ObjectRef {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -3479,7 +3479,7 @@ message ObjectRef {
     ];
 }
 
-//ActionLabel
+// ActionLabel
 message ActionLabel {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -3535,7 +3535,7 @@ message ActionLabel {
     ];
 }
 
-//MetaDataKey
+// MetaDataKey
 message MetaDataKey {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -3571,7 +3571,7 @@ message MetaDataKey {
     ];
 }
 
-//MetaDataOut
+// MetaDataOut
 message MetaDataOut {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -3586,7 +3586,7 @@ message MetaDataOut {
     ];
 }
 
-//MetaDataRecord
+// MetaDataRecord
 message MetaDataRecord {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -3613,7 +3613,7 @@ message MetaDataRecord {
     ];
 }
 
-//Window
+// Window
 message Window {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -3679,7 +3679,7 @@ message DQLParam {
   ];
 }
 
-//SessionID
+// SessionID
 message SessionID {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -3695,7 +3695,7 @@ message SessionID {
     ];
 }
 
-//ConfigKV
+// ConfigKV
 message ConfigKV {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -3726,7 +3726,7 @@ message ConfigKV {
     }
 }
 
-//GetDynizerConfigurationResponse
+// GetDynizerConfigurationResponse
 message GetDynizerConfigurationRes {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -3742,7 +3742,7 @@ message GetDynizerConfigurationRes {
     ];
 }
 
-//ExportUserActionsRequest
+// ExportUserActionsRequest
 message ExportUserActionsReq {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -3757,7 +3757,7 @@ message ExportUserActionsReq {
     ];
 }
 
-//ExportUserActionsResponse
+// ExportUserActionsResponse
 message ExportUserActionsRes {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -3773,7 +3773,7 @@ message ExportUserActionsRes {
     ];
 }
 
-//ImportUserActionsRequest
+// ImportUserActionsRequest
 message ImportUserActionsReq {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -3795,7 +3795,7 @@ message ImportUserActionsReq {
     ];
 }
 
-//ActionLabelSelector
+// ActionLabelSelector
 message ActionLabelSelector {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -3816,7 +3816,7 @@ message ActionLabelSelector {
     ];
 }
 
-//GetVersionResponse
+// GetVersionResponse
 message VersionRes {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -4708,7 +4708,7 @@ message DQLParamDescription {
   ];
 }
 
-//FindActionLabelLinksRequest
+// FindActionLabelLinksRequest
 message FindActionLabelLinksReq {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
@@ -4806,10 +4806,10 @@ message ActionLabelLink {
 
 service Dynizer {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_tag) = {
-        description: "SERVICE DESC"
+        description: "SERVICE RPC"
     };
 
-    //Login
+    // Login
     rpc Login(LoginReq) returns(LoginRes) {
         option (google.api.http) = {
             post: "/api/v2/login"
@@ -4819,11 +4819,11 @@ service Dynizer {
             operation_id: "Login";
             tags: ["Auth"]
             security: {}
-            description: "To Login to the Dynizer using a password.<br>If the user has access, a [Json Web Token](https://jwt.io/) [(RFC 7519)](https://tools.ietf.org/html/rfc7519) will be rturned."
+            description: "To Login to the Dynizer using a password.<br>If the user has access, a [Json Web Token](https://jwt.io/) [(RFC 7519)](https://tools.ietf.org/html/rfc7519) will be returned."
         };
     }
 
-    //Service Login
+    // Service Login
     rpc ServiceLogin(ServiceLoginReq) returns(LoginRes) {
         option (google.api.http) = {
             post: "/api/v2/servicelogin"
@@ -4833,11 +4833,11 @@ service Dynizer {
             operation_id: "ServiceLogin";
             tags: ["Auth", "Service"]
             security: {}
-            description: "To Login to the Dynizer using a service token.<br>If the service-token is valid and the associated user has access, a [Json Web Token](https://jwt.io/) [(RFC 7519)](https://tools.ietf.org/html/rfc7519) will be rturned."
+            description: "To Login to the Dynizer using a service token.<br>If the service-token is valid and the associated user has access, a [Json Web Token](https://jwt.io/) [(RFC 7519)](https://tools.ietf.org/html/rfc7519) will be returned."
         };
     }
 
-    //Logout
+    // Logout
     rpc Logout(EmptyReq) returns(EmptyRes) {
         option (google.api.http) = {
             get: "/api/v2/logout"
@@ -4849,7 +4849,7 @@ service Dynizer {
         };
     }
 
-    //Validate Token
+    // Validate Token
     rpc ValidateToken(TokenReq) returns(SessionID) {
         option (google.api.http) = {
             get: "/api/v2/jwt/{token}/validate"
@@ -4862,7 +4862,7 @@ service Dynizer {
         };
     }
 
-    //Issue ServiceToken
+    // Issue ServiceToken
     rpc IssueServiceToken(EmptyReq) returns(ServiceTokenRes) {
         option (google.api.http) = {
             get: "/api/v2/servicetoken/issue"
@@ -4870,12 +4870,12 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "IssueServiceToken";
             tags: ["Auth", "Service"]
-            description: "Issues a service token for the current;y authenticated and authorized user."
+            description: "Issues a service token for the currently authenticated and authorized user."
             security: {}
         };
     }
 
-    //List Roles
+    // List Roles
     rpc ListRoles(EmptyReq) returns(ListRolesRes) {
         option (google.api.http) = {
             get: "/api/v2/roles"
@@ -4887,7 +4887,7 @@ service Dynizer {
         };
     }
 
-    //Add User
+    // Add User
     rpc AddUser(AddUserReq) returns(EmptyRes) {
         option (google.api.http) = {
             post: "/api/v2/users"
@@ -4900,7 +4900,7 @@ service Dynizer {
         };
     }
 
-    //Assign User Role
+    // Assign User Role
     rpc AssignUserRole(UserRoleReq) returns(EmptyRes) {
         option (google.api.http) = {
             post: "/api/v2/users/{user}/roles"
@@ -4913,7 +4913,7 @@ service Dynizer {
         };
     }
 
-    //Revoke User Role
+    // Revoke User Role
     rpc RevokeUserRole(UserRoleReq) returns(EmptyRes) {
         option (google.api.http) = {
             delete: "/api/v2/users/{user}/roles/{role.name}"
@@ -4925,7 +4925,7 @@ service Dynizer {
         };
     }
 
-    //Enable User
+    // Enable User
     rpc EnableUser(UserReq) returns(EmptyRes) {
         option (google.api.http) = {
             patch: "/api/v2/users/{user}/enable"
@@ -4937,7 +4937,7 @@ service Dynizer {
         };
     }
 
-    //Disable User
+    // Disable User
     rpc DisableUser(UserReq) returns(EmptyRes) {
         option (google.api.http) = {
             patch: "/api/v2/users/{user}/disable"
@@ -4949,7 +4949,7 @@ service Dynizer {
         };
     }
 
-    //Set User Password
+    // Set User Password
     rpc SetUserPassword(SetUserPasswordReq) returns(EmptyRes) {
         option (google.api.http) = {
             put: "/api/v2/users/{user}/password"
@@ -4962,7 +4962,7 @@ service Dynizer {
         };
     }
 
-    //Change My Password
+    // Change My Password
     rpc ChangeMyPassword(ChangePasswordReq) returns(EmptyRes) {
         option (google.api.http) = {
             put: "/api/v2/my/password"
@@ -4975,7 +4975,7 @@ service Dynizer {
         };
     }
 
-    //Get User
+    // Get User
     rpc GetUser(UserReq) returns(UserRes) {
         option (google.api.http) = {
             get: "/api/v2/users/{user}"
@@ -4983,11 +4983,11 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "GetUser";
             tags: ["Users"]
-            description: "Get the user information.<br>All assigned roles and the current state are returned.<br>It requires the current password for added security."
+            description: "Get the user information.<br>All assigned roles and the current state are returned."
         };
     }
 
-    //Get My Profile
+    // Get My Profile
     rpc GetMyProfile(EmptyReq) returns(UserRes) {
         option (google.api.http) = {
             get: "/api/v2/my/profile"
@@ -4999,7 +4999,7 @@ service Dynizer {
         };
     }
 
-    //Delete User
+    // Delete User
     rpc DeleteUser(UserReq) returns(EmptyRes) {
         option (google.api.http) = {
             delete: "/api/v2/users/{user}"
@@ -5007,11 +5007,11 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "DeleteUser";
             tags: ["Users"]
-            description: "Removes a user completly form the Dynizer.<br>This can not be undone.<br>It requires the current password for added security."
+            description: "Removes a user from the Dynizer.<br>This can not be undone."
         };
     }
 
-    //Get User Count
+    // Get User Count
     rpc GetUserCount(EmptyReq) returns(UserCountRes) {
         option (google.api.http) = {
             get: "/api/v2/users/all/count"
@@ -5019,11 +5019,11 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "GetUserCount";
             tags: ["Users"]
-            description: "Returns the total number of users.<br>Additional an individual count for enabled and disabled users will be returned as well.<br>It requires the current password for added security."
+            description: "Returns the total number of users.<br>Additional an individual count for enabled and disabled users will be returned as well."
         };
     }
 
-    //List Users
+    // List Users
     rpc ListUsers(WindowReq) returns(ListUsersRes) {
         option (google.api.http) = {
             get: "/api/v2/users"
@@ -5031,11 +5031,11 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "ListUsers";
             tags: ["Users"]
-            description: "Returns all users from the Dynizer.<br>Optionally a window can be provided to fetch just a specific sub-set of the users to support pageing.<br>It requires the current password for added security."
+            description: "Returns all users from the Dynizer.<br>Optionally a window can be provided to fetch just a specific sub-set of the users to support pagination."
         };
     }
 
-    //List User Roles
+    // List User Roles
     rpc ListUserRoles(UserReq) returns(ListUserRolesRes) {
         option (google.api.http) = {
             get: "/api/v2/users/{user}/roles"
@@ -5043,11 +5043,11 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "ListUserRoles";
             tags: ["Users"]
-            description: "Returnes all roles which are assigned to a user.<br>It requires the current password for added security."
+            description: "Returnes all roles which are assigned to a user."
         };
     }
 
-    //Get My Roles
+    // Get My Roles
     rpc GetMyRoles(EmptyReq) returns(ListUserRolesRes) {
         option (google.api.http) = {
             get: "/api/v2/my/roles"
@@ -5055,11 +5055,11 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "GetMyRoles";
             tags: ["Users"]
-            description: "Returns the current logged on users roles."
+            description: "Returns the current logged on user's roles."
         };
     }
 
-    //Check User Name
+    // Check User Name
     rpc CheckUserName(UserReq) returns(EmptyRes) {
         option (google.api.http) = {
             get: "/api/v2/check/user/{user}"
@@ -5071,7 +5071,7 @@ service Dynizer {
         };
     }
 
-    //Check Password
+    // Check Password
     rpc CheckPassword(CheckPasswordReq) returns(CheckPasswordRes) {
         option (google.api.http) = {
             post: "/api/v2/check/password"
@@ -5084,7 +5084,7 @@ service Dynizer {
         };
     }
 
-    //Create ActionType
+    // Create ActionType
     rpc CreateActionType(CreateActionTypeReq) returns(EmptyRes) {
         option (google.api.http) = {
             post: "/api/v2/actiontypes"
@@ -5093,11 +5093,11 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "CreateActionType";
             tags: ["ActionTypes"]
-            description: "Creates a new **ActionType**"
+            description: "Creates a new **ActionType**."
         };
     }
 
-    //Update ActionType
+    // Update ActionType
     rpc UpdateActionType(UpdateActionTypeReq) returns(EmptyRes) {
         option (google.api.http) = {
             patch: "/api/v2/actiontypes/{action_type_label}"
@@ -5110,7 +5110,7 @@ service Dynizer {
         };
     }
 
-    //Delete ActionType
+    // Delete ActionType
     // rpc DeleteActionType(DeleteActionTypeReq) returns(EmptyRes) {
     //     option (google.api.http) = {
     //         delete: "/api/v2/actiontypes/{action_type_label}"
@@ -5122,7 +5122,7 @@ service Dynizer {
     //     };
     // }
 
-    //Read ActionType
+    // Read ActionType
     rpc ReadActionType(ActionTypeReq) returns(ActionTypeRes) {
         option (google.api.http) = {
             get: "/api/v2/actiontypes/{action_type_label}"
@@ -5130,11 +5130,11 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "ReadActionType";
             tags: ["ActionTypes"]
-            description: "Reads an **ActionType** definition with all **ActionLabels**"
+            description: "Reads an **ActionType** definition with all **ActionLabels**."
         };
     }
 
-    //List Action Types
+    // List Action Types
     rpc ListActionTypes(WindowReq) returns(ActionTypeArrayRes) {
         option (google.api.http) = {
             get: "/api/v2/actiontypes"
@@ -5142,11 +5142,11 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "ListActionTypes";
             tags: ["ActionTypes"]
-            description:"Returns a list of **ActionTypes**.<br>Providing the optional window, paging is supported."
+            description:"Returns a list of **ActionTypes**.<br>Providing the optional window for pagination is supported."
         };
     }
 
-    //Check Action Name
+    // Check Action Name
     rpc CheckActionName(CheckActionNameReq) returns(EmptyRes) {
         option (google.api.http) = {
             get: "/api/v2/check/actions/{action_name}"
@@ -5180,7 +5180,7 @@ service Dynizer {
         };
     }
 
-    //Create Action
+    // Create Action
     rpc CreateAction(CreateActionReq) returns(EmptyRes) {
         option (google.api.http) = {
             post: "/api/v2/actions"
@@ -5189,7 +5189,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "CreateAction";
             tags: ["Actions"]
-            description: "Creates a **Action** with the provided name.<br>The name needs to be unqiue, the CheckActionName call can be used to verify.<br>The name can not start or end with a whitespace character.<br>The name can not contain any control characters at any position."
+            description: "Creates an **Action** with the provided name.<br>The name needs to be unqiue, the CheckActionName call can be used to verify this.<br>The name can not start or end with a whitespace character.<br>The name can not contain any control characters at any position."
             responses: {
                 key: "409";
                 value: {
@@ -5215,7 +5215,7 @@ service Dynizer {
         };
     }
 
-    //Update Action
+    // Update Action
     rpc UpdateAction(UpdateActionReq) returns(EmptyRes) {
         option (google.api.http) = {
             patch: "/api/v2/actions/{action_name}"
@@ -5224,11 +5224,11 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "UpdateAction";
             tags: ["Actions"]
-            description: "Updates a **Action**, at the moment this is only the name.<br>The new_name needs to be unqiue.<br>The *new_name* can not start or end with a whitespace character.<br>The *new_name* can not contain any control characters at any position"
+            description: "Updates an **Action**, at the moment this is only the name.<br>The new_name needs to be unqiue.<br>The *new_name* can not start or end with a whitespace character.<br>The *new_name* can not contain any control characters at any position"
         };
     }
 
-    //Delete Action
+    // Delete Action
     rpc DeleteAction(DeleteActionReq) returns(EmptyRes) {
         option (google.api.http) = {
             delete: "/api/v2/actions/{action_name}"
@@ -5236,11 +5236,11 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "DeleteAction";
             tags: ["Actions"]
-            description: "A **Action** can only be deleted if no **Instances** are attached.<br>If the **Action** has **Instances** attached and *cascade* is not set to *true* and Error will be returned.<br>The *cascade* flag can be used to mark the **Action** and all its **Instances** as deleted."
+            description: "An **Action** can only be deleted if no **Instances** are attached.<br>If the **Action** has **Instances** attached and *cascade* is not set to *true* an error is returned.<br>The *cascade* flag can be used to mark the **Action** and all its **Instances** as deleted."
         };
     }
 
-    //Read Action
+    // Read Action
     rpc ReadAction(ActionReq) returns(ActionRes) {
         option (google.api.http) = {
             get: "/api/v2/actions/{action_name}"
@@ -5248,11 +5248,11 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "ReadAction";
             tags: ["Actions"]
-            description: "Reads an **Action** definition with all **ActionLabels**"
+            description: "Reads an **Action** definition with all **ActionLabels**."
         };
     }
 
-    //Count Actions
+    // Count Actions
     rpc CountActions(CountActionReq) returns(CountRes) {
         option (google.api.http) = {
             get: "/api/v2/actions/types/{action_type_label}/count"
@@ -5260,11 +5260,11 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "CountActions";
             tags: ["Actions"]
-            description: "Returns the total number of **Actions**"
+            description: "Returns the total number of **Actions**."
         };
     }
 
-    //List Action Names
+    // List Action Names
     rpc ListActionNames(ListActionNamesWindowReq) returns(ActionNameArrayRes) {
         option (google.api.http) = {
             get: "/api/v2/actions/types/{action_type_label}/names/all"
@@ -5272,11 +5272,11 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "ListActionNames";
             tags: ["Actions"]
-            description:"Returns a list of **Action** names.<br>Providing the optional window, paging is supported."
+            description:"Returns a list of **Action** names.<br>Providing the optional window for pagination is supported."
         };
     }
 
-    //Check ActionLabel Name
+    // Check ActionLabel Name
     rpc CheckActionLabelName(CheckActionLabelNameReq) returns(EmptyRes) {
         option (google.api.http) = {
             get: "/api/v2/check/actions/{action_name}/actionlabels/{action_label}"
@@ -5284,11 +5284,11 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "CheckActionLabelName";
             tags: ["Actions"]
-            description: "Checks a string if it can be used as an **ActionLabel** name."
+            description: "Checks if a string can be used as an **ActionLabel** name."
         };
     }
 
-    //Add ActionLabel
+    // Add ActionLabel
     rpc AddActionLabel(AddActionLabelReq) returns(EmptyRes) {
         option (google.api.http) = {
             post: "/api/v2/actions/{action_name}/actionlabels"
@@ -5301,7 +5301,7 @@ service Dynizer {
         };
     }
 
-    //Update ActionLabel
+    // Update ActionLabel
     rpc UpdateActionLabel(UpdateActionLabelReq) returns(EmptyRes) {
         option (google.api.http) = {
             put: "/api/v2/actions/{action_name}/actionlabels/{action_label}"
@@ -5310,11 +5310,11 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "UpdateActionLabel";
             tags: ["Actions"]
-            description: "Updates a **ActionLabel** for an **Action**.<br>If the *cascade* flag is set to true, all **Instances** for the **Action** which would violate the **ActionLabel** defition, will get marked as deleted."
+            description: "Updates an **ActionLabel** for an **Action**.<br>If the *cascade* flag is set to true, all **Instances** for the **Action** which would violate the **ActionLabel** definition will get marked as deleted."
         };
     }
 
-    //Delete ActionLabel
+    // Delete ActionLabel
     rpc DeleteActionLabel(ActionLabelReq) returns(EmptyRes) {
         option (google.api.http) = {
             delete: "/api/v2/actions/{action_name}/actionlabels/{action_label}"
@@ -5322,11 +5322,11 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "DeleteActionLabel";
             tags: ["Actions"]
-            description: "Delete a **UserLabel**, will prevent any new **Instances** with this **ActionLabel** can be created.<br>Already created **Instances** will not be affected."
+            description: "Delete an **ActionLabel**. This will prevent any new **Instances** with the **ActionLabel** to be created.<br>Existing values from already created **Instances** will be removed."
         };
     }
 
-    //Read ActionLabel
+    // Read ActionLabel
     rpc ReadActionLabel(ActionLabelReq) returns(LabelRes) {
         option (google.api.http) = {
             get: "/api/v2/actions/{action_name}/actionlabels/{action_label}"
@@ -5334,11 +5334,11 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "ReadActionLabel";
             tags: ["Actions"]
-            description: "Reads an **ActionLabel** definition"
+            description: "Reads an **ActionLabel** definition."
         };
     }
 
-    //Create Object
+    // Create Object
     rpc CreateObject(CreateObjectReq) returns(ObjectRes) {
         option (google.api.http) = {
             post: "/api/v2/objects"
@@ -5347,11 +5347,11 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "CreateObject";
             tags: ["Objects"]
-            description: "creates a reference uri value in the Dynizer which is needed to upload a large value of type *TEXT*, *CLOB*, or *BLOB*.<br>*TEXT* is the DataType which will get indexed by the **FullTextIndex** if enabled.<br>*CLOB* is a charatecr LOB, unindexed large string<br>*BLOB* is a binary LOB, unindexed bytes"
+            description: "Creates a reference URI value in the Dynizer which is needed to upload a large value of type *TEXT*, *CLOB*, *BLOB* or *DOCUMENT*.<br>*TEXT* is the DataType which will get indexed by the **FullTextIndex** if enabled.<br>*CLOB* is a charatecr LOB, unindexed large string<br>*BLOB* is a binary LOB, unindexed bytes<br>*DOCUMENT* is the JSON structured output of document analysis."
         };
     }
 
-    //Clear Object Data
+    // Clear Object Data
     rpc ClearObjectData(ClearObjectDataReq) returns(EmptyRes) {
         option (google.api.http) = {
             patch: "/api/v2/objects/{type}/{ref_uuid}"
@@ -5359,11 +5359,11 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "ClearObjectData";
             tags: ["Objects"]
-            description: "This clears the content of the referenced large object block"
+            description: "This clears the content of the referenced large object block."
         };
     }
 
-    //Delete Object
+    // Delete Object
     rpc DeleteObject(DeleteObjectReq) returns(EmptyRes) {
         option (google.api.http) = {
             delete: "/api/v2/objects/{type}/{ref_uuid}"
@@ -5371,14 +5371,16 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "DeleteObject";
             tags: ["Objects"]
-            description: "This deletes the referenced large object block"
+            description: "This deletes the referenced large object block."
         };
     }
 
-    //Stream Object Data IN
+    // Stream Object Data IN
+    // gRPC only
     rpc StreamObjectDataIn(stream StreamObjectDataInReq) returns(EmptyRes) {}
 
-    //Stream Object Data OUT
+    // Stream Object Data OUT
+    // gRPC only
     rpc StreamObjectDataOut(StreamObjectDataOutReq) returns(stream StreamObjectDataOutRes) {}
 
 
@@ -5391,11 +5393,11 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "UploadObjectData";
             tags: ["Objects"]
-            description: "This allows for streaming in a large object block"
+            description: "Uploads data to a large object block."
         };
     }
 
-    //Download Object Data
+    // Download Object Data
     rpc DownloadObjectData(DownloadObjectDataReq) returns(DownloadObjectDataRes) {
         option (google.api.http) = {
             get: "/api/v2/objects/{type}/{ref_uuid}"
@@ -5403,11 +5405,11 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "DownloadObjectData";
             tags: ["Objects"]
-            description: "This allows to get the object download url";
+            description: "Downloads data from a large object block.";
         };
     }
 
-    //List Object UUIDs
+    // List Object UUIDs
     rpc ListObjectUUIDS(EmptyReq) returns(ObjectUUIDArrayRes) {
         option (google.api.http) = {
             get: "/api/v2/objects"
@@ -5419,7 +5421,7 @@ service Dynizer {
         };
     }
 
-    //Delete all Objects
+    // Delete all Objects
     rpc DeleteAllObjects(EmptyReq) returns(EmptyRes){
         option (google.api.http) = {
             delete: "/api/v2/objects"
@@ -5427,11 +5429,11 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "DeleteAllObjects";
             tags: ["Objects"]
-            description: "This deletes all large object blocks"
+            description: "Deletes all large object blocks."
         };
     }
 
-    //Create Instance
+    // Create Instance
     rpc CreateInstance(CreateInstanceReq) returns(InstanceIDRes) {
         option (google.api.http) = {
             post: "/api/v2/instances"
@@ -5440,13 +5442,13 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "CreateInstance";
             tags: ["Instances"]
-            description: "This can be used to create a new **Instance** with values.<br>Each used **ActionLabel** can support as many values as defined.<br>For each value the **DataType** can be overwritten from the **ActionLabel** default.<br>In addition is it also possible to add MetaData on all levels.",
+            description: "Creates a new **Instance** with values.<br>Each used **ActionLabel** can support as many values as supported in the definition.<br>For each value the **DataType** can be overwritten from the **ActionLabel** default.<br>In addition is it also possible to add MetaData on all levels (experimental).",
         };
     }
 
     rpc StreamInstances(stream StreamInstanceReq) returns(stream StreamInstanceIDRes);
 
-    //Update Instance
+    // Update Instance
     rpc UpdateInstance(UpdateInstanceReq) returns(EmptyRes) {
         option (google.api.http) = {
             patch: "/api/v2/instances/{instance_id}"
@@ -5455,11 +5457,11 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "UpdateInstance";
             tags: ["Instances"]
-            description: "This can be used to update an existing **Instance** with values.<br>Only the changed values need to be provided.<br>A special array with the **ActionLabels** to be removed can be provided.<br>Each used **ActionLabel** can support as many values as defined.<br>For each value the **DataType** can be overwritten from the **ActionLabel** default.<br>In addition is it also possible to add MetaData on all levels.",
+            description: "Updates an existing **Instance** with values.<br>Only the changed values need to be provided.<br>To remove a value, set the **ActionLabel** datatype to *DT_Delete*.<br>Each used **ActionLabel** can support as many values as supported in the definition.<br>For each value the **DataType** can be overwritten from the **ActionLabel** default.<br>In addition is it also possible to add MetaData on all levels (experimental).",
         };
     }
 
-    //Delete Instance
+    // Delete Instance
     rpc DeleteInstance(InstanceReq) returns(EmptyRes) {
         option (google.api.http) = {
             delete: "/api/v2/instances/{instance_id}"
@@ -5467,11 +5469,11 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "DeleteInstance";
             tags: ["Instances"]
-            description: "Delete an existing **Instance** will just mark it as deleted, but not remove it from the persistance layer.",
+            description: "Delete an existing **Instance**. It will only be marked as deleted, but not removed from the persistance layer.",
         };
     }
 
-    //Read Instance
+    // Read Instance
     rpc ReadInstance(InstanceReq) returns(InstanceRes) {
         option (google.api.http) = {
             get: "/api/v2/instances/{instance_id}"
@@ -5483,19 +5485,7 @@ service Dynizer {
         };
     }
 
-    //Read Action Instances
-    rpc ReadActionInstances(ReadActionInstancesReq) returns(ReadActionInstancesRes) {
-        option (google.api.http) = {
-            get: "/api/v2/actions/{action_name}/instances"
-        };
-        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-            operation_id: "ReadActionInstances";
-            tags: ["Actions"]
-            description: "Reads all **Instances** for an **Action**.<br>With the optional window pageing is supported."
-        };
-    }
-
-    //Dynizer Query
+    // Dynizer Query
     rpc DynizerQuery(DQLReq) returns(DQLRes) {
         option (google.api.http) = {
             post: "/api/v2/query"
@@ -5504,11 +5494,11 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "DynizerQuery";
             tags: ["Query"]
-            description: "Sends in a DynizerQueryLanguage statement.<br>*SELECT* to retrive information.<br>INSERT, UPDATE, DELETE, CREATE, DROP, ... are not supported at this point in time."
+            description: "Sends in a DQL statement.<br>*SELECT* to retrieve instances.<br>INSERT, UPDATE, DELETE, CREATE, DROP, ... are not supported at this point in time."
         };
     }
 
-    //Query Result Next
+    // Query Result Next
     rpc QueryResultNext(QueryResultReq) returns(QueryResultRes) {
         option (google.api.http) = {
             get: "/api/v2/query/{result_handle}/next"
@@ -5516,11 +5506,11 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "QueryResultNext";
             tags: ["Query"]
-            description: "Reads ResultRows from a ResultHandle.<br>The window can be used have server-side pageing."
+            description: "Reads ResultRows from a ResultHandle.<br>The window can be used have server-side pagination."
         };
     }
 
-    //QueryResultClose
+    // QueryResultClose
     rpc QueryResultClose(QueryCloseReq) returns(EmptyRes) {
         option (google.api.http) = {
             get: "/api/v2/query/{result_handle}/close"
@@ -5528,11 +5518,11 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "QueryResultClose";
             tags: ["Query"]
-            description: "Close a ResultHandle.<br>This will free all result cache resources"
+            description: "Close a ResultHandle.<br>This will free all result cache resources."
         };
     }
 
-    //Query Result Streamed
+    // Query Result Streamed
     rpc QueryResultStreamed(QueryResultReq) returns(stream ResultRow) {
         option (google.api.http) = {
             get: "/api/v2/query/{result_handle}/stream"
@@ -5540,11 +5530,11 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "QueryResultStreamed";
             tags: ["Query"]
-            description: "Reads ResultRows from a ResultHandle in a streamed way.<br>The window can be used have server-side pageing."
+            description: "Reads ResultRows from a ResultHandle in a streamed way.<br>The window can be used have server-side pagination."
         };
     }
 
-    //Check MetaDataKey Name
+    // Check MetaDataKey Name
     rpc CheckMetaDataKeyName(CheckMetaDataKeyNameReq) returns(EmptyRes) {
         option (google.api.http) = {
             get: "/api/v2/check/metadata/keys/{key_name}"
@@ -5556,7 +5546,7 @@ service Dynizer {
         };
     }
 
-    //Create MetaDataKey
+    // Create MetaDataKey
     rpc CreateMetaDataKey(CreateMetaDataKeyReq) returns(EmptyRes) {
         option (google.api.http) = {
             post: "/api/v2/metadata/keys"
@@ -5565,11 +5555,11 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "CreateMetaDataKey";
             tags: ["MetaData", "MetaDataKey"]
-            description: "Create a **MetaDataKey** definition.<br>"
+            description: "Create a **MetaDataKey** definition.<br>This is an **experimental** feature and it's implementation and API might change in a minor update."
         };
     }
 
-    //Read MetaDataKey
+    // Read MetaDataKey
     rpc ReadMetaDataKey(MetaDataKeyReq) returns(MetaDataKeyRes) {
         option (google.api.http) = {
             get: "/api/v2/metadata/keys/{key_name}"
@@ -5577,11 +5567,11 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "ReadMetaDataKey";
             tags: ["MetaData", "MetaDataKey"]
-            description: "Reads the **MetaDataKey** definition"
+            description: "Reads the **MetaDataKey** definition<br>This is an **experimental** feature and it's implementation and API might change in a minor update."
         };
     }
 
-    //Update MetaDataKey
+    // Update MetaDataKey
     rpc UpdateMetaDataKey(UpdateMetaDataKeyReq) returns(EmptyRes) {
         option (google.api.http) = {
             patch: "/api/v2/metadata/keys/{key_name}"
@@ -5590,11 +5580,11 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "UpdateMetaDataKey";
             tags: ["MetaData", "MetaDataKey"]
-            description: "The *name* of the MetaDataKey can be changed.<br>The default DataType can be changed.<br>The max occurrence can be changed.<br>The list of alternative DataTypes can be adopted as well.<br>If an update to the **MetaDataKey** should lead to a violation of any MetaDataKey - value, and error is raised, unless the *cascade* flag is set to true, in which case we will do TBD"
+            description: "Updates the **MetaDataKey**. The *name* of the **MetaDataKey** can be changed.<br>The default DataType can be changed.<br>The max occurrence can be changed.<br>The list of alternative DataTypes can be adapted as well.<br>If an update to the **MetaDataKey** should lead to a violation of any MetaDataKey - value, and error is raised.<br>This is an **experimental** feature and it's implementation and API might change in a minor update."
         };
     }
 
-    //Delete MetaDataKey
+    // Delete MetaDataKey
     rpc DeleteMetaDataKey(DeleteMetaDataKeyReq) returns(EmptyRes) {
         option (google.api.http) = {
             delete: "/api/v2/metadata/keys/{key_name}"
@@ -5602,11 +5592,11 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "DeleteMetaDataKey";
             tags: ["MetaData", "MetaDataKey"]
-            description: "Deletes a **MetaDataKey**.<br>If *cascade* is set to true, all usages of the **MetaDataKey** are deleted as well."
+            description: "Deletes a **MetaDataKey**.<br>If *cascade* is set to true, all usages of the **MetaDataKey** are deleted as well.<br>This is an **experimental** feature and it's implementation and API might change in a minor update."
         };
     }
 
-    //Count MetaDataKeys
+    // Count MetaDataKeys
     rpc CountMetaDataKeys(EmptyReq) returns(CountRes) {
         option (google.api.http) = {
             get: "/api/v2/metadata/keys/all/count"
@@ -5614,11 +5604,11 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "CountMetaDataKeys";
             tags: ["MetaData", "MetaDataKey"]
-            description: "Returns the number of MetaDataKeys in the Dynizer"
+            description: "Returns the number of MetaDataKeys in the Dynizer.<br>This is an **experimental** feature and it's implementation and API might change in a minor update."
         };
     }
 
-    //List MetaDataKeys
+    // List MetaDataKeys
     rpc ListMetaDataKeys(ListMetaDataKeysReq) returns(MetaDataKeyArrayRes) {
         option (google.api.http) = {
             get: "/api/v2/metadata/keys"
@@ -5626,35 +5616,11 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "ListMetaDataKeys";
             tags: ["MetaData", "MetaDataKey"]
-            description: "Lists all MetaDataKeys in the Dynizer.<br>The optional window allows for pageing support."
+            description: "Lists all MetaDataKeys in the Dynizer.<br>The optional window allows for pagination support.<br>This is an **experimental** feature and it's implementation and API might change in a minor update."
         };
     }
 
-    // //Stats MetaDataKey Usage
-    // rpc StatsMetaDataKeyUsage(StatsMetaDataKeyUsageReq) returns(StatsMetaUsageRes)  {
-    //     option (google.api.http) = {
-    //         get: "/api/v2/stats/usage/metadata/keys/{key_name}"
-    //     };
-    //     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-    //         operation_id: "StatsMetaDataKeyUsage";
-    //         tags: ["Stats"]
-    //         description: "Returns the times a specific MetaDataKey is used on the **Instance** and on the **InstanceCell** level."
-    //     };
-    // }
-
-    // //Stats MetaDataKeyValue Usage
-    // rpc StatsMetaDataKeyValueUsage(StatsMetaDataKeyValueUsageReq) returns(StatsMetaUsageRes)  {
-    //     option (google.api.http) = {
-    //         get: "/api/v2/stats/usage/metadata/keys/{key_name}/values/{value}"
-    //     };
-    //     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-    //          operation_id: "StatsMetaDataKeyValueUsage";
-    //         tags: ["Stats"]
-    //         description: "Returns the times a specific MetaDataKey: value combination is used on the **Instance** and on the **InstanceCell** level."
-    //     };
-    // }
-
-    //Add Instance MetaData
+    // Add Instance MetaData
     rpc AddInstanceMetaData(AddInstanceMetaDataReq) returns(EmptyRes) {
         option (google.api.http) = {
             post: "/api/v2/metadata/instances/{instance_id}"
@@ -5663,11 +5629,11 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "AddInstanceMetaData";
             tags: ["MetaData", "Instances MetaData"]
-            description: "Adds a **MetaDataKey** and its values to an **Instance**"
+            description: "Adds a **MetaDataKey** and its values to an **Instance**.<br>This is an **experimental** feature and it's implementation and API might change in a minor update."
         };
     }
 
-    //Remove Instance MetaData
+    // Remove Instance MetaData
     rpc RemoveInstanceMetaData(InstanceMetaDataKeyReq) returns(EmptyRes) {
         option (google.api.http) = {
             delete: "/api/v2/metadata/instances/{instance_id}/keys/{key_name}"
@@ -5675,11 +5641,11 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "RemoveInstanceMetaData";
             tags: ["MetaData", "Instances MetaData"]
-            description: "Removes a **MetaDataKey** and *all* its values from an **Instance**"
+            description: "Removes a **MetaDataKey** and *all* its values from an **Instance**.<br>This is an **experimental** feature and it's implementation and API might change in a minor update."
         };
     }
 
-    //Add Instance MetaData Value
+    // Add Instance MetaData Value
     rpc AddInstanceMetaDataValue(AddInstanceMetaDataValueReq) returns(EmptyRes) {
         option (google.api.http) = {
             post: "/api/v2/metadata/instances/{instance_id}/keys/{key_name}/values"
@@ -5688,11 +5654,11 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "AddInstanceMetaDataValue";
             tags: ["MetaData", "Instances MetaData"]
-            description: "Adds an additional value to the values of a particular **MetaDataKey** linked to an **Instance*.<br>If the value should already be in the array of values, an error is returned."
+            description: "Adds an additional value to the values of a particular **MetaDataKey** linked to an **Instance*.<br>If the value should already be in the array of values, an error is returned.<br>This is an **experimental** feature and it's implementation and API might change in a minor update."
         };
     }
 
-    //Remove Instance MetaData Value
+    // Remove Instance MetaData Value
     rpc RemoveInstanceMetaDataValue(InstanceMetaDataKeyValueReq) returns(EmptyRes) {
         option (google.api.http) = {
             delete: "/api/v2/metadata/instances/{instance_id}/keys/{key_name}/values/{value}"
@@ -5700,11 +5666,11 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "RemoveInstanceMetaDataValue";
             tags: ["MetaData", "Instances MetaData"]
-            description: "Removes an existing value from the values of a particular **MetaDataKey** linked to an **Instance*.<br>If the value is not in the array of values, an error is returned."
+            description: "Removes an existing value from the values of a particular **MetaDataKey** linked to an **Instance*.<br>If the value is not in the array of values, an error is returned.<br>This is an **experimental** feature and it's implementation and API might change in a minor update."
         };
     }
 
-    //Get Instance MetaData Values
+    // Get Instance MetaData Values
     rpc GetInstanceMetaDataValues(InstanceMetaDataKeyReq) returns(GetInstanceMetaDataKeyRes) {
         option (google.api.http) = {
             get: "/api/v2/metadata/instances/{instance_id}/keys/{key_name}"
@@ -5712,11 +5678,11 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "GetInstanceMetaDataValues";
             tags: ["MetaData", "Instances MetaData"]
-            description: "Returns all the values for the given **MetaDataKey** linked to the give **Instance**."
+            description: "Returns all the values for the given **MetaDataKey** linked to the give **Instance**.<br>This is an **experimental** feature and it's implementation and API might change in a minor update."
         };
     }
 
-    //Count Instance MetaDataKeys
+    // Count Instance MetaDataKeys
     rpc CountInstanceMetaDataKeys(InstanceReq) returns(CountRes) {
         option (google.api.http) = {
             get: "/api/v2/metadata/instances/{instance_id}/keys/all/count"
@@ -5724,11 +5690,11 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "CountInstanceMetaDataKeys";
             tags: ["MetaData", "Instances MetaData"]
-            description: "Returns the number of **MetaDataKeys** which are associated with the **Instance**"
+            description: "Returns the number of **MetaDataKeys** which are associated with the **Instance**.<br>This is an **experimental** feature and it's implementation and API might change in a minor update."
         };
     }
 
-    //Count Instance MetaDataKey Values
+    // Count Instance MetaDataKey Values
     rpc CountInstanceMetaDataKeyValues(InstanceMetaDataKeyReq) returns(CountRes) {
         option (google.api.http) = {
             get: "/api/v2/metadata/instances/{instance_id}/keys/{key_name}/values/all/count"
@@ -5736,11 +5702,11 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "CountInstanceMetaDataKeyValues";
             tags: ["MetaData", "Instances MetaData"]
-            description: "Returns the number of values set for a given **MetaDataKey** of the **Instance**"
+            description: "Returns the number of values set for a given **MetaDataKey** of the **Instance**.<br>This is an **experimental** feature and it's implementation and API might change in a minor update."
         };
     }
 
-    //List Instance MetaData
+    // List Instance MetaData
     rpc ListInstanceMetaData(InstanceReq) returns(ListInstanceMetaDataRes) {
         option (google.api.http) = {
             get: "/api/v2/metadata/instances/{instance_id}/keys"
@@ -5748,11 +5714,11 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "ListInstanceMetaData";
             tags: ["MetaData", "Instances MetaData"]
-            description: "Returns all **MetaDataKeys** linked to an **Instance** with all set values"
+            description: "Returns all **MetaDataKeys** linked to an **Instance** with all set values.<br>This is an **experimental** feature and it's implementation and API might change in a minor update."
         };
     }
 
-    //Add Instance ActionLabel MetaData
+    // Add Instance ActionLabel MetaData
     rpc AddInstanceActionLabelMetaData(AddInstanceActionLabelMetaDataReq) returns(EmptyRes) {
         option (google.api.http) = {
             post: "/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}"
@@ -5761,11 +5727,11 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "AddInstanceActionLabelMetaData";
             tags: ["MetaData", "Instances ActionLabels MetaData"]
-            description: "Adds a **MetaDataKey** and its values to all **InstanceCells** under the **ActionLabel**"
+            description: "Adds a **MetaDataKey** and its values to all **InstanceCells** under the **ActionLabel**.<br>This is an **experimental** feature and it's implementation and API might change in a minor update."
         };
     }
 
-    //Remove Instance ActionLabel MetaData
+    // Remove Instance ActionLabel MetaData
     rpc RemoveInstanceActionLabelMetaData(InstanceActionLabelMetaDataKeyReq) returns(EmptyRes) {
         option (google.api.http) = {
             delete: "/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/keys/{key_name}"
@@ -5773,11 +5739,11 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "RemoveInstanceActionLabelMetaData";
             tags: ["MetaData", "Instances ActionLabels MetaData"]
-            description: "Removes a **MetaDataKey** and *all* its values from all the **InstanceCells** under the **ActionLabel**"
+            description: "Removes a **MetaDataKey** and *all* its values from all the **InstanceCells** under the **ActionLabel**.<br>This is an **experimental** feature and it's implementation and API might change in a minor update."
         };
     }
 
-    //Add Instance ActionLabel MetaData Value
+    // Add Instance ActionLabel MetaData Value
     rpc AddInstanceActionLabelMetaDataValue(AddInstanceActionLabelMetaDataValueReq) returns(EmptyRes) {
         option (google.api.http) = {
             post: "/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/keys/{key_name}/values"
@@ -5786,11 +5752,11 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "AddInstanceActionLabelMetaDataValue";
             tags: ["MetaData", "Instances ActionLabels MetaData"]
-            description: "Adds an additional value to the values of a particular **MetaDataKey** linked to all **InstanceCells* under the **ActionLabel**.<br>If the value should already be in the array of values, an error is returned."
+            description: "Adds an additional value to the values of a particular **MetaDataKey** linked to all **InstanceCells* under the **ActionLabel**.<br>If the value should already be in the array of values, an error is returned.<br>This is an **experimental** feature and it's implementation and API might change in a minor update."
         };
     }
 
-    //Remove Instance ActionLabel MetaData Value
+    // Remove Instance ActionLabel MetaData Value
     rpc RemoveInstanceActionLabelMetaDataValue(InstanceActionLabelMetaDataValueReq) returns(EmptyRes) {
         option (google.api.http) = {
             delete: "/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/keys/{key_name}/values/{value}"
@@ -5798,11 +5764,11 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "RemoveInstanceActionLabelMetaDataValue";
             tags: ["MetaData", "Instances ActionLabels MetaData"]
-            description: "Removes an existing value from the values of a particular **MetaDataKey** linked to all **InstanceCells* under the **ActionLabel**.<br>If the value is not in the array of values, an error is returned."
+            description: "Removes an existing value from the values of a particular **MetaDataKey** linked to all **InstanceCells* under the **ActionLabel**.<br>If the value is not in the array of values, an error is returned.<br>This is an **experimental** feature and it's implementation and API might change in a minor update."
         };
     }
 
-    //Add InstanceCell MetaData
+    // Add InstanceCell MetaData
     rpc AddInstanceCellMetaData(AddInstanceCellMetaDataReq) returns(EmptyRes) {
         option (google.api.http) = {
             post: "/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/position/{value_position}"
@@ -5811,11 +5777,11 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "AddInstanceCellMetaData";
             tags: ["MetaData", "Instances Cells MetaData"]
-            description: "Adds a **MetaDataKey** and its values to an **InstanceCell**"
+            description: "Adds a **MetaDataKey** and its values to an **InstanceCell**.<br>This is an **experimental** feature and it's implementation and API might change in a minor update."
         };
     }
 
-    //Remove InstanceCell MetaData
+    // Remove InstanceCell MetaData
     rpc RemoveInstanceCellMetaData(InstanceCellMetaDataKeyReq) returns(EmptyRes) {
         option (google.api.http) = {
             delete: "/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/position/{value_position}/keys/{key_name}"
@@ -5823,11 +5789,11 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "RemoveInstanceCellMetaData";
             tags: ["MetaData", "Instances Cells MetaData"]
-            description: "Removes a **MetaDataKey** and *all* its values from an **InstanceCell**"
+            description: "Removes a **MetaDataKey** and *all* its values from an **InstanceCell**.<br>This is an **experimental** feature and it's implementation and API might change in a minor update."
         };
     }
 
-    //Add InstanceCell MetaData Value
+    // Add InstanceCell MetaData Value
     rpc AddInstanceCellMetaDataValue(AddInstanceCellMetaDataValueReq) returns(EmptyRes) {
         option (google.api.http) = {
             post: "/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/position/{value_position}/keys/{key_name}/values"
@@ -5836,11 +5802,11 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "AddInstanceCellMetaDataValue";
             tags: ["MetaData", "Instances Cells MetaData"]
-            description: "Adds an additional value to the values of a particular **MetaDataKey** linked to an **InstanceCell*.<br>If the value should already be in the array of values, an error is returned."
+            description: "Adds an additional value to the values of a particular **MetaDataKey** linked to an **InstanceCell*.<br>If the value should already be in the array of values, an error is returned.<br>This is an **experimental** feature and it's implementation and API might change in a minor update."
         };
     }
 
-    //Remove InstanceCell MetaData Value
+    // Remove InstanceCell MetaData Value
     rpc RemoveInstanceCellMetaDataValue(InstanceCellMetaDataKeyValueReq) returns(EmptyRes) {
         option (google.api.http) = {
             delete: "/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/position/{value_position}/keys/{key_name}/values/{value}"
@@ -5852,7 +5818,7 @@ service Dynizer {
         };
     }
 
-    //Get InstanceCell MetaData
+    // Get InstanceCell MetaData
     rpc GetInstanceCellMetaDataValues(InstanceCellMetaDataKeyReq) returns(GetInstanceCellMetaDataKeyRes) {
         option (google.api.http) = {
             get: "/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/position/{value_position}/keys/{key_name}"
@@ -5860,11 +5826,11 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "GetInstanceCellMetaDataValues";
             tags: ["MetaData", "Instances Cells MetaData"]
-            description: "Returns all the values for the given **MetaDataKey** linked to the give **InstanceCell**."
+            description: "Returns all the values for the given **MetaDataKey** linked to the given **InstanceCell**.<br>This is an **experimental** feature and it's implementation and API might change in a minor update."
         };
     }
 
-    //Count InstanceCell MetaDataKeys
+    // Count InstanceCell MetaDataKeys
     rpc CountInstanceCellMetaDataKeys(InstanceCellMetaDataReq) returns(CountRes) {
         option (google.api.http) = {
             get: "/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/position/{value_position}/keys/all/count"
@@ -5872,11 +5838,11 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "CountInstanceCellMetaDataKeys";
             tags: ["MetaData", "Instances Cells MetaData"]
-            description: "Returns the number of **MetaDataKeys** which are associated with the **InstanceCell**"
+            description: "Returns the number of **MetaDataKeys** which are associated with the **InstanceCell**.<br>This is an **experimental** feature and it's implementation and API might change in a minor update."
         };
     }
 
-    //Count InstanceCell MetaDataKey Values
+    // Count InstanceCell MetaDataKey Values
     rpc CountInstanceCellMetaDataKeyValues(InstanceCellMetaDataKeyReq) returns(CountRes) {
         option (google.api.http) = {
             get: "/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/position/{value_position}/keys/{key_name}/values/all/count"
@@ -5884,11 +5850,11 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "CountInstanceCellMetaDataKeyValues";
             tags: ["MetaData", "Instances Cells MetaData"]
-            description: "Returns the number of values set for a given **MetaDataKey** of the **InstanceCell**"
+            description: "Returns the number of values set for a given **MetaDataKey** of the **InstanceCell**.<br>This is an **experimental** feature and it's implementation and API might change in a minor update."
         };
     }
 
-    //List InstanceCell MetaData
+    // List InstanceCell MetaData
     rpc ListInstanceCellMetaData(InstanceCellMetaDataReq) returns(ListInstanceCellMetaDataRes) {
         option (google.api.http) = {
             get: "/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/position/{value_position}/keys"
@@ -5896,7 +5862,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "ListInstanceCellMetaData";
             tags: ["MetaData", "Instances Cells MetaData"]
-            description: "Returns all **MetaDataKeys** linked to an **Instance** with all set values"
+            description: "Returns all **MetaDataKeys** linked to an **Instance** with all set values.<br>This is an **experimental** feature and it's implementation and API might change in a minor update."
         };
     }
 
@@ -5907,7 +5873,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "GetDynizerConfiguration";
             tags: ["Config"]
-            description: "Returns all **Dynizer** configuration values as key::value pairs"
+            description: "Returns all **Dynizer** configuration values as key::value pairs.<br>All security related configurations will be omitted from the config."
         };
     }
 
@@ -5919,7 +5885,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "ExportUserActions";
             tags: ["SystemMntg"]
-            description: "Exports all **Actions**"
+            description: "Exports all **Actions**."
         };
     }
 
@@ -5931,7 +5897,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "ImportUserActions";
             tags: ["SystemMntg"]
-            description: "Imports all **Actions**"
+            description: "Imports **Actions**."
         };
     }
 
@@ -5946,7 +5912,7 @@ service Dynizer {
         };
     }
 
-    //Get Dynizer Version
+    // Get Dynizer Version
     rpc GetDynizerVersion(EmptyReq) returns(VersionRes) {
         option (google.api.http) = {
             get: "/api/v2/system/version"
@@ -5954,16 +5920,11 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "GetDynizerVersion";
             tags: ["SystemMntg"]
-            description: "Get the version of the **Dynizer**"
+            description: "Get the version of the **Dynizer**."
         };
     }
 
-    // StartBulkInstanceInsert and followup calls are grpc ONLY
-    // rpc StartBulkInstanceInsert(BulkInstanceInsertStartReq) returns(BuilInstanceInsertRes);
-    // rpc BulkInstanceInsert(stream BulkInstanceInsertDataReq) returns(stream StreamInstanceIDRes);
-    // rpc CloseBulkInstanceInsert(BulkInstanceInsertCloseReq) returns(EmptyRes);
-
-    //Query DataElements Contains
+    // Query DataElements Contains
     rpc QueryDataElements(QueryDataElementsReq) returns(QueryDataElementsRes) {
         option (google.api.http) = {
             post: "/api/v2/dataelements/query/contains"
@@ -5972,11 +5933,11 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "QueryDataElements";
             tags: ["DataElements"]
-            description: "This can be used to query **DataElements** by with contains and **DataType**.<br>Optional filter possibilities.",
+            description: "This can be used to query **DataElements** by with contains and **DataType**.<br>Optional filter possibilities.<br>This is an **experimental** feature and it's implementation and API might change in a minor update.",
         };
     }
 
-    //Query DataElements TopN
+    // Query DataElements TopN
     rpc GetTopNDataElements(GetTopNDataElementsReq) returns(GetTopNDataElementsRes) {
         option (google.api.http) = {
             post: "/api/v2/dataelements/top"
@@ -5985,24 +5946,11 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "GetTopNDataElements";
             tags: ["DataElements"]
-            description: "This can be used to fetch the top N **DataElements** used in **Instances**<br>Optional filter possibilities.",
+            description: "This can be used to fetch the top N **DataElements** used in **Instances**<br>Optional filter possibilities.<br>This is an **experimental** feature and it's implementation and API might change in a minor update.",
         };
     }
 
-    // //Fetch TopN Instances
-    // rpc FetchFilteredInstances(FetchFilteredInstancesReq) returns(FetchFilteredInstancesRes) {
-    //     option (google.api.http) = {
-    //         post: "/api/v2/instances/filtered"
-    //         body: "*"
-    //     };
-    //     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-    //         operation_id: "FetchFilteredInstances";
-    //         tags: ["Instances"]
-    //         description: "This can be used to fetch **Instances** for a four quadrant filter",
-    //     };
-    // }
-
-    //Dynizer Filtered Query
+    // Dynizer Filtered Query
     rpc DynizerFilteredQuery(FilterQueryReq) returns(DQLRes) {
         option (google.api.http) = {
             post: "/api/v2/query/filtered"
@@ -6011,11 +5959,11 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "DynizerFilteredQuery";
             tags: ["Query"]
-            description: "Sends in a filtered statement to retrieve **instances**"
+            description: "Sends in a filtered statement to retrieve **Instances**.<br>This is an **experimental** feature and it's implementation and API might change in a minor update."
         };
     }
 
-    //Dynizer Index rebuild
+    // Dynizer Index rebuild
     rpc ReIndex(ReIndexReq) returns(EmptyRes) {
         option (google.api.http) = {
             get: "/api/v2/maintenance/index/{index_name}"
@@ -6023,11 +5971,11 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "ReIndex";
             tags: ["Maintenance"]
-            description: "Starts the rebuild of an index"
+            description: "Starts the rebuild of an index."
         };
     }
 
-    //Dynizer Filtered Plot
+    // Dynizer Filtered Plot
     rpc DynizerFilteredPlot(FilteredPlotReq) returns(PlotRes) {
         option (google.api.http) = {
             post: "/api/v2/plots/filtered/{top}/{plot_name}"
@@ -6036,7 +5984,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "DynizerFilteredPlot";
             tags: ["Plots"]
-            description: "Sends in a filtered statement to retrieve plot data json"
+            description: "Sends in a filtered statement to retrieve plot data json.<br>This is an **experimental** feature and it's implementation and API might change in a minor update."
         };
     }
 
@@ -6049,7 +5997,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "CreateShareName";
             tags: ["ShareName"]
-            description: "Creates a new **ShareName**"
+            description: "Creates a new **ShareName**."
         };
     }
 
@@ -6062,39 +6010,37 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "UpdateShareNameValue";
             tags: ["ShareName"]
-            description: "Updates a new Value for an existing **ShareName**"
+            description: "Updates a new Value for an existing **ShareName**."
         };
     }
 
     // Delete ShareNameValue
     rpc DeleteShareNameValue(DeleteShareNameValueReq) returns(EmptyRes) {
         option (google.api.http) = {
-//            delete: "/api/v2/sharename/{share_name}/value/{current_value}/datatype/{data_type}"
             post: "/api/v2/sharename/{share_name}/delete/value"
             body: "*"
-//            allow_delete_body: true
         };
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "DeleteShareNameValue";
             tags: ["ShareName"]
-            description: "Deletes a Value for an existing **ShareName**"
+            description: "Deletes a Value for an existing **ShareName**."
         };
     }
 
       // Simple Query with immediate results
-  rpc SimpleQuery(DQLReq) returns(SimpleQueryRes) {
-    option (google.api.http) = {
-      post: "/api/v2/query/simple"
-      body: "*"
-    };
-    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      operation_id: "SimpleQuery";
-      tags: ["Query"]
-      description: "Sends in a DynizerQueryLanguage statement.<br>*SELECT* to retrieve information.<br>INSERT, UPDATE, DELETE, CREATE, DROP"
-    };
+    rpc SimpleQuery(DQLReq) returns(SimpleQueryRes) {
+        option (google.api.http) = {
+            post: "/api/v2/query/simple"
+            body: "*"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            operation_id: "SimpleQuery";
+            tags: ["Query"]
+            description: "Sends in a DQL statement, executes it and returns the result.<br>This is part of the new experimental query engine in development but can be used for the current engine as well.<br>To change the query engine, set the session variable 'query_v3_session to *true*."
+        };
   }
 
-  // parses a dql and stores the result in the session
+  // Parses a dql and stores the result in the session
   rpc QueryParse(QueryParseReq) returns(EmptyRes) {
     option (google.api.http) = {
       post: "/api/v2/query/parse"
@@ -6103,11 +6049,11 @@ service Dynizer {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       operation_id: "QueryParse";
       tags: ["Query"]
-      description: "Parses a DynizerQueryLanguage statement.<br>"
+      description: "Parses a DQL statement.<br>This is part of the new experimental query engine in development but can be used for the current engine as well.<br>To change the query engine, set the session variable 'query_v3_session to *true*."
     };
   }
 
-  // binds the parameter to a parsed query
+  // Binds the parameter to a parsed query
   rpc QueryBind(QueryBindReq) returns(EmptyRes) {
     option (google.api.http) = {
       post: "/api/v2/query/bind"
@@ -6116,11 +6062,11 @@ service Dynizer {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       operation_id: "QueryBind";
       tags: ["Query"]
-      description: "Binds parameter to a parsed DynizerQueryLanguage statement"
+      description: "Binds parameters to a parsed DQL statement.<br>This is part of the new experimental query engine in development but can be used for the current engine as well.<br>To change the query engine, set the session variable 'query_v3_session to *true*."
     };
   }
 
-  // returns the description for the result labels and optionally for the bound parameters
+  // Returns the description for the result labels and optionally for the bound parameters
   rpc QueryDescribeStatement(QueryDescribeStatementReq) returns(QueryDescribeStatementRes) {
     option (google.api.http) = {
       post: "/api/v2/query/statement/describe"
@@ -6129,11 +6075,11 @@ service Dynizer {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       operation_id: "QueryDescribeStatement";
       tags: ["Query"]
-      description: "Fetches the ResultLabels for the parsed DynizerQueryLanguage statement"
+      description: "Fetches the ResultLabels for the parsed DQL statement.<br>This is part of the new experimental query engine in development but can be used for the current engine as well.<br>To change the query engine, set the session variable 'query_v3_session to *true*."
     };
   }
 
-  // returns the description for the result labels and optionally for the bound parameters
+  // Returns the description for the result labels and optionally for the bound parameters
   rpc QueryDescribePortal(QueryDescribePortalReq) returns(QueryDescribePortalRes) {
     option (google.api.http) = {
       post: "/api/v2/query/portal/describe"
@@ -6142,11 +6088,11 @@ service Dynizer {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       operation_id: "QueryDescribePortal";
       tags: ["Query"]
-      description: "Fetches the ResultLabels for the parsed DynizerQueryLanguage statement and bound parameters"
+      description: "Fetches the ResultLabels for the parsed DQL statement and bound parameters.<br>This is part of the new experimental query engine in development but can be used for the current engine as well.<br>To change the query engine, set the session variable 'query_v3_session to *true*."
     };
   }
 
-  // executes a parsed and bound query
+  // Executes a parsed and bound query
   rpc QueryExecute(QueryExecuteReq) returns(QueryExecuteRes) {
     option (google.api.http) = {
       post: "/api/v2/query/execute"
@@ -6155,11 +6101,11 @@ service Dynizer {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       operation_id: "QueryExecute";
       tags: ["Query"]
-      description: "Fetches the ResultRows for the parsed and bound DynizerQueryLanguage statement"
+      description: "Executes and fetches the ResultRows for the parsed and bound DQL statement for given window or offset.<br>This is part of the new experimental query engine in development but can be used for the current engine as well.<br>To change the query engine, set the session variable 'query_v3_session to *true*."
     };
   }
 
-  // closes and cleans parsed and/or bind queries
+  // Closes and cleans parsed and/or bind queries
   rpc QueryClose(QueryCloseReq) returns(EmptyRes) {
     option (google.api.http) = {
       post: "/api/v2/query/close"
@@ -6168,11 +6114,11 @@ service Dynizer {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       operation_id: "QueryClose";
       tags: ["Query"]
-      description: "Closes a DynizerQueryLanguage statement"
+      description: "Closes a DQL statement.<br>This is part of the new experimental query engine in development but can be used for the current engine as well.<br>To change the query engine, set the session variable 'query_v3_session to *true*."
     };
   }
 
-  // cancels a running query
+  // Cancels a running query
   rpc QueryCancel(QueryCancelReq) returns(EmptyRes) {
     option (google.api.http) = {
       post: "/api/v2/query/cancel"
@@ -6181,11 +6127,11 @@ service Dynizer {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       operation_id: "QueryCancel";
       tags: ["Query"]
-      description: "Cancels the execution of a running DynizerQuery"
+      description: "Cancels the execution of a running DQL query.<br>This is part of the new experimental query engine in development but can be used for the current engine as well.<br>To change the query engine, set the session variable 'query_v3_session to *true*."
     };
   }
 
-  // finds the actionlabels with shared dataelements within a set of actions
+  // Finds the actionlabels with shared dataelements within a set of actions
   rpc FindActionLabelLinks(FindActionLabelLinksReq) returns(FindActionLabelLinksRes) {
     option (google.api.http) = {
       post: "/api/v2/find_actionlabel_links"
@@ -6194,7 +6140,7 @@ service Dynizer {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       operation_id: "FindActionLabelLinks";
       tags: ["Actions"]
-      description: "Finds the **ActionLabels** with shared dataelements within a set of **Actions**"
+      description: "Finds the **ActionLabels** with shared dataelements within a set of **Actions**."
     };
   }
 }

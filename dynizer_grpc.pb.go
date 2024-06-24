@@ -105,8 +105,10 @@ type DynizerClient interface {
 	// Delete Object
 	DeleteObject(ctx context.Context, in *DeleteObjectReq, opts ...grpc.CallOption) (*EmptyRes, error)
 	// Stream Object Data IN
+	// gRPC only
 	StreamObjectDataIn(ctx context.Context, opts ...grpc.CallOption) (Dynizer_StreamObjectDataInClient, error)
 	// Stream Object Data OUT
+	// gRPC only
 	StreamObjectDataOut(ctx context.Context, in *StreamObjectDataOutReq, opts ...grpc.CallOption) (Dynizer_StreamObjectDataOutClient, error)
 	// Upload Object Data
 	UploadObjectData(ctx context.Context, in *UploadObjectDataReq, opts ...grpc.CallOption) (*EmptyRes, error)
@@ -125,8 +127,6 @@ type DynizerClient interface {
 	DeleteInstance(ctx context.Context, in *InstanceReq, opts ...grpc.CallOption) (*EmptyRes, error)
 	// Read Instance
 	ReadInstance(ctx context.Context, in *InstanceReq, opts ...grpc.CallOption) (*InstanceRes, error)
-	// Read Action Instances
-	ReadActionInstances(ctx context.Context, in *ReadActionInstancesReq, opts ...grpc.CallOption) (*ReadActionInstancesRes, error)
 	// Dynizer Query
 	DynizerQuery(ctx context.Context, in *DQLReq, opts ...grpc.CallOption) (*DQLRes, error)
 	// Query Result Next
@@ -213,21 +213,21 @@ type DynizerClient interface {
 	DeleteShareNameValue(ctx context.Context, in *DeleteShareNameValueReq, opts ...grpc.CallOption) (*EmptyRes, error)
 	// Simple Query with immediate results
 	SimpleQuery(ctx context.Context, in *DQLReq, opts ...grpc.CallOption) (*SimpleQueryRes, error)
-	// parses a dql and stores the result in the session
+	// Parses a dql and stores the result in the session
 	QueryParse(ctx context.Context, in *QueryParseReq, opts ...grpc.CallOption) (*EmptyRes, error)
-	// binds the parameter to a parsed query
+	// Binds the parameter to a parsed query
 	QueryBind(ctx context.Context, in *QueryBindReq, opts ...grpc.CallOption) (*EmptyRes, error)
-	// returns the description for the result labels and optionally for the bound parameters
+	// Returns the description for the result labels and optionally for the bound parameters
 	QueryDescribeStatement(ctx context.Context, in *QueryDescribeStatementReq, opts ...grpc.CallOption) (*QueryDescribeStatementRes, error)
-	// returns the description for the result labels and optionally for the bound parameters
+	// Returns the description for the result labels and optionally for the bound parameters
 	QueryDescribePortal(ctx context.Context, in *QueryDescribePortalReq, opts ...grpc.CallOption) (*QueryDescribePortalRes, error)
-	// executes a parsed and bound query
+	// Executes a parsed and bound query
 	QueryExecute(ctx context.Context, in *QueryExecuteReq, opts ...grpc.CallOption) (*QueryExecuteRes, error)
-	// closes and cleans parsed and/or bind queries
+	// Closes and cleans parsed and/or bind queries
 	QueryClose(ctx context.Context, in *QueryCloseReq, opts ...grpc.CallOption) (*EmptyRes, error)
-	// cancels a running query
+	// Cancels a running query
 	QueryCancel(ctx context.Context, in *QueryCancelReq, opts ...grpc.CallOption) (*EmptyRes, error)
-	// finds the actionlabels with shared dataelements within a set of actions
+	// Finds the actionlabels with shared dataelements within a set of actions
 	FindActionLabelLinks(ctx context.Context, in *FindActionLabelLinksReq, opts ...grpc.CallOption) (*FindActionLabelLinksRes, error)
 }
 
@@ -771,15 +771,6 @@ func (c *dynizerClient) DeleteInstance(ctx context.Context, in *InstanceReq, opt
 func (c *dynizerClient) ReadInstance(ctx context.Context, in *InstanceReq, opts ...grpc.CallOption) (*InstanceRes, error) {
 	out := new(InstanceRes)
 	err := c.cc.Invoke(ctx, "/Dynizer/ReadInstance", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *dynizerClient) ReadActionInstances(ctx context.Context, in *ReadActionInstancesReq, opts ...grpc.CallOption) (*ReadActionInstancesRes, error) {
-	out := new(ReadActionInstancesRes)
-	err := c.cc.Invoke(ctx, "/Dynizer/ReadActionInstances", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -1373,8 +1364,10 @@ type DynizerServer interface {
 	// Delete Object
 	DeleteObject(context.Context, *DeleteObjectReq) (*EmptyRes, error)
 	// Stream Object Data IN
+	// gRPC only
 	StreamObjectDataIn(Dynizer_StreamObjectDataInServer) error
 	// Stream Object Data OUT
+	// gRPC only
 	StreamObjectDataOut(*StreamObjectDataOutReq, Dynizer_StreamObjectDataOutServer) error
 	// Upload Object Data
 	UploadObjectData(context.Context, *UploadObjectDataReq) (*EmptyRes, error)
@@ -1393,8 +1386,6 @@ type DynizerServer interface {
 	DeleteInstance(context.Context, *InstanceReq) (*EmptyRes, error)
 	// Read Instance
 	ReadInstance(context.Context, *InstanceReq) (*InstanceRes, error)
-	// Read Action Instances
-	ReadActionInstances(context.Context, *ReadActionInstancesReq) (*ReadActionInstancesRes, error)
 	// Dynizer Query
 	DynizerQuery(context.Context, *DQLReq) (*DQLRes, error)
 	// Query Result Next
@@ -1481,21 +1472,21 @@ type DynizerServer interface {
 	DeleteShareNameValue(context.Context, *DeleteShareNameValueReq) (*EmptyRes, error)
 	// Simple Query with immediate results
 	SimpleQuery(context.Context, *DQLReq) (*SimpleQueryRes, error)
-	// parses a dql and stores the result in the session
+	// Parses a dql and stores the result in the session
 	QueryParse(context.Context, *QueryParseReq) (*EmptyRes, error)
-	// binds the parameter to a parsed query
+	// Binds the parameter to a parsed query
 	QueryBind(context.Context, *QueryBindReq) (*EmptyRes, error)
-	// returns the description for the result labels and optionally for the bound parameters
+	// Returns the description for the result labels and optionally for the bound parameters
 	QueryDescribeStatement(context.Context, *QueryDescribeStatementReq) (*QueryDescribeStatementRes, error)
-	// returns the description for the result labels and optionally for the bound parameters
+	// Returns the description for the result labels and optionally for the bound parameters
 	QueryDescribePortal(context.Context, *QueryDescribePortalReq) (*QueryDescribePortalRes, error)
-	// executes a parsed and bound query
+	// Executes a parsed and bound query
 	QueryExecute(context.Context, *QueryExecuteReq) (*QueryExecuteRes, error)
-	// closes and cleans parsed and/or bind queries
+	// Closes and cleans parsed and/or bind queries
 	QueryClose(context.Context, *QueryCloseReq) (*EmptyRes, error)
-	// cancels a running query
+	// Cancels a running query
 	QueryCancel(context.Context, *QueryCancelReq) (*EmptyRes, error)
-	// finds the actionlabels with shared dataelements within a set of actions
+	// Finds the actionlabels with shared dataelements within a set of actions
 	FindActionLabelLinks(context.Context, *FindActionLabelLinksReq) (*FindActionLabelLinksRes, error)
 	mustEmbedUnimplementedDynizerServer()
 }
@@ -1659,9 +1650,6 @@ func (UnimplementedDynizerServer) DeleteInstance(context.Context, *InstanceReq) 
 }
 func (UnimplementedDynizerServer) ReadInstance(context.Context, *InstanceReq) (*InstanceRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ReadInstance not implemented")
-}
-func (UnimplementedDynizerServer) ReadActionInstances(context.Context, *ReadActionInstancesReq) (*ReadActionInstancesRes, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ReadActionInstances not implemented")
 }
 func (UnimplementedDynizerServer) DynizerQuery(context.Context, *DQLReq) (*DQLRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DynizerQuery not implemented")
@@ -2786,24 +2774,6 @@ func _Dynizer_ReadInstance_Handler(srv interface{}, ctx context.Context, dec fun
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(DynizerServer).ReadInstance(ctx, req.(*InstanceReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Dynizer_ReadActionInstances_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ReadActionInstancesReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(DynizerServer).ReadActionInstances(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/Dynizer/ReadActionInstances",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DynizerServer).ReadActionInstances(ctx, req.(*ReadActionInstancesReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -3967,10 +3937,6 @@ var Dynizer_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ReadInstance",
 			Handler:    _Dynizer_ReadInstance_Handler,
-		},
-		{
-			MethodName: "ReadActionInstances",
-			Handler:    _Dynizer_ReadActionInstances_Handler,
 		},
 		{
 			MethodName: "DynizerQuery",
