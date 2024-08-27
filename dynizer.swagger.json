@@ -3679,7 +3679,7 @@
         ]
       }
     },
-    "/api/v2/objects/{type}/{ref_uuid}": {
+    "/api/v2/objects/{object_ref.type}/{object_ref.ref_uuid}": {
       "get": {
         "summary": "Download Object Data",
         "description": "Downloads data from a large object block.",
@@ -3712,17 +3712,45 @@
         },
         "parameters": [
           {
-            "name": "type",
+            "name": "object_ref.type",
             "description": "The type of the **Object**.",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "InvalidObjectDataType",
+              "ODT_Text",
+              "ODT_Blob",
+              "ODT_Clob",
+              "ODT_Document"
+            ]
+          },
+          {
+            "name": "object_ref.ref_uuid",
+            "description": "The UUID referencing the **Object**.",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
+            "name": "type",
+            "description": "The type of the **Object**.  This field is used to support legacy clients. Use 'object_ref' instead.",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
             "name": "ref_uuid",
-            "description": "The **ObjectReference** UUID which the data will be returned.",
-            "in": "path",
-            "required": true,
+            "description": "The **ObjectReference** UUID which the data will be returned.  This field is used to support legacy clients. Use 'object_ref' instead.",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "object_ref.ref_uri",
+            "description": "The URI referencing the **Object**. This field is used to support an old version that returns \u003cobject_type\u003e/\u003cuuid\u003e. Use 'ref_uuid' instead.",
+            "in": "query",
+            "required": false,
             "type": "string"
           }
         ],
@@ -3762,17 +3790,45 @@
         },
         "parameters": [
           {
-            "name": "type",
+            "name": "object_ref.type",
             "description": "The type of the **Object**.",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "InvalidObjectDataType",
+              "ODT_Text",
+              "ODT_Blob",
+              "ODT_Clob",
+              "ODT_Document"
+            ]
+          },
+          {
+            "name": "object_ref.ref_uuid",
+            "description": "The UUID referencing the **Object**.",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
+            "name": "type",
+            "description": "The type of the **Object**. This field is used to support legacy clients. Use 'object_ref' instead.",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
             "name": "ref_uuid",
-            "description": "The **ObjectReference** UUID referencing the object that will be deleted.",
-            "in": "path",
-            "required": true,
+            "description": "The **ObjectReference** UUID referencing the object that will be deleted. This field is used to support legacy clients. Use 'object_ref' instead.",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "object_ref.ref_uri",
+            "description": "The URI referencing the **Object**. This field is used to support an old version that returns \u003cobject_type\u003e/\u003cuuid\u003e. Use 'ref_uuid' instead.",
+            "in": "query",
+            "required": false,
             "type": "string"
           }
         ],
@@ -3812,15 +3868,22 @@
         },
         "parameters": [
           {
-            "name": "type",
+            "name": "object_ref.type",
             "description": "The type of the **Object**.",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "InvalidObjectDataType",
+              "ODT_Text",
+              "ODT_Blob",
+              "ODT_Clob",
+              "ODT_Document"
+            ]
           },
           {
-            "name": "ref_uuid",
-            "description": "The **ObjectReference** UUID which the data will be stored.",
+            "name": "object_ref.ref_uuid",
+            "description": "The UUID referencing the **Object**.",
             "in": "path",
             "required": true,
             "type": "string"
@@ -3832,10 +3895,33 @@
             "schema": {
               "type": "object",
               "properties": {
+                "type": {
+                  "type": "string",
+                  "description": "The type of the **Object**. This field is used to support an old version that required a string. Use 'object_ref' instead."
+                },
+                "ref_uuid": {
+                  "type": "string",
+                  "description": "The **ObjectReference** UUID which the data will be stored. This field is used to support an old version that required a string. Use 'object_ref' instead."
+                },
                 "data": {
                   "type": "string",
                   "format": "byte",
                   "description": "The **Object** data as base64 encoded string."
+                },
+                "object_ref": {
+                  "type": "object",
+                  "properties": {
+                    "ref_uri": {
+                      "type": "string",
+                      "description": "The URI referencing the **Object**. This field is used to support an old version that returns \u003cobject_type\u003e/\u003cuuid\u003e. Use 'ref_uuid' instead."
+                    }
+                  },
+                  "description": "Message to hold a **ObjectReference*",
+                  "title": "ObjectReference"
+                },
+                "content_type": {
+                  "type": "string",
+                  "description": "The content type of the data (optional)."
                 }
               },
               "description": "URL for an **Object**",
@@ -3879,7 +3965,7 @@
         },
         "parameters": [
           {
-            "name": "type",
+            "name": "object_ref.type",
             "description": "The type of the **Object**.",
             "in": "path",
             "required": true,
@@ -3893,10 +3979,39 @@
             ]
           },
           {
-            "name": "ref_uuid",
-            "description": "The **ObjectReference** UUID for which the bytes will be cleared.",
+            "name": "object_ref.ref_uuid",
+            "description": "The UUID referencing the **Object**.",
             "in": "path",
             "required": true,
+            "type": "string"
+          },
+          {
+            "name": "type",
+            "description": "The type of the **Object**. This field is used to support legacy clients. Use 'object_ref' instead.\n\n - ODT_Text: object is of type TEXT, which can be indexed by the FullTextIndex\n - ODT_Blob: object is of type binary\n - ODT_Clob: object is of type character\n - ODT_Document: object is of type character, indexed by FullTextIndex",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "InvalidObjectDataType",
+              "ODT_Text",
+              "ODT_Blob",
+              "ODT_Clob",
+              "ODT_Document"
+            ],
+            "default": "InvalidObjectDataType"
+          },
+          {
+            "name": "ref_uuid",
+            "description": "The **ObjectReference** UUID for which the bytes will be cleared. This field is used to support legacy clients. Use 'object_ref' instead.",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "object_ref.ref_uri",
+            "description": "The URI referencing the **Object**. This field is used to support an old version that returns \u003cobject_type\u003e/\u003cuuid\u003e. Use 'ref_uuid' instead.",
+            "in": "query",
+            "required": false,
             "type": "string"
           }
         ],
@@ -4501,7 +4616,7 @@
         "parameters": [
           {
             "name": "result_handle",
-            "description": "[DEPRECATED] The unique identifier for the DQL Result to close. Legacy compatibility field, use close_for instead.",
+            "description": "The unique identifier for the DQL Result to close. Legacy compatibility field, use close_for instead.",
             "in": "path",
             "required": true,
             "type": "string"
@@ -6408,6 +6523,10 @@
           "type": "string",
           "format": "byte",
           "description": "The **Object** data as bytes."
+        },
+        "content_type": {
+          "type": "string",
+          "description": "The content type of the data (optional)."
         }
       },
       "description": "URL to fetch an **Object**",
@@ -7262,11 +7381,15 @@
       "properties": {
         "ref_uri": {
           "type": "string",
-          "description": "The URI referencing the **Object**."
+          "description": "The URI referencing the **Object**. This field is used to support an old version that returns \u003cobject_type\u003e/\u003cuuid\u003e. Use 'ref_uuid' instead."
         },
         "type": {
           "$ref": "#/definitions/ObjectDataType",
           "description": "The type of the **Object**."
+        },
+        "ref_uuid": {
+          "type": "string",
+          "description": "The UUID referencing the **Object**."
         }
       },
       "description": "Message to hold a **ObjectReference*",
@@ -7374,7 +7497,7 @@
       "properties": {
         "result_handle": {
           "type": "string",
-          "description": "[DEPRECATED] The unique identifier for the DQL Result to close. Legacy compatibility field, use close_for instead."
+          "description": "The unique identifier for the DQL Result to close. Legacy compatibility field, use close_for instead."
         },
         "statement": {
           "type": "string",
@@ -7917,6 +8040,10 @@
           "type": "string",
           "format": "byte",
           "description": "The **Object** data as bytes."
+        },
+        "content_type": {
+          "type": "string",
+          "description": "The content type of the data (optional)."
         }
       },
       "description": "Stream data for an **ObjectReference**",

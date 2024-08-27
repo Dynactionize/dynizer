@@ -1929,6 +1929,10 @@ func local_request_Dynizer_CreateObject_0(ctx context.Context, marshaler runtime
 
 }
 
+var (
+	filter_Dynizer_ClearObjectData_0 = &utilities.DoubleArray{Encoding: map[string]int{"object_ref": 0, "type": 1, "ref_uuid": 2, "refUuid": 3}, Base: []int{1, 4, 4, 1, 5, 0, 3, 0, 0, 0}, Check: []int{0, 1, 1, 2, 1, 4, 2, 7, 3, 5}}
+)
+
 func request_Dynizer_ClearObjectData_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq ClearObjectDataReq
 	var metadata runtime.ServerMetadata
@@ -1941,26 +1945,38 @@ func request_Dynizer_ClearObjectData_0(ctx context.Context, marshaler runtime.Ma
 		_   = err
 	)
 
-	val, ok = pathParams["type"]
+	val, ok = pathParams["object_ref.type"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "type")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "object_ref.type")
+	}
+
+	err = runtime.PopulateFieldFromPath(&protoReq, "object_ref.type", val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "object_ref.type", err)
 	}
 
 	e, err = runtime.Enum(val, ObjectDataType_value)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "type", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "could not parse path as enum value, parameter: %s, error: %v", "object_ref.type", err)
 	}
 
-	protoReq.Type = ObjectDataType(e)
+	protoReq.ObjectRef.Type = ObjectDataType(e)
 
-	val, ok = pathParams["ref_uuid"]
+	val, ok = pathParams["object_ref.ref_uuid"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "ref_uuid")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "object_ref.ref_uuid")
 	}
 
-	protoReq.RefUuid, err = runtime.String(val)
+	err = runtime.PopulateFieldFromPath(&protoReq, "object_ref.ref_uuid", val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "ref_uuid", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "object_ref.ref_uuid", err)
+	}
+
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Dynizer_ClearObjectData_0); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	msg, err := client.ClearObjectData(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -1980,26 +1996,38 @@ func local_request_Dynizer_ClearObjectData_0(ctx context.Context, marshaler runt
 		_   = err
 	)
 
-	val, ok = pathParams["type"]
+	val, ok = pathParams["object_ref.type"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "type")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "object_ref.type")
+	}
+
+	err = runtime.PopulateFieldFromPath(&protoReq, "object_ref.type", val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "object_ref.type", err)
 	}
 
 	e, err = runtime.Enum(val, ObjectDataType_value)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "type", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "could not parse path as enum value, parameter: %s, error: %v", "object_ref.type", err)
 	}
 
-	protoReq.Type = ObjectDataType(e)
+	protoReq.ObjectRef.Type = ObjectDataType(e)
 
-	val, ok = pathParams["ref_uuid"]
+	val, ok = pathParams["object_ref.ref_uuid"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "ref_uuid")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "object_ref.ref_uuid")
 	}
 
-	protoReq.RefUuid, err = runtime.String(val)
+	err = runtime.PopulateFieldFromPath(&protoReq, "object_ref.ref_uuid", val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "ref_uuid", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "object_ref.ref_uuid", err)
+	}
+
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Dynizer_ClearObjectData_0); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	msg, err := server.ClearObjectData(ctx, &protoReq)
@@ -2007,35 +2035,54 @@ func local_request_Dynizer_ClearObjectData_0(ctx context.Context, marshaler runt
 
 }
 
+var (
+	filter_Dynizer_DeleteObject_0 = &utilities.DoubleArray{Encoding: map[string]int{"object_ref": 0, "type": 1, "ref_uuid": 2, "refUuid": 3}, Base: []int{1, 4, 4, 1, 5, 0, 3, 0, 0, 0}, Check: []int{0, 1, 1, 2, 1, 4, 2, 7, 3, 5}}
+)
+
 func request_Dynizer_DeleteObject_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq DeleteObjectReq
 	var metadata runtime.ServerMetadata
 
 	var (
 		val string
+		e   int32
 		ok  bool
 		err error
 		_   = err
 	)
 
-	val, ok = pathParams["type"]
+	val, ok = pathParams["object_ref.type"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "type")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "object_ref.type")
 	}
 
-	protoReq.Type, err = runtime.String(val)
+	err = runtime.PopulateFieldFromPath(&protoReq, "object_ref.type", val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "type", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "object_ref.type", err)
 	}
 
-	val, ok = pathParams["ref_uuid"]
+	e, err = runtime.Enum(val, ObjectDataType_value)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "could not parse path as enum value, parameter: %s, error: %v", "object_ref.type", err)
+	}
+
+	protoReq.ObjectRef.Type = ObjectDataType(e)
+
+	val, ok = pathParams["object_ref.ref_uuid"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "ref_uuid")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "object_ref.ref_uuid")
 	}
 
-	protoReq.RefUuid, err = runtime.String(val)
+	err = runtime.PopulateFieldFromPath(&protoReq, "object_ref.ref_uuid", val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "ref_uuid", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "object_ref.ref_uuid", err)
+	}
+
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Dynizer_DeleteObject_0); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	msg, err := client.DeleteObject(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -2049,29 +2096,44 @@ func local_request_Dynizer_DeleteObject_0(ctx context.Context, marshaler runtime
 
 	var (
 		val string
+		e   int32
 		ok  bool
 		err error
 		_   = err
 	)
 
-	val, ok = pathParams["type"]
+	val, ok = pathParams["object_ref.type"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "type")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "object_ref.type")
 	}
 
-	protoReq.Type, err = runtime.String(val)
+	err = runtime.PopulateFieldFromPath(&protoReq, "object_ref.type", val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "type", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "object_ref.type", err)
 	}
 
-	val, ok = pathParams["ref_uuid"]
+	e, err = runtime.Enum(val, ObjectDataType_value)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "could not parse path as enum value, parameter: %s, error: %v", "object_ref.type", err)
+	}
+
+	protoReq.ObjectRef.Type = ObjectDataType(e)
+
+	val, ok = pathParams["object_ref.ref_uuid"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "ref_uuid")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "object_ref.ref_uuid")
 	}
 
-	protoReq.RefUuid, err = runtime.String(val)
+	err = runtime.PopulateFieldFromPath(&protoReq, "object_ref.ref_uuid", val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "ref_uuid", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "object_ref.ref_uuid", err)
+	}
+
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Dynizer_DeleteObject_0); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	msg, err := server.DeleteObject(ctx, &protoReq)
@@ -2093,29 +2155,37 @@ func request_Dynizer_UploadObjectData_0(ctx context.Context, marshaler runtime.M
 
 	var (
 		val string
+		e   int32
 		ok  bool
 		err error
 		_   = err
 	)
 
-	val, ok = pathParams["type"]
+	val, ok = pathParams["object_ref.type"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "type")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "object_ref.type")
 	}
 
-	protoReq.Type, err = runtime.String(val)
+	err = runtime.PopulateFieldFromPath(&protoReq, "object_ref.type", val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "type", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "object_ref.type", err)
 	}
 
-	val, ok = pathParams["ref_uuid"]
+	e, err = runtime.Enum(val, ObjectDataType_value)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "could not parse path as enum value, parameter: %s, error: %v", "object_ref.type", err)
+	}
+
+	protoReq.ObjectRef.Type = ObjectDataType(e)
+
+	val, ok = pathParams["object_ref.ref_uuid"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "ref_uuid")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "object_ref.ref_uuid")
 	}
 
-	protoReq.RefUuid, err = runtime.String(val)
+	err = runtime.PopulateFieldFromPath(&protoReq, "object_ref.ref_uuid", val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "ref_uuid", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "object_ref.ref_uuid", err)
 	}
 
 	msg, err := client.UploadObjectData(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -2137,29 +2207,37 @@ func local_request_Dynizer_UploadObjectData_0(ctx context.Context, marshaler run
 
 	var (
 		val string
+		e   int32
 		ok  bool
 		err error
 		_   = err
 	)
 
-	val, ok = pathParams["type"]
+	val, ok = pathParams["object_ref.type"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "type")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "object_ref.type")
 	}
 
-	protoReq.Type, err = runtime.String(val)
+	err = runtime.PopulateFieldFromPath(&protoReq, "object_ref.type", val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "type", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "object_ref.type", err)
 	}
 
-	val, ok = pathParams["ref_uuid"]
+	e, err = runtime.Enum(val, ObjectDataType_value)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "could not parse path as enum value, parameter: %s, error: %v", "object_ref.type", err)
+	}
+
+	protoReq.ObjectRef.Type = ObjectDataType(e)
+
+	val, ok = pathParams["object_ref.ref_uuid"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "ref_uuid")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "object_ref.ref_uuid")
 	}
 
-	protoReq.RefUuid, err = runtime.String(val)
+	err = runtime.PopulateFieldFromPath(&protoReq, "object_ref.ref_uuid", val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "ref_uuid", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "object_ref.ref_uuid", err)
 	}
 
 	msg, err := server.UploadObjectData(ctx, &protoReq)
@@ -2167,35 +2245,54 @@ func local_request_Dynizer_UploadObjectData_0(ctx context.Context, marshaler run
 
 }
 
+var (
+	filter_Dynizer_DownloadObjectData_0 = &utilities.DoubleArray{Encoding: map[string]int{"object_ref": 0, "type": 1, "ref_uuid": 2, "refUuid": 3}, Base: []int{1, 4, 4, 1, 5, 0, 3, 0, 0, 0}, Check: []int{0, 1, 1, 2, 1, 4, 2, 7, 3, 5}}
+)
+
 func request_Dynizer_DownloadObjectData_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq DownloadObjectDataReq
 	var metadata runtime.ServerMetadata
 
 	var (
 		val string
+		e   int32
 		ok  bool
 		err error
 		_   = err
 	)
 
-	val, ok = pathParams["type"]
+	val, ok = pathParams["object_ref.type"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "type")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "object_ref.type")
 	}
 
-	protoReq.Type, err = runtime.String(val)
+	err = runtime.PopulateFieldFromPath(&protoReq, "object_ref.type", val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "type", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "object_ref.type", err)
 	}
 
-	val, ok = pathParams["ref_uuid"]
+	e, err = runtime.Enum(val, ObjectDataType_value)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "could not parse path as enum value, parameter: %s, error: %v", "object_ref.type", err)
+	}
+
+	protoReq.ObjectRef.Type = ObjectDataType(e)
+
+	val, ok = pathParams["object_ref.ref_uuid"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "ref_uuid")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "object_ref.ref_uuid")
 	}
 
-	protoReq.RefUuid, err = runtime.String(val)
+	err = runtime.PopulateFieldFromPath(&protoReq, "object_ref.ref_uuid", val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "ref_uuid", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "object_ref.ref_uuid", err)
+	}
+
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Dynizer_DownloadObjectData_0); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	msg, err := client.DownloadObjectData(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -2209,29 +2306,44 @@ func local_request_Dynizer_DownloadObjectData_0(ctx context.Context, marshaler r
 
 	var (
 		val string
+		e   int32
 		ok  bool
 		err error
 		_   = err
 	)
 
-	val, ok = pathParams["type"]
+	val, ok = pathParams["object_ref.type"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "type")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "object_ref.type")
 	}
 
-	protoReq.Type, err = runtime.String(val)
+	err = runtime.PopulateFieldFromPath(&protoReq, "object_ref.type", val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "type", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "object_ref.type", err)
 	}
 
-	val, ok = pathParams["ref_uuid"]
+	e, err = runtime.Enum(val, ObjectDataType_value)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "could not parse path as enum value, parameter: %s, error: %v", "object_ref.type", err)
+	}
+
+	protoReq.ObjectRef.Type = ObjectDataType(e)
+
+	val, ok = pathParams["object_ref.ref_uuid"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "ref_uuid")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "object_ref.ref_uuid")
 	}
 
-	protoReq.RefUuid, err = runtime.String(val)
+	err = runtime.PopulateFieldFromPath(&protoReq, "object_ref.ref_uuid", val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "ref_uuid", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "object_ref.ref_uuid", err)
+	}
+
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Dynizer_DownloadObjectData_0); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	msg, err := server.DownloadObjectData(ctx, &protoReq)
@@ -6769,7 +6881,7 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/ClearObjectData", runtime.WithHTTPPathPattern("/api/v2/objects/{type}/{ref_uuid}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/ClearObjectData", runtime.WithHTTPPathPattern("/api/v2/objects/{object_ref.type}/{object_ref.ref_uuid}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -6794,7 +6906,7 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/DeleteObject", runtime.WithHTTPPathPattern("/api/v2/objects/{type}/{ref_uuid}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/DeleteObject", runtime.WithHTTPPathPattern("/api/v2/objects/{object_ref.type}/{object_ref.ref_uuid}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -6819,7 +6931,7 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/UploadObjectData", runtime.WithHTTPPathPattern("/api/v2/objects/{type}/{ref_uuid}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/UploadObjectData", runtime.WithHTTPPathPattern("/api/v2/objects/{object_ref.type}/{object_ref.ref_uuid}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -6844,7 +6956,7 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/DownloadObjectData", runtime.WithHTTPPathPattern("/api/v2/objects/{type}/{ref_uuid}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/DownloadObjectData", runtime.WithHTTPPathPattern("/api/v2/objects/{object_ref.type}/{object_ref.ref_uuid}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -9223,7 +9335,7 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/ClearObjectData", runtime.WithHTTPPathPattern("/api/v2/objects/{type}/{ref_uuid}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/ClearObjectData", runtime.WithHTTPPathPattern("/api/v2/objects/{object_ref.type}/{object_ref.ref_uuid}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -9245,7 +9357,7 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/DeleteObject", runtime.WithHTTPPathPattern("/api/v2/objects/{type}/{ref_uuid}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/DeleteObject", runtime.WithHTTPPathPattern("/api/v2/objects/{object_ref.type}/{object_ref.ref_uuid}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -9267,7 +9379,7 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/UploadObjectData", runtime.WithHTTPPathPattern("/api/v2/objects/{type}/{ref_uuid}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/UploadObjectData", runtime.WithHTTPPathPattern("/api/v2/objects/{object_ref.type}/{object_ref.ref_uuid}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -9289,7 +9401,7 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/DownloadObjectData", runtime.WithHTTPPathPattern("/api/v2/objects/{type}/{ref_uuid}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/DownloadObjectData", runtime.WithHTTPPathPattern("/api/v2/objects/{object_ref.type}/{object_ref.ref_uuid}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -10685,13 +10797,13 @@ var (
 
 	pattern_Dynizer_CreateObject_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"api", "v2", "objects"}, ""))
 
-	pattern_Dynizer_ClearObjectData_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 1, 0, 4, 1, 5, 4}, []string{"api", "v2", "objects", "type", "ref_uuid"}, ""))
+	pattern_Dynizer_ClearObjectData_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 1, 0, 4, 1, 5, 4}, []string{"api", "v2", "objects", "object_ref.type", "object_ref.ref_uuid"}, ""))
 
-	pattern_Dynizer_DeleteObject_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 1, 0, 4, 1, 5, 4}, []string{"api", "v2", "objects", "type", "ref_uuid"}, ""))
+	pattern_Dynizer_DeleteObject_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 1, 0, 4, 1, 5, 4}, []string{"api", "v2", "objects", "object_ref.type", "object_ref.ref_uuid"}, ""))
 
-	pattern_Dynizer_UploadObjectData_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 1, 0, 4, 1, 5, 4}, []string{"api", "v2", "objects", "type", "ref_uuid"}, ""))
+	pattern_Dynizer_UploadObjectData_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 1, 0, 4, 1, 5, 4}, []string{"api", "v2", "objects", "object_ref.type", "object_ref.ref_uuid"}, ""))
 
-	pattern_Dynizer_DownloadObjectData_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 1, 0, 4, 1, 5, 4}, []string{"api", "v2", "objects", "type", "ref_uuid"}, ""))
+	pattern_Dynizer_DownloadObjectData_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 1, 0, 4, 1, 5, 4}, []string{"api", "v2", "objects", "object_ref.type", "object_ref.ref_uuid"}, ""))
 
 	pattern_Dynizer_ListObjectUUIDS_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"api", "v2", "objects"}, ""))
 

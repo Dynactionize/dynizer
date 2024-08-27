@@ -1320,20 +1320,27 @@ message ObjectRes {
 message ClearObjectDataReq {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
-          required: ["type", "ref_uuid"]
           description: "The **Object** for which the bytes will be cleared"
         }
     };
 
     ObjectDataType type = 1 [
         (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-            description: "The type of the **Object**."
-        }
+            description: "The type of the **Object**. This field is used to support legacy clients. Use 'object_ref' instead."
+        },
+        deprecated = true
     ];
 
     string ref_uuid = 2 [
         (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-            description: "The **ObjectReference** UUID for which the bytes will be cleared."
+            description: "The **ObjectReference** UUID for which the bytes will be cleared. This field is used to support legacy clients. Use 'object_ref' instead."
+        },
+        deprecated = true
+    ];
+
+    ObjectRef object_ref = 3 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+            description: "The **ObjectReference** for which the bytes will be cleared."
         }
     ];
 }
@@ -1342,20 +1349,27 @@ message ClearObjectDataReq {
 message DeleteObjectReq {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
-          required: ["type", "ref_uuid"]
           description: "Delete an object by **ObjectReference** UUID"
         }
     };
 
     string type = 1 [
         (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-            description: "The type of the **Object**."
-        }
+            description: "The type of the **Object**. This field is used to support legacy clients. Use 'object_ref' instead."
+        },
+        deprecated = true
     ];
 
     string ref_uuid = 2 [
         (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-            description: "The **ObjectReference** UUID referencing the object that will be deleted."
+            description: "The **ObjectReference** UUID referencing the object that will be deleted. This field is used to support legacy clients. Use 'object_ref' instead."
+        },
+        deprecated = true
+    ];
+
+    ObjectRef object_ref = 3 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+            description: "The **ObjectReference** for which the bytes will be cleared."
         }
     ];
 }
@@ -1364,7 +1378,6 @@ message DeleteObjectReq {
 message StreamObjectDataInReq {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
-          required: ["object_ref", "data"]
           description: "Stream data for an **ObjectReference**"
         }
     };
@@ -1380,26 +1393,39 @@ message StreamObjectDataInReq {
             description: "The **Object** data as bytes."
         }
     ];
+
+    string content_type = 3 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+            description: "The content type of the data (optional)."
+        }
+    ];
 }
 
 // ObjectDataOutRequest
 message StreamObjectDataOutReq {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
-          required: ["type", "ref_uuid"]
           description: "Stream data for an **ObjectReference**"
         }
     };
 
     ObjectDataType type = 1 [
         (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-            description: "The **ObjectReference** Type for which the bytes will be read."
-        }
+            description: "The **ObjectReference** Type for which the bytes will be read. This field is used to support legacy clients. Use 'object_ref' instead."
+        },
+        deprecated = true
     ];
 
     string ref_uuid = 2 [
         (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-            description: "The **ObjectReference** UUID for which the bytes will be cleared."
+            description: "The **ObjectReference** UUID for which the bytes will be read. This field is used to support legacy clients. Use 'object_ref' instead."
+        },
+        deprecated = true
+    ];
+
+    ObjectRef object_ref = 3 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+            description: "The **ObjectReference** for which the bytes will be read."
         }
     ];
 }
@@ -1418,26 +1444,39 @@ message StreamObjectDataOutRes {
             description: "The **Object** data as bytes."
         }
     ];
+
+    string content_type = 2 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+            description: "The content type of the data (optional)."
+        }
+    ];
 }
 
 // DownloadObjectDataRequest
 message DownloadObjectDataReq {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
-          required: ["type", "ref_uuid"]
-          description: "URL for an **Object**"
-        }
+            description: "URL for an **Object**"
+          }
     };
 
     string type = 1 [
         (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-            description: "The type of the **Object**."
-        }
+            description: "The type of the **Object**.  This field is used to support legacy clients. Use 'object_ref' instead."
+        },
+        deprecated = true
     ];
 
     string ref_uuid = 2 [
         (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-            description: "The **ObjectReference** UUID which the data will be returned."
+            description: "The **ObjectReference** UUID which the data will be returned.  This field is used to support legacy clients. Use 'object_ref' instead."
+        },
+        deprecated = true
+    ];
+
+    ObjectRef object_ref = 3 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+            description: "The **ObjectReference** for which the bytes will be returned."
         }
     ];
 }
@@ -1457,32 +1496,50 @@ message DownloadObjectDataRes {
         }
     ];
 
+    string content_type = 2 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+            description: "The content type of the data (optional)."
+        }
+    ];
 }
 
 // UploadObjectDataRequest
 message UploadObjectDataReq {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
-          required: ["type", "ref_uuid"]
           description: "URL for an **Object**"
         }
     };
 
     string type = 1 [
         (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-            description: "The type of the **Object**."
-        }
+            description: "The type of the **Object**. This field is used to support an old version that required a string. Use 'object_ref' instead."
+        },
+        deprecated = true
     ];
 
     string ref_uuid = 2 [
         (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-            description: "The **ObjectReference** UUID which the data will be stored."
-        }
+            description: "The **ObjectReference** UUID which the data will be stored. This field is used to support an old version that required a string. Use 'object_ref' instead."
+        },
+        deprecated = true
     ];
 
     bytes data = 3 [
         (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
             description: "The **Object** data as base64 encoded string."
+        }
+    ];
+
+    ObjectRef object_ref = 4 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+            description: "The **ObjectReference** for which the bytes will be returned."
+        }
+    ];
+
+    string content_type = 5 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+            description: "The content type of the data (optional)."
         }
     ];
 }
@@ -3468,13 +3525,20 @@ message ObjectRef {
 
     string ref_uri = 1 [
         (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-            description: "The URI referencing the **Object**."
-        }
+            description: "The URI referencing the **Object**. This field is used to support an old version that returns <object_type>/<uuid>. Use 'ref_uuid' instead."
+        },
+        deprecated = true
     ];
 
     ObjectDataType type = 2 [
         (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
             description: "The type of the **Object**."
+        }
+    ];
+
+    string ref_uuid = 3 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+            description: "The UUID referencing the **Object**."
         }
     ];
 }
@@ -4651,8 +4715,9 @@ message QueryCloseReq{
 
   string result_handle = 1 [
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-      description: "[DEPRECATED] The unique identifier for the DQL Result to close. Legacy compatibility field, use close_for instead."
-    }
+      description: "The unique identifier for the DQL Result to close. Legacy compatibility field, use close_for instead."
+    },
+    deprecated = true
   ];
 
   oneof close_for {
@@ -5352,13 +5417,13 @@ service Dynizer {
     }
 
     // Clear Object Data
-    rpc ClearObjectData(ClearObjectDataReq) returns(EmptyRes) {
+    rpc ClearObjectData(ClearObjectDataReq) returns (EmptyRes) {
         option (google.api.http) = {
-            patch: "/api/v2/objects/{type}/{ref_uuid}"
+            patch: "/api/v2/objects/{object_ref.type}/{object_ref.ref_uuid}"
         };
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "ClearObjectData";
-            tags: ["Objects"]
+            tags: ["Objects"];
             description: "This clears the content of the referenced large object block."
         };
     }
@@ -5366,7 +5431,7 @@ service Dynizer {
     // Delete Object
     rpc DeleteObject(DeleteObjectReq) returns(EmptyRes) {
         option (google.api.http) = {
-            delete: "/api/v2/objects/{type}/{ref_uuid}"
+            delete: "/api/v2/objects/{object_ref.type}/{object_ref.ref_uuid}"
         };
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "DeleteObject";
@@ -5387,7 +5452,7 @@ service Dynizer {
     // Upload Object Data
     rpc UploadObjectData(UploadObjectDataReq) returns(EmptyRes) {
         option (google.api.http) = {
-            post: "/api/v2/objects/{type}/{ref_uuid}"
+            post: "/api/v2/objects/{object_ref.type}/{object_ref.ref_uuid}"
             body: "*"
         };
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
@@ -5400,7 +5465,7 @@ service Dynizer {
     // Download Object Data
     rpc DownloadObjectData(DownloadObjectDataReq) returns(DownloadObjectDataRes) {
         option (google.api.http) = {
-            get: "/api/v2/objects/{type}/{ref_uuid}"
+            get: "/api/v2/objects/{object_ref.type}/{object_ref.ref_uuid}"
         };
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "DownloadObjectData";
