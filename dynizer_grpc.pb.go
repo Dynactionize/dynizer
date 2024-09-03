@@ -225,6 +225,8 @@ type DynizerClient interface {
 	QueryExecute(ctx context.Context, in *QueryExecuteReq, opts ...grpc.CallOption) (*QueryExecuteRes, error)
 	// Closes and cleans parsed and/or bind queries
 	QueryClose(ctx context.Context, in *QueryCloseReq, opts ...grpc.CallOption) (*EmptyRes, error)
+	// Cancels a running query
+	QueryCancel(ctx context.Context, in *QueryCancelReq, opts ...grpc.CallOption) (*EmptyRes, error)
 	// Finds the actionlabels with shared dataelements within a set of actions
 	FindActionLabelLinks(ctx context.Context, in *FindActionLabelLinksReq, opts ...grpc.CallOption) (*FindActionLabelLinksRes, error)
 }
@@ -1257,6 +1259,15 @@ func (c *dynizerClient) QueryClose(ctx context.Context, in *QueryCloseReq, opts 
 	return out, nil
 }
 
+func (c *dynizerClient) QueryCancel(ctx context.Context, in *QueryCancelReq, opts ...grpc.CallOption) (*EmptyRes, error) {
+	out := new(EmptyRes)
+	err := c.cc.Invoke(ctx, "/Dynizer/QueryCancel", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *dynizerClient) FindActionLabelLinks(ctx context.Context, in *FindActionLabelLinksReq, opts ...grpc.CallOption) (*FindActionLabelLinksRes, error) {
 	out := new(FindActionLabelLinksRes)
 	err := c.cc.Invoke(ctx, "/Dynizer/FindActionLabelLinks", in, out, opts...)
@@ -1473,6 +1484,8 @@ type DynizerServer interface {
 	QueryExecute(context.Context, *QueryExecuteReq) (*QueryExecuteRes, error)
 	// Closes and cleans parsed and/or bind queries
 	QueryClose(context.Context, *QueryCloseReq) (*EmptyRes, error)
+	// Cancels a running query
+	QueryCancel(context.Context, *QueryCancelReq) (*EmptyRes, error)
 	// Finds the actionlabels with shared dataelements within a set of actions
 	FindActionLabelLinks(context.Context, *FindActionLabelLinksReq) (*FindActionLabelLinksRes, error)
 	mustEmbedUnimplementedDynizerServer()
@@ -1790,6 +1803,9 @@ func (UnimplementedDynizerServer) QueryExecute(context.Context, *QueryExecuteReq
 }
 func (UnimplementedDynizerServer) QueryClose(context.Context, *QueryCloseReq) (*EmptyRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method QueryClose not implemented")
+}
+func (UnimplementedDynizerServer) QueryCancel(context.Context, *QueryCancelReq) (*EmptyRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method QueryCancel not implemented")
 }
 func (UnimplementedDynizerServer) FindActionLabelLinks(context.Context, *FindActionLabelLinksReq) (*FindActionLabelLinksRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method FindActionLabelLinks not implemented")
@@ -3683,6 +3699,24 @@ func _Dynizer_QueryClose_Handler(srv interface{}, ctx context.Context, dec func(
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Dynizer_QueryCancel_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryCancelReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DynizerServer).QueryCancel(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/Dynizer/QueryCancel",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DynizerServer).QueryCancel(ctx, req.(*QueryCancelReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _Dynizer_FindActionLabelLinks_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(FindActionLabelLinksReq)
 	if err := dec(in); err != nil {
@@ -4103,6 +4137,10 @@ var Dynizer_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "QueryClose",
 			Handler:    _Dynizer_QueryClose_Handler,
+		},
+		{
+			MethodName: "QueryCancel",
+			Handler:    _Dynizer_QueryCancel_Handler,
 		},
 		{
 			MethodName: "FindActionLabelLinks",

@@ -6,7 +6,7 @@ info:
   contact:
     name: Consono
     url: https://www.consono.ai
-    email: support@consono.com
+    email: support@dynactionize.com
   x-logo:
     altText: Consono Logo
     backgroundColor: '#FFF'
@@ -14,6 +14,7 @@ info:
     url: https://www.consono.ai/company-logo/consono-logo-inverted.svg
 tags:
   - name: Dynizer
+    description: SERVICE RPC
 host: '*.dynizer.com'
 basePath: /
 schemes:
@@ -3106,6 +3107,37 @@ paths:
             $ref: '#/definitions/QueryBindReq'
       tags:
         - Query
+  /api/v2/query/cancel:
+    post:
+      summary: Cancels a running query
+      description: Cancels the execution of a running DQL query.<br>This is part of the new experimental query engine in development but can be used for the current engine as well.<br>To change the query engine, set the session variable 'query_v3_session to *true*.
+      operationId: QueryCancel
+      responses:
+        "200":
+          description: A successful response.
+          schema:
+            $ref: '#/definitions/EmptyRes'
+        "401":
+          description: Unauthorized call
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        "500":
+          description: Unexpected internal error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        default:
+          description: An unexpected error response.
+          schema:
+            $ref: '#/definitions/rpcStatus'
+      parameters:
+        - name: body
+          description: Cancels the execution of a portal.
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/QueryCancelReq'
+      tags:
+        - Query
   /api/v2/query/close:
     post:
       summary: Closes and cleans parsed and/or bind queries
@@ -5317,6 +5349,15 @@ definitions:
     description: Performs the Bind of Parameter values
     required:
       - parameters
+  QueryCancelReq:
+    type: object
+    properties:
+      portal:
+        type: string
+        description: The portal of which the query is executing.
+    description: Cancels the execution of a portal.
+    required:
+      - session_uuid
   QueryCloseReq:
     type: object
     properties:
