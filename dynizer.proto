@@ -1689,7 +1689,20 @@ message DQLReq {
 
     repeated DQLParam parameters = 2 [
         (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-            description: "The DQL parameter."
+            description: "The DQL parameters."
+        }
+    ];
+
+    string statement = 3 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+            description: "The name of the statement. The statement is not usable outside of SimpleQuery. Omitting this parameter sets the unnamed statement, which is not safe for concurrent usage within a session. Provide a unique statement name for concurrent queries within a session."
+        }
+    ];
+
+
+    string portal = 4 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+            description: "The name of the portal. The portal is not usable outside of SimpleQuery. Omitting this parameter sets the unnamed portal, which is not safe for concurrent usage within a session. Provide a unique portal name for concurrent queries within a session."
         }
     ];
 }
@@ -4537,13 +4550,13 @@ message QueryParseReq {
   option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: {
       required: ["dql"]
-      description: "DynizerQuery Statement to be parsed"
+      description: "DQL statement to be parsed"
     }
   };
 
   string statement = 1 [
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-      description: "The name for the Statement for later reference"
+      description: "The name of the statement. Omitting this parameter sets the unnamed statement, which is not safe for concurrent usage within a session. Provide a unique statement name for concurrent queries within a session."
     }
   ];
 
@@ -4570,13 +4583,13 @@ message QueryBindReq {
 
   string statement = 1 [
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-      description: "The name of the prepared Statement"
+      description: "The name of the statement."
     }
   ];
 
   string portal = 2 [
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-      description: "The name of the portal, this is what the execute references"
+      description: "The name of the portal. Omitting this parameter sets the unnamed portal, which is not safe for concurrent usage within a session. Provide a unique portal name for concurrent queries within a session."
     }
   ];
 
@@ -4597,7 +4610,7 @@ message QueryDescribeStatementReq {
 
   string statement = 1 [
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-      description: "The name of the prepared Statement"
+      description: "The name of the statement."
     }
   ];
 }
@@ -4612,7 +4625,7 @@ message QueryDescribePortalReq{
 
   string portal = 1 [
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-      description: "The name of the portal, this is what the execute references"
+      description: "The name of the portal."
     }
   ];
 }
@@ -4682,13 +4695,13 @@ message QueryExecuteReq{
 
   string portal = 1 [
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-      description: "The name of the portal, this is what the execute references"
+      description: "The name of the portal."
     }
   ];
 
   Window window = 2 [
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-      description: "The window of rows within the result to be returned ... limit 0 means all rows"
+      description: "The window of rows within the result to be returned ... limit -1 means all rows"
     }
   ];
 }
@@ -4710,15 +4723,15 @@ message QueryCloseReq{
 
   oneof close_for {
     string statement = 2 [
-      (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-        description: "The name of the prepared Statement"
-      }
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      description: "The name of the statement."
+    }
     ];
 
     string portal = 3 [
-      (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-        description: "The name of the portal, this is what the execute references"
-      }
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      description: "The name of the portal."
+    }
     ];
   }
 }
@@ -4733,7 +4746,7 @@ message QueryCancelReq{
 
   string portal = 1 [
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-      description: "The portal of which the query is executing."
+      description: "The name of the portal. Omitting this parameter sets the unnamed portal, which is not safe for concurrent usage within a session. Provide a unique portal name for concurrent queries within a session."
     }
   ];
 

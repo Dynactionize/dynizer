@@ -4380,7 +4380,7 @@
         "parameters": [
           {
             "name": "body",
-            "description": "DynizerQuery Statement to be parsed",
+            "description": "DQL statement to be parsed",
             "in": "body",
             "required": true,
             "schema": {
@@ -4575,14 +4575,14 @@
           },
           {
             "name": "statement",
-            "description": "The name of the prepared Statement",
+            "description": "The name of the statement.",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "portal",
-            "description": "The name of the portal, this is what the execute references",
+            "description": "The name of the portal.",
             "in": "query",
             "required": false,
             "type": "string"
@@ -6332,7 +6332,15 @@
           "items": {
             "$ref": "#/definitions/DQLParam"
           },
-          "description": "The DQL parameter."
+          "description": "The DQL parameters."
+        },
+        "statement": {
+          "type": "string",
+          "description": "The name of the statement. The statement is not usable outside of SimpleQuery. Omitting this parameter sets the unnamed statement, which is not safe for concurrent usage within a session. Provide a unique statement name for concurrent queries within a session."
+        },
+        "portal": {
+          "type": "string",
+          "description": "The name of the portal. The portal is not usable outside of SimpleQuery. Omitting this parameter sets the unnamed portal, which is not safe for concurrent usage within a session. Provide a unique portal name for concurrent queries within a session."
         }
       },
       "description": "DQL statment",
@@ -7412,11 +7420,11 @@
       "properties": {
         "statement": {
           "type": "string",
-          "description": "The name of the prepared Statement"
+          "description": "The name of the statement."
         },
         "portal": {
           "type": "string",
-          "description": "The name of the portal, this is what the execute references"
+          "description": "The name of the portal. Omitting this parameter sets the unnamed portal, which is not safe for concurrent usage within a session. Provide a unique portal name for concurrent queries within a session."
         },
         "parameters": {
           "type": "array",
@@ -7440,11 +7448,11 @@
         },
         "statement": {
           "type": "string",
-          "description": "The name of the prepared Statement"
+          "description": "The name of the statement."
         },
         "portal": {
           "type": "string",
-          "description": "The name of the portal, this is what the execute references"
+          "description": "The name of the portal."
         }
       },
       "description": "Cleans up the session data for weither a portal or a statement.\nIf a statement close is issued all associated portals are closed too.",
@@ -7530,7 +7538,7 @@
       "properties": {
         "portal": {
           "type": "string",
-          "description": "The name of the portal, this is what the execute references"
+          "description": "The name of the portal."
         }
       },
       "description": "Performs the Describe for wither a statement or a portal.\nA statement description will return the definition for both the Parameters as well as the ActionLabels.\nA portal description will just return the ActionLabels.",
@@ -7570,7 +7578,7 @@
       "properties": {
         "statement": {
           "type": "string",
-          "description": "The name of the prepared Statement"
+          "description": "The name of the statement."
         }
       },
       "description": "Performs the Describe for wither a statement or a portal.\nA statement description will return the definition for both the Parameters as well as the ActionLabels.\nA portal description will just return the ActionLabels.",
@@ -7610,11 +7618,11 @@
       "properties": {
         "portal": {
           "type": "string",
-          "description": "The name of the portal, this is what the execute references"
+          "description": "The name of the portal."
         },
         "window": {
           "$ref": "#/definitions/Window",
-          "description": "The window of rows within the result to be returned ... limit 0 means all rows"
+          "description": "The window of rows within the result to be returned ... limit -1 means all rows"
         }
       },
       "description": "Executes a prepared and bound query",
@@ -7670,7 +7678,7 @@
       "properties": {
         "statement": {
           "type": "string",
-          "description": "The name for the Statement for later reference"
+          "description": "The name of the statement. Omitting this parameter sets the unnamed statement, which is not safe for concurrent usage within a session. Provide a unique statement name for concurrent queries within a session."
         },
         "dql": {
           "type": "string",
@@ -7684,7 +7692,7 @@
           "description": "The Parameter descriptions of the statement"
         }
       },
-      "description": "DynizerQuery Statement to be parsed",
+      "description": "DQL statement to be parsed",
       "required": [
         "dql"
       ]
