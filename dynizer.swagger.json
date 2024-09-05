@@ -7,7 +7,7 @@
     "contact": {
       "name": "Consono",
       "url": "https://www.consono.ai",
-      "email": "support@consono.com"
+      "email": "support@dynactionize.com"
     },
     "x-logo": {
       "altText": "Consono Logo",
@@ -18,7 +18,8 @@
   },
   "tags": [
     {
-      "name": "Dynizer"
+      "name": "Dynizer",
+      "description": "SERVICE RPC"
     }
   ],
   "host": "*.dynizer.com",
@@ -4205,6 +4206,53 @@
         ]
       }
     },
+    "/api/v2/query/cancel": {
+      "post": {
+        "summary": "Cancels a running query",
+        "description": "Cancels the execution of a running DQL query.\u003cbr\u003eThis is part of the new experimental query engine in development but can be used for the current engine as well.\u003cbr\u003eTo change the query engine, set the session variable 'query_v3_session to *true*.",
+        "operationId": "QueryCancel",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/EmptyRes"
+            }
+          },
+          "401": {
+            "description": "Unauthorized call",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Unexpected internal error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": "Cancels the execution of a portal.",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/QueryCancelReq"
+            }
+          }
+        ],
+        "tags": [
+          "Query"
+        ]
+      }
+    },
     "/api/v2/query/close": {
       "post": {
         "summary": "Closes and cleans parsed and/or bind queries",
@@ -4380,7 +4428,7 @@
         "parameters": [
           {
             "name": "body",
-            "description": "DQL statement to be parsed",
+            "description": "DynizerQuery Statement to be parsed",
             "in": "body",
             "required": true,
             "schema": {
@@ -4575,14 +4623,14 @@
           },
           {
             "name": "statement",
-            "description": "The name of the statement.",
+            "description": "The name of the prepared Statement",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "portal",
-            "description": "The name of the portal.",
+            "description": "The name of the portal, this is what the execute references",
             "in": "query",
             "required": false,
             "type": "string"
@@ -6332,15 +6380,7 @@
           "items": {
             "$ref": "#/definitions/DQLParam"
           },
-          "description": "The DQL parameters."
-        },
-        "statement": {
-          "type": "string",
-          "description": "The name of the statement. The statement is not usable outside of SimpleQuery. Omitting this parameter sets the unnamed statement, which is not safe for concurrent usage within a session. Provide a unique statement name for concurrent queries within a session."
-        },
-        "portal": {
-          "type": "string",
-          "description": "The name of the portal. The portal is not usable outside of SimpleQuery. Omitting this parameter sets the unnamed portal, which is not safe for concurrent usage within a session. Provide a unique portal name for concurrent queries within a session."
+          "description": "The DQL parameter."
         }
       },
       "description": "DQL statment",
@@ -7420,11 +7460,11 @@
       "properties": {
         "statement": {
           "type": "string",
-          "description": "The name of the statement."
+          "description": "The name of the prepared Statement"
         },
         "portal": {
           "type": "string",
-          "description": "The name of the portal. Omitting this parameter sets the unnamed portal, which is not safe for concurrent usage within a session. Provide a unique portal name for concurrent queries within a session."
+          "description": "The name of the portal, this is what the execute references"
         },
         "parameters": {
           "type": "array",
@@ -7439,6 +7479,19 @@
         "parameters"
       ]
     },
+    "QueryCancelReq": {
+      "type": "object",
+      "properties": {
+        "portal": {
+          "type": "string",
+          "description": "The portal of which the query is executing."
+        }
+      },
+      "description": "Cancels the execution of a portal.",
+      "required": [
+        "session_uuid"
+      ]
+    },
     "QueryCloseReq": {
       "type": "object",
       "properties": {
@@ -7448,11 +7501,11 @@
         },
         "statement": {
           "type": "string",
-          "description": "The name of the statement."
+          "description": "The name of the prepared Statement"
         },
         "portal": {
           "type": "string",
-          "description": "The name of the portal."
+          "description": "The name of the portal, this is what the execute references"
         }
       },
       "description": "Cleans up the session data for weither a portal or a statement.\nIf a statement close is issued all associated portals are closed too.",
@@ -7538,7 +7591,7 @@
       "properties": {
         "portal": {
           "type": "string",
-          "description": "The name of the portal."
+          "description": "The name of the portal, this is what the execute references"
         }
       },
       "description": "Performs the Describe for wither a statement or a portal.\nA statement description will return the definition for both the Parameters as well as the ActionLabels.\nA portal description will just return the ActionLabels.",
@@ -7578,7 +7631,7 @@
       "properties": {
         "statement": {
           "type": "string",
-          "description": "The name of the statement."
+          "description": "The name of the prepared Statement"
         }
       },
       "description": "Performs the Describe for wither a statement or a portal.\nA statement description will return the definition for both the Parameters as well as the ActionLabels.\nA portal description will just return the ActionLabels.",
@@ -7618,11 +7671,11 @@
       "properties": {
         "portal": {
           "type": "string",
-          "description": "The name of the portal."
+          "description": "The name of the portal, this is what the execute references"
         },
         "window": {
           "$ref": "#/definitions/Window",
-          "description": "The window of rows within the result to be returned ... limit -1 means all rows"
+          "description": "The window of rows within the result to be returned ... limit 0 means all rows"
         }
       },
       "description": "Executes a prepared and bound query",
@@ -7678,7 +7731,7 @@
       "properties": {
         "statement": {
           "type": "string",
-          "description": "The name of the statement. Omitting this parameter sets the unnamed statement, which is not safe for concurrent usage within a session. Provide a unique statement name for concurrent queries within a session."
+          "description": "The name for the Statement for later reference"
         },
         "dql": {
           "type": "string",
@@ -7692,7 +7745,7 @@
           "description": "The Parameter descriptions of the statement"
         }
       },
-      "description": "DQL statement to be parsed",
+      "description": "DynizerQuery Statement to be parsed",
       "required": [
         "dql"
       ]
@@ -8122,17 +8175,27 @@
           "type": "string",
           "description": "The build of the **Dynizer**"
         },
+        "mode": {
+          "type": "string",
+          "description": "The mode of the **Dynizer**"
+        },
         "build_date": {
           "type": "string",
           "description": "The date of the **Dynizer** build"
+        },
+        "commit": {
+          "type": "string",
+          "description": "The git-commit id of the **Dynizer** build"
         }
       },
       "description": "Returns the version of the **Dynizer**",
-      "title": "VersionRes",
+      "title": "GetVersionResponse",
       "required": [
         "version",
         "build",
-        "build_date"
+        "mode",
+        "build_date",
+        "commit"
       ]
     },
     "Window": {
