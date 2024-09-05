@@ -133,8 +133,6 @@ type DynizerClient interface {
 	QueryResultNext(ctx context.Context, in *QueryResultReq, opts ...grpc.CallOption) (*QueryResultRes, error)
 	// QueryResultClose
 	QueryResultClose(ctx context.Context, in *QueryCloseReq, opts ...grpc.CallOption) (*EmptyRes, error)
-	// Query Result Streamed
-	QueryResultStreamed(ctx context.Context, in *QueryResultReq, opts ...grpc.CallOption) (Dynizer_QueryResultStreamedClient, error)
 	// Check MetaDataKey Name
 	CheckMetaDataKeyName(ctx context.Context, in *CheckMetaDataKeyNameReq, opts ...grpc.CallOption) (*EmptyRes, error)
 	// Create MetaDataKey
@@ -225,8 +223,6 @@ type DynizerClient interface {
 	QueryExecute(ctx context.Context, in *QueryExecuteReq, opts ...grpc.CallOption) (*QueryExecuteRes, error)
 	// Closes and cleans parsed and/or bind queries
 	QueryClose(ctx context.Context, in *QueryCloseReq, opts ...grpc.CallOption) (*EmptyRes, error)
-	// Cancels a running query
-	QueryCancel(ctx context.Context, in *QueryCancelReq, opts ...grpc.CallOption) (*EmptyRes, error)
 	// Finds the actionlabels with shared dataelements within a set of actions
 	FindActionLabelLinks(ctx context.Context, in *FindActionLabelLinksReq, opts ...grpc.CallOption) (*FindActionLabelLinksRes, error)
 }
@@ -804,38 +800,6 @@ func (c *dynizerClient) QueryResultClose(ctx context.Context, in *QueryCloseReq,
 	return out, nil
 }
 
-func (c *dynizerClient) QueryResultStreamed(ctx context.Context, in *QueryResultReq, opts ...grpc.CallOption) (Dynizer_QueryResultStreamedClient, error) {
-	stream, err := c.cc.NewStream(ctx, &Dynizer_ServiceDesc.Streams[3], "/Dynizer/QueryResultStreamed", opts...)
-	if err != nil {
-		return nil, err
-	}
-	x := &dynizerQueryResultStreamedClient{stream}
-	if err := x.ClientStream.SendMsg(in); err != nil {
-		return nil, err
-	}
-	if err := x.ClientStream.CloseSend(); err != nil {
-		return nil, err
-	}
-	return x, nil
-}
-
-type Dynizer_QueryResultStreamedClient interface {
-	Recv() (*ResultRow, error)
-	grpc.ClientStream
-}
-
-type dynizerQueryResultStreamedClient struct {
-	grpc.ClientStream
-}
-
-func (x *dynizerQueryResultStreamedClient) Recv() (*ResultRow, error) {
-	m := new(ResultRow)
-	if err := x.ClientStream.RecvMsg(m); err != nil {
-		return nil, err
-	}
-	return m, nil
-}
-
 func (c *dynizerClient) CheckMetaDataKeyName(ctx context.Context, in *CheckMetaDataKeyNameReq, opts ...grpc.CallOption) (*EmptyRes, error) {
 	out := new(EmptyRes)
 	err := c.cc.Invoke(ctx, "/Dynizer/CheckMetaDataKeyName", in, out, opts...)
@@ -1259,15 +1223,6 @@ func (c *dynizerClient) QueryClose(ctx context.Context, in *QueryCloseReq, opts 
 	return out, nil
 }
 
-func (c *dynizerClient) QueryCancel(ctx context.Context, in *QueryCancelReq, opts ...grpc.CallOption) (*EmptyRes, error) {
-	out := new(EmptyRes)
-	err := c.cc.Invoke(ctx, "/Dynizer/QueryCancel", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 func (c *dynizerClient) FindActionLabelLinks(ctx context.Context, in *FindActionLabelLinksReq, opts ...grpc.CallOption) (*FindActionLabelLinksRes, error) {
 	out := new(FindActionLabelLinksRes)
 	err := c.cc.Invoke(ctx, "/Dynizer/FindActionLabelLinks", in, out, opts...)
@@ -1392,8 +1347,6 @@ type DynizerServer interface {
 	QueryResultNext(context.Context, *QueryResultReq) (*QueryResultRes, error)
 	// QueryResultClose
 	QueryResultClose(context.Context, *QueryCloseReq) (*EmptyRes, error)
-	// Query Result Streamed
-	QueryResultStreamed(*QueryResultReq, Dynizer_QueryResultStreamedServer) error
 	// Check MetaDataKey Name
 	CheckMetaDataKeyName(context.Context, *CheckMetaDataKeyNameReq) (*EmptyRes, error)
 	// Create MetaDataKey
@@ -1484,8 +1437,6 @@ type DynizerServer interface {
 	QueryExecute(context.Context, *QueryExecuteReq) (*QueryExecuteRes, error)
 	// Closes and cleans parsed and/or bind queries
 	QueryClose(context.Context, *QueryCloseReq) (*EmptyRes, error)
-	// Cancels a running query
-	QueryCancel(context.Context, *QueryCancelReq) (*EmptyRes, error)
 	// Finds the actionlabels with shared dataelements within a set of actions
 	FindActionLabelLinks(context.Context, *FindActionLabelLinksReq) (*FindActionLabelLinksRes, error)
 	mustEmbedUnimplementedDynizerServer()
@@ -1660,9 +1611,6 @@ func (UnimplementedDynizerServer) QueryResultNext(context.Context, *QueryResultR
 func (UnimplementedDynizerServer) QueryResultClose(context.Context, *QueryCloseReq) (*EmptyRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method QueryResultClose not implemented")
 }
-func (UnimplementedDynizerServer) QueryResultStreamed(*QueryResultReq, Dynizer_QueryResultStreamedServer) error {
-	return status.Errorf(codes.Unimplemented, "method QueryResultStreamed not implemented")
-}
 func (UnimplementedDynizerServer) CheckMetaDataKeyName(context.Context, *CheckMetaDataKeyNameReq) (*EmptyRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CheckMetaDataKeyName not implemented")
 }
@@ -1803,9 +1751,6 @@ func (UnimplementedDynizerServer) QueryExecute(context.Context, *QueryExecuteReq
 }
 func (UnimplementedDynizerServer) QueryClose(context.Context, *QueryCloseReq) (*EmptyRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method QueryClose not implemented")
-}
-func (UnimplementedDynizerServer) QueryCancel(context.Context, *QueryCancelReq) (*EmptyRes, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method QueryCancel not implemented")
 }
 func (UnimplementedDynizerServer) FindActionLabelLinks(context.Context, *FindActionLabelLinksReq) (*FindActionLabelLinksRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method FindActionLabelLinks not implemented")
@@ -2832,27 +2777,6 @@ func _Dynizer_QueryResultClose_Handler(srv interface{}, ctx context.Context, dec
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Dynizer_QueryResultStreamed_Handler(srv interface{}, stream grpc.ServerStream) error {
-	m := new(QueryResultReq)
-	if err := stream.RecvMsg(m); err != nil {
-		return err
-	}
-	return srv.(DynizerServer).QueryResultStreamed(m, &dynizerQueryResultStreamedServer{stream})
-}
-
-type Dynizer_QueryResultStreamedServer interface {
-	Send(*ResultRow) error
-	grpc.ServerStream
-}
-
-type dynizerQueryResultStreamedServer struct {
-	grpc.ServerStream
-}
-
-func (x *dynizerQueryResultStreamedServer) Send(m *ResultRow) error {
-	return x.ServerStream.SendMsg(m)
-}
-
 func _Dynizer_CheckMetaDataKeyName_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(CheckMetaDataKeyNameReq)
 	if err := dec(in); err != nil {
@@ -3699,24 +3623,6 @@ func _Dynizer_QueryClose_Handler(srv interface{}, ctx context.Context, dec func(
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Dynizer_QueryCancel_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(QueryCancelReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(DynizerServer).QueryCancel(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/Dynizer/QueryCancel",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DynizerServer).QueryCancel(ctx, req.(*QueryCancelReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 func _Dynizer_FindActionLabelLinks_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(FindActionLabelLinksReq)
 	if err := dec(in); err != nil {
@@ -4139,10 +4045,6 @@ var Dynizer_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _Dynizer_QueryClose_Handler,
 		},
 		{
-			MethodName: "QueryCancel",
-			Handler:    _Dynizer_QueryCancel_Handler,
-		},
-		{
 			MethodName: "FindActionLabelLinks",
 			Handler:    _Dynizer_FindActionLabelLinks_Handler,
 		},
@@ -4163,11 +4065,6 @@ var Dynizer_ServiceDesc = grpc.ServiceDesc{
 			Handler:       _Dynizer_StreamInstances_Handler,
 			ServerStreams: true,
 			ClientStreams: true,
-		},
-		{
-			StreamName:    "QueryResultStreamed",
-			Handler:       _Dynizer_QueryResultStreamed_Handler,
-			ServerStreams: true,
 		},
 	},
 	Metadata: "dynizer.proto",

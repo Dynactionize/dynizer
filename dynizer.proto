@@ -15,7 +15,7 @@ option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
         contact: {
             name: "Consono";
             url: "https://www.consono.ai";
-            email: "support@dynactionize.com";
+            email: "support@consono.com";
         };
         description: "This is the [Dynizer API](https://www.consono.ai/technology)";
         extensions: {
@@ -1689,7 +1689,20 @@ message DQLReq {
 
     repeated DQLParam parameters = 2 [
         (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-            description: "The DQL parameter."
+            description: "The DQL parameters."
+        }
+    ];
+
+    string statement = 3 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+            description: "The name of the statement. The statement is not usable outside of SimpleQuery. Omitting this parameter sets the unnamed statement, which is not safe for concurrent usage within a session. Provide a unique statement name for concurrent queries within a session."
+        }
+    ];
+
+
+    string portal = 4 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+            description: "The name of the portal. The portal is not usable outside of SimpleQuery. Omitting this parameter sets the unnamed portal, which is not safe for concurrent usage within a session. Provide a unique portal name for concurrent queries within a session."
         }
     ];
 }
@@ -3880,11 +3893,11 @@ message ActionLabelSelector {
     ];
 }
 
-// GetVersionResponse
+// VersionRes
 message VersionRes {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
-          required: ["version", "build", "mode", "build_date", "commit"]
+          required: ["version", "build", "build_date"]
           description: "Returns the version of the **Dynizer**"
         }
     };
@@ -3901,21 +3914,9 @@ message VersionRes {
         }
     ];
 
-    string mode = 3 [
-        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-            description: "The mode of the **Dynizer**"
-        }
-    ];
-
     string build_date = 4 [
         (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
             description: "The date of the **Dynizer** build"
-        }
-    ];
-
-    string commit = 5 [
-        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-            description: "The git-commit id of the **Dynizer** build"
         }
     ];
 }
@@ -4549,13 +4550,13 @@ message QueryParseReq {
   option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: {
       required: ["dql"]
-      description: "DynizerQuery Statement to be parsed"
+      description: "DQL statement to be parsed"
     }
   };
 
   string statement = 1 [
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-      description: "The name for the Statement for later reference"
+      description: "The name of the statement. Omitting this parameter sets the unnamed statement, which is not safe for concurrent usage within a session. Provide a unique statement name for concurrent queries within a session."
     }
   ];
 
@@ -4582,13 +4583,13 @@ message QueryBindReq {
 
   string statement = 1 [
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-      description: "The name of the prepared Statement"
+      description: "The name of the statement."
     }
   ];
 
   string portal = 2 [
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-      description: "The name of the portal, this is what the execute references"
+      description: "The name of the portal. Omitting this parameter sets the unnamed portal, which is not safe for concurrent usage within a session. Provide a unique portal name for concurrent queries within a session."
     }
   ];
 
@@ -4609,7 +4610,7 @@ message QueryDescribeStatementReq {
 
   string statement = 1 [
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-      description: "The name of the prepared Statement"
+      description: "The name of the statement."
     }
   ];
 }
@@ -4624,7 +4625,7 @@ message QueryDescribePortalReq{
 
   string portal = 1 [
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-      description: "The name of the portal, this is what the execute references"
+      description: "The name of the portal."
     }
   ];
 }
@@ -4694,13 +4695,13 @@ message QueryExecuteReq{
 
   string portal = 1 [
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-      description: "The name of the portal, this is what the execute references"
+      description: "The name of the portal."
     }
   ];
 
   Window window = 2 [
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-      description: "The window of rows within the result to be returned ... limit 0 means all rows"
+      description: "The window of rows within the result to be returned ... limit -1 means all rows"
     }
   ];
 }
@@ -4722,15 +4723,15 @@ message QueryCloseReq{
 
   oneof close_for {
     string statement = 2 [
-      (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-        description: "The name of the prepared Statement"
-      }
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      description: "The name of the statement."
+    }
     ];
 
     string portal = 3 [
-      (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-        description: "The name of the portal, this is what the execute references"
-      }
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      description: "The name of the portal."
+    }
     ];
   }
 }
@@ -4745,7 +4746,7 @@ message QueryCancelReq{
 
   string portal = 1 [
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-      description: "The portal of which the query is executing."
+      description: "The name of the portal. Omitting this parameter sets the unnamed portal, which is not safe for concurrent usage within a session. Provide a unique portal name for concurrent queries within a session."
     }
   ];
 
@@ -4870,10 +4871,6 @@ message ActionLabelLink {
 /// ** SERVICE RPC DEFINITIONS ** ///
 
 service Dynizer {
-    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_tag) = {
-        description: "SERVICE RPC"
-    };
-
     // Login
     rpc Login(LoginReq) returns(LoginRes) {
         option (google.api.http) = {
@@ -5096,7 +5093,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "ListUsers";
             tags: ["Users"]
-            description: "Returns all users from the Dynizer.<br>Optionally a window can be provided to fetch just a specific sub-set of the users to support pagination."
+            description: "Returns all users from the Dynizer.<br>By default all rows are returned. Optionally a window can be provided to fetch just a specific sub-set of rows to support pagination."
         };
     }
 
@@ -5207,7 +5204,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "ListActionTypes";
             tags: ["ActionTypes"]
-            description:"Returns a list of **ActionTypes**.<br>Providing the optional window for pagination is supported."
+            description:"Returns a list of **ActionTypes**.<br>By default all rows are returned. Optionally a window can be provided to fetch just a specific sub-set of rows to support pagination."
         };
     }
 
@@ -5337,7 +5334,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "ListActionNames";
             tags: ["Actions"]
-            description:"Returns a list of **Action** names.<br>Providing the optional window for pagination is supported."
+            description:"Returns a list of **Action** names.<br>By default all rows are returned. Optionally a window can be provided to fetch just a specific sub-set of rows to support pagination."
         };
     }
 
@@ -5571,7 +5568,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "QueryResultNext";
             tags: ["Query"]
-            description: "Reads ResultRows from a ResultHandle.<br>The window can be used have server-side pagination."
+            description: "Reads ResultRows from a ResultHandle.<br>By default no rows are returned. A window must be provided to fetch just a specific sub-set of rows."
         };
     }
 
@@ -5584,18 +5581,6 @@ service Dynizer {
             operation_id: "QueryResultClose";
             tags: ["Query"]
             description: "Close a ResultHandle.<br>This will free all result cache resources."
-        };
-    }
-
-    // Query Result Streamed
-    rpc QueryResultStreamed(QueryResultReq) returns(stream ResultRow) {
-        option (google.api.http) = {
-            get: "/api/v2/query/{result_handle}/stream"
-        };
-        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-            operation_id: "QueryResultStreamed";
-            tags: ["Query"]
-            description: "Reads ResultRows from a ResultHandle in a streamed way.<br>The window can be used have server-side pagination."
         };
     }
 
@@ -5681,7 +5666,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "ListMetaDataKeys";
             tags: ["MetaData", "MetaDataKey"]
-            description: "Lists all MetaDataKeys in the Dynizer.<br>The optional window allows for pagination support.<br>This is an **experimental** feature and it's implementation and API might change in a minor update."
+            description: "Lists all MetaDataKeys in the Dynizer.<br>By default all rows are returned. Optionally a window can be provided to fetch just a specific sub-set of rows to support pagination.<br>This is an **experimental** feature and it's implementation and API might change in a minor update."
         };
     }
 
@@ -6180,19 +6165,6 @@ service Dynizer {
       operation_id: "QueryClose";
       tags: ["Query"]
       description: "Closes a DQL statement.<br>This is part of the new experimental query engine in development but can be used for the current engine as well.<br>To change the query engine, set the session variable 'query_v3_session to *true*."
-    };
-  }
-
-  // Cancels a running query
-  rpc QueryCancel(QueryCancelReq) returns(EmptyRes) {
-    option (google.api.http) = {
-      post: "/api/v2/query/cancel"
-      body: "*"
-    };
-    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      operation_id: "QueryCancel";
-      tags: ["Query"]
-      description: "Cancels the execution of a running DQL query.<br>This is part of the new experimental query engine in development but can be used for the current engine as well.<br>To change the query engine, set the session variable 'query_v3_session to *true*."
     };
   }
 

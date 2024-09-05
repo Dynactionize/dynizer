@@ -7,7 +7,7 @@
     "contact": {
       "name": "Consono",
       "url": "https://www.consono.ai",
-      "email": "support@dynactionize.com"
+      "email": "support@consono.com"
     },
     "x-logo": {
       "altText": "Consono Logo",
@@ -18,8 +18,7 @@
   },
   "tags": [
     {
-      "name": "Dynizer",
-      "description": "SERVICE RPC"
+      "name": "Dynizer"
     }
   ],
   "host": "*.dynizer.com",
@@ -141,7 +140,7 @@
     "/api/v2/actions/types/{action_type_label}/names/all": {
       "get": {
         "summary": "List Action Names",
-        "description": "Returns a list of **Action** names.\u003cbr\u003eProviding the optional window for pagination is supported.",
+        "description": "Returns a list of **Action** names.\u003cbr\u003eBy default all rows are returned. Optionally a window can be provided to fetch just a specific sub-set of rows to support pagination.",
         "operationId": "ListActionNames",
         "responses": {
           "200": {
@@ -678,7 +677,7 @@
     "/api/v2/actiontypes": {
       "get": {
         "summary": "List Action Types",
-        "description": "Returns a list of **ActionTypes**.\u003cbr\u003eProviding the optional window for pagination is supported.",
+        "description": "Returns a list of **ActionTypes**.\u003cbr\u003eBy default all rows are returned. Optionally a window can be provided to fetch just a specific sub-set of rows to support pagination.",
         "operationId": "ListActionTypes",
         "responses": {
           "200": {
@@ -3131,7 +3130,7 @@
     "/api/v2/metadata/keys": {
       "get": {
         "summary": "List MetaDataKeys",
-        "description": "Lists all MetaDataKeys in the Dynizer.\u003cbr\u003eThe optional window allows for pagination support.\u003cbr\u003eThis is an **experimental** feature and it's implementation and API might change in a minor update.",
+        "description": "Lists all MetaDataKeys in the Dynizer.\u003cbr\u003eBy default all rows are returned. Optionally a window can be provided to fetch just a specific sub-set of rows to support pagination.\u003cbr\u003eThis is an **experimental** feature and it's implementation and API might change in a minor update.",
         "operationId": "ListMetaDataKeys",
         "responses": {
           "200": {
@@ -4206,53 +4205,6 @@
         ]
       }
     },
-    "/api/v2/query/cancel": {
-      "post": {
-        "summary": "Cancels a running query",
-        "description": "Cancels the execution of a running DQL query.\u003cbr\u003eThis is part of the new experimental query engine in development but can be used for the current engine as well.\u003cbr\u003eTo change the query engine, set the session variable 'query_v3_session to *true*.",
-        "operationId": "QueryCancel",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/EmptyRes"
-            }
-          },
-          "401": {
-            "description": "Unauthorized call",
-            "schema": {
-              "$ref": "#/definitions/ErrorResponse"
-            }
-          },
-          "500": {
-            "description": "Unexpected internal error",
-            "schema": {
-              "$ref": "#/definitions/ErrorResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/rpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "description": "Cancels the execution of a portal.",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/QueryCancelReq"
-            }
-          }
-        ],
-        "tags": [
-          "Query"
-        ]
-      }
-    },
     "/api/v2/query/close": {
       "post": {
         "summary": "Closes and cleans parsed and/or bind queries",
@@ -4428,7 +4380,7 @@
         "parameters": [
           {
             "name": "body",
-            "description": "DynizerQuery Statement to be parsed",
+            "description": "DQL statement to be parsed",
             "in": "body",
             "required": true,
             "schema": {
@@ -4623,14 +4575,14 @@
           },
           {
             "name": "statement",
-            "description": "The name of the prepared Statement",
+            "description": "The name of the statement.",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "portal",
-            "description": "The name of the portal, this is what the execute references",
+            "description": "The name of the portal.",
             "in": "query",
             "required": false,
             "type": "string"
@@ -4644,90 +4596,13 @@
     "/api/v2/query/{result_handle}/next": {
       "get": {
         "summary": "Query Result Next",
-        "description": "Reads ResultRows from a ResultHandle.\u003cbr\u003eThe window can be used have server-side pagination.",
+        "description": "Reads ResultRows from a ResultHandle.\u003cbr\u003eBy default no rows are returned. A window must be provided to fetch just a specific sub-set of rows.",
         "operationId": "QueryResultNext",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/QueryResultRes"
-            }
-          },
-          "401": {
-            "description": "Unauthorized call",
-            "schema": {
-              "$ref": "#/definitions/ErrorResponse"
-            }
-          },
-          "500": {
-            "description": "Unexpected internal error",
-            "schema": {
-              "$ref": "#/definitions/ErrorResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/rpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "result_handle",
-            "description": "The unique identifier for the DQL Result to read from.",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "window.limit",
-            "description": "Defines how many records at max are returned.\u003cbr\u003eIf fewer records are available, all will be returned.\u003cbr\u003eSetting this to -1 will be interpreted as no limit",
-            "in": "query",
-            "required": true,
-            "type": "integer",
-            "format": "int64"
-          },
-          {
-            "name": "window.offset",
-            "description": "Defines the offset at which to start reading.\u003cbr\u003eAn offset of 0 will bean to start from the first possible record.",
-            "in": "query",
-            "required": true,
-            "type": "integer",
-            "format": "int64"
-          },
-          {
-            "name": "window.relative",
-            "description": "The Dynizer keeps track of the last read position, this flag indicates wether the offset is relative to the current read position or absolute.",
-            "in": "query",
-            "required": false,
-            "type": "boolean"
-          }
-        ],
-        "tags": [
-          "Query"
-        ]
-      }
-    },
-    "/api/v2/query/{result_handle}/stream": {
-      "get": {
-        "summary": "Query Result Streamed",
-        "description": "Reads ResultRows from a ResultHandle in a streamed way.\u003cbr\u003eThe window can be used have server-side pagination.",
-        "operationId": "QueryResultStreamed",
-        "responses": {
-          "200": {
-            "description": "A successful response.(streaming responses)",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "result": {
-                  "$ref": "#/definitions/ResultRow"
-                },
-                "error": {
-                  "$ref": "#/definitions/rpcStatus"
-                }
-              },
-              "title": "Stream result of ResultRow"
             }
           },
           "401": {
@@ -5263,7 +5138,7 @@
     "/api/v2/users": {
       "get": {
         "summary": "List Users",
-        "description": "Returns all users from the Dynizer.\u003cbr\u003eOptionally a window can be provided to fetch just a specific sub-set of the users to support pagination.",
+        "description": "Returns all users from the Dynizer.\u003cbr\u003eBy default all rows are returned. Optionally a window can be provided to fetch just a specific sub-set of rows to support pagination.",
         "operationId": "ListUsers",
         "responses": {
           "200": {
@@ -6380,7 +6255,15 @@
           "items": {
             "$ref": "#/definitions/DQLParam"
           },
-          "description": "The DQL parameter."
+          "description": "The DQL parameters."
+        },
+        "statement": {
+          "type": "string",
+          "description": "The name of the statement. The statement is not usable outside of SimpleQuery. Omitting this parameter sets the unnamed statement, which is not safe for concurrent usage within a session. Provide a unique statement name for concurrent queries within a session."
+        },
+        "portal": {
+          "type": "string",
+          "description": "The name of the portal. The portal is not usable outside of SimpleQuery. Omitting this parameter sets the unnamed portal, which is not safe for concurrent usage within a session. Provide a unique portal name for concurrent queries within a session."
         }
       },
       "description": "DQL statment",
@@ -7460,11 +7343,11 @@
       "properties": {
         "statement": {
           "type": "string",
-          "description": "The name of the prepared Statement"
+          "description": "The name of the statement."
         },
         "portal": {
           "type": "string",
-          "description": "The name of the portal, this is what the execute references"
+          "description": "The name of the portal. Omitting this parameter sets the unnamed portal, which is not safe for concurrent usage within a session. Provide a unique portal name for concurrent queries within a session."
         },
         "parameters": {
           "type": "array",
@@ -7479,19 +7362,6 @@
         "parameters"
       ]
     },
-    "QueryCancelReq": {
-      "type": "object",
-      "properties": {
-        "portal": {
-          "type": "string",
-          "description": "The portal of which the query is executing."
-        }
-      },
-      "description": "Cancels the execution of a portal.",
-      "required": [
-        "session_uuid"
-      ]
-    },
     "QueryCloseReq": {
       "type": "object",
       "properties": {
@@ -7501,11 +7371,11 @@
         },
         "statement": {
           "type": "string",
-          "description": "The name of the prepared Statement"
+          "description": "The name of the statement."
         },
         "portal": {
           "type": "string",
-          "description": "The name of the portal, this is what the execute references"
+          "description": "The name of the portal."
         }
       },
       "description": "Cleans up the session data for weither a portal or a statement.\nIf a statement close is issued all associated portals are closed too.",
@@ -7591,7 +7461,7 @@
       "properties": {
         "portal": {
           "type": "string",
-          "description": "The name of the portal, this is what the execute references"
+          "description": "The name of the portal."
         }
       },
       "description": "Performs the Describe for wither a statement or a portal.\nA statement description will return the definition for both the Parameters as well as the ActionLabels.\nA portal description will just return the ActionLabels.",
@@ -7631,7 +7501,7 @@
       "properties": {
         "statement": {
           "type": "string",
-          "description": "The name of the prepared Statement"
+          "description": "The name of the statement."
         }
       },
       "description": "Performs the Describe for wither a statement or a portal.\nA statement description will return the definition for both the Parameters as well as the ActionLabels.\nA portal description will just return the ActionLabels.",
@@ -7671,11 +7541,11 @@
       "properties": {
         "portal": {
           "type": "string",
-          "description": "The name of the portal, this is what the execute references"
+          "description": "The name of the portal."
         },
         "window": {
           "$ref": "#/definitions/Window",
-          "description": "The window of rows within the result to be returned ... limit 0 means all rows"
+          "description": "The window of rows within the result to be returned ... limit -1 means all rows"
         }
       },
       "description": "Executes a prepared and bound query",
@@ -7731,7 +7601,7 @@
       "properties": {
         "statement": {
           "type": "string",
-          "description": "The name for the Statement for later reference"
+          "description": "The name of the statement. Omitting this parameter sets the unnamed statement, which is not safe for concurrent usage within a session. Provide a unique statement name for concurrent queries within a session."
         },
         "dql": {
           "type": "string",
@@ -7745,7 +7615,7 @@
           "description": "The Parameter descriptions of the statement"
         }
       },
-      "description": "DynizerQuery Statement to be parsed",
+      "description": "DQL statement to be parsed",
       "required": [
         "dql"
       ]
@@ -8175,27 +8045,17 @@
           "type": "string",
           "description": "The build of the **Dynizer**"
         },
-        "mode": {
-          "type": "string",
-          "description": "The mode of the **Dynizer**"
-        },
         "build_date": {
           "type": "string",
           "description": "The date of the **Dynizer** build"
-        },
-        "commit": {
-          "type": "string",
-          "description": "The git-commit id of the **Dynizer** build"
         }
       },
       "description": "Returns the version of the **Dynizer**",
-      "title": "GetVersionResponse",
+      "title": "VersionRes",
       "required": [
         "version",
         "build",
-        "mode",
-        "build_date",
-        "commit"
+        "build_date"
       ]
     },
     "Window": {
