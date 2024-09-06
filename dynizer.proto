@@ -15,7 +15,7 @@ option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
         contact: {
             name: "Consono";
             url: "https://www.consono.ai";
-            email: "support@consono.com";
+            email: "support@consono.ai";
         };
         description: "This is the [Dynizer API](https://www.consono.ai/technology)";
         extensions: {
