@@ -2624,9 +2624,13 @@ paths:
           enum:
             - InvalidObjectDataType
             - ODT_Text
+            - text
             - ODT_Blob
+            - blob
             - ODT_Clob
+            - clob
             - ODT_Document
+            - document
         - name: object_ref.ref_uuid
           description: The UUID referencing the **Object**.
           in: path
@@ -2679,9 +2683,13 @@ paths:
           enum:
             - InvalidObjectDataType
             - ODT_Text
+            - text
             - ODT_Blob
+            - blob
             - ODT_Clob
+            - clob
             - ODT_Document
+            - document
         - name: object_ref.ref_uuid
           description: The UUID referencing the **Object**.
           in: path
@@ -2734,9 +2742,13 @@ paths:
           enum:
             - InvalidObjectDataType
             - ODT_Text
+            - text
             - ODT_Blob
+            - blob
             - ODT_Clob
+            - clob
             - ODT_Document
+            - document
         - name: object_ref.ref_uuid
           description: The UUID referencing the **Object**.
           in: path
@@ -2803,9 +2815,13 @@ paths:
           enum:
             - InvalidObjectDataType
             - ODT_Text
+            - text
             - ODT_Blob
+            - blob
             - ODT_Clob
+            - clob
             - ODT_Document
+            - document
         - name: object_ref.ref_uuid
           description: The UUID referencing the **Object**.
           in: path
@@ -2825,9 +2841,13 @@ paths:
           enum:
             - InvalidObjectDataType
             - ODT_Text
+            - text
             - ODT_Blob
+            - blob
             - ODT_Clob
+            - clob
             - ODT_Document
+            - document
           default: InvalidObjectDataType
         - name: ref_uuid
           description: The **ObjectReference** UUID for which the bytes will be cleared. This field is used to support legacy clients. Use 'object_ref' instead.
@@ -5183,9 +5203,13 @@ definitions:
     enum:
       - InvalidObjectDataType
       - ODT_Text
+      - text
       - ODT_Blob
+      - blob
       - ODT_Clob
+      - clob
       - ODT_Document
+      - document
     default: InvalidObjectDataType
     description: |-
       - ODT_Text: object is of type TEXT, which can be indexed by the FullTextIndex

@@ -533,15 +533,21 @@ enum DataType {
 
 // ObjectDataType
 enum ObjectDataType {
+    option allow_alias = true;
+    
     InvalidObjectDataType = 0;
     // object is of type TEXT, which can be indexed by the FullTextIndex
     ODT_Text = 12;
+    text = 12;
     // object is of type binary
     ODT_Blob = 13;
+    blob = 13;
     // object is of type character
     ODT_Clob = 14;
+    clob = 14;
     // object is of type character, indexed by FullTextIndex
     ODT_Document = 15;
+    document = 15;
 }
 
 // SortOrder

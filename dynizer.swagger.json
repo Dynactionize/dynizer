@@ -3719,9 +3719,13 @@
             "enum": [
               "InvalidObjectDataType",
               "ODT_Text",
+              "text",
               "ODT_Blob",
+              "blob",
               "ODT_Clob",
-              "ODT_Document"
+              "clob",
+              "ODT_Document",
+              "document"
             ]
           },
           {
@@ -3797,9 +3801,13 @@
             "enum": [
               "InvalidObjectDataType",
               "ODT_Text",
+              "text",
               "ODT_Blob",
+              "blob",
               "ODT_Clob",
-              "ODT_Document"
+              "clob",
+              "ODT_Document",
+              "document"
             ]
           },
           {
@@ -3875,9 +3883,13 @@
             "enum": [
               "InvalidObjectDataType",
               "ODT_Text",
+              "text",
               "ODT_Blob",
+              "blob",
               "ODT_Clob",
-              "ODT_Document"
+              "clob",
+              "ODT_Document",
+              "document"
             ]
           },
           {
@@ -3972,9 +3984,13 @@
             "enum": [
               "InvalidObjectDataType",
               "ODT_Text",
+              "text",
               "ODT_Blob",
+              "blob",
               "ODT_Clob",
-              "ODT_Document"
+              "clob",
+              "ODT_Document",
+              "document"
             ]
           },
           {
@@ -3993,9 +4009,13 @@
             "enum": [
               "InvalidObjectDataType",
               "ODT_Text",
+              "text",
               "ODT_Blob",
+              "blob",
               "ODT_Clob",
-              "ODT_Document"
+              "clob",
+              "ODT_Document",
+              "document"
             ],
             "default": "InvalidObjectDataType"
           },
@@ -7251,9 +7271,13 @@
       "enum": [
         "InvalidObjectDataType",
         "ODT_Text",
+        "text",
         "ODT_Blob",
+        "blob",
         "ODT_Clob",
-        "ODT_Document"
+        "clob",
+        "ODT_Document",
+        "document"
       ],
       "default": "InvalidObjectDataType",
       "description": "- ODT_Text: object is of type TEXT, which can be indexed by the FullTextIndex\n - ODT_Blob: object is of type binary\n - ODT_Clob: object is of type character\n - ODT_Document: object is of type character, indexed by FullTextIndex",
