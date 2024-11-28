@@ -2850,34 +2850,6 @@ message InstanceRes {
     ];
 }
 
-// ActionInstanceResponse
-message ActionInstanceRes {
-    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
-        json_schema: {
-            required: ["instance_id", "user_action_labels", "alternative_data_type"]
-            description: "This holds all **Action** **Instance** rows for one **Action** which are inside the defined window."
-        }
-    };
-
-    repeated ResultLabel user_action_labels = 1 [
-        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-            description: "All the **ActionsLabels** used in these **Instance** rows."
-        }
-    ];
-
-    repeated ActionInstanceRecord result_rows = 2 [
-        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-            description: "All the **Instance** rows for the window."
-        }
-    ];
-
-    repeated ResultValueAlternativeMetaDataPosition alternative_data_types = 3 [
-        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-            description: "This is propergated if any cell would have a dataype override from the default."
-        }
-    ];
-}
-
 // CountResponse
 message CountRes {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
@@ -3003,42 +2975,6 @@ message ListUserRolesRes {
     repeated DynizerRole roles = 2 [
         (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
             description: "All the roles which have been assigned to the user."
-        }
-    ];
-}
-
-// ReadActionInstancesResponse
-message ReadActionInstancesRes {
-    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
-        json_schema: {
-          required: ["result_labels", "rows", "total_instances", "alternative_data_types"]
-          description: "Response the **Instances** for an **Action**"
-        }
-    };
-
-    repeated ResultLabel result_labels = 1 [
-        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-            description: "All the **ActionLabels** of the **Instance** rows."
-        }
-    ];
-
-    int64 total_instances = 2 [
-        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-            description: "Total number of **Instancs** for this **Action**."
-            type: INTEGER
-            minimum: 0
-        }
-    ];
-
-    repeated ActionInstanceRecord rows = 3 [
-        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-            description: "The actual **Action**-**Instance** rows with data."
-        }
-    ];
-
-    repeated ResultValueAlternativeMetaDataPosition alternative_data_types = 4 [
-        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-            description: "This is propergated if any cell would have a dataype override from the default."
         }
     ];
 }
@@ -3487,27 +3423,6 @@ message ResultRow {
     };
 
     repeated string instance_cell_values = 1 [
-        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-            description: "the string representation of the values."
-        }
-    ];
-}
-
-// ActionInstanceRecord
-message ActionInstanceRecord {
-    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
-        json_schema: {
-            description: "Message to hold a result row for **Instances** of an specific **Action**"
-        }
-    };
-
-    string instance_id = 1 [
-        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-            description: "The special UUID identifying an **Instance**."
-        }
-    ];
-
-    repeated string instance_cell_values = 2 [
         (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
             description: "the string representation of the values."
         }
