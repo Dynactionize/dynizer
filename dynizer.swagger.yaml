@@ -2,7 +2,7 @@ swagger: "2.0"
 info:
   title: Dynizer API
   description: This is the [Dynizer API](https://www.consono.ai/technology)
-  version: "2.1"
+  version: "2.2"
   contact:
     name: Consono
     url: https://www.consono.ai
@@ -26,7 +26,7 @@ paths:
   /api/v2/actions:
     post:
       summary: Create Action
-      description: Creates an **Action** with the provided name.<br>The name needs to be unqiue, the CheckActionName call can be used to verify this.<br>The name can not start or end with a whitespace character.<br>The name can not contain any control characters at any position.
+      description: Creates an **Action** with the provided name.<br>The name needs to be unique, the CheckActionName call can be used to verify this.<br>The name can not start or end with a whitespace character.<br>The name can not contain any control characters at any position.
       operationId: CreateAction
       responses:
         "200":
@@ -128,7 +128,7 @@ paths:
         - Actions
     patch:
       summary: Update Action
-      description: Updates an **Action**, at the moment this is only the name.<br>The new_name needs to be unqiue.<br>The *new_name* can not start or end with a whitespace character.<br>The *new_name* can not contain any control characters at any position
+      description: Updates an **Action**, at the moment this is only the name.<br>The new_name needs to be unique.<br>The *new_name* can not start or end with a whitespace character.<br>The *new_name* can not contain any control characters at any position
       operationId: UpdateAction
       responses:
         "200":
@@ -576,7 +576,7 @@ paths:
         - ActionTypes
     patch:
       summary: Update ActionType
-      description: Updates a **ActionType**, at the moment this is only the name.<br>The new_name needs to be unqiue.<br>The *new_name* can not start or end with a whitespace character.<br>The *new_name* can not contain any control characters at any position
+      description: Updates a **ActionType**, at the moment this is only the name.<br>The new_name needs to be unique.<br>The *new_name* can not start or end with a whitespace character.<br>The *new_name* can not contain any control characters at any position
       operationId: UpdateActionType
       responses:
         "200":
@@ -3980,6 +3980,282 @@ paths:
             $ref: '#/definitions/rpcStatus'
       tags:
         - Users
+  /api/v2/objects/download/{type}/{uuid}:
+    get:
+      summary: Download an object
+      description: Downloads an object of provided type and UUID. Returns the raw bytes of the object.
+      operationId: DownloadObject
+      responses:
+        "200":
+          description: A successful response.
+          schema:
+            type: string
+            format: binary
+        "400":
+          description: Invalid Argument
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        "401":
+          description: Unauthorized call
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        "500":
+          description: Unexpected internal error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        default:
+          description: An unexpected error response.
+          schema:
+            $ref: '#/definitions/rpcStatus'
+      parameters:
+        - name: type
+          description: The type of the object.
+          in: path
+          required: true
+          type: string
+        - name: uuid
+          description: The UUID of the object.
+          in: path
+          required: true
+          type: string
+      tags:
+        - Objects
+  /api/v2/objects/upload/{type}/{uuid}:
+    post:
+      summary: Upload an object
+      description: Uploads an object of provided type and UUID. Accepts the raw bytes of the object.
+      operationId: UploadObject
+      responses:
+        "200":
+          description: A successful response.
+          schema: {}
+        "400":
+          description: Invalid Argument
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        "401":
+          description: Unauthorized call
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        "500":
+          description: Unexpected internal error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        default:
+          description: An unexpected error response.
+          schema:
+            $ref: '#/definitions/rpcStatus'
+      parameters:
+        - name: type
+          description: The type of the object.
+          in: path
+          required: true
+          type: string
+        - name: uuid
+          description: The UUID of the object.
+          in: path
+          required: true
+          type: string
+        - in: body
+          name: raw_bytes
+          required: true
+          schema:
+            type: string
+            format: binary
+      tags:
+        - Objects
+  /api/v2/docs:
+    get:
+      summary: Download the docs
+      description: Downloads the docs of Dynizer in HTML format.
+      operationId: DownloadDocs
+      responses:
+        "200":
+          description: A successful response.
+          schema:
+            type: string
+            format: binary
+        "401":
+          description: Unauthorized call
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        "404":
+          description: Not found
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        "500":
+          description: Unexpected internal error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        default:
+          description: An unexpected error response.
+          schema:
+            $ref: '#/definitions/rpcStatus'
+      tags:
+        - Documentation
+  /api/v2/docs/{file}:
+    get:
+      summary: Download the docs
+      description: Downloads the docs of Dynizer in HTML format (index.html).
+      operationId: DownloadDocsFile
+      responses:
+        "200":
+          description: A successful response.
+          schema:
+            type: string
+            format: binary
+        "401":
+          description: Unauthorized call
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        "404":
+          description: Not found
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        "500":
+          description: Unexpected internal error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        default:
+          description: An unexpected error response.
+          schema:
+            $ref: '#/definitions/rpcStatus'
+      parameters:
+        - name: file
+          description: The documentation filename.
+          in: path
+          required: true
+          type: string
+      tags:
+        - Documentation
+  /api/v2/spec:
+    get:
+      summary: Download the spec
+      description: Downloads the spec of Dynizer in format defined by the Accept header (default = application/yaml, others = application/json).
+      operationId: DownloadSpec
+      responses:
+        "200":
+          description: A successful response.
+          schema:
+            type: string
+            format: binary
+        "401":
+          description: Unauthorized call
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        "404":
+          description: Not found
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        "500":
+          description: Unexpected internal error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        default:
+          description: An unexpected error response.
+          schema:
+            $ref: '#/definitions/rpcStatus'
+      tags:
+        - Documentation
+  /api/v2/spec/{file}:
+    get:
+      summary: Download the spec
+      description: Downloads the spec of Dynizer in the format defined by the Accept header and filename (application/yaml = dynizer.swagger.yaml, application/json = dynizer.swagger.json).
+      operationId: DownloadSpecFile
+      responses:
+        "200":
+          description: A successful response.
+          schema:
+            type: string
+            format: binary
+        "401":
+          description: Unauthorized call
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        "404":
+          description: Not found
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        "500":
+          description: Unexpected internal error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        default:
+          description: An unexpected error response.
+          schema:
+            $ref: '#/definitions/rpcStatus'
+      parameters:
+        - name: file
+          description: The spec filename.
+          in: path
+          required: true
+          type: string
+      tags:
+        - Documentation
+  /api/v2/proto:
+    get:
+      summary: Download the proto definition
+      description: Downloads the proto definition of Dynizer.
+      operationId: DownloadProto
+      responses:
+        "200":
+          description: A successful response.
+          schema:
+            type: string
+            format: binary
+        "401":
+          description: Unauthorized call
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        "404":
+          description: Not found
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        "500":
+          description: Unexpected internal error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        default:
+          description: An unexpected error response.
+          schema:
+            $ref: '#/definitions/rpcStatus'
+      tags:
+        - Documentation
+  /api/v2/proto/{file}:
+    get:
+      summary: Download the proto definition
+      description: Downloads the proto definition of Dynizer (dynizer.proto).
+      operationId: DownloadProtoFile
+      responses:
+        "200":
+          description: A successful response.
+          schema:
+            type: string
+            format: binary
+        "401":
+          description: Unauthorized call
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        "404":
+          description: Not found
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        "500":
+          description: Unexpected internal error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        default:
+          description: An unexpected error response.
+          schema:
+            $ref: '#/definitions/rpcStatus'
+      parameters:
+        - name: file
+          description: The proto filename.
+          in: path
+          required: true
+          type: string
+      tags:
+        - Documentation
 definitions:
   Action:
     type: object
@@ -5912,3 +6188,6 @@ x-tagGroups:
   - name: ShareName
     tags:
       - ShareName
+  - name: Documentation
+    tags:
+      - Documentation

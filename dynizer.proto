@@ -11,7 +11,7 @@ option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
     swagger: "2.0";
     info: {
         title: "Dynizer API";
-        version: "2.1";
+        version: "2.2";
         contact: {
             name: "Consono";
             url: "https://www.consono.ai";
@@ -390,6 +390,26 @@ option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
                                 list_value : {
                                     values: {
                                         string_value: "ShareName";
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                values: {
+                    struct_value: {
+                        fields: {
+                            key: "name";
+                            value: {
+                                string_value: "Documentation";
+                            }
+                        }
+                        fields: {
+                            key: "tags";
+                            value: {
+                                list_value : {
+                                    values: {
+                                        string_value: "Documentation";
                                     }
                                 }
                             }
@@ -5089,7 +5109,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "UpdateActionType";
             tags: ["ActionTypes"]
-            description: "Updates a **ActionType**, at the moment this is only the name.<br>The new_name needs to be unqiue.<br>The *new_name* can not start or end with a whitespace character.<br>The *new_name* can not contain any control characters at any position"
+            description: "Updates a **ActionType**, at the moment this is only the name.<br>The new_name needs to be unique.<br>The *new_name* can not start or end with a whitespace character.<br>The *new_name* can not contain any control characters at any position"
         };
     }
 
@@ -5172,7 +5192,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "CreateAction";
             tags: ["Actions"]
-            description: "Creates an **Action** with the provided name.<br>The name needs to be unqiue, the CheckActionName call can be used to verify this.<br>The name can not start or end with a whitespace character.<br>The name can not contain any control characters at any position."
+            description: "Creates an **Action** with the provided name.<br>The name needs to be unique, the CheckActionName call can be used to verify this.<br>The name can not start or end with a whitespace character.<br>The name can not contain any control characters at any position."
             responses: {
                 key: "409";
                 value: {
@@ -5207,7 +5227,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "UpdateAction";
             tags: ["Actions"]
-            description: "Updates an **Action**, at the moment this is only the name.<br>The new_name needs to be unqiue.<br>The *new_name* can not start or end with a whitespace character.<br>The *new_name* can not contain any control characters at any position"
+            description: "Updates an **Action**, at the moment this is only the name.<br>The new_name needs to be unique.<br>The *new_name* can not start or end with a whitespace character.<br>The *new_name* can not contain any control characters at any position"
         };
     }
 
