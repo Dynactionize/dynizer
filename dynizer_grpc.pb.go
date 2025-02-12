@@ -45,6 +45,11 @@ const (
 	Dynizer_UpdateActionType_FullMethodName                       = "/Dynizer/UpdateActionType"
 	Dynizer_ReadActionType_FullMethodName                         = "/Dynizer/ReadActionType"
 	Dynizer_ListActionTypes_FullMethodName                        = "/Dynizer/ListActionTypes"
+	Dynizer_CreateActionSchema_FullMethodName                     = "/Dynizer/CreateActionSchema"
+	Dynizer_UpdateActionSchema_FullMethodName                     = "/Dynizer/UpdateActionSchema"
+	Dynizer_DeleteActionSchema_FullMethodName                     = "/Dynizer/DeleteActionSchema"
+	Dynizer_ReadActionSchema_FullMethodName                       = "/Dynizer/ReadActionSchema"
+	Dynizer_ListActionSchemas_FullMethodName                      = "/Dynizer/ListActionSchemas"
 	Dynizer_CheckActionName_FullMethodName                        = "/Dynizer/CheckActionName"
 	Dynizer_CreateAction_FullMethodName                           = "/Dynizer/CreateAction"
 	Dynizer_UpdateAction_FullMethodName                           = "/Dynizer/UpdateAction"
@@ -172,14 +177,32 @@ type DynizerClient interface {
 	CheckUserName(ctx context.Context, in *UserReq, opts ...grpc.CallOption) (*EmptyRes, error)
 	// Check Password
 	CheckPassword(ctx context.Context, in *CheckPasswordReq, opts ...grpc.CallOption) (*CheckPasswordRes, error)
+	// Deprecated: Do not use.
 	// Create ActionType
+	// Deprecated: Use `CreateActionSchema` instead.
 	CreateActionType(ctx context.Context, in *CreateActionTypeReq, opts ...grpc.CallOption) (*EmptyRes, error)
+	// Deprecated: Do not use.
 	// Update ActionType
+	// Deprecated: Use `UpdateActionSchema` instead.
 	UpdateActionType(ctx context.Context, in *UpdateActionTypeReq, opts ...grpc.CallOption) (*EmptyRes, error)
+	// Deprecated: Do not use.
 	// Read ActionType
+	// Deprecated: Use `ReadActionSchema` instead.
 	ReadActionType(ctx context.Context, in *ActionTypeReq, opts ...grpc.CallOption) (*ActionTypeRes, error)
+	// Deprecated: Do not use.
 	// List Action Types
+	// Deprecated: Use `ListActionSchemas` instead.
 	ListActionTypes(ctx context.Context, in *WindowReq, opts ...grpc.CallOption) (*ActionTypeArrayRes, error)
+	// Create ActionSchema
+	CreateActionSchema(ctx context.Context, in *CreateActionSchemaReq, opts ...grpc.CallOption) (*EmptyRes, error)
+	// Update ActionSchema
+	UpdateActionSchema(ctx context.Context, in *UpdateActionSchemaReq, opts ...grpc.CallOption) (*EmptyRes, error)
+	// Delete ActionSchema
+	DeleteActionSchema(ctx context.Context, in *DeleteActionSchemaReq, opts ...grpc.CallOption) (*EmptyRes, error)
+	// Read ActionSchema
+	ReadActionSchema(ctx context.Context, in *ActionSchemaReq, opts ...grpc.CallOption) (*ActionSchemaRes, error)
+	// List ActionSchemas
+	ListActionSchemas(ctx context.Context, in *WindowReq, opts ...grpc.CallOption) (*ActionSchemaArrayRes, error)
 	// Check Action Name
 	CheckActionName(ctx context.Context, in *CheckActionNameReq, opts ...grpc.CallOption) (*EmptyRes, error)
 	// Create Action
@@ -561,6 +584,7 @@ func (c *dynizerClient) CheckPassword(ctx context.Context, in *CheckPasswordReq,
 	return out, nil
 }
 
+// Deprecated: Do not use.
 func (c *dynizerClient) CreateActionType(ctx context.Context, in *CreateActionTypeReq, opts ...grpc.CallOption) (*EmptyRes, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(EmptyRes)
@@ -571,6 +595,7 @@ func (c *dynizerClient) CreateActionType(ctx context.Context, in *CreateActionTy
 	return out, nil
 }
 
+// Deprecated: Do not use.
 func (c *dynizerClient) UpdateActionType(ctx context.Context, in *UpdateActionTypeReq, opts ...grpc.CallOption) (*EmptyRes, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(EmptyRes)
@@ -581,6 +606,7 @@ func (c *dynizerClient) UpdateActionType(ctx context.Context, in *UpdateActionTy
 	return out, nil
 }
 
+// Deprecated: Do not use.
 func (c *dynizerClient) ReadActionType(ctx context.Context, in *ActionTypeReq, opts ...grpc.CallOption) (*ActionTypeRes, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(ActionTypeRes)
@@ -591,10 +617,61 @@ func (c *dynizerClient) ReadActionType(ctx context.Context, in *ActionTypeReq, o
 	return out, nil
 }
 
+// Deprecated: Do not use.
 func (c *dynizerClient) ListActionTypes(ctx context.Context, in *WindowReq, opts ...grpc.CallOption) (*ActionTypeArrayRes, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(ActionTypeArrayRes)
 	err := c.cc.Invoke(ctx, Dynizer_ListActionTypes_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *dynizerClient) CreateActionSchema(ctx context.Context, in *CreateActionSchemaReq, opts ...grpc.CallOption) (*EmptyRes, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(EmptyRes)
+	err := c.cc.Invoke(ctx, Dynizer_CreateActionSchema_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *dynizerClient) UpdateActionSchema(ctx context.Context, in *UpdateActionSchemaReq, opts ...grpc.CallOption) (*EmptyRes, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(EmptyRes)
+	err := c.cc.Invoke(ctx, Dynizer_UpdateActionSchema_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *dynizerClient) DeleteActionSchema(ctx context.Context, in *DeleteActionSchemaReq, opts ...grpc.CallOption) (*EmptyRes, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(EmptyRes)
+	err := c.cc.Invoke(ctx, Dynizer_DeleteActionSchema_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *dynizerClient) ReadActionSchema(ctx context.Context, in *ActionSchemaReq, opts ...grpc.CallOption) (*ActionSchemaRes, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ActionSchemaRes)
+	err := c.cc.Invoke(ctx, Dynizer_ReadActionSchema_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *dynizerClient) ListActionSchemas(ctx context.Context, in *WindowReq, opts ...grpc.CallOption) (*ActionSchemaArrayRes, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ActionSchemaArrayRes)
+	err := c.cc.Invoke(ctx, Dynizer_ListActionSchemas_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -1434,14 +1511,32 @@ type DynizerServer interface {
 	CheckUserName(context.Context, *UserReq) (*EmptyRes, error)
 	// Check Password
 	CheckPassword(context.Context, *CheckPasswordReq) (*CheckPasswordRes, error)
+	// Deprecated: Do not use.
 	// Create ActionType
+	// Deprecated: Use `CreateActionSchema` instead.
 	CreateActionType(context.Context, *CreateActionTypeReq) (*EmptyRes, error)
+	// Deprecated: Do not use.
 	// Update ActionType
+	// Deprecated: Use `UpdateActionSchema` instead.
 	UpdateActionType(context.Context, *UpdateActionTypeReq) (*EmptyRes, error)
+	// Deprecated: Do not use.
 	// Read ActionType
+	// Deprecated: Use `ReadActionSchema` instead.
 	ReadActionType(context.Context, *ActionTypeReq) (*ActionTypeRes, error)
+	// Deprecated: Do not use.
 	// List Action Types
+	// Deprecated: Use `ListActionSchemas` instead.
 	ListActionTypes(context.Context, *WindowReq) (*ActionTypeArrayRes, error)
+	// Create ActionSchema
+	CreateActionSchema(context.Context, *CreateActionSchemaReq) (*EmptyRes, error)
+	// Update ActionSchema
+	UpdateActionSchema(context.Context, *UpdateActionSchemaReq) (*EmptyRes, error)
+	// Delete ActionSchema
+	DeleteActionSchema(context.Context, *DeleteActionSchemaReq) (*EmptyRes, error)
+	// Read ActionSchema
+	ReadActionSchema(context.Context, *ActionSchemaReq) (*ActionSchemaRes, error)
+	// List ActionSchemas
+	ListActionSchemas(context.Context, *WindowReq) (*ActionSchemaArrayRes, error)
 	// Check Action Name
 	CheckActionName(context.Context, *CheckActionNameReq) (*EmptyRes, error)
 	// Create Action
@@ -1680,6 +1775,21 @@ func (UnimplementedDynizerServer) ReadActionType(context.Context, *ActionTypeReq
 }
 func (UnimplementedDynizerServer) ListActionTypes(context.Context, *WindowReq) (*ActionTypeArrayRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListActionTypes not implemented")
+}
+func (UnimplementedDynizerServer) CreateActionSchema(context.Context, *CreateActionSchemaReq) (*EmptyRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateActionSchema not implemented")
+}
+func (UnimplementedDynizerServer) UpdateActionSchema(context.Context, *UpdateActionSchemaReq) (*EmptyRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateActionSchema not implemented")
+}
+func (UnimplementedDynizerServer) DeleteActionSchema(context.Context, *DeleteActionSchemaReq) (*EmptyRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteActionSchema not implemented")
+}
+func (UnimplementedDynizerServer) ReadActionSchema(context.Context, *ActionSchemaReq) (*ActionSchemaRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ReadActionSchema not implemented")
+}
+func (UnimplementedDynizerServer) ListActionSchemas(context.Context, *WindowReq) (*ActionSchemaArrayRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListActionSchemas not implemented")
 }
 func (UnimplementedDynizerServer) CheckActionName(context.Context, *CheckActionNameReq) (*EmptyRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CheckActionName not implemented")
@@ -2397,6 +2507,96 @@ func _Dynizer_ListActionTypes_Handler(srv interface{}, ctx context.Context, dec 
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(DynizerServer).ListActionTypes(ctx, req.(*WindowReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Dynizer_CreateActionSchema_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateActionSchemaReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DynizerServer).CreateActionSchema(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Dynizer_CreateActionSchema_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DynizerServer).CreateActionSchema(ctx, req.(*CreateActionSchemaReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Dynizer_UpdateActionSchema_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateActionSchemaReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DynizerServer).UpdateActionSchema(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Dynizer_UpdateActionSchema_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DynizerServer).UpdateActionSchema(ctx, req.(*UpdateActionSchemaReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Dynizer_DeleteActionSchema_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteActionSchemaReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DynizerServer).DeleteActionSchema(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Dynizer_DeleteActionSchema_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DynizerServer).DeleteActionSchema(ctx, req.(*DeleteActionSchemaReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Dynizer_ReadActionSchema_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ActionSchemaReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DynizerServer).ReadActionSchema(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Dynizer_ReadActionSchema_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DynizerServer).ReadActionSchema(ctx, req.(*ActionSchemaReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Dynizer_ListActionSchemas_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(WindowReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DynizerServer).ListActionSchemas(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Dynizer_ListActionSchemas_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DynizerServer).ListActionSchemas(ctx, req.(*WindowReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -3868,6 +4068,26 @@ var Dynizer_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ListActionTypes",
 			Handler:    _Dynizer_ListActionTypes_Handler,
+		},
+		{
+			MethodName: "CreateActionSchema",
+			Handler:    _Dynizer_CreateActionSchema_Handler,
+		},
+		{
+			MethodName: "UpdateActionSchema",
+			Handler:    _Dynizer_UpdateActionSchema_Handler,
+		},
+		{
+			MethodName: "DeleteActionSchema",
+			Handler:    _Dynizer_DeleteActionSchema_Handler,
+		},
+		{
+			MethodName: "ReadActionSchema",
+			Handler:    _Dynizer_ReadActionSchema_Handler,
+		},
+		{
+			MethodName: "ListActionSchemas",
+			Handler:    _Dynizer_ListActionSchemas_Handler,
 		},
 		{
 			MethodName: "CheckActionName",

@@ -990,7 +990,9 @@ message ActionRes {
 }
 
 // CreateActionTypeRequest
+// Deprecated: Use `CreateActionSchemaReq` instead.
 message CreateActionTypeReq {
+    option deprecated = true;
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
           required: ["action_type_label"]
@@ -1011,12 +1013,38 @@ message CreateActionTypeReq {
     ];
 }
 
+// ActionTypeLabel
+// Deprecated: Use `string` instead.
 message ActionTypeLabel {
     string label = 1;
 }
 
+// CreateActionSchemaRequest
+message CreateActionSchemaReq {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+          required: ["action_schema_name"]
+          description: "This is used to create an **ActionSchema**.<br>The *if_not_exists* flag allows if set not to raise an error if the **ActionSchema** already exists."
+        }
+    };
+
+    string action_schema_name = 1 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+            description: "The unique name for the **ActionSchema**."
+        }
+    ];
+
+    bool if_not_exists = 2 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+            description: "if set to true -> NO ERROR is returned if a **ActionSchema** by the provided name already exists in the system."
+        }
+    ];
+}
+
 // UpdateActionTypeRequest
+// Deprecated: Use `UpdateActionSchemaReq` instead.
 message UpdateActionTypeReq {
+    option deprecated = true;
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
           required: ["action_type_label", "new_action_type_label"]
@@ -1037,30 +1065,55 @@ message UpdateActionTypeReq {
     ];
 }
 
-// DeleteActionTypeRequest
-message DeleteActionTypeReq {
+// UpdateActionSchemaRequest
+message UpdateActionSchemaReq {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
-          required: ["action_type_label"]
-          description: "To delete an existing **ActionType**."
+          required: ["action_schema_name", "new_action_schema_name"]
+          description: "Use to rename an **ActionSchema**."
         }
     };
 
-    string action_type_label = 1 [
+    string action_schema_name = 1 [
         (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-            description: "The current name of the **ActionType** to be deleted."
+            description: "The current name of the **ActionSchema** to be renamed."
+        }
+    ];
+
+    string new_action_schema_name = 2 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+            description: "The new name of the **ActionSchema**.<br>The name needs to be unique."
+        }
+    ];
+}
+
+
+// DeleteActionSchemaRequest
+message DeleteActionSchemaReq {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+          required: ["action_schema_name"]
+          description: "To delete an existing **ActionSchema**."
+        }
+    };
+
+    string action_schema_name = 1 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+            description: "The current name of the **ActionSchema** to be deleted."
         }
     ];
 
     bool cascade = 2 [
         (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-            description: "This flag allows to mark all associated **Actions** and **Instances** as deleted.<br>If cascade == <span style=\"color:blue\">false</span> an error is raised if this **ActionType** has **Actions** and **Instances**.<br>**ActionType** with no **Actions** can be deleted no matter what value cascade has."
+            description: "This flag allows to mark all associated **Actions** and **Instances** as deleted.<br>If cascade == <span style=\"color:blue\">false</span> an error is raised if this **ActionSchema** has **Actions** and **Instances**.<br>**ActionSchema** with no **Actions** can be deleted no matter what value cascade has."
         }
     ];
 }
 
 // ActionTypeRequest
+// Deprecated: Use `ActionSchemaReq` instead.
 message ActionTypeReq {
+    option deprecated = true;
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
           required: ["action_type_label"]
@@ -1075,8 +1128,26 @@ message ActionTypeReq {
     ];
 }
 
+// ActionSchemaRequest
+message ActionSchemaReq {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+          required: ["action_schema_name"]
+          description: "Used to load information about an **ActionSchema**."
+        }
+    };
+
+    string action_schema_name = 1 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+            description: "The name of the **ActionSchema**."
+        }
+    ];
+}
+
 // ActionTypeResponse
+// Deprecated: Use `ActionSchemaRes` instead.
 message ActionTypeRes {
+    option deprecated = true;
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
         required: ["action_type_label"]
@@ -1097,8 +1168,26 @@ message ActionTypeRes {
     ];
 }
 
+// ActionSchemaResponse
+message ActionSchemaRes {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+        required: ["action_schema_name"]
+        description: "Response which holds an **ActionSchema**."
+        }
+    };
+
+    string action_schema_name = 2 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+            description: "The **ActionSchemaName**"
+        }
+    ];
+}
+
 // ActionTypeArrayRes
+// Deprecated: Use `ActionSchemaArrayRes` instead.
 message ActionTypeArrayRes {
+    option deprecated = true;
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
           required: ["action_type_labels", "total_action_types"]
@@ -1117,6 +1206,30 @@ message ActionTypeArrayRes {
     repeated string action_type_labels = 2 [
         (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
             description: "Array of **ActionTypeLabels** within the requested window."
+        }
+    ];
+}
+
+// ActionSchemaArrayRes
+message ActionSchemaArrayRes {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+          required: ["action_schema_names", "total_action_schemas"]
+          description: "Response that holds **ActionSchemas**"
+        }
+    };
+
+    int64 total_action_schemas = 1 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+            description: "Total number of **ActionSchemas** in the system."
+            type: INTEGER
+            minimum: 0
+        }
+    ];
+
+    repeated string action_schema_names = 2 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+            description: "Array of **ActionSchemaNames** within the requested window."
         }
     ];
 }
@@ -5088,7 +5201,9 @@ service Dynizer {
     }
 
     // Create ActionType
+    // Deprecated: Use `CreateActionSchema` instead.
     rpc CreateActionType(CreateActionTypeReq) returns(EmptyRes) {
+        option deprecated = true;    
         option (google.api.http) = {
             post: "/api/v2/actiontypes"
             body: "*"
@@ -5101,7 +5216,9 @@ service Dynizer {
     }
 
     // Update ActionType
+    // Deprecated: Use `UpdateActionSchema` instead.
     rpc UpdateActionType(UpdateActionTypeReq) returns(EmptyRes) {
+        option deprecated = true;    
         option (google.api.http) = {
             patch: "/api/v2/actiontypes/{action_type_label}"
             body: "new_action_type_label"
@@ -5113,20 +5230,10 @@ service Dynizer {
         };
     }
 
-    // Delete ActionType
-    // rpc DeleteActionType(DeleteActionTypeReq) returns(EmptyRes) {
-    //     option (google.api.http) = {
-    //         delete: "/api/v2/actiontypes/{action_type_label}"
-    //     };
-    //     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-    //         operation_id: "DeleteActionType";
-    //         tags: ["ActionTypes"]
-    //         description: "A **ActionType** can only be deleted if no **Actions** are defined.<br>If the **ActionType** has **Actions** and *cascade* is not set to *true* and Error will be returned.<br>The *cascade* flag can be used to mark the **Actions** and all its **Instances** as deleted."
-    //     };
-    // }
-
     // Read ActionType
+    // Deprecated: Use `ReadActionSchema` instead.
     rpc ReadActionType(ActionTypeReq) returns(ActionTypeRes) {
+        option deprecated = true;    
         option (google.api.http) = {
             get: "/api/v2/actiontypes/{action_type_label}"
         };
@@ -5138,7 +5245,9 @@ service Dynizer {
     }
 
     // List Action Types
+    // Deprecated: Use `ListActionSchemas` instead.
     rpc ListActionTypes(WindowReq) returns(ActionTypeArrayRes) {
+        option deprecated = true;    
         option (google.api.http) = {
             get: "/api/v2/actiontypes"
         };
@@ -5146,6 +5255,68 @@ service Dynizer {
             operation_id: "ListActionTypes";
             tags: ["ActionTypes"]
             description:"Returns a list of **ActionTypes**.<br>By default all rows are returned. Optionally a window can be provided to fetch just a specific sub-set of rows to support pagination."
+        };
+    }
+
+        // Create ActionSchema
+    rpc CreateActionSchema(CreateActionSchemaReq) returns(EmptyRes) {
+        option (google.api.http) = {
+            post: "/api/v2/actionschemas"
+            body: "*"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            operation_id: "CreateActionSchema";
+            tags: ["ActionSchemas"]
+            description: "Creates a new **ActionSchema**."
+        };
+    }
+
+    // Update ActionSchema
+    rpc UpdateActionSchema(UpdateActionSchemaReq) returns(EmptyRes) {
+        option (google.api.http) = {
+            patch: "/api/v2/actionschemas/{action_schema_name}"
+            body: "*"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            operation_id: "UpdateActionSchema";
+            tags: ["ActionSchemas"]
+            description: "Updates a **ActionSchema**, at the moment this is only the name.<br>The new_name needs to be unique.<br>The *new_name* can not start or end with a whitespace character.<br>The *new_name* can not contain any control characters at any position"
+        };
+    }
+
+    // Delete ActionSchema
+    rpc DeleteActionSchema(DeleteActionSchemaReq) returns(EmptyRes) {
+        option (google.api.http) = {
+            delete: "/api/v2/actionschemas/{action_schema_name}"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            operation_id: "DeleteActionSchema";
+            tags: ["ActionTypes"]
+            description: "A **ActionSchema** can only be deleted if no **Actions** are defined.<br>If the **ActionType** has **Actions** and *cascade* is not set to *true* and Error will be returned.<br>The *cascade* flag can be used to mark the **Actions** and all its **Instances** as deleted."
+        };
+    }
+
+    // Read ActionSchema
+    rpc ReadActionSchema(ActionSchemaReq) returns(ActionSchemaRes) {
+        option (google.api.http) = {
+            get: "/api/v2/actionschemas/{action_schema_name}"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            operation_id: "ReadActionSchema";
+            tags: ["ActionSchemas"]
+            description: "Reads an **ActionSchema** definition."
+        };
+    }
+
+    // List ActionSchemas
+    rpc ListActionSchemas(WindowReq) returns(ActionSchemaArrayRes) {
+        option (google.api.http) = {
+            get: "/api/v2/actionschemas"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            operation_id: "ListActionSchemas";
+            tags: ["ActionSchemas"]
+            description:"Returns a list of **ActionSchemas**.<br>By default all rows are returned. Optionally a window can be provided to fetch just a specific sub-set of rows to support pagination."
         };
     }
 
