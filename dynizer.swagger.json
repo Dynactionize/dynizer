@@ -831,7 +831,7 @@
       },
       "delete": {
         "summary": "Delete ActionSchema",
-        "description": "A **ActionSchema** can only be deleted if no **Actions** are defined.<br>If the **ActionType** has **Actions** and *cascade* is not set to *true* and Error will be returned.<br>The *cascade* flag can be used to mark the **Actions** and all its **Instances** as deleted.",
+        "description": "A **ActionSchema** can only be deleted if no **Actions** are defined.<br>If the **ActionSchema** has **Actions** and *cascade* is not set to *true* and Error will be returned.<br>The *cascade* flag can be used to mark the **Actions** and all its **Instances** as deleted.",
         "operationId": "DeleteActionSchema",
         "responses": {
           "200": {
@@ -876,7 +876,7 @@
           }
         ],
         "tags": [
-          "ActionTypes"
+          "ActionSchemas"
         ]
       },
       "patch": {

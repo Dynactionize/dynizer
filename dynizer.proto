@@ -5291,8 +5291,8 @@ service Dynizer {
         };
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "DeleteActionSchema";
-            tags: ["ActionTypes"]
-            description: "A **ActionSchema** can only be deleted if no **Actions** are defined.<br>If the **ActionType** has **Actions** and *cascade* is not set to *true* and Error will be returned.<br>The *cascade* flag can be used to mark the **Actions** and all its **Instances** as deleted."
+            tags: ["ActionSchemas"]
+            description: "A **ActionSchema** can only be deleted if no **Actions** are defined.<br>If the **ActionSchema** has **Actions** and *cascade* is not set to *true* and Error will be returned.<br>The *cascade* flag can be used to mark the **Actions** and all its **Instances** as deleted."
         };
     }
 

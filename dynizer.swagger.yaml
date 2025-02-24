@@ -576,7 +576,7 @@ paths:
         - ActionSchemas
     delete:
       summary: Delete ActionSchema
-      description: A **ActionSchema** can only be deleted if no **Actions** are defined.<br>If the **ActionType** has **Actions** and *cascade* is not set to *true* and Error will be returned.<br>The *cascade* flag can be used to mark the **Actions** and all its **Instances** as deleted.
+      description: A **ActionSchema** can only be deleted if no **Actions** are defined.<br>If the **ActionSchema** has **Actions** and *cascade* is not set to *true* and Error will be returned.<br>The *cascade* flag can be used to mark the **Actions** and all its **Instances** as deleted.
       operationId: DeleteActionSchema
       responses:
         "200":
@@ -607,7 +607,7 @@ paths:
           required: false
           type: boolean
       tags:
-        - ActionTypes
+        - ActionSchemas
     patch:
       summary: Update ActionSchema
       description: Updates a **ActionSchema**, at the moment this is only the name.<br>The new_name needs to be unique.<br>The *new_name* can not start or end with a whitespace character.<br>The *new_name* can not contain any control characters at any position
