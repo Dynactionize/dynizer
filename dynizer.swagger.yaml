@@ -1325,6 +1325,14 @@ paths:
           in: path
           required: true
           type: string
+        - name: args
+          description: Optional list of arguments for index build
+          in: query
+          required: false
+          type: array
+          items:
+            type: string
+          collectionFormat: multi
       tags:
         - Maintenance
   /api/v2/metadata/instances/{instance_id}:

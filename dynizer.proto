@@ -776,7 +776,7 @@ message CheckPasswordReq {
 message WindowReq {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
-          description: "Reuqest for calls which need a windows as input."
+          description: "Request for calls which need a windows as input."
         }
     };
 
@@ -792,7 +792,7 @@ message ListActionNamesWindowReq {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
           required: ["action_type_label"]
-          description: "Reuqest for **Actions** which support a windows as input."
+          description: "Request for **Actions** which support a window as input."
         }
     };
 
@@ -4346,6 +4346,12 @@ message ReIndexReq {
     string index_name = 1 [
         (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
             description: "Name of the index to build"
+        }
+    ];
+
+    repeated string args = 2 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+            description: "Optional list of arguments for index build"
         }
     ];
 }

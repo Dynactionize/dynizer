@@ -3957,6 +3957,8 @@ func local_request_Dynizer_DynizerFilteredQuery_0(ctx context.Context, marshaler
 	return msg, metadata, err
 }
 
+var filter_Dynizer_ReIndex_0 = &utilities.DoubleArray{Encoding: map[string]int{"index_name": 0}, Base: []int{1, 1, 0}, Check: []int{0, 1, 2}}
+
 func request_Dynizer_ReIndex_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var (
 		protoReq ReIndexReq
@@ -3970,6 +3972,12 @@ func request_Dynizer_ReIndex_0(ctx context.Context, marshaler runtime.Marshaler,
 	protoReq.IndexName, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "index_name", err)
+	}
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Dynizer_ReIndex_0); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 	msg, err := client.ReIndex(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
@@ -3988,6 +3996,12 @@ func local_request_Dynizer_ReIndex_0(ctx context.Context, marshaler runtime.Mars
 	protoReq.IndexName, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "index_name", err)
+	}
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Dynizer_ReIndex_0); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 	msg, err := server.ReIndex(ctx, &protoReq)
 	return msg, metadata, err
