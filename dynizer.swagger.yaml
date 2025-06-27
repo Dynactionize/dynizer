@@ -6026,7 +6026,7 @@ definitions:
     properties:
       action_name:
         type: string
-        description: This is the name of the **Action** for which the **Instance** will be created
+        description: This is the name of the **Action** of **ActionLabel**
       result_label_name:
         type: string
         description: The unique name of the **ActionLabel**.
@@ -6039,7 +6039,10 @@ definitions:
         description: The **ComponentType** of the **ActionLabel**
       default_data_type:
         $ref: '#/definitions/DataType'
-        description: The default **DataType** of the **ActionLabel**.<br>If an **InstanceCell* has that overwritten, than this will be provided with the specific cell data row
+        description: The default **DataType** of the **ActionLabel**.<br>If an **InstanceCell** has that overwritten, than this will be provided with the specific cell data row
+      action_schema_name:
+        type: string
+        description: This is the name of the **ActionSchema** of the **ActionLabel**'s action
     description: Message to hold a result label
     title: ResultLabel
   ResultLabelWithOverride:
@@ -6047,7 +6050,7 @@ definitions:
     properties:
       action_name:
         type: string
-        description: This is the name of the **Action** for which the **Instance** will be created
+        description: This is the name of the **Action** of the **ActionLabel**.
       result_label_name:
         type: string
         description: The unique name of the **ActionLabel**.
@@ -6064,6 +6067,9 @@ definitions:
       override_data_type:
         $ref: '#/definitions/DataType'
         description: The override **DataType** of the **ActionLabel**.<br>If **InstanceCells* have more than one datatype, the override datatype will specify what to use as general datatype
+      action_schema_name:
+        type: string
+        description: This is the name of the **ActionSchema** of the **ActionLabel**'s action
     description: Message to hold a result label
     title: ResultLabelWithOverride
   ResultRow:

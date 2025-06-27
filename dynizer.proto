@@ -3438,7 +3438,7 @@ message ResultLabel {
 
     string action_name = 1 [
         (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-            description: "This is the name of the **Action** for which the **Instance** will be created"
+            description: "This is the name of the **Action** of **ActionLabel**"
         }
     ];
 
@@ -3464,7 +3464,13 @@ message ResultLabel {
 
     DataType default_data_type = 5 [
         (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-            description: "The default **DataType** of the **ActionLabel**.<br>If an **InstanceCell* has that overwritten, than this will be provided with the specific cell data row"
+            description: "The default **DataType** of the **ActionLabel**.<br>If an **InstanceCell** has that overwritten, than this will be provided with the specific cell data row"
+        }
+    ];
+
+    string action_schema_name = 6 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+            description: "This is the name of the **ActionSchema** of the **ActionLabel**'s action"
         }
     ];
 }
@@ -3479,7 +3485,7 @@ message ResultLabelWithOverride {
 
     string action_name = 1 [
         (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-            description: "This is the name of the **Action** for which the **Instance** will be created"
+            description: "This is the name of the **Action** of the **ActionLabel**."
         }
     ];
 
@@ -3512,6 +3518,12 @@ message ResultLabelWithOverride {
     DataType override_data_type = 6 [
         (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
             description: "The override **DataType** of the **ActionLabel**.<br>If **InstanceCells* have more than one datatype, the override datatype will specify what to use as general datatype"
+        }
+    ];
+
+    string action_schema_name = 7 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+            description: "This is the name of the **ActionSchema** of the **ActionLabel**'s action"
         }
     ];
 }
