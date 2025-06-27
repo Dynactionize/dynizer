@@ -1,6 +1,6 @@
 module github.com/dynactionize/dynizer/v2
 
-go 1.23.9
+go 1.24.4
 
 require (
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.27.1
