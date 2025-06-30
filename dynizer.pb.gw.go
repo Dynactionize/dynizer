@@ -10,6 +10,7 @@ package dynizer
 
 import (
 	"context"
+	"errors"
 	"io"
 	"net/http"
 
@@ -24,5810 +25,4359 @@ import (
 )
 
 // Suppress "imported and not used" errors
-var _ codes.Code
-var _ io.Reader
-var _ status.Status
-var _ = runtime.String
-var _ = utilities.NewDoubleArray
-var _ = metadata.Join
+var (
+	_ codes.Code
+	_ io.Reader
+	_ status.Status
+	_ = errors.New
+	_ = runtime.String
+	_ = utilities.NewDoubleArray
+	_ = metadata.Join
+)
 
 func request_Dynizer_Login_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq LoginReq
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq LoginReq
+		metadata runtime.ServerMetadata
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := client.Login(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_Login_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq LoginReq
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq LoginReq
+		metadata runtime.ServerMetadata
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := server.Login(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Dynizer_ServiceLogin_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq ServiceLoginReq
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq ServiceLoginReq
+		metadata runtime.ServerMetadata
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := client.ServiceLogin(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_ServiceLogin_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq ServiceLoginReq
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq ServiceLoginReq
+		metadata runtime.ServerMetadata
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := server.ServiceLogin(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Dynizer_Logout_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq EmptyReq
-	var metadata runtime.ServerMetadata
-
+	var (
+		protoReq EmptyReq
+		metadata runtime.ServerMetadata
+	)
 	msg, err := client.Logout(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_Logout_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq EmptyReq
-	var metadata runtime.ServerMetadata
-
+	var (
+		protoReq EmptyReq
+		metadata runtime.ServerMetadata
+	)
 	msg, err := server.Logout(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Dynizer_ValidateToken_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq TokenReq
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq TokenReq
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["token"]
+	val, ok := pathParams["token"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "token")
 	}
-
 	protoReq.Token, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "token", err)
 	}
-
 	msg, err := client.ValidateToken(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_ValidateToken_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq TokenReq
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq TokenReq
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["token"]
+	val, ok := pathParams["token"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "token")
 	}
-
 	protoReq.Token, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "token", err)
 	}
-
 	msg, err := server.ValidateToken(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Dynizer_IssueServiceToken_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq EmptyReq
-	var metadata runtime.ServerMetadata
-
+	var (
+		protoReq EmptyReq
+		metadata runtime.ServerMetadata
+	)
 	msg, err := client.IssueServiceToken(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_IssueServiceToken_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq EmptyReq
-	var metadata runtime.ServerMetadata
-
+	var (
+		protoReq EmptyReq
+		metadata runtime.ServerMetadata
+	)
 	msg, err := server.IssueServiceToken(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Dynizer_ListRoles_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq EmptyReq
-	var metadata runtime.ServerMetadata
-
+	var (
+		protoReq EmptyReq
+		metadata runtime.ServerMetadata
+	)
 	msg, err := client.ListRoles(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_ListRoles_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq EmptyReq
-	var metadata runtime.ServerMetadata
-
+	var (
+		protoReq EmptyReq
+		metadata runtime.ServerMetadata
+	)
 	msg, err := server.ListRoles(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Dynizer_AddUser_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq AddUserReq
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq AddUserReq
+		metadata runtime.ServerMetadata
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := client.AddUser(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_AddUser_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq AddUserReq
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq AddUserReq
+		metadata runtime.ServerMetadata
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := server.AddUser(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Dynizer_AssignUserRole_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq UserRoleReq
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq UserRoleReq
+		metadata runtime.ServerMetadata
+		err      error
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
-	var (
-		val string
-		ok  bool
-		err error
-		_   = err
-	)
-
-	val, ok = pathParams["user"]
+	val, ok := pathParams["user"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "user")
 	}
-
 	protoReq.User, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "user", err)
 	}
-
 	msg, err := client.AssignUserRole(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_AssignUserRole_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq UserRoleReq
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq UserRoleReq
+		metadata runtime.ServerMetadata
+		err      error
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
-	var (
-		val string
-		ok  bool
-		err error
-		_   = err
-	)
-
-	val, ok = pathParams["user"]
+	val, ok := pathParams["user"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "user")
 	}
-
 	protoReq.User, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "user", err)
 	}
-
 	msg, err := server.AssignUserRole(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
-var (
-	filter_Dynizer_RevokeUserRole_0 = &utilities.DoubleArray{Encoding: map[string]int{"user": 0, "role": 1, "name": 2}, Base: []int{1, 2, 4, 5, 0, 0, 4, 0, 0}, Check: []int{0, 1, 1, 1, 2, 2, 3, 7, 4}}
-)
+var filter_Dynizer_RevokeUserRole_0 = &utilities.DoubleArray{Encoding: map[string]int{"user": 0, "role": 1, "name": 2}, Base: []int{1, 1, 1, 2, 0, 0}, Check: []int{0, 1, 1, 3, 2, 4}}
 
 func request_Dynizer_RevokeUserRole_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq UserRoleReq
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq UserRoleReq
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["user"]
+	val, ok := pathParams["user"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "user")
 	}
-
 	protoReq.User, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "user", err)
 	}
-
 	val, ok = pathParams["role.name"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "role.name")
 	}
-
 	err = runtime.PopulateFieldFromPath(&protoReq, "role.name", val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "role.name", err)
 	}
-
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Dynizer_RevokeUserRole_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := client.RevokeUserRole(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_RevokeUserRole_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq UserRoleReq
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq UserRoleReq
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["user"]
+	val, ok := pathParams["user"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "user")
 	}
-
 	protoReq.User, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "user", err)
 	}
-
 	val, ok = pathParams["role.name"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "role.name")
 	}
-
 	err = runtime.PopulateFieldFromPath(&protoReq, "role.name", val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "role.name", err)
 	}
-
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Dynizer_RevokeUserRole_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := server.RevokeUserRole(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Dynizer_EnableUser_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq UserReq
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq UserReq
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["user"]
+	val, ok := pathParams["user"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "user")
 	}
-
 	protoReq.User, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "user", err)
 	}
-
 	msg, err := client.EnableUser(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_EnableUser_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq UserReq
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq UserReq
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["user"]
+	val, ok := pathParams["user"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "user")
 	}
-
 	protoReq.User, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "user", err)
 	}
-
 	msg, err := server.EnableUser(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Dynizer_DisableUser_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq UserReq
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq UserReq
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["user"]
+	val, ok := pathParams["user"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "user")
 	}
-
 	protoReq.User, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "user", err)
 	}
-
 	msg, err := client.DisableUser(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_DisableUser_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq UserReq
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq UserReq
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["user"]
+	val, ok := pathParams["user"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "user")
 	}
-
 	protoReq.User, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "user", err)
 	}
-
 	msg, err := server.DisableUser(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Dynizer_SetUserPassword_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq SetUserPasswordReq
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq SetUserPasswordReq
+		metadata runtime.ServerMetadata
+		err      error
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
-	var (
-		val string
-		ok  bool
-		err error
-		_   = err
-	)
-
-	val, ok = pathParams["user"]
+	val, ok := pathParams["user"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "user")
 	}
-
 	protoReq.User, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "user", err)
 	}
-
 	msg, err := client.SetUserPassword(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_SetUserPassword_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq SetUserPasswordReq
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq SetUserPasswordReq
+		metadata runtime.ServerMetadata
+		err      error
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
-	var (
-		val string
-		ok  bool
-		err error
-		_   = err
-	)
-
-	val, ok = pathParams["user"]
+	val, ok := pathParams["user"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "user")
 	}
-
 	protoReq.User, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "user", err)
 	}
-
 	msg, err := server.SetUserPassword(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Dynizer_ChangeMyPassword_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq ChangePasswordReq
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq ChangePasswordReq
+		metadata runtime.ServerMetadata
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := client.ChangeMyPassword(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_ChangeMyPassword_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq ChangePasswordReq
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq ChangePasswordReq
+		metadata runtime.ServerMetadata
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := server.ChangeMyPassword(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Dynizer_GetUser_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq UserReq
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq UserReq
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["user"]
+	val, ok := pathParams["user"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "user")
 	}
-
 	protoReq.User, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "user", err)
 	}
-
 	msg, err := client.GetUser(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_GetUser_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq UserReq
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq UserReq
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["user"]
+	val, ok := pathParams["user"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "user")
 	}
-
 	protoReq.User, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "user", err)
 	}
-
 	msg, err := server.GetUser(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Dynizer_GetMyProfile_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq EmptyReq
-	var metadata runtime.ServerMetadata
-
+	var (
+		protoReq EmptyReq
+		metadata runtime.ServerMetadata
+	)
 	msg, err := client.GetMyProfile(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_GetMyProfile_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq EmptyReq
-	var metadata runtime.ServerMetadata
-
+	var (
+		protoReq EmptyReq
+		metadata runtime.ServerMetadata
+	)
 	msg, err := server.GetMyProfile(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Dynizer_DeleteUser_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq UserReq
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq UserReq
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["user"]
+	val, ok := pathParams["user"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "user")
 	}
-
 	protoReq.User, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "user", err)
 	}
-
 	msg, err := client.DeleteUser(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_DeleteUser_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq UserReq
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq UserReq
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["user"]
+	val, ok := pathParams["user"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "user")
 	}
-
 	protoReq.User, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "user", err)
 	}
-
 	msg, err := server.DeleteUser(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Dynizer_GetUserCount_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq EmptyReq
-	var metadata runtime.ServerMetadata
-
+	var (
+		protoReq EmptyReq
+		metadata runtime.ServerMetadata
+	)
 	msg, err := client.GetUserCount(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_GetUserCount_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq EmptyReq
-	var metadata runtime.ServerMetadata
-
+	var (
+		protoReq EmptyReq
+		metadata runtime.ServerMetadata
+	)
 	msg, err := server.GetUserCount(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
-var (
-	filter_Dynizer_ListUsers_0 = &utilities.DoubleArray{Encoding: map[string]int{}, Base: []int(nil), Check: []int(nil)}
-)
+var filter_Dynizer_ListUsers_0 = &utilities.DoubleArray{Encoding: map[string]int{}, Base: []int(nil), Check: []int(nil)}
 
 func request_Dynizer_ListUsers_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq WindowReq
-	var metadata runtime.ServerMetadata
-
+	var (
+		protoReq WindowReq
+		metadata runtime.ServerMetadata
+	)
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Dynizer_ListUsers_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := client.ListUsers(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_ListUsers_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq WindowReq
-	var metadata runtime.ServerMetadata
-
+	var (
+		protoReq WindowReq
+		metadata runtime.ServerMetadata
+	)
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Dynizer_ListUsers_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := server.ListUsers(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Dynizer_ListUserRoles_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq UserReq
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq UserReq
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["user"]
+	val, ok := pathParams["user"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "user")
 	}
-
 	protoReq.User, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "user", err)
 	}
-
 	msg, err := client.ListUserRoles(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_ListUserRoles_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq UserReq
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq UserReq
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["user"]
+	val, ok := pathParams["user"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "user")
 	}
-
 	protoReq.User, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "user", err)
 	}
-
 	msg, err := server.ListUserRoles(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Dynizer_GetMyRoles_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq EmptyReq
-	var metadata runtime.ServerMetadata
-
+	var (
+		protoReq EmptyReq
+		metadata runtime.ServerMetadata
+	)
 	msg, err := client.GetMyRoles(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_GetMyRoles_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq EmptyReq
-	var metadata runtime.ServerMetadata
-
+	var (
+		protoReq EmptyReq
+		metadata runtime.ServerMetadata
+	)
 	msg, err := server.GetMyRoles(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Dynizer_CheckUserName_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq UserReq
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq UserReq
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["user"]
+	val, ok := pathParams["user"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "user")
 	}
-
 	protoReq.User, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "user", err)
 	}
-
 	msg, err := client.CheckUserName(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_CheckUserName_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq UserReq
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq UserReq
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["user"]
+	val, ok := pathParams["user"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "user")
 	}
-
 	protoReq.User, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "user", err)
 	}
-
 	msg, err := server.CheckUserName(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Dynizer_CheckPassword_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq CheckPasswordReq
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq CheckPasswordReq
+		metadata runtime.ServerMetadata
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := client.CheckPassword(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_CheckPassword_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq CheckPasswordReq
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq CheckPasswordReq
+		metadata runtime.ServerMetadata
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := server.CheckPassword(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Dynizer_CreateActionType_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq CreateActionTypeReq
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq CreateActionTypeReq
+		metadata runtime.ServerMetadata
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := client.CreateActionType(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_CreateActionType_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq CreateActionTypeReq
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq CreateActionTypeReq
+		metadata runtime.ServerMetadata
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := server.CreateActionType(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Dynizer_UpdateActionType_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq UpdateActionTypeReq
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq.NewActionTypeLabel); err != nil && err != io.EOF {
+	var (
+		protoReq UpdateActionTypeReq
+		metadata runtime.ServerMetadata
+		err      error
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq.NewActionTypeLabel); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
-	var (
-		val string
-		ok  bool
-		err error
-		_   = err
-	)
-
-	val, ok = pathParams["action_type_label"]
+	val, ok := pathParams["action_type_label"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "action_type_label")
 	}
-
 	protoReq.ActionTypeLabel, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "action_type_label", err)
 	}
-
 	msg, err := client.UpdateActionType(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_UpdateActionType_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq UpdateActionTypeReq
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq.NewActionTypeLabel); err != nil && err != io.EOF {
+	var (
+		protoReq UpdateActionTypeReq
+		metadata runtime.ServerMetadata
+		err      error
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq.NewActionTypeLabel); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
-	var (
-		val string
-		ok  bool
-		err error
-		_   = err
-	)
-
-	val, ok = pathParams["action_type_label"]
+	val, ok := pathParams["action_type_label"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "action_type_label")
 	}
-
 	protoReq.ActionTypeLabel, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "action_type_label", err)
 	}
-
 	msg, err := server.UpdateActionType(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Dynizer_ReadActionType_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq ActionTypeReq
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq ActionTypeReq
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["action_type_label"]
+	val, ok := pathParams["action_type_label"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "action_type_label")
 	}
-
 	protoReq.ActionTypeLabel, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "action_type_label", err)
 	}
-
 	msg, err := client.ReadActionType(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_ReadActionType_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq ActionTypeReq
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq ActionTypeReq
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["action_type_label"]
+	val, ok := pathParams["action_type_label"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "action_type_label")
 	}
-
 	protoReq.ActionTypeLabel, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "action_type_label", err)
 	}
-
 	msg, err := server.ReadActionType(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
-var (
-	filter_Dynizer_ListActionTypes_0 = &utilities.DoubleArray{Encoding: map[string]int{}, Base: []int(nil), Check: []int(nil)}
-)
+var filter_Dynizer_ListActionTypes_0 = &utilities.DoubleArray{Encoding: map[string]int{}, Base: []int(nil), Check: []int(nil)}
 
 func request_Dynizer_ListActionTypes_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq WindowReq
-	var metadata runtime.ServerMetadata
-
+	var (
+		protoReq WindowReq
+		metadata runtime.ServerMetadata
+	)
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Dynizer_ListActionTypes_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := client.ListActionTypes(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_ListActionTypes_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq WindowReq
-	var metadata runtime.ServerMetadata
-
+	var (
+		protoReq WindowReq
+		metadata runtime.ServerMetadata
+	)
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Dynizer_ListActionTypes_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := server.ListActionTypes(ctx, &protoReq)
 	return msg, metadata, err
+}
 
+func request_Dynizer_CreateActionSchema_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var (
+		protoReq CreateActionSchemaReq
+		metadata runtime.ServerMetadata
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	msg, err := client.CreateActionSchema(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+}
+
+func local_request_Dynizer_CreateActionSchema_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var (
+		protoReq CreateActionSchemaReq
+		metadata runtime.ServerMetadata
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	msg, err := server.CreateActionSchema(ctx, &protoReq)
+	return msg, metadata, err
+}
+
+func request_Dynizer_UpdateActionSchema_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var (
+		protoReq UpdateActionSchemaReq
+		metadata runtime.ServerMetadata
+		err      error
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	val, ok := pathParams["action_schema_name"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "action_schema_name")
+	}
+	protoReq.ActionSchemaName, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "action_schema_name", err)
+	}
+	msg, err := client.UpdateActionSchema(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+}
+
+func local_request_Dynizer_UpdateActionSchema_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var (
+		protoReq UpdateActionSchemaReq
+		metadata runtime.ServerMetadata
+		err      error
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	val, ok := pathParams["action_schema_name"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "action_schema_name")
+	}
+	protoReq.ActionSchemaName, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "action_schema_name", err)
+	}
+	msg, err := server.UpdateActionSchema(ctx, &protoReq)
+	return msg, metadata, err
+}
+
+var filter_Dynizer_DeleteActionSchema_0 = &utilities.DoubleArray{Encoding: map[string]int{"action_schema_name": 0}, Base: []int{1, 1, 0}, Check: []int{0, 1, 2}}
+
+func request_Dynizer_DeleteActionSchema_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var (
+		protoReq DeleteActionSchemaReq
+		metadata runtime.ServerMetadata
+		err      error
+	)
+	val, ok := pathParams["action_schema_name"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "action_schema_name")
+	}
+	protoReq.ActionSchemaName, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "action_schema_name", err)
+	}
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Dynizer_DeleteActionSchema_0); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	msg, err := client.DeleteActionSchema(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+}
+
+func local_request_Dynizer_DeleteActionSchema_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var (
+		protoReq DeleteActionSchemaReq
+		metadata runtime.ServerMetadata
+		err      error
+	)
+	val, ok := pathParams["action_schema_name"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "action_schema_name")
+	}
+	protoReq.ActionSchemaName, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "action_schema_name", err)
+	}
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Dynizer_DeleteActionSchema_0); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	msg, err := server.DeleteActionSchema(ctx, &protoReq)
+	return msg, metadata, err
+}
+
+func request_Dynizer_ReadActionSchema_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var (
+		protoReq ActionSchemaReq
+		metadata runtime.ServerMetadata
+		err      error
+	)
+	val, ok := pathParams["action_schema_name"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "action_schema_name")
+	}
+	protoReq.ActionSchemaName, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "action_schema_name", err)
+	}
+	msg, err := client.ReadActionSchema(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+}
+
+func local_request_Dynizer_ReadActionSchema_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var (
+		protoReq ActionSchemaReq
+		metadata runtime.ServerMetadata
+		err      error
+	)
+	val, ok := pathParams["action_schema_name"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "action_schema_name")
+	}
+	protoReq.ActionSchemaName, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "action_schema_name", err)
+	}
+	msg, err := server.ReadActionSchema(ctx, &protoReq)
+	return msg, metadata, err
+}
+
+var filter_Dynizer_ListActionSchemas_0 = &utilities.DoubleArray{Encoding: map[string]int{}, Base: []int(nil), Check: []int(nil)}
+
+func request_Dynizer_ListActionSchemas_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var (
+		protoReq WindowReq
+		metadata runtime.ServerMetadata
+	)
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Dynizer_ListActionSchemas_0); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	msg, err := client.ListActionSchemas(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+}
+
+func local_request_Dynizer_ListActionSchemas_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var (
+		protoReq WindowReq
+		metadata runtime.ServerMetadata
+	)
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Dynizer_ListActionSchemas_0); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	msg, err := server.ListActionSchemas(ctx, &protoReq)
+	return msg, metadata, err
 }
 
 func request_Dynizer_CheckActionName_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq CheckActionNameReq
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq CheckActionNameReq
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["action_name"]
+	val, ok := pathParams["action_name"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "action_name")
 	}
-
 	protoReq.ActionName, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "action_name", err)
 	}
-
 	msg, err := client.CheckActionName(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_CheckActionName_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq CheckActionNameReq
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq CheckActionNameReq
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["action_name"]
+	val, ok := pathParams["action_name"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "action_name")
 	}
-
 	protoReq.ActionName, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "action_name", err)
 	}
-
 	msg, err := server.CheckActionName(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Dynizer_CreateAction_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq CreateActionReq
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq CreateActionReq
+		metadata runtime.ServerMetadata
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := client.CreateAction(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_CreateAction_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq CreateActionReq
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq CreateActionReq
+		metadata runtime.ServerMetadata
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := server.CreateAction(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Dynizer_UpdateAction_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq UpdateActionReq
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq.NewActionName); err != nil && err != io.EOF {
+	var (
+		protoReq UpdateActionReq
+		metadata runtime.ServerMetadata
+		err      error
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq.NewActionName); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
-	var (
-		val string
-		ok  bool
-		err error
-		_   = err
-	)
-
-	val, ok = pathParams["action_name"]
+	val, ok := pathParams["action_name"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "action_name")
 	}
-
 	protoReq.ActionName, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "action_name", err)
 	}
-
 	msg, err := client.UpdateAction(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_UpdateAction_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq UpdateActionReq
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq.NewActionName); err != nil && err != io.EOF {
+	var (
+		protoReq UpdateActionReq
+		metadata runtime.ServerMetadata
+		err      error
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq.NewActionName); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
-	var (
-		val string
-		ok  bool
-		err error
-		_   = err
-	)
-
-	val, ok = pathParams["action_name"]
+	val, ok := pathParams["action_name"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "action_name")
 	}
-
 	protoReq.ActionName, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "action_name", err)
 	}
-
 	msg, err := server.UpdateAction(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
-var (
-	filter_Dynizer_DeleteAction_0 = &utilities.DoubleArray{Encoding: map[string]int{"action_name": 0, "actionName": 1}, Base: []int{1, 1, 2, 0, 0}, Check: []int{0, 1, 1, 2, 3}}
-)
+var filter_Dynizer_DeleteAction_0 = &utilities.DoubleArray{Encoding: map[string]int{"action_name": 0}, Base: []int{1, 1, 0}, Check: []int{0, 1, 2}}
 
 func request_Dynizer_DeleteAction_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq DeleteActionReq
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq DeleteActionReq
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["action_name"]
+	val, ok := pathParams["action_name"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "action_name")
 	}
-
 	protoReq.ActionName, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "action_name", err)
 	}
-
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Dynizer_DeleteAction_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := client.DeleteAction(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_DeleteAction_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq DeleteActionReq
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq DeleteActionReq
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["action_name"]
+	val, ok := pathParams["action_name"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "action_name")
 	}
-
 	protoReq.ActionName, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "action_name", err)
 	}
-
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Dynizer_DeleteAction_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := server.DeleteAction(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Dynizer_ReadAction_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq ActionReq
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq ActionReq
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["action_name"]
+	val, ok := pathParams["action_name"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "action_name")
 	}
-
 	protoReq.ActionName, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "action_name", err)
 	}
-
 	msg, err := client.ReadAction(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_ReadAction_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq ActionReq
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq ActionReq
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["action_name"]
+	val, ok := pathParams["action_name"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "action_name")
 	}
-
 	protoReq.ActionName, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "action_name", err)
 	}
-
 	msg, err := server.ReadAction(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Dynizer_CountActions_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq CountActionReq
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq CountActionReq
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["action_type_label"]
+	val, ok := pathParams["action_type_label"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "action_type_label")
 	}
-
 	protoReq.ActionTypeLabel, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "action_type_label", err)
 	}
-
 	msg, err := client.CountActions(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_CountActions_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq CountActionReq
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq CountActionReq
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["action_type_label"]
+	val, ok := pathParams["action_type_label"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "action_type_label")
 	}
-
 	protoReq.ActionTypeLabel, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "action_type_label", err)
 	}
-
 	msg, err := server.CountActions(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
-var (
-	filter_Dynizer_ListActionNames_0 = &utilities.DoubleArray{Encoding: map[string]int{"action_type_label": 0, "actionTypeLabel": 1}, Base: []int{1, 1, 2, 0, 0}, Check: []int{0, 1, 1, 2, 3}}
-)
+var filter_Dynizer_ListActionNames_0 = &utilities.DoubleArray{Encoding: map[string]int{"action_type_label": 0}, Base: []int{1, 1, 0}, Check: []int{0, 1, 2}}
 
 func request_Dynizer_ListActionNames_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq ListActionNamesWindowReq
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq ListActionNamesWindowReq
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["action_type_label"]
+	val, ok := pathParams["action_type_label"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "action_type_label")
 	}
-
 	protoReq.ActionTypeLabel, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "action_type_label", err)
 	}
-
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Dynizer_ListActionNames_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := client.ListActionNames(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_ListActionNames_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq ListActionNamesWindowReq
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq ListActionNamesWindowReq
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["action_type_label"]
+	val, ok := pathParams["action_type_label"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "action_type_label")
 	}
-
 	protoReq.ActionTypeLabel, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "action_type_label", err)
 	}
-
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Dynizer_ListActionNames_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := server.ListActionNames(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Dynizer_CheckActionLabelName_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq CheckActionLabelNameReq
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq CheckActionLabelNameReq
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["action_name"]
+	val, ok := pathParams["action_name"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "action_name")
 	}
-
 	protoReq.ActionName, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "action_name", err)
 	}
-
 	val, ok = pathParams["action_label"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "action_label")
 	}
-
 	protoReq.ActionLabel, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "action_label", err)
 	}
-
 	msg, err := client.CheckActionLabelName(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_CheckActionLabelName_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq CheckActionLabelNameReq
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq CheckActionLabelNameReq
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["action_name"]
+	val, ok := pathParams["action_name"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "action_name")
 	}
-
 	protoReq.ActionName, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "action_name", err)
 	}
-
 	val, ok = pathParams["action_label"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "action_label")
 	}
-
 	protoReq.ActionLabel, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "action_label", err)
 	}
-
 	msg, err := server.CheckActionLabelName(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Dynizer_AddActionLabel_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq AddActionLabelReq
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq AddActionLabelReq
+		metadata runtime.ServerMetadata
+		err      error
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
-	var (
-		val string
-		ok  bool
-		err error
-		_   = err
-	)
-
-	val, ok = pathParams["action_name"]
+	val, ok := pathParams["action_name"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "action_name")
 	}
-
 	protoReq.ActionName, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "action_name", err)
 	}
-
 	msg, err := client.AddActionLabel(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_AddActionLabel_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq AddActionLabelReq
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq AddActionLabelReq
+		metadata runtime.ServerMetadata
+		err      error
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
-	var (
-		val string
-		ok  bool
-		err error
-		_   = err
-	)
-
-	val, ok = pathParams["action_name"]
+	val, ok := pathParams["action_name"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "action_name")
 	}
-
 	protoReq.ActionName, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "action_name", err)
 	}
-
 	msg, err := server.AddActionLabel(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Dynizer_UpdateActionLabel_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq UpdateActionLabelReq
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq UpdateActionLabelReq
+		metadata runtime.ServerMetadata
+		err      error
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
-	var (
-		val string
-		ok  bool
-		err error
-		_   = err
-	)
-
-	val, ok = pathParams["action_name"]
+	val, ok := pathParams["action_name"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "action_name")
 	}
-
 	protoReq.ActionName, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "action_name", err)
 	}
-
 	val, ok = pathParams["action_label"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "action_label")
 	}
-
 	protoReq.ActionLabel, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "action_label", err)
 	}
-
 	msg, err := client.UpdateActionLabel(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_UpdateActionLabel_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq UpdateActionLabelReq
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq UpdateActionLabelReq
+		metadata runtime.ServerMetadata
+		err      error
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
-	var (
-		val string
-		ok  bool
-		err error
-		_   = err
-	)
-
-	val, ok = pathParams["action_name"]
+	val, ok := pathParams["action_name"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "action_name")
 	}
-
 	protoReq.ActionName, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "action_name", err)
 	}
-
 	val, ok = pathParams["action_label"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "action_label")
 	}
-
 	protoReq.ActionLabel, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "action_label", err)
 	}
-
 	msg, err := server.UpdateActionLabel(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Dynizer_DeleteActionLabel_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq ActionLabelReq
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq ActionLabelReq
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["action_name"]
+	val, ok := pathParams["action_name"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "action_name")
 	}
-
 	protoReq.ActionName, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "action_name", err)
 	}
-
 	val, ok = pathParams["action_label"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "action_label")
 	}
-
 	protoReq.ActionLabel, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "action_label", err)
 	}
-
 	msg, err := client.DeleteActionLabel(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_DeleteActionLabel_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq ActionLabelReq
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq ActionLabelReq
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["action_name"]
+	val, ok := pathParams["action_name"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "action_name")
 	}
-
 	protoReq.ActionName, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "action_name", err)
 	}
-
 	val, ok = pathParams["action_label"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "action_label")
 	}
-
 	protoReq.ActionLabel, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "action_label", err)
 	}
-
 	msg, err := server.DeleteActionLabel(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Dynizer_ReadActionLabel_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq ActionLabelReq
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq ActionLabelReq
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["action_name"]
+	val, ok := pathParams["action_name"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "action_name")
 	}
-
 	protoReq.ActionName, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "action_name", err)
 	}
-
 	val, ok = pathParams["action_label"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "action_label")
 	}
-
 	protoReq.ActionLabel, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "action_label", err)
 	}
-
 	msg, err := client.ReadActionLabel(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_ReadActionLabel_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq ActionLabelReq
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq ActionLabelReq
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["action_name"]
+	val, ok := pathParams["action_name"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "action_name")
 	}
-
 	protoReq.ActionName, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "action_name", err)
 	}
-
 	val, ok = pathParams["action_label"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "action_label")
 	}
-
 	protoReq.ActionLabel, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "action_label", err)
 	}
-
 	msg, err := server.ReadActionLabel(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Dynizer_CreateObject_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq CreateObjectReq
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq CreateObjectReq
+		metadata runtime.ServerMetadata
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := client.CreateObject(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_CreateObject_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq CreateObjectReq
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq CreateObjectReq
+		metadata runtime.ServerMetadata
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := server.CreateObject(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
-var (
-	filter_Dynizer_ClearObjectData_0 = &utilities.DoubleArray{Encoding: map[string]int{"object_ref": 0, "type": 1, "ref_uuid": 2, "refUuid": 3}, Base: []int{1, 4, 4, 1, 5, 0, 3, 0, 0, 0}, Check: []int{0, 1, 1, 2, 1, 4, 2, 7, 3, 5}}
-)
+var filter_Dynizer_ClearObjectData_0 = &utilities.DoubleArray{Encoding: map[string]int{"object_ref": 0, "type": 1, "ref_uuid": 2}, Base: []int{1, 1, 1, 2, 0, 0}, Check: []int{0, 1, 2, 2, 3, 4}}
 
 func request_Dynizer_ClearObjectData_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq ClearObjectDataReq
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		e   int32
-		ok  bool
-		err error
-		_   = err
+		protoReq ClearObjectDataReq
+		metadata runtime.ServerMetadata
+		e        int32
+		err      error
 	)
-
-	val, ok = pathParams["object_ref.type"]
+	val, ok := pathParams["object_ref.type"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "object_ref.type")
 	}
-
 	err = runtime.PopulateFieldFromPath(&protoReq, "object_ref.type", val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "object_ref.type", err)
 	}
-
 	e, err = runtime.Enum(val, ObjectDataType_value)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "could not parse path as enum value, parameter: %s, error: %v", "object_ref.type", err)
 	}
-
 	protoReq.ObjectRef.Type = ObjectDataType(e)
-
 	val, ok = pathParams["object_ref.ref_uuid"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "object_ref.ref_uuid")
 	}
-
 	err = runtime.PopulateFieldFromPath(&protoReq, "object_ref.ref_uuid", val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "object_ref.ref_uuid", err)
 	}
-
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Dynizer_ClearObjectData_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := client.ClearObjectData(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_ClearObjectData_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq ClearObjectDataReq
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		e   int32
-		ok  bool
-		err error
-		_   = err
+		protoReq ClearObjectDataReq
+		metadata runtime.ServerMetadata
+		e        int32
+		err      error
 	)
-
-	val, ok = pathParams["object_ref.type"]
+	val, ok := pathParams["object_ref.type"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "object_ref.type")
 	}
-
 	err = runtime.PopulateFieldFromPath(&protoReq, "object_ref.type", val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "object_ref.type", err)
 	}
-
 	e, err = runtime.Enum(val, ObjectDataType_value)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "could not parse path as enum value, parameter: %s, error: %v", "object_ref.type", err)
 	}
-
 	protoReq.ObjectRef.Type = ObjectDataType(e)
-
 	val, ok = pathParams["object_ref.ref_uuid"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "object_ref.ref_uuid")
 	}
-
 	err = runtime.PopulateFieldFromPath(&protoReq, "object_ref.ref_uuid", val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "object_ref.ref_uuid", err)
 	}
-
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Dynizer_ClearObjectData_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := server.ClearObjectData(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
-var (
-	filter_Dynizer_DeleteObject_0 = &utilities.DoubleArray{Encoding: map[string]int{"object_ref": 0, "type": 1, "ref_uuid": 2, "refUuid": 3}, Base: []int{1, 4, 4, 1, 5, 0, 3, 0, 0, 0}, Check: []int{0, 1, 1, 2, 1, 4, 2, 7, 3, 5}}
-)
+var filter_Dynizer_DeleteObject_0 = &utilities.DoubleArray{Encoding: map[string]int{"object_ref": 0, "type": 1, "ref_uuid": 2}, Base: []int{1, 1, 1, 2, 0, 0}, Check: []int{0, 1, 2, 2, 3, 4}}
 
 func request_Dynizer_DeleteObject_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq DeleteObjectReq
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		e   int32
-		ok  bool
-		err error
-		_   = err
+		protoReq DeleteObjectReq
+		metadata runtime.ServerMetadata
+		e        int32
+		err      error
 	)
-
-	val, ok = pathParams["object_ref.type"]
+	val, ok := pathParams["object_ref.type"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "object_ref.type")
 	}
-
 	err = runtime.PopulateFieldFromPath(&protoReq, "object_ref.type", val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "object_ref.type", err)
 	}
-
 	e, err = runtime.Enum(val, ObjectDataType_value)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "could not parse path as enum value, parameter: %s, error: %v", "object_ref.type", err)
 	}
-
 	protoReq.ObjectRef.Type = ObjectDataType(e)
-
 	val, ok = pathParams["object_ref.ref_uuid"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "object_ref.ref_uuid")
 	}
-
 	err = runtime.PopulateFieldFromPath(&protoReq, "object_ref.ref_uuid", val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "object_ref.ref_uuid", err)
 	}
-
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Dynizer_DeleteObject_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := client.DeleteObject(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_DeleteObject_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq DeleteObjectReq
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		e   int32
-		ok  bool
-		err error
-		_   = err
+		protoReq DeleteObjectReq
+		metadata runtime.ServerMetadata
+		e        int32
+		err      error
 	)
-
-	val, ok = pathParams["object_ref.type"]
+	val, ok := pathParams["object_ref.type"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "object_ref.type")
 	}
-
 	err = runtime.PopulateFieldFromPath(&protoReq, "object_ref.type", val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "object_ref.type", err)
 	}
-
 	e, err = runtime.Enum(val, ObjectDataType_value)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "could not parse path as enum value, parameter: %s, error: %v", "object_ref.type", err)
 	}
-
 	protoReq.ObjectRef.Type = ObjectDataType(e)
-
 	val, ok = pathParams["object_ref.ref_uuid"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "object_ref.ref_uuid")
 	}
-
 	err = runtime.PopulateFieldFromPath(&protoReq, "object_ref.ref_uuid", val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "object_ref.ref_uuid", err)
 	}
-
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Dynizer_DeleteObject_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := server.DeleteObject(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Dynizer_UploadObjectData_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq UploadObjectDataReq
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq UploadObjectDataReq
+		metadata runtime.ServerMetadata
+		e        int32
+		err      error
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
-	var (
-		val string
-		e   int32
-		ok  bool
-		err error
-		_   = err
-	)
-
-	val, ok = pathParams["object_ref.type"]
+	val, ok := pathParams["object_ref.type"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "object_ref.type")
 	}
-
 	err = runtime.PopulateFieldFromPath(&protoReq, "object_ref.type", val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "object_ref.type", err)
 	}
-
 	e, err = runtime.Enum(val, ObjectDataType_value)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "could not parse path as enum value, parameter: %s, error: %v", "object_ref.type", err)
 	}
-
 	protoReq.ObjectRef.Type = ObjectDataType(e)
-
 	val, ok = pathParams["object_ref.ref_uuid"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "object_ref.ref_uuid")
 	}
-
 	err = runtime.PopulateFieldFromPath(&protoReq, "object_ref.ref_uuid", val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "object_ref.ref_uuid", err)
 	}
-
 	msg, err := client.UploadObjectData(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_UploadObjectData_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq UploadObjectDataReq
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq UploadObjectDataReq
+		metadata runtime.ServerMetadata
+		e        int32
+		err      error
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
-	var (
-		val string
-		e   int32
-		ok  bool
-		err error
-		_   = err
-	)
-
-	val, ok = pathParams["object_ref.type"]
+	val, ok := pathParams["object_ref.type"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "object_ref.type")
 	}
-
 	err = runtime.PopulateFieldFromPath(&protoReq, "object_ref.type", val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "object_ref.type", err)
 	}
-
 	e, err = runtime.Enum(val, ObjectDataType_value)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "could not parse path as enum value, parameter: %s, error: %v", "object_ref.type", err)
 	}
-
 	protoReq.ObjectRef.Type = ObjectDataType(e)
-
 	val, ok = pathParams["object_ref.ref_uuid"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "object_ref.ref_uuid")
 	}
-
 	err = runtime.PopulateFieldFromPath(&protoReq, "object_ref.ref_uuid", val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "object_ref.ref_uuid", err)
 	}
-
 	msg, err := server.UploadObjectData(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
-var (
-	filter_Dynizer_DownloadObjectData_0 = &utilities.DoubleArray{Encoding: map[string]int{"object_ref": 0, "type": 1, "ref_uuid": 2, "refUuid": 3}, Base: []int{1, 4, 4, 1, 5, 0, 3, 0, 0, 0}, Check: []int{0, 1, 1, 2, 1, 4, 2, 7, 3, 5}}
-)
+var filter_Dynizer_DownloadObjectData_0 = &utilities.DoubleArray{Encoding: map[string]int{"object_ref": 0, "type": 1, "ref_uuid": 2}, Base: []int{1, 1, 1, 2, 0, 0}, Check: []int{0, 1, 2, 2, 3, 4}}
 
 func request_Dynizer_DownloadObjectData_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq DownloadObjectDataReq
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		e   int32
-		ok  bool
-		err error
-		_   = err
+		protoReq DownloadObjectDataReq
+		metadata runtime.ServerMetadata
+		e        int32
+		err      error
 	)
-
-	val, ok = pathParams["object_ref.type"]
+	val, ok := pathParams["object_ref.type"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "object_ref.type")
 	}
-
 	err = runtime.PopulateFieldFromPath(&protoReq, "object_ref.type", val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "object_ref.type", err)
 	}
-
 	e, err = runtime.Enum(val, ObjectDataType_value)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "could not parse path as enum value, parameter: %s, error: %v", "object_ref.type", err)
 	}
-
 	protoReq.ObjectRef.Type = ObjectDataType(e)
-
 	val, ok = pathParams["object_ref.ref_uuid"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "object_ref.ref_uuid")
 	}
-
 	err = runtime.PopulateFieldFromPath(&protoReq, "object_ref.ref_uuid", val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "object_ref.ref_uuid", err)
 	}
-
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Dynizer_DownloadObjectData_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := client.DownloadObjectData(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_DownloadObjectData_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq DownloadObjectDataReq
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		e   int32
-		ok  bool
-		err error
-		_   = err
+		protoReq DownloadObjectDataReq
+		metadata runtime.ServerMetadata
+		e        int32
+		err      error
 	)
-
-	val, ok = pathParams["object_ref.type"]
+	val, ok := pathParams["object_ref.type"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "object_ref.type")
 	}
-
 	err = runtime.PopulateFieldFromPath(&protoReq, "object_ref.type", val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "object_ref.type", err)
 	}
-
 	e, err = runtime.Enum(val, ObjectDataType_value)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "could not parse path as enum value, parameter: %s, error: %v", "object_ref.type", err)
 	}
-
 	protoReq.ObjectRef.Type = ObjectDataType(e)
-
 	val, ok = pathParams["object_ref.ref_uuid"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "object_ref.ref_uuid")
 	}
-
 	err = runtime.PopulateFieldFromPath(&protoReq, "object_ref.ref_uuid", val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "object_ref.ref_uuid", err)
 	}
-
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Dynizer_DownloadObjectData_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := server.DownloadObjectData(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Dynizer_ListObjectUUIDS_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq EmptyReq
-	var metadata runtime.ServerMetadata
-
+	var (
+		protoReq EmptyReq
+		metadata runtime.ServerMetadata
+	)
 	msg, err := client.ListObjectUUIDS(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_ListObjectUUIDS_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq EmptyReq
-	var metadata runtime.ServerMetadata
-
+	var (
+		protoReq EmptyReq
+		metadata runtime.ServerMetadata
+	)
 	msg, err := server.ListObjectUUIDS(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Dynizer_DeleteAllObjects_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq EmptyReq
-	var metadata runtime.ServerMetadata
-
+	var (
+		protoReq EmptyReq
+		metadata runtime.ServerMetadata
+	)
 	msg, err := client.DeleteAllObjects(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_DeleteAllObjects_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq EmptyReq
-	var metadata runtime.ServerMetadata
-
+	var (
+		protoReq EmptyReq
+		metadata runtime.ServerMetadata
+	)
 	msg, err := server.DeleteAllObjects(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Dynizer_CreateInstance_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq CreateInstanceReq
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq CreateInstanceReq
+		metadata runtime.ServerMetadata
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := client.CreateInstance(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_CreateInstance_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq CreateInstanceReq
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq CreateInstanceReq
+		metadata runtime.ServerMetadata
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := server.CreateInstance(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Dynizer_UpdateInstance_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq UpdateInstanceReq
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq UpdateInstanceReq
+		metadata runtime.ServerMetadata
+		err      error
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
-	var (
-		val string
-		ok  bool
-		err error
-		_   = err
-	)
-
-	val, ok = pathParams["instance_id"]
+	val, ok := pathParams["instance_id"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "instance_id")
 	}
-
 	protoReq.InstanceId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "instance_id", err)
 	}
-
 	msg, err := client.UpdateInstance(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_UpdateInstance_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq UpdateInstanceReq
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq UpdateInstanceReq
+		metadata runtime.ServerMetadata
+		err      error
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
-	var (
-		val string
-		ok  bool
-		err error
-		_   = err
-	)
-
-	val, ok = pathParams["instance_id"]
+	val, ok := pathParams["instance_id"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "instance_id")
 	}
-
 	protoReq.InstanceId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "instance_id", err)
 	}
-
 	msg, err := server.UpdateInstance(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Dynizer_DeleteInstance_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq InstanceReq
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq InstanceReq
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["instance_id"]
+	val, ok := pathParams["instance_id"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "instance_id")
 	}
-
 	protoReq.InstanceId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "instance_id", err)
 	}
-
 	msg, err := client.DeleteInstance(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_DeleteInstance_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq InstanceReq
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq InstanceReq
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["instance_id"]
+	val, ok := pathParams["instance_id"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "instance_id")
 	}
-
 	protoReq.InstanceId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "instance_id", err)
 	}
-
 	msg, err := server.DeleteInstance(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Dynizer_ReadInstance_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq InstanceReq
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq InstanceReq
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["instance_id"]
+	val, ok := pathParams["instance_id"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "instance_id")
 	}
-
 	protoReq.InstanceId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "instance_id", err)
 	}
-
 	msg, err := client.ReadInstance(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_ReadInstance_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq InstanceReq
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq InstanceReq
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["instance_id"]
+	val, ok := pathParams["instance_id"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "instance_id")
 	}
-
 	protoReq.InstanceId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "instance_id", err)
 	}
-
 	msg, err := server.ReadInstance(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Dynizer_DynizerQuery_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq DQLReq
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq DQLReq
+		metadata runtime.ServerMetadata
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := client.DynizerQuery(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_DynizerQuery_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq DQLReq
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq DQLReq
+		metadata runtime.ServerMetadata
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := server.DynizerQuery(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
-var (
-	filter_Dynizer_QueryResultNext_0 = &utilities.DoubleArray{Encoding: map[string]int{"result_handle": 0, "resultHandle": 1}, Base: []int{1, 1, 2, 0, 0}, Check: []int{0, 1, 1, 2, 3}}
-)
+var filter_Dynizer_QueryResultNext_0 = &utilities.DoubleArray{Encoding: map[string]int{"result_handle": 0}, Base: []int{1, 1, 0}, Check: []int{0, 1, 2}}
 
 func request_Dynizer_QueryResultNext_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq QueryResultReq
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq QueryResultReq
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["result_handle"]
+	val, ok := pathParams["result_handle"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "result_handle")
 	}
-
 	protoReq.ResultHandle, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "result_handle", err)
 	}
-
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Dynizer_QueryResultNext_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := client.QueryResultNext(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_QueryResultNext_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq QueryResultReq
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq QueryResultReq
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["result_handle"]
+	val, ok := pathParams["result_handle"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "result_handle")
 	}
-
 	protoReq.ResultHandle, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "result_handle", err)
 	}
-
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Dynizer_QueryResultNext_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := server.QueryResultNext(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
-var (
-	filter_Dynizer_QueryResultClose_0 = &utilities.DoubleArray{Encoding: map[string]int{"result_handle": 0, "resultHandle": 1}, Base: []int{1, 1, 2, 0, 0}, Check: []int{0, 1, 1, 2, 3}}
-)
+var filter_Dynizer_QueryResultClose_0 = &utilities.DoubleArray{Encoding: map[string]int{"result_handle": 0}, Base: []int{1, 1, 0}, Check: []int{0, 1, 2}}
 
 func request_Dynizer_QueryResultClose_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq QueryCloseReq
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq QueryCloseReq
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["result_handle"]
+	val, ok := pathParams["result_handle"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "result_handle")
 	}
-
 	protoReq.ResultHandle, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "result_handle", err)
 	}
-
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Dynizer_QueryResultClose_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := client.QueryResultClose(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_QueryResultClose_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq QueryCloseReq
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq QueryCloseReq
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["result_handle"]
+	val, ok := pathParams["result_handle"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "result_handle")
 	}
-
 	protoReq.ResultHandle, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "result_handle", err)
 	}
-
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Dynizer_QueryResultClose_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := server.QueryResultClose(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Dynizer_CheckMetaDataKeyName_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq CheckMetaDataKeyNameReq
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq CheckMetaDataKeyNameReq
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["key_name"]
+	val, ok := pathParams["key_name"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "key_name")
 	}
-
 	protoReq.KeyName, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "key_name", err)
 	}
-
 	msg, err := client.CheckMetaDataKeyName(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_CheckMetaDataKeyName_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq CheckMetaDataKeyNameReq
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq CheckMetaDataKeyNameReq
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["key_name"]
+	val, ok := pathParams["key_name"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "key_name")
 	}
-
 	protoReq.KeyName, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "key_name", err)
 	}
-
 	msg, err := server.CheckMetaDataKeyName(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Dynizer_CreateMetaDataKey_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq CreateMetaDataKeyReq
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq CreateMetaDataKeyReq
+		metadata runtime.ServerMetadata
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := client.CreateMetaDataKey(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_CreateMetaDataKey_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq CreateMetaDataKeyReq
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq CreateMetaDataKeyReq
+		metadata runtime.ServerMetadata
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := server.CreateMetaDataKey(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Dynizer_ReadMetaDataKey_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq MetaDataKeyReq
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq MetaDataKeyReq
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["key_name"]
+	val, ok := pathParams["key_name"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "key_name")
 	}
-
 	protoReq.KeyName, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "key_name", err)
 	}
-
 	msg, err := client.ReadMetaDataKey(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_ReadMetaDataKey_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq MetaDataKeyReq
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq MetaDataKeyReq
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["key_name"]
+	val, ok := pathParams["key_name"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "key_name")
 	}
-
 	protoReq.KeyName, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "key_name", err)
 	}
-
 	msg, err := server.ReadMetaDataKey(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Dynizer_UpdateMetaDataKey_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq UpdateMetaDataKeyReq
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq UpdateMetaDataKeyReq
+		metadata runtime.ServerMetadata
+		err      error
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
-	var (
-		val string
-		ok  bool
-		err error
-		_   = err
-	)
-
-	val, ok = pathParams["key_name"]
+	val, ok := pathParams["key_name"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "key_name")
 	}
-
 	protoReq.KeyName, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "key_name", err)
 	}
-
 	msg, err := client.UpdateMetaDataKey(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_UpdateMetaDataKey_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq UpdateMetaDataKeyReq
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq UpdateMetaDataKeyReq
+		metadata runtime.ServerMetadata
+		err      error
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
-	var (
-		val string
-		ok  bool
-		err error
-		_   = err
-	)
-
-	val, ok = pathParams["key_name"]
+	val, ok := pathParams["key_name"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "key_name")
 	}
-
 	protoReq.KeyName, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "key_name", err)
 	}
-
 	msg, err := server.UpdateMetaDataKey(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
-var (
-	filter_Dynizer_DeleteMetaDataKey_0 = &utilities.DoubleArray{Encoding: map[string]int{"key_name": 0, "keyName": 1}, Base: []int{1, 1, 2, 0, 0}, Check: []int{0, 1, 1, 2, 3}}
-)
+var filter_Dynizer_DeleteMetaDataKey_0 = &utilities.DoubleArray{Encoding: map[string]int{"key_name": 0}, Base: []int{1, 1, 0}, Check: []int{0, 1, 2}}
 
 func request_Dynizer_DeleteMetaDataKey_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq DeleteMetaDataKeyReq
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq DeleteMetaDataKeyReq
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["key_name"]
+	val, ok := pathParams["key_name"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "key_name")
 	}
-
 	protoReq.KeyName, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "key_name", err)
 	}
-
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Dynizer_DeleteMetaDataKey_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := client.DeleteMetaDataKey(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_DeleteMetaDataKey_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq DeleteMetaDataKeyReq
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq DeleteMetaDataKeyReq
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["key_name"]
+	val, ok := pathParams["key_name"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "key_name")
 	}
-
 	protoReq.KeyName, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "key_name", err)
 	}
-
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Dynizer_DeleteMetaDataKey_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := server.DeleteMetaDataKey(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Dynizer_CountMetaDataKeys_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq EmptyReq
-	var metadata runtime.ServerMetadata
-
+	var (
+		protoReq EmptyReq
+		metadata runtime.ServerMetadata
+	)
 	msg, err := client.CountMetaDataKeys(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_CountMetaDataKeys_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq EmptyReq
-	var metadata runtime.ServerMetadata
-
+	var (
+		protoReq EmptyReq
+		metadata runtime.ServerMetadata
+	)
 	msg, err := server.CountMetaDataKeys(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
-var (
-	filter_Dynizer_ListMetaDataKeys_0 = &utilities.DoubleArray{Encoding: map[string]int{}, Base: []int(nil), Check: []int(nil)}
-)
+var filter_Dynizer_ListMetaDataKeys_0 = &utilities.DoubleArray{Encoding: map[string]int{}, Base: []int(nil), Check: []int(nil)}
 
 func request_Dynizer_ListMetaDataKeys_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq ListMetaDataKeysReq
-	var metadata runtime.ServerMetadata
-
+	var (
+		protoReq ListMetaDataKeysReq
+		metadata runtime.ServerMetadata
+	)
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Dynizer_ListMetaDataKeys_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := client.ListMetaDataKeys(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_ListMetaDataKeys_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq ListMetaDataKeysReq
-	var metadata runtime.ServerMetadata
-
+	var (
+		protoReq ListMetaDataKeysReq
+		metadata runtime.ServerMetadata
+	)
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Dynizer_ListMetaDataKeys_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := server.ListMetaDataKeys(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Dynizer_AddInstanceMetaData_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq AddInstanceMetaDataReq
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq AddInstanceMetaDataReq
+		metadata runtime.ServerMetadata
+		err      error
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
-	var (
-		val string
-		ok  bool
-		err error
-		_   = err
-	)
-
-	val, ok = pathParams["instance_id"]
+	val, ok := pathParams["instance_id"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "instance_id")
 	}
-
 	protoReq.InstanceId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "instance_id", err)
 	}
-
 	msg, err := client.AddInstanceMetaData(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_AddInstanceMetaData_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq AddInstanceMetaDataReq
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq AddInstanceMetaDataReq
+		metadata runtime.ServerMetadata
+		err      error
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
-	var (
-		val string
-		ok  bool
-		err error
-		_   = err
-	)
-
-	val, ok = pathParams["instance_id"]
+	val, ok := pathParams["instance_id"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "instance_id")
 	}
-
 	protoReq.InstanceId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "instance_id", err)
 	}
-
 	msg, err := server.AddInstanceMetaData(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Dynizer_RemoveInstanceMetaData_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq InstanceMetaDataKeyReq
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq InstanceMetaDataKeyReq
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["instance_id"]
+	val, ok := pathParams["instance_id"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "instance_id")
 	}
-
 	protoReq.InstanceId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "instance_id", err)
 	}
-
 	val, ok = pathParams["key_name"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "key_name")
 	}
-
 	protoReq.KeyName, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "key_name", err)
 	}
-
 	msg, err := client.RemoveInstanceMetaData(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_RemoveInstanceMetaData_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq InstanceMetaDataKeyReq
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq InstanceMetaDataKeyReq
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["instance_id"]
+	val, ok := pathParams["instance_id"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "instance_id")
 	}
-
 	protoReq.InstanceId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "instance_id", err)
 	}
-
 	val, ok = pathParams["key_name"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "key_name")
 	}
-
 	protoReq.KeyName, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "key_name", err)
 	}
-
 	msg, err := server.RemoveInstanceMetaData(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Dynizer_AddInstanceMetaDataValue_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq AddInstanceMetaDataValueReq
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq AddInstanceMetaDataValueReq
+		metadata runtime.ServerMetadata
+		err      error
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
-	var (
-		val string
-		ok  bool
-		err error
-		_   = err
-	)
-
-	val, ok = pathParams["instance_id"]
+	val, ok := pathParams["instance_id"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "instance_id")
 	}
-
 	protoReq.InstanceId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "instance_id", err)
 	}
-
 	val, ok = pathParams["key_name"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "key_name")
 	}
-
 	protoReq.KeyName, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "key_name", err)
 	}
-
 	msg, err := client.AddInstanceMetaDataValue(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_AddInstanceMetaDataValue_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq AddInstanceMetaDataValueReq
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq AddInstanceMetaDataValueReq
+		metadata runtime.ServerMetadata
+		err      error
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
-	var (
-		val string
-		ok  bool
-		err error
-		_   = err
-	)
-
-	val, ok = pathParams["instance_id"]
+	val, ok := pathParams["instance_id"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "instance_id")
 	}
-
 	protoReq.InstanceId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "instance_id", err)
 	}
-
 	val, ok = pathParams["key_name"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "key_name")
 	}
-
 	protoReq.KeyName, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "key_name", err)
 	}
-
 	msg, err := server.AddInstanceMetaDataValue(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
-var (
-	filter_Dynizer_RemoveInstanceMetaDataValue_0 = &utilities.DoubleArray{Encoding: map[string]int{"instance_id": 0, "instanceId": 1, "key_name": 2, "keyName": 3, "value": 4}, Base: []int{1, 1, 2, 3, 4, 6, 0, 0, 0, 0, 0, 0}, Check: []int{0, 1, 1, 1, 1, 1, 2, 3, 4, 5, 6, 6}}
-)
+var filter_Dynizer_RemoveInstanceMetaDataValue_0 = &utilities.DoubleArray{Encoding: map[string]int{"instance_id": 0, "key_name": 1, "value": 2}, Base: []int{1, 1, 2, 3, 0, 0, 0}, Check: []int{0, 1, 1, 1, 2, 3, 4}}
 
 func request_Dynizer_RemoveInstanceMetaDataValue_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq InstanceMetaDataKeyValueReq
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq InstanceMetaDataKeyValueReq
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["instance_id"]
+	val, ok := pathParams["instance_id"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "instance_id")
 	}
-
 	protoReq.InstanceId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "instance_id", err)
 	}
-
 	val, ok = pathParams["key_name"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "key_name")
 	}
-
 	protoReq.KeyName, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "key_name", err)
 	}
-
 	val, ok = pathParams["value"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "value")
 	}
-
 	protoReq.Value, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "value", err)
 	}
-
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Dynizer_RemoveInstanceMetaDataValue_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := client.RemoveInstanceMetaDataValue(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_RemoveInstanceMetaDataValue_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq InstanceMetaDataKeyValueReq
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq InstanceMetaDataKeyValueReq
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["instance_id"]
+	val, ok := pathParams["instance_id"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "instance_id")
 	}
-
 	protoReq.InstanceId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "instance_id", err)
 	}
-
 	val, ok = pathParams["key_name"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "key_name")
 	}
-
 	protoReq.KeyName, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "key_name", err)
 	}
-
 	val, ok = pathParams["value"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "value")
 	}
-
 	protoReq.Value, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "value", err)
 	}
-
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Dynizer_RemoveInstanceMetaDataValue_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := server.RemoveInstanceMetaDataValue(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Dynizer_GetInstanceMetaDataValues_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq InstanceMetaDataKeyReq
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq InstanceMetaDataKeyReq
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["instance_id"]
+	val, ok := pathParams["instance_id"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "instance_id")
 	}
-
 	protoReq.InstanceId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "instance_id", err)
 	}
-
 	val, ok = pathParams["key_name"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "key_name")
 	}
-
 	protoReq.KeyName, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "key_name", err)
 	}
-
 	msg, err := client.GetInstanceMetaDataValues(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_GetInstanceMetaDataValues_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq InstanceMetaDataKeyReq
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq InstanceMetaDataKeyReq
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["instance_id"]
+	val, ok := pathParams["instance_id"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "instance_id")
 	}
-
 	protoReq.InstanceId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "instance_id", err)
 	}
-
 	val, ok = pathParams["key_name"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "key_name")
 	}
-
 	protoReq.KeyName, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "key_name", err)
 	}
-
 	msg, err := server.GetInstanceMetaDataValues(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Dynizer_CountInstanceMetaDataKeys_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq InstanceReq
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq InstanceReq
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["instance_id"]
+	val, ok := pathParams["instance_id"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "instance_id")
 	}
-
 	protoReq.InstanceId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "instance_id", err)
 	}
-
 	msg, err := client.CountInstanceMetaDataKeys(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_CountInstanceMetaDataKeys_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq InstanceReq
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq InstanceReq
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["instance_id"]
+	val, ok := pathParams["instance_id"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "instance_id")
 	}
-
 	protoReq.InstanceId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "instance_id", err)
 	}
-
 	msg, err := server.CountInstanceMetaDataKeys(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Dynizer_CountInstanceMetaDataKeyValues_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq InstanceMetaDataKeyReq
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq InstanceMetaDataKeyReq
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["instance_id"]
+	val, ok := pathParams["instance_id"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "instance_id")
 	}
-
 	protoReq.InstanceId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "instance_id", err)
 	}
-
 	val, ok = pathParams["key_name"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "key_name")
 	}
-
 	protoReq.KeyName, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "key_name", err)
 	}
-
 	msg, err := client.CountInstanceMetaDataKeyValues(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_CountInstanceMetaDataKeyValues_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq InstanceMetaDataKeyReq
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq InstanceMetaDataKeyReq
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["instance_id"]
+	val, ok := pathParams["instance_id"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "instance_id")
 	}
-
 	protoReq.InstanceId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "instance_id", err)
 	}
-
 	val, ok = pathParams["key_name"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "key_name")
 	}
-
 	protoReq.KeyName, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "key_name", err)
 	}
-
 	msg, err := server.CountInstanceMetaDataKeyValues(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Dynizer_ListInstanceMetaData_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq InstanceReq
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq InstanceReq
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["instance_id"]
+	val, ok := pathParams["instance_id"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "instance_id")
 	}
-
 	protoReq.InstanceId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "instance_id", err)
 	}
-
 	msg, err := client.ListInstanceMetaData(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_ListInstanceMetaData_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq InstanceReq
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq InstanceReq
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["instance_id"]
+	val, ok := pathParams["instance_id"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "instance_id")
 	}
-
 	protoReq.InstanceId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "instance_id", err)
 	}
-
 	msg, err := server.ListInstanceMetaData(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Dynizer_AddInstanceActionLabelMetaData_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq AddInstanceActionLabelMetaDataReq
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq AddInstanceActionLabelMetaDataReq
+		metadata runtime.ServerMetadata
+		err      error
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
-	var (
-		val string
-		ok  bool
-		err error
-		_   = err
-	)
-
-	val, ok = pathParams["instance_id"]
+	val, ok := pathParams["instance_id"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "instance_id")
 	}
-
 	protoReq.InstanceId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "instance_id", err)
 	}
-
 	val, ok = pathParams["action_label"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "action_label")
 	}
-
 	protoReq.ActionLabel, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "action_label", err)
 	}
-
 	msg, err := client.AddInstanceActionLabelMetaData(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_AddInstanceActionLabelMetaData_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq AddInstanceActionLabelMetaDataReq
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq AddInstanceActionLabelMetaDataReq
+		metadata runtime.ServerMetadata
+		err      error
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
-	var (
-		val string
-		ok  bool
-		err error
-		_   = err
-	)
-
-	val, ok = pathParams["instance_id"]
+	val, ok := pathParams["instance_id"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "instance_id")
 	}
-
 	protoReq.InstanceId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "instance_id", err)
 	}
-
 	val, ok = pathParams["action_label"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "action_label")
 	}
-
 	protoReq.ActionLabel, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "action_label", err)
 	}
-
 	msg, err := server.AddInstanceActionLabelMetaData(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Dynizer_RemoveInstanceActionLabelMetaData_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq InstanceActionLabelMetaDataKeyReq
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq InstanceActionLabelMetaDataKeyReq
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["instance_id"]
+	val, ok := pathParams["instance_id"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "instance_id")
 	}
-
 	protoReq.InstanceId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "instance_id", err)
 	}
-
 	val, ok = pathParams["action_label"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "action_label")
 	}
-
 	protoReq.ActionLabel, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "action_label", err)
 	}
-
 	val, ok = pathParams["key_name"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "key_name")
 	}
-
 	protoReq.KeyName, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "key_name", err)
 	}
-
 	msg, err := client.RemoveInstanceActionLabelMetaData(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_RemoveInstanceActionLabelMetaData_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq InstanceActionLabelMetaDataKeyReq
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq InstanceActionLabelMetaDataKeyReq
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["instance_id"]
+	val, ok := pathParams["instance_id"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "instance_id")
 	}
-
 	protoReq.InstanceId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "instance_id", err)
 	}
-
 	val, ok = pathParams["action_label"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "action_label")
 	}
-
 	protoReq.ActionLabel, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "action_label", err)
 	}
-
 	val, ok = pathParams["key_name"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "key_name")
 	}
-
 	protoReq.KeyName, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "key_name", err)
 	}
-
 	msg, err := server.RemoveInstanceActionLabelMetaData(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Dynizer_AddInstanceActionLabelMetaDataValue_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq AddInstanceActionLabelMetaDataValueReq
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq AddInstanceActionLabelMetaDataValueReq
+		metadata runtime.ServerMetadata
+		err      error
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
-	var (
-		val string
-		ok  bool
-		err error
-		_   = err
-	)
-
-	val, ok = pathParams["instance_id"]
+	val, ok := pathParams["instance_id"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "instance_id")
 	}
-
 	protoReq.InstanceId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "instance_id", err)
 	}
-
 	val, ok = pathParams["action_label"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "action_label")
 	}
-
 	protoReq.ActionLabel, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "action_label", err)
 	}
-
 	val, ok = pathParams["key_name"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "key_name")
 	}
-
 	protoReq.KeyName, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "key_name", err)
 	}
-
 	msg, err := client.AddInstanceActionLabelMetaDataValue(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_AddInstanceActionLabelMetaDataValue_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq AddInstanceActionLabelMetaDataValueReq
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq AddInstanceActionLabelMetaDataValueReq
+		metadata runtime.ServerMetadata
+		err      error
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
-	var (
-		val string
-		ok  bool
-		err error
-		_   = err
-	)
-
-	val, ok = pathParams["instance_id"]
+	val, ok := pathParams["instance_id"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "instance_id")
 	}
-
 	protoReq.InstanceId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "instance_id", err)
 	}
-
 	val, ok = pathParams["action_label"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "action_label")
 	}
-
 	protoReq.ActionLabel, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "action_label", err)
 	}
-
 	val, ok = pathParams["key_name"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "key_name")
 	}
-
 	protoReq.KeyName, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "key_name", err)
 	}
-
 	msg, err := server.AddInstanceActionLabelMetaDataValue(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
-var (
-	filter_Dynizer_RemoveInstanceActionLabelMetaDataValue_0 = &utilities.DoubleArray{Encoding: map[string]int{"instance_id": 0, "instanceId": 1, "action_label": 2, "actionLabel": 3, "key_name": 4, "keyName": 5, "value": 6}, Base: []int{1, 1, 2, 3, 4, 5, 6, 8, 0, 0, 0, 0, 0, 0, 0, 0}, Check: []int{0, 1, 1, 1, 1, 1, 1, 1, 2, 3, 4, 5, 6, 7, 8, 8}}
-)
+var filter_Dynizer_RemoveInstanceActionLabelMetaDataValue_0 = &utilities.DoubleArray{Encoding: map[string]int{"instance_id": 0, "action_label": 1, "key_name": 2, "value": 3}, Base: []int{1, 1, 2, 3, 4, 0, 0, 0, 0}, Check: []int{0, 1, 1, 1, 1, 2, 3, 4, 5}}
 
 func request_Dynizer_RemoveInstanceActionLabelMetaDataValue_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq InstanceActionLabelMetaDataValueReq
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq InstanceActionLabelMetaDataValueReq
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["instance_id"]
+	val, ok := pathParams["instance_id"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "instance_id")
 	}
-
 	protoReq.InstanceId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "instance_id", err)
 	}
-
 	val, ok = pathParams["action_label"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "action_label")
 	}
-
 	protoReq.ActionLabel, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "action_label", err)
 	}
-
 	val, ok = pathParams["key_name"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "key_name")
 	}
-
 	protoReq.KeyName, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "key_name", err)
 	}
-
 	val, ok = pathParams["value"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "value")
 	}
-
 	protoReq.Value, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "value", err)
 	}
-
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Dynizer_RemoveInstanceActionLabelMetaDataValue_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := client.RemoveInstanceActionLabelMetaDataValue(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_RemoveInstanceActionLabelMetaDataValue_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq InstanceActionLabelMetaDataValueReq
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq InstanceActionLabelMetaDataValueReq
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["instance_id"]
+	val, ok := pathParams["instance_id"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "instance_id")
 	}
-
 	protoReq.InstanceId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "instance_id", err)
 	}
-
 	val, ok = pathParams["action_label"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "action_label")
 	}
-
 	protoReq.ActionLabel, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "action_label", err)
 	}
-
 	val, ok = pathParams["key_name"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "key_name")
 	}
-
 	protoReq.KeyName, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "key_name", err)
 	}
-
 	val, ok = pathParams["value"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "value")
 	}
-
 	protoReq.Value, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "value", err)
 	}
-
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Dynizer_RemoveInstanceActionLabelMetaDataValue_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := server.RemoveInstanceActionLabelMetaDataValue(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Dynizer_AddInstanceCellMetaData_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq AddInstanceCellMetaDataReq
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq AddInstanceCellMetaDataReq
+		metadata runtime.ServerMetadata
+		err      error
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
-	var (
-		val string
-		ok  bool
-		err error
-		_   = err
-	)
-
-	val, ok = pathParams["instance_id"]
+	val, ok := pathParams["instance_id"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "instance_id")
 	}
-
 	protoReq.InstanceId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "instance_id", err)
 	}
-
 	val, ok = pathParams["action_label"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "action_label")
 	}
-
 	protoReq.ActionLabel, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "action_label", err)
 	}
-
 	val, ok = pathParams["value_position"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "value_position")
 	}
-
 	protoReq.ValuePosition, err = runtime.Uint32(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "value_position", err)
 	}
-
 	msg, err := client.AddInstanceCellMetaData(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_AddInstanceCellMetaData_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq AddInstanceCellMetaDataReq
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq AddInstanceCellMetaDataReq
+		metadata runtime.ServerMetadata
+		err      error
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
-	var (
-		val string
-		ok  bool
-		err error
-		_   = err
-	)
-
-	val, ok = pathParams["instance_id"]
+	val, ok := pathParams["instance_id"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "instance_id")
 	}
-
 	protoReq.InstanceId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "instance_id", err)
 	}
-
 	val, ok = pathParams["action_label"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "action_label")
 	}
-
 	protoReq.ActionLabel, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "action_label", err)
 	}
-
 	val, ok = pathParams["value_position"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "value_position")
 	}
-
 	protoReq.ValuePosition, err = runtime.Uint32(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "value_position", err)
 	}
-
 	msg, err := server.AddInstanceCellMetaData(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Dynizer_RemoveInstanceCellMetaData_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq InstanceCellMetaDataKeyReq
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq InstanceCellMetaDataKeyReq
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["instance_id"]
+	val, ok := pathParams["instance_id"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "instance_id")
 	}
-
 	protoReq.InstanceId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "instance_id", err)
 	}
-
 	val, ok = pathParams["action_label"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "action_label")
 	}
-
 	protoReq.ActionLabel, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "action_label", err)
 	}
-
 	val, ok = pathParams["value_position"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "value_position")
 	}
-
 	protoReq.ValuePosition, err = runtime.Uint32(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "value_position", err)
 	}
-
 	val, ok = pathParams["key_name"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "key_name")
 	}
-
 	protoReq.KeyName, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "key_name", err)
 	}
-
 	msg, err := client.RemoveInstanceCellMetaData(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_RemoveInstanceCellMetaData_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq InstanceCellMetaDataKeyReq
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq InstanceCellMetaDataKeyReq
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["instance_id"]
+	val, ok := pathParams["instance_id"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "instance_id")
 	}
-
 	protoReq.InstanceId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "instance_id", err)
 	}
-
 	val, ok = pathParams["action_label"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "action_label")
 	}
-
 	protoReq.ActionLabel, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "action_label", err)
 	}
-
 	val, ok = pathParams["value_position"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "value_position")
 	}
-
 	protoReq.ValuePosition, err = runtime.Uint32(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "value_position", err)
 	}
-
 	val, ok = pathParams["key_name"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "key_name")
 	}
-
 	protoReq.KeyName, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "key_name", err)
 	}
-
 	msg, err := server.RemoveInstanceCellMetaData(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Dynizer_AddInstanceCellMetaDataValue_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq AddInstanceCellMetaDataValueReq
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq AddInstanceCellMetaDataValueReq
+		metadata runtime.ServerMetadata
+		err      error
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
-	var (
-		val string
-		ok  bool
-		err error
-		_   = err
-	)
-
-	val, ok = pathParams["instance_id"]
+	val, ok := pathParams["instance_id"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "instance_id")
 	}
-
 	protoReq.InstanceId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "instance_id", err)
 	}
-
 	val, ok = pathParams["action_label"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "action_label")
 	}
-
 	protoReq.ActionLabel, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "action_label", err)
 	}
-
 	val, ok = pathParams["value_position"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "value_position")
 	}
-
 	protoReq.ValuePosition, err = runtime.Uint32(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "value_position", err)
 	}
-
 	val, ok = pathParams["key_name"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "key_name")
 	}
-
 	protoReq.KeyName, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "key_name", err)
 	}
-
 	msg, err := client.AddInstanceCellMetaDataValue(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_AddInstanceCellMetaDataValue_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq AddInstanceCellMetaDataValueReq
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq AddInstanceCellMetaDataValueReq
+		metadata runtime.ServerMetadata
+		err      error
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
-	var (
-		val string
-		ok  bool
-		err error
-		_   = err
-	)
-
-	val, ok = pathParams["instance_id"]
+	val, ok := pathParams["instance_id"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "instance_id")
 	}
-
 	protoReq.InstanceId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "instance_id", err)
 	}
-
 	val, ok = pathParams["action_label"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "action_label")
 	}
-
 	protoReq.ActionLabel, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "action_label", err)
 	}
-
 	val, ok = pathParams["value_position"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "value_position")
 	}
-
 	protoReq.ValuePosition, err = runtime.Uint32(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "value_position", err)
 	}
-
 	val, ok = pathParams["key_name"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "key_name")
 	}
-
 	protoReq.KeyName, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "key_name", err)
 	}
-
 	msg, err := server.AddInstanceCellMetaDataValue(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
-var (
-	filter_Dynizer_RemoveInstanceCellMetaDataValue_0 = &utilities.DoubleArray{Encoding: map[string]int{"instance_id": 0, "instanceId": 1, "action_label": 2, "actionLabel": 3, "value_position": 4, "valuePosition": 5, "key_name": 6, "keyName": 7, "value": 8}, Base: []int{1, 1, 2, 3, 4, 5, 6, 7, 8, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, Check: []int{0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10}}
-)
+var filter_Dynizer_RemoveInstanceCellMetaDataValue_0 = &utilities.DoubleArray{Encoding: map[string]int{"instance_id": 0, "action_label": 1, "value_position": 2, "key_name": 3, "value": 4}, Base: []int{1, 1, 2, 3, 4, 5, 0, 0, 0, 0, 0}, Check: []int{0, 1, 1, 1, 1, 1, 2, 3, 4, 5, 6}}
 
 func request_Dynizer_RemoveInstanceCellMetaDataValue_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq InstanceCellMetaDataKeyValueReq
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq InstanceCellMetaDataKeyValueReq
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["instance_id"]
+	val, ok := pathParams["instance_id"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "instance_id")
 	}
-
 	protoReq.InstanceId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "instance_id", err)
 	}
-
 	val, ok = pathParams["action_label"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "action_label")
 	}
-
 	protoReq.ActionLabel, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "action_label", err)
 	}
-
 	val, ok = pathParams["value_position"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "value_position")
 	}
-
 	protoReq.ValuePosition, err = runtime.Uint32(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "value_position", err)
 	}
-
 	val, ok = pathParams["key_name"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "key_name")
 	}
-
 	protoReq.KeyName, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "key_name", err)
 	}
-
 	val, ok = pathParams["value"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "value")
 	}
-
 	protoReq.Value, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "value", err)
 	}
-
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Dynizer_RemoveInstanceCellMetaDataValue_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := client.RemoveInstanceCellMetaDataValue(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_RemoveInstanceCellMetaDataValue_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq InstanceCellMetaDataKeyValueReq
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq InstanceCellMetaDataKeyValueReq
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["instance_id"]
+	val, ok := pathParams["instance_id"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "instance_id")
 	}
-
 	protoReq.InstanceId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "instance_id", err)
 	}
-
 	val, ok = pathParams["action_label"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "action_label")
 	}
-
 	protoReq.ActionLabel, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "action_label", err)
 	}
-
 	val, ok = pathParams["value_position"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "value_position")
 	}
-
 	protoReq.ValuePosition, err = runtime.Uint32(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "value_position", err)
 	}
-
 	val, ok = pathParams["key_name"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "key_name")
 	}
-
 	protoReq.KeyName, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "key_name", err)
 	}
-
 	val, ok = pathParams["value"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "value")
 	}
-
 	protoReq.Value, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "value", err)
 	}
-
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Dynizer_RemoveInstanceCellMetaDataValue_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := server.RemoveInstanceCellMetaDataValue(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Dynizer_GetInstanceCellMetaDataValues_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq InstanceCellMetaDataKeyReq
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq InstanceCellMetaDataKeyReq
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["instance_id"]
+	val, ok := pathParams["instance_id"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "instance_id")
 	}
-
 	protoReq.InstanceId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "instance_id", err)
 	}
-
 	val, ok = pathParams["action_label"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "action_label")
 	}
-
 	protoReq.ActionLabel, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "action_label", err)
 	}
-
 	val, ok = pathParams["value_position"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "value_position")
 	}
-
 	protoReq.ValuePosition, err = runtime.Uint32(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "value_position", err)
 	}
-
 	val, ok = pathParams["key_name"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "key_name")
 	}
-
 	protoReq.KeyName, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "key_name", err)
 	}
-
 	msg, err := client.GetInstanceCellMetaDataValues(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_GetInstanceCellMetaDataValues_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq InstanceCellMetaDataKeyReq
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq InstanceCellMetaDataKeyReq
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["instance_id"]
+	val, ok := pathParams["instance_id"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "instance_id")
 	}
-
 	protoReq.InstanceId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "instance_id", err)
 	}
-
 	val, ok = pathParams["action_label"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "action_label")
 	}
-
 	protoReq.ActionLabel, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "action_label", err)
 	}
-
 	val, ok = pathParams["value_position"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "value_position")
 	}
-
 	protoReq.ValuePosition, err = runtime.Uint32(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "value_position", err)
 	}
-
 	val, ok = pathParams["key_name"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "key_name")
 	}
-
 	protoReq.KeyName, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "key_name", err)
 	}
-
 	msg, err := server.GetInstanceCellMetaDataValues(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Dynizer_CountInstanceCellMetaDataKeys_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq InstanceCellMetaDataReq
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq InstanceCellMetaDataReq
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["instance_id"]
+	val, ok := pathParams["instance_id"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "instance_id")
 	}
-
 	protoReq.InstanceId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "instance_id", err)
 	}
-
 	val, ok = pathParams["action_label"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "action_label")
 	}
-
 	protoReq.ActionLabel, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "action_label", err)
 	}
-
 	val, ok = pathParams["value_position"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "value_position")
 	}
-
 	protoReq.ValuePosition, err = runtime.Uint32(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "value_position", err)
 	}
-
 	msg, err := client.CountInstanceCellMetaDataKeys(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_CountInstanceCellMetaDataKeys_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq InstanceCellMetaDataReq
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq InstanceCellMetaDataReq
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["instance_id"]
+	val, ok := pathParams["instance_id"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "instance_id")
 	}
-
 	protoReq.InstanceId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "instance_id", err)
 	}
-
 	val, ok = pathParams["action_label"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "action_label")
 	}
-
 	protoReq.ActionLabel, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "action_label", err)
 	}
-
 	val, ok = pathParams["value_position"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "value_position")
 	}
-
 	protoReq.ValuePosition, err = runtime.Uint32(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "value_position", err)
 	}
-
 	msg, err := server.CountInstanceCellMetaDataKeys(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Dynizer_CountInstanceCellMetaDataKeyValues_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq InstanceCellMetaDataKeyReq
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq InstanceCellMetaDataKeyReq
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["instance_id"]
+	val, ok := pathParams["instance_id"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "instance_id")
 	}
-
 	protoReq.InstanceId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "instance_id", err)
 	}
-
 	val, ok = pathParams["action_label"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "action_label")
 	}
-
 	protoReq.ActionLabel, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "action_label", err)
 	}
-
 	val, ok = pathParams["value_position"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "value_position")
 	}
-
 	protoReq.ValuePosition, err = runtime.Uint32(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "value_position", err)
 	}
-
 	val, ok = pathParams["key_name"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "key_name")
 	}
-
 	protoReq.KeyName, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "key_name", err)
 	}
-
 	msg, err := client.CountInstanceCellMetaDataKeyValues(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_CountInstanceCellMetaDataKeyValues_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq InstanceCellMetaDataKeyReq
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq InstanceCellMetaDataKeyReq
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["instance_id"]
+	val, ok := pathParams["instance_id"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "instance_id")
 	}
-
 	protoReq.InstanceId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "instance_id", err)
 	}
-
 	val, ok = pathParams["action_label"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "action_label")
 	}
-
 	protoReq.ActionLabel, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "action_label", err)
 	}
-
 	val, ok = pathParams["value_position"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "value_position")
 	}
-
 	protoReq.ValuePosition, err = runtime.Uint32(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "value_position", err)
 	}
-
 	val, ok = pathParams["key_name"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "key_name")
 	}
-
 	protoReq.KeyName, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "key_name", err)
 	}
-
 	msg, err := server.CountInstanceCellMetaDataKeyValues(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Dynizer_ListInstanceCellMetaData_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq InstanceCellMetaDataReq
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq InstanceCellMetaDataReq
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["instance_id"]
+	val, ok := pathParams["instance_id"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "instance_id")
 	}
-
 	protoReq.InstanceId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "instance_id", err)
 	}
-
 	val, ok = pathParams["action_label"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "action_label")
 	}
-
 	protoReq.ActionLabel, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "action_label", err)
 	}
-
 	val, ok = pathParams["value_position"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "value_position")
 	}
-
 	protoReq.ValuePosition, err = runtime.Uint32(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "value_position", err)
 	}
-
 	msg, err := client.ListInstanceCellMetaData(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_ListInstanceCellMetaData_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq InstanceCellMetaDataReq
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq InstanceCellMetaDataReq
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["instance_id"]
+	val, ok := pathParams["instance_id"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "instance_id")
 	}
-
 	protoReq.InstanceId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "instance_id", err)
 	}
-
 	val, ok = pathParams["action_label"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "action_label")
 	}
-
 	protoReq.ActionLabel, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "action_label", err)
 	}
-
 	val, ok = pathParams["value_position"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "value_position")
 	}
-
 	protoReq.ValuePosition, err = runtime.Uint32(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "value_position", err)
 	}
-
 	msg, err := server.ListInstanceCellMetaData(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Dynizer_GetDynizerConfiguration_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq EmptyReq
-	var metadata runtime.ServerMetadata
-
+	var (
+		protoReq EmptyReq
+		metadata runtime.ServerMetadata
+	)
 	msg, err := client.GetDynizerConfiguration(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_GetDynizerConfiguration_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq EmptyReq
-	var metadata runtime.ServerMetadata
-
+	var (
+		protoReq EmptyReq
+		metadata runtime.ServerMetadata
+	)
 	msg, err := server.GetDynizerConfiguration(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Dynizer_ExportUserActions_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq ExportUserActionsReq
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq ExportUserActionsReq
+		metadata runtime.ServerMetadata
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := client.ExportUserActions(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_ExportUserActions_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq ExportUserActionsReq
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq ExportUserActionsReq
+		metadata runtime.ServerMetadata
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := server.ExportUserActions(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Dynizer_ImportUserActions_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq ImportUserActionsReq
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq ImportUserActionsReq
+		metadata runtime.ServerMetadata
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := client.ImportUserActions(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_ImportUserActions_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq ImportUserActionsReq
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq ImportUserActionsReq
+		metadata runtime.ServerMetadata
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := server.ImportUserActions(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Dynizer_DropData_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq EmptyReq
-	var metadata runtime.ServerMetadata
-
+	var (
+		protoReq EmptyReq
+		metadata runtime.ServerMetadata
+	)
 	msg, err := client.DropData(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_DropData_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq EmptyReq
-	var metadata runtime.ServerMetadata
-
+	var (
+		protoReq EmptyReq
+		metadata runtime.ServerMetadata
+	)
 	msg, err := server.DropData(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Dynizer_GetDynizerVersion_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq EmptyReq
-	var metadata runtime.ServerMetadata
-
+	var (
+		protoReq EmptyReq
+		metadata runtime.ServerMetadata
+	)
 	msg, err := client.GetDynizerVersion(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_GetDynizerVersion_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq EmptyReq
-	var metadata runtime.ServerMetadata
-
+	var (
+		protoReq EmptyReq
+		metadata runtime.ServerMetadata
+	)
 	msg, err := server.GetDynizerVersion(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Dynizer_QueryDataElements_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq QueryDataElementsReq
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq QueryDataElementsReq
+		metadata runtime.ServerMetadata
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := client.QueryDataElements(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_QueryDataElements_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq QueryDataElementsReq
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq QueryDataElementsReq
+		metadata runtime.ServerMetadata
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := server.QueryDataElements(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Dynizer_GetTopNDataElements_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetTopNDataElementsReq
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq GetTopNDataElementsReq
+		metadata runtime.ServerMetadata
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := client.GetTopNDataElements(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_GetTopNDataElements_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetTopNDataElementsReq
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq GetTopNDataElementsReq
+		metadata runtime.ServerMetadata
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := server.GetTopNDataElements(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Dynizer_DynizerFilteredQuery_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq FilterQueryReq
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq FilterQueryReq
+		metadata runtime.ServerMetadata
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := client.DynizerFilteredQuery(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_DynizerFilteredQuery_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq FilterQueryReq
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq FilterQueryReq
+		metadata runtime.ServerMetadata
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := server.DynizerFilteredQuery(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
+var filter_Dynizer_ReIndex_0 = &utilities.DoubleArray{Encoding: map[string]int{"index_name": 0}, Base: []int{1, 1, 0}, Check: []int{0, 1, 2}}
+
 func request_Dynizer_ReIndex_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq ReIndexReq
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq ReIndexReq
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["index_name"]
+	val, ok := pathParams["index_name"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "index_name")
 	}
-
 	protoReq.IndexName, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "index_name", err)
 	}
-
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Dynizer_ReIndex_0); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
 	msg, err := client.ReIndex(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_ReIndex_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq ReIndexReq
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq ReIndexReq
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["index_name"]
+	val, ok := pathParams["index_name"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "index_name")
 	}
-
 	protoReq.IndexName, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "index_name", err)
 	}
-
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Dynizer_ReIndex_0); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
 	msg, err := server.ReIndex(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Dynizer_DynizerFilteredPlot_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq FilteredPlotReq
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq FilteredPlotReq
+		metadata runtime.ServerMetadata
+		err      error
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
-	var (
-		val string
-		ok  bool
-		err error
-		_   = err
-	)
-
-	val, ok = pathParams["top"]
+	val, ok := pathParams["top"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "top")
 	}
-
 	protoReq.Top, err = runtime.Int64(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "top", err)
 	}
-
 	val, ok = pathParams["plot_name"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "plot_name")
 	}
-
 	protoReq.PlotName, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "plot_name", err)
 	}
-
 	msg, err := client.DynizerFilteredPlot(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_DynizerFilteredPlot_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq FilteredPlotReq
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq FilteredPlotReq
+		metadata runtime.ServerMetadata
+		err      error
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
-	var (
-		val string
-		ok  bool
-		err error
-		_   = err
-	)
-
-	val, ok = pathParams["top"]
+	val, ok := pathParams["top"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "top")
 	}
-
 	protoReq.Top, err = runtime.Int64(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "top", err)
 	}
-
 	val, ok = pathParams["plot_name"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "plot_name")
 	}
-
 	protoReq.PlotName, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "plot_name", err)
 	}
-
 	msg, err := server.DynizerFilteredPlot(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Dynizer_CreateShareName_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq CreateShareNameReq
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq CreateShareNameReq
+		metadata runtime.ServerMetadata
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := client.CreateShareName(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_CreateShareName_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq CreateShareNameReq
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq CreateShareNameReq
+		metadata runtime.ServerMetadata
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := server.CreateShareName(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Dynizer_UpdateShareNameValue_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq UpdateShareNameValueReq
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq UpdateShareNameValueReq
+		metadata runtime.ServerMetadata
+		err      error
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
-	var (
-		val string
-		ok  bool
-		err error
-		_   = err
-	)
-
-	val, ok = pathParams["share_name"]
+	val, ok := pathParams["share_name"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "share_name")
 	}
-
 	protoReq.ShareName, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "share_name", err)
 	}
-
 	msg, err := client.UpdateShareNameValue(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_UpdateShareNameValue_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq UpdateShareNameValueReq
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq UpdateShareNameValueReq
+		metadata runtime.ServerMetadata
+		err      error
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
-	var (
-		val string
-		ok  bool
-		err error
-		_   = err
-	)
-
-	val, ok = pathParams["share_name"]
+	val, ok := pathParams["share_name"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "share_name")
 	}
-
 	protoReq.ShareName, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "share_name", err)
 	}
-
 	msg, err := server.UpdateShareNameValue(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Dynizer_DeleteShareNameValue_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq DeleteShareNameValueReq
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq DeleteShareNameValueReq
+		metadata runtime.ServerMetadata
+		err      error
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
-	var (
-		val string
-		ok  bool
-		err error
-		_   = err
-	)
-
-	val, ok = pathParams["share_name"]
+	val, ok := pathParams["share_name"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "share_name")
 	}
-
 	protoReq.ShareName, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "share_name", err)
 	}
-
 	msg, err := client.DeleteShareNameValue(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_DeleteShareNameValue_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq DeleteShareNameValueReq
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq DeleteShareNameValueReq
+		metadata runtime.ServerMetadata
+		err      error
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
-	var (
-		val string
-		ok  bool
-		err error
-		_   = err
-	)
-
-	val, ok = pathParams["share_name"]
+	val, ok := pathParams["share_name"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "share_name")
 	}
-
 	protoReq.ShareName, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "share_name", err)
 	}
-
 	msg, err := server.DeleteShareNameValue(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Dynizer_SimpleQuery_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq DQLReq
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq DQLReq
+		metadata runtime.ServerMetadata
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := client.SimpleQuery(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_SimpleQuery_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq DQLReq
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq DQLReq
+		metadata runtime.ServerMetadata
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := server.SimpleQuery(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Dynizer_QueryParse_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq QueryParseReq
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq QueryParseReq
+		metadata runtime.ServerMetadata
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := client.QueryParse(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_QueryParse_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq QueryParseReq
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq QueryParseReq
+		metadata runtime.ServerMetadata
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := server.QueryParse(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Dynizer_QueryBind_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq QueryBindReq
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq QueryBindReq
+		metadata runtime.ServerMetadata
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := client.QueryBind(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_QueryBind_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq QueryBindReq
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq QueryBindReq
+		metadata runtime.ServerMetadata
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := server.QueryBind(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Dynizer_QueryDescribeStatement_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq QueryDescribeStatementReq
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq QueryDescribeStatementReq
+		metadata runtime.ServerMetadata
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := client.QueryDescribeStatement(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_QueryDescribeStatement_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq QueryDescribeStatementReq
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq QueryDescribeStatementReq
+		metadata runtime.ServerMetadata
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := server.QueryDescribeStatement(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Dynizer_QueryDescribePortal_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq QueryDescribePortalReq
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq QueryDescribePortalReq
+		metadata runtime.ServerMetadata
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := client.QueryDescribePortal(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_QueryDescribePortal_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq QueryDescribePortalReq
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq QueryDescribePortalReq
+		metadata runtime.ServerMetadata
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := server.QueryDescribePortal(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Dynizer_QueryExecute_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq QueryExecuteReq
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq QueryExecuteReq
+		metadata runtime.ServerMetadata
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := client.QueryExecute(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_QueryExecute_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq QueryExecuteReq
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq QueryExecuteReq
+		metadata runtime.ServerMetadata
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := server.QueryExecute(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Dynizer_QueryClose_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq QueryCloseReq
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq QueryCloseReq
+		metadata runtime.ServerMetadata
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := client.QueryClose(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_QueryClose_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq QueryCloseReq
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq QueryCloseReq
+		metadata runtime.ServerMetadata
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := server.QueryClose(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Dynizer_FindActionLabelLinks_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq FindActionLabelLinksReq
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq FindActionLabelLinksReq
+		metadata runtime.ServerMetadata
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := client.FindActionLabelLinks(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Dynizer_FindActionLabelLinks_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq FindActionLabelLinksReq
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq FindActionLabelLinksReq
+		metadata runtime.ServerMetadata
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := server.FindActionLabelLinks(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 // RegisterDynizerHandlerServer registers the http handlers for service Dynizer to "mux".
 // UnaryRPC     :call DynizerServer directly.
 // StreamingRPC :currently unsupported pending https://github.com/grpc/grpc-go/issues/906.
 // Note that using this registration option will cause many gRPC library features to stop working. Consider using RegisterDynizerHandlerFromEndpoint instead.
+// GRPC interceptors will not work for this type of registration. To use interceptors, you must use the "runtime.WithMiddlewares" option in the "runtime.NewServeMux" call.
 func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, server DynizerServer) error {
-
-	mux.Handle("POST", pattern_Dynizer_Login_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_Dynizer_Login_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/Login", runtime.WithHTTPPathPattern("/api/v2/login"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/Login", runtime.WithHTTPPathPattern("/api/v2/login"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -5839,20 +4389,15 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_Login_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_Dynizer_ServiceLogin_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_Dynizer_ServiceLogin_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/ServiceLogin", runtime.WithHTTPPathPattern("/api/v2/servicelogin"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/ServiceLogin", runtime.WithHTTPPathPattern("/api/v2/servicelogin"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -5864,20 +4409,15 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_ServiceLogin_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Dynizer_Logout_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Dynizer_Logout_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/Logout", runtime.WithHTTPPathPattern("/api/v2/logout"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/Logout", runtime.WithHTTPPathPattern("/api/v2/logout"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -5889,20 +4429,15 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_Logout_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Dynizer_ValidateToken_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Dynizer_ValidateToken_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/ValidateToken", runtime.WithHTTPPathPattern("/api/v2/jwt/{token}/validate"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/ValidateToken", runtime.WithHTTPPathPattern("/api/v2/jwt/{token}/validate"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -5914,20 +4449,15 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_ValidateToken_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Dynizer_IssueServiceToken_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Dynizer_IssueServiceToken_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/IssueServiceToken", runtime.WithHTTPPathPattern("/api/v2/servicetoken/issue"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/IssueServiceToken", runtime.WithHTTPPathPattern("/api/v2/servicetoken/issue"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -5939,20 +4469,15 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_IssueServiceToken_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Dynizer_ListRoles_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Dynizer_ListRoles_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/ListRoles", runtime.WithHTTPPathPattern("/api/v2/roles"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/ListRoles", runtime.WithHTTPPathPattern("/api/v2/roles"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -5964,20 +4489,15 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_ListRoles_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_Dynizer_AddUser_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_Dynizer_AddUser_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/AddUser", runtime.WithHTTPPathPattern("/api/v2/users"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/AddUser", runtime.WithHTTPPathPattern("/api/v2/users"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -5989,20 +4509,15 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_AddUser_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_Dynizer_AssignUserRole_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_Dynizer_AssignUserRole_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/AssignUserRole", runtime.WithHTTPPathPattern("/api/v2/users/{user}/roles"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/AssignUserRole", runtime.WithHTTPPathPattern("/api/v2/users/{user}/roles"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -6014,20 +4529,15 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_AssignUserRole_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("DELETE", pattern_Dynizer_RevokeUserRole_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodDelete, pattern_Dynizer_RevokeUserRole_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/RevokeUserRole", runtime.WithHTTPPathPattern("/api/v2/users/{user}/roles/{role.name}"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/RevokeUserRole", runtime.WithHTTPPathPattern("/api/v2/users/{user}/roles/{role.name}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -6039,20 +4549,15 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_RevokeUserRole_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("PATCH", pattern_Dynizer_EnableUser_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPatch, pattern_Dynizer_EnableUser_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/EnableUser", runtime.WithHTTPPathPattern("/api/v2/users/{user}/enable"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/EnableUser", runtime.WithHTTPPathPattern("/api/v2/users/{user}/enable"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -6064,20 +4569,15 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_EnableUser_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("PATCH", pattern_Dynizer_DisableUser_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPatch, pattern_Dynizer_DisableUser_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/DisableUser", runtime.WithHTTPPathPattern("/api/v2/users/{user}/disable"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/DisableUser", runtime.WithHTTPPathPattern("/api/v2/users/{user}/disable"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -6089,20 +4589,15 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_DisableUser_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("PUT", pattern_Dynizer_SetUserPassword_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPut, pattern_Dynizer_SetUserPassword_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/SetUserPassword", runtime.WithHTTPPathPattern("/api/v2/users/{user}/password"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/SetUserPassword", runtime.WithHTTPPathPattern("/api/v2/users/{user}/password"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -6114,20 +4609,15 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_SetUserPassword_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("PUT", pattern_Dynizer_ChangeMyPassword_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPut, pattern_Dynizer_ChangeMyPassword_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/ChangeMyPassword", runtime.WithHTTPPathPattern("/api/v2/my/password"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/ChangeMyPassword", runtime.WithHTTPPathPattern("/api/v2/my/password"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -6139,20 +4629,15 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_ChangeMyPassword_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Dynizer_GetUser_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Dynizer_GetUser_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/GetUser", runtime.WithHTTPPathPattern("/api/v2/users/{user}"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/GetUser", runtime.WithHTTPPathPattern("/api/v2/users/{user}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -6164,20 +4649,15 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_GetUser_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Dynizer_GetMyProfile_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Dynizer_GetMyProfile_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/GetMyProfile", runtime.WithHTTPPathPattern("/api/v2/my/profile"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/GetMyProfile", runtime.WithHTTPPathPattern("/api/v2/my/profile"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -6189,20 +4669,15 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_GetMyProfile_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("DELETE", pattern_Dynizer_DeleteUser_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodDelete, pattern_Dynizer_DeleteUser_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/DeleteUser", runtime.WithHTTPPathPattern("/api/v2/users/{user}"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/DeleteUser", runtime.WithHTTPPathPattern("/api/v2/users/{user}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -6214,20 +4689,15 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_DeleteUser_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Dynizer_GetUserCount_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Dynizer_GetUserCount_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/GetUserCount", runtime.WithHTTPPathPattern("/api/v2/users/all/count"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/GetUserCount", runtime.WithHTTPPathPattern("/api/v2/users/all/count"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -6239,20 +4709,15 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_GetUserCount_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Dynizer_ListUsers_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Dynizer_ListUsers_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/ListUsers", runtime.WithHTTPPathPattern("/api/v2/users"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/ListUsers", runtime.WithHTTPPathPattern("/api/v2/users"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -6264,20 +4729,15 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_ListUsers_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Dynizer_ListUserRoles_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Dynizer_ListUserRoles_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/ListUserRoles", runtime.WithHTTPPathPattern("/api/v2/users/{user}/roles"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/ListUserRoles", runtime.WithHTTPPathPattern("/api/v2/users/{user}/roles"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -6289,20 +4749,15 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_ListUserRoles_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Dynizer_GetMyRoles_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Dynizer_GetMyRoles_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/GetMyRoles", runtime.WithHTTPPathPattern("/api/v2/my/roles"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/GetMyRoles", runtime.WithHTTPPathPattern("/api/v2/my/roles"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -6314,20 +4769,15 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_GetMyRoles_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Dynizer_CheckUserName_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Dynizer_CheckUserName_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/CheckUserName", runtime.WithHTTPPathPattern("/api/v2/check/user/{user}"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/CheckUserName", runtime.WithHTTPPathPattern("/api/v2/check/user/{user}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -6339,20 +4789,15 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_CheckUserName_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_Dynizer_CheckPassword_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_Dynizer_CheckPassword_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/CheckPassword", runtime.WithHTTPPathPattern("/api/v2/check/password"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/CheckPassword", runtime.WithHTTPPathPattern("/api/v2/check/password"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -6364,20 +4809,15 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_CheckPassword_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_Dynizer_CreateActionType_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_Dynizer_CreateActionType_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/CreateActionType", runtime.WithHTTPPathPattern("/api/v2/actiontypes"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/CreateActionType", runtime.WithHTTPPathPattern("/api/v2/actiontypes"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -6389,20 +4829,15 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_CreateActionType_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("PATCH", pattern_Dynizer_UpdateActionType_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPatch, pattern_Dynizer_UpdateActionType_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/UpdateActionType", runtime.WithHTTPPathPattern("/api/v2/actiontypes/{action_type_label}"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/UpdateActionType", runtime.WithHTTPPathPattern("/api/v2/actiontypes/{action_type_label}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -6414,20 +4849,15 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_UpdateActionType_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Dynizer_ReadActionType_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Dynizer_ReadActionType_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/ReadActionType", runtime.WithHTTPPathPattern("/api/v2/actiontypes/{action_type_label}"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/ReadActionType", runtime.WithHTTPPathPattern("/api/v2/actiontypes/{action_type_label}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -6439,20 +4869,15 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_ReadActionType_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Dynizer_ListActionTypes_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Dynizer_ListActionTypes_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/ListActionTypes", runtime.WithHTTPPathPattern("/api/v2/actiontypes"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/ListActionTypes", runtime.WithHTTPPathPattern("/api/v2/actiontypes"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -6464,20 +4889,115 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_ListActionTypes_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Dynizer_CheckActionName_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_Dynizer_CreateActionSchema_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/CheckActionName", runtime.WithHTTPPathPattern("/api/v2/check/actions/{action_name}"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/CreateActionSchema", runtime.WithHTTPPathPattern("/api/v2/actionschemas"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_Dynizer_CreateActionSchema_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		forward_Dynizer_CreateActionSchema_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+	})
+	mux.Handle(http.MethodPatch, pattern_Dynizer_UpdateActionSchema_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/UpdateActionSchema", runtime.WithHTTPPathPattern("/api/v2/actionschemas/{action_schema_name}"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_Dynizer_UpdateActionSchema_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		forward_Dynizer_UpdateActionSchema_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+	})
+	mux.Handle(http.MethodDelete, pattern_Dynizer_DeleteActionSchema_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/DeleteActionSchema", runtime.WithHTTPPathPattern("/api/v2/actionschemas/{action_schema_name}"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_Dynizer_DeleteActionSchema_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		forward_Dynizer_DeleteActionSchema_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+	})
+	mux.Handle(http.MethodGet, pattern_Dynizer_ReadActionSchema_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/ReadActionSchema", runtime.WithHTTPPathPattern("/api/v2/actionschemas/{action_schema_name}"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_Dynizer_ReadActionSchema_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		forward_Dynizer_ReadActionSchema_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+	})
+	mux.Handle(http.MethodGet, pattern_Dynizer_ListActionSchemas_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/ListActionSchemas", runtime.WithHTTPPathPattern("/api/v2/actionschemas"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_Dynizer_ListActionSchemas_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		forward_Dynizer_ListActionSchemas_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+	})
+	mux.Handle(http.MethodGet, pattern_Dynizer_CheckActionName_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/CheckActionName", runtime.WithHTTPPathPattern("/api/v2/check/actions/{action_name}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -6489,20 +5009,15 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_CheckActionName_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_Dynizer_CreateAction_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_Dynizer_CreateAction_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/CreateAction", runtime.WithHTTPPathPattern("/api/v2/actions"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/CreateAction", runtime.WithHTTPPathPattern("/api/v2/actions"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -6514,20 +5029,15 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_CreateAction_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("PATCH", pattern_Dynizer_UpdateAction_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPatch, pattern_Dynizer_UpdateAction_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/UpdateAction", runtime.WithHTTPPathPattern("/api/v2/actions/{action_name}"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/UpdateAction", runtime.WithHTTPPathPattern("/api/v2/actions/{action_name}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -6539,20 +5049,15 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_UpdateAction_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("DELETE", pattern_Dynizer_DeleteAction_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodDelete, pattern_Dynizer_DeleteAction_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/DeleteAction", runtime.WithHTTPPathPattern("/api/v2/actions/{action_name}"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/DeleteAction", runtime.WithHTTPPathPattern("/api/v2/actions/{action_name}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -6564,20 +5069,15 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_DeleteAction_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Dynizer_ReadAction_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Dynizer_ReadAction_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/ReadAction", runtime.WithHTTPPathPattern("/api/v2/actions/{action_name}"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/ReadAction", runtime.WithHTTPPathPattern("/api/v2/actions/{action_name}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -6589,20 +5089,15 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_ReadAction_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Dynizer_CountActions_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Dynizer_CountActions_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/CountActions", runtime.WithHTTPPathPattern("/api/v2/actions/types/{action_type_label}/count"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/CountActions", runtime.WithHTTPPathPattern("/api/v2/actions/types/{action_type_label}/count"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -6614,20 +5109,15 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_CountActions_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Dynizer_ListActionNames_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Dynizer_ListActionNames_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/ListActionNames", runtime.WithHTTPPathPattern("/api/v2/actions/types/{action_type_label}/names/all"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/ListActionNames", runtime.WithHTTPPathPattern("/api/v2/actions/types/{action_type_label}/names/all"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -6639,20 +5129,15 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_ListActionNames_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Dynizer_CheckActionLabelName_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Dynizer_CheckActionLabelName_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/CheckActionLabelName", runtime.WithHTTPPathPattern("/api/v2/check/actions/{action_name}/actionlabels/{action_label}"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/CheckActionLabelName", runtime.WithHTTPPathPattern("/api/v2/check/actions/{action_name}/actionlabels/{action_label}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -6664,20 +5149,15 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_CheckActionLabelName_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_Dynizer_AddActionLabel_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_Dynizer_AddActionLabel_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/AddActionLabel", runtime.WithHTTPPathPattern("/api/v2/actions/{action_name}/actionlabels"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/AddActionLabel", runtime.WithHTTPPathPattern("/api/v2/actions/{action_name}/actionlabels"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -6689,20 +5169,15 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_AddActionLabel_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("PUT", pattern_Dynizer_UpdateActionLabel_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPut, pattern_Dynizer_UpdateActionLabel_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/UpdateActionLabel", runtime.WithHTTPPathPattern("/api/v2/actions/{action_name}/actionlabels/{action_label}"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/UpdateActionLabel", runtime.WithHTTPPathPattern("/api/v2/actions/{action_name}/actionlabels/{action_label}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -6714,20 +5189,15 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_UpdateActionLabel_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("DELETE", pattern_Dynizer_DeleteActionLabel_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodDelete, pattern_Dynizer_DeleteActionLabel_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/DeleteActionLabel", runtime.WithHTTPPathPattern("/api/v2/actions/{action_name}/actionlabels/{action_label}"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/DeleteActionLabel", runtime.WithHTTPPathPattern("/api/v2/actions/{action_name}/actionlabels/{action_label}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -6739,20 +5209,15 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_DeleteActionLabel_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Dynizer_ReadActionLabel_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Dynizer_ReadActionLabel_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/ReadActionLabel", runtime.WithHTTPPathPattern("/api/v2/actions/{action_name}/actionlabels/{action_label}"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/ReadActionLabel", runtime.WithHTTPPathPattern("/api/v2/actions/{action_name}/actionlabels/{action_label}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -6764,20 +5229,15 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_ReadActionLabel_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_Dynizer_CreateObject_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_Dynizer_CreateObject_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/CreateObject", runtime.WithHTTPPathPattern("/api/v2/objects"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/CreateObject", runtime.WithHTTPPathPattern("/api/v2/objects"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -6789,20 +5249,15 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_CreateObject_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("PATCH", pattern_Dynizer_ClearObjectData_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPatch, pattern_Dynizer_ClearObjectData_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/ClearObjectData", runtime.WithHTTPPathPattern("/api/v2/objects/{object_ref.type}/{object_ref.ref_uuid}"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/ClearObjectData", runtime.WithHTTPPathPattern("/api/v2/objects/{object_ref.type}/{object_ref.ref_uuid}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -6814,20 +5269,15 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_ClearObjectData_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("DELETE", pattern_Dynizer_DeleteObject_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodDelete, pattern_Dynizer_DeleteObject_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/DeleteObject", runtime.WithHTTPPathPattern("/api/v2/objects/{object_ref.type}/{object_ref.ref_uuid}"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/DeleteObject", runtime.WithHTTPPathPattern("/api/v2/objects/{object_ref.type}/{object_ref.ref_uuid}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -6839,20 +5289,15 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_DeleteObject_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_Dynizer_UploadObjectData_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_Dynizer_UploadObjectData_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/UploadObjectData", runtime.WithHTTPPathPattern("/api/v2/objects/{object_ref.type}/{object_ref.ref_uuid}"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/UploadObjectData", runtime.WithHTTPPathPattern("/api/v2/objects/{object_ref.type}/{object_ref.ref_uuid}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -6864,20 +5309,15 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_UploadObjectData_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Dynizer_DownloadObjectData_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Dynizer_DownloadObjectData_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/DownloadObjectData", runtime.WithHTTPPathPattern("/api/v2/objects/{object_ref.type}/{object_ref.ref_uuid}"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/DownloadObjectData", runtime.WithHTTPPathPattern("/api/v2/objects/{object_ref.type}/{object_ref.ref_uuid}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -6889,20 +5329,15 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_DownloadObjectData_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Dynizer_ListObjectUUIDS_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Dynizer_ListObjectUUIDS_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/ListObjectUUIDS", runtime.WithHTTPPathPattern("/api/v2/objects"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/ListObjectUUIDS", runtime.WithHTTPPathPattern("/api/v2/objects"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -6914,20 +5349,15 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_ListObjectUUIDS_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("DELETE", pattern_Dynizer_DeleteAllObjects_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodDelete, pattern_Dynizer_DeleteAllObjects_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/DeleteAllObjects", runtime.WithHTTPPathPattern("/api/v2/objects"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/DeleteAllObjects", runtime.WithHTTPPathPattern("/api/v2/objects"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -6939,20 +5369,15 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_DeleteAllObjects_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_Dynizer_CreateInstance_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_Dynizer_CreateInstance_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/CreateInstance", runtime.WithHTTPPathPattern("/api/v2/instances"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/CreateInstance", runtime.WithHTTPPathPattern("/api/v2/instances"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -6964,20 +5389,15 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_CreateInstance_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("PATCH", pattern_Dynizer_UpdateInstance_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPatch, pattern_Dynizer_UpdateInstance_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/UpdateInstance", runtime.WithHTTPPathPattern("/api/v2/instances/{instance_id}"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/UpdateInstance", runtime.WithHTTPPathPattern("/api/v2/instances/{instance_id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -6989,20 +5409,15 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_UpdateInstance_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("DELETE", pattern_Dynizer_DeleteInstance_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodDelete, pattern_Dynizer_DeleteInstance_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/DeleteInstance", runtime.WithHTTPPathPattern("/api/v2/instances/{instance_id}"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/DeleteInstance", runtime.WithHTTPPathPattern("/api/v2/instances/{instance_id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -7014,20 +5429,15 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_DeleteInstance_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Dynizer_ReadInstance_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Dynizer_ReadInstance_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/ReadInstance", runtime.WithHTTPPathPattern("/api/v2/instances/{instance_id}"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/ReadInstance", runtime.WithHTTPPathPattern("/api/v2/instances/{instance_id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -7039,20 +5449,15 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_ReadInstance_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_Dynizer_DynizerQuery_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_Dynizer_DynizerQuery_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/DynizerQuery", runtime.WithHTTPPathPattern("/api/v2/query"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/DynizerQuery", runtime.WithHTTPPathPattern("/api/v2/query"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -7064,20 +5469,15 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_DynizerQuery_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Dynizer_QueryResultNext_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Dynizer_QueryResultNext_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/QueryResultNext", runtime.WithHTTPPathPattern("/api/v2/query/{result_handle}/next"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/QueryResultNext", runtime.WithHTTPPathPattern("/api/v2/query/{result_handle}/next"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -7089,20 +5489,15 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_QueryResultNext_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Dynizer_QueryResultClose_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Dynizer_QueryResultClose_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/QueryResultClose", runtime.WithHTTPPathPattern("/api/v2/query/{result_handle}/close"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/QueryResultClose", runtime.WithHTTPPathPattern("/api/v2/query/{result_handle}/close"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -7114,20 +5509,15 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_QueryResultClose_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Dynizer_CheckMetaDataKeyName_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Dynizer_CheckMetaDataKeyName_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/CheckMetaDataKeyName", runtime.WithHTTPPathPattern("/api/v2/check/metadata/keys/{key_name}"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/CheckMetaDataKeyName", runtime.WithHTTPPathPattern("/api/v2/check/metadata/keys/{key_name}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -7139,20 +5529,15 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_CheckMetaDataKeyName_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_Dynizer_CreateMetaDataKey_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_Dynizer_CreateMetaDataKey_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/CreateMetaDataKey", runtime.WithHTTPPathPattern("/api/v2/metadata/keys"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/CreateMetaDataKey", runtime.WithHTTPPathPattern("/api/v2/metadata/keys"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -7164,20 +5549,15 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_CreateMetaDataKey_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Dynizer_ReadMetaDataKey_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Dynizer_ReadMetaDataKey_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/ReadMetaDataKey", runtime.WithHTTPPathPattern("/api/v2/metadata/keys/{key_name}"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/ReadMetaDataKey", runtime.WithHTTPPathPattern("/api/v2/metadata/keys/{key_name}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -7189,20 +5569,15 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_ReadMetaDataKey_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("PATCH", pattern_Dynizer_UpdateMetaDataKey_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPatch, pattern_Dynizer_UpdateMetaDataKey_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/UpdateMetaDataKey", runtime.WithHTTPPathPattern("/api/v2/metadata/keys/{key_name}"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/UpdateMetaDataKey", runtime.WithHTTPPathPattern("/api/v2/metadata/keys/{key_name}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -7214,20 +5589,15 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_UpdateMetaDataKey_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("DELETE", pattern_Dynizer_DeleteMetaDataKey_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodDelete, pattern_Dynizer_DeleteMetaDataKey_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/DeleteMetaDataKey", runtime.WithHTTPPathPattern("/api/v2/metadata/keys/{key_name}"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/DeleteMetaDataKey", runtime.WithHTTPPathPattern("/api/v2/metadata/keys/{key_name}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -7239,20 +5609,15 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_DeleteMetaDataKey_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Dynizer_CountMetaDataKeys_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Dynizer_CountMetaDataKeys_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/CountMetaDataKeys", runtime.WithHTTPPathPattern("/api/v2/metadata/keys/all/count"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/CountMetaDataKeys", runtime.WithHTTPPathPattern("/api/v2/metadata/keys/all/count"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -7264,20 +5629,15 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_CountMetaDataKeys_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Dynizer_ListMetaDataKeys_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Dynizer_ListMetaDataKeys_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/ListMetaDataKeys", runtime.WithHTTPPathPattern("/api/v2/metadata/keys"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/ListMetaDataKeys", runtime.WithHTTPPathPattern("/api/v2/metadata/keys"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -7289,20 +5649,15 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_ListMetaDataKeys_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_Dynizer_AddInstanceMetaData_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_Dynizer_AddInstanceMetaData_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/AddInstanceMetaData", runtime.WithHTTPPathPattern("/api/v2/metadata/instances/{instance_id}"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/AddInstanceMetaData", runtime.WithHTTPPathPattern("/api/v2/metadata/instances/{instance_id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -7314,20 +5669,15 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_AddInstanceMetaData_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("DELETE", pattern_Dynizer_RemoveInstanceMetaData_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodDelete, pattern_Dynizer_RemoveInstanceMetaData_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/RemoveInstanceMetaData", runtime.WithHTTPPathPattern("/api/v2/metadata/instances/{instance_id}/keys/{key_name}"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/RemoveInstanceMetaData", runtime.WithHTTPPathPattern("/api/v2/metadata/instances/{instance_id}/keys/{key_name}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -7339,20 +5689,15 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_RemoveInstanceMetaData_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_Dynizer_AddInstanceMetaDataValue_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_Dynizer_AddInstanceMetaDataValue_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/AddInstanceMetaDataValue", runtime.WithHTTPPathPattern("/api/v2/metadata/instances/{instance_id}/keys/{key_name}/values"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/AddInstanceMetaDataValue", runtime.WithHTTPPathPattern("/api/v2/metadata/instances/{instance_id}/keys/{key_name}/values"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -7364,20 +5709,15 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_AddInstanceMetaDataValue_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("DELETE", pattern_Dynizer_RemoveInstanceMetaDataValue_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodDelete, pattern_Dynizer_RemoveInstanceMetaDataValue_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/RemoveInstanceMetaDataValue", runtime.WithHTTPPathPattern("/api/v2/metadata/instances/{instance_id}/keys/{key_name}/values/{value}"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/RemoveInstanceMetaDataValue", runtime.WithHTTPPathPattern("/api/v2/metadata/instances/{instance_id}/keys/{key_name}/values/{value}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -7389,20 +5729,15 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_RemoveInstanceMetaDataValue_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Dynizer_GetInstanceMetaDataValues_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Dynizer_GetInstanceMetaDataValues_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/GetInstanceMetaDataValues", runtime.WithHTTPPathPattern("/api/v2/metadata/instances/{instance_id}/keys/{key_name}"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/GetInstanceMetaDataValues", runtime.WithHTTPPathPattern("/api/v2/metadata/instances/{instance_id}/keys/{key_name}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -7414,20 +5749,15 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_GetInstanceMetaDataValues_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Dynizer_CountInstanceMetaDataKeys_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Dynizer_CountInstanceMetaDataKeys_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/CountInstanceMetaDataKeys", runtime.WithHTTPPathPattern("/api/v2/metadata/instances/{instance_id}/keys/all/count"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/CountInstanceMetaDataKeys", runtime.WithHTTPPathPattern("/api/v2/metadata/instances/{instance_id}/keys/all/count"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -7439,20 +5769,15 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_CountInstanceMetaDataKeys_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Dynizer_CountInstanceMetaDataKeyValues_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Dynizer_CountInstanceMetaDataKeyValues_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/CountInstanceMetaDataKeyValues", runtime.WithHTTPPathPattern("/api/v2/metadata/instances/{instance_id}/keys/{key_name}/values/all/count"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/CountInstanceMetaDataKeyValues", runtime.WithHTTPPathPattern("/api/v2/metadata/instances/{instance_id}/keys/{key_name}/values/all/count"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -7464,20 +5789,15 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_CountInstanceMetaDataKeyValues_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Dynizer_ListInstanceMetaData_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Dynizer_ListInstanceMetaData_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/ListInstanceMetaData", runtime.WithHTTPPathPattern("/api/v2/metadata/instances/{instance_id}/keys"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/ListInstanceMetaData", runtime.WithHTTPPathPattern("/api/v2/metadata/instances/{instance_id}/keys"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -7489,20 +5809,15 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_ListInstanceMetaData_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_Dynizer_AddInstanceActionLabelMetaData_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_Dynizer_AddInstanceActionLabelMetaData_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/AddInstanceActionLabelMetaData", runtime.WithHTTPPathPattern("/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/AddInstanceActionLabelMetaData", runtime.WithHTTPPathPattern("/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -7514,20 +5829,15 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_AddInstanceActionLabelMetaData_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("DELETE", pattern_Dynizer_RemoveInstanceActionLabelMetaData_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodDelete, pattern_Dynizer_RemoveInstanceActionLabelMetaData_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/RemoveInstanceActionLabelMetaData", runtime.WithHTTPPathPattern("/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/keys/{key_name}"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/RemoveInstanceActionLabelMetaData", runtime.WithHTTPPathPattern("/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/keys/{key_name}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -7539,20 +5849,15 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_RemoveInstanceActionLabelMetaData_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_Dynizer_AddInstanceActionLabelMetaDataValue_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_Dynizer_AddInstanceActionLabelMetaDataValue_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/AddInstanceActionLabelMetaDataValue", runtime.WithHTTPPathPattern("/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/keys/{key_name}/values"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/AddInstanceActionLabelMetaDataValue", runtime.WithHTTPPathPattern("/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/keys/{key_name}/values"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -7564,20 +5869,15 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_AddInstanceActionLabelMetaDataValue_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("DELETE", pattern_Dynizer_RemoveInstanceActionLabelMetaDataValue_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodDelete, pattern_Dynizer_RemoveInstanceActionLabelMetaDataValue_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/RemoveInstanceActionLabelMetaDataValue", runtime.WithHTTPPathPattern("/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/keys/{key_name}/values/{value}"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/RemoveInstanceActionLabelMetaDataValue", runtime.WithHTTPPathPattern("/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/keys/{key_name}/values/{value}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -7589,20 +5889,15 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_RemoveInstanceActionLabelMetaDataValue_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_Dynizer_AddInstanceCellMetaData_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_Dynizer_AddInstanceCellMetaData_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/AddInstanceCellMetaData", runtime.WithHTTPPathPattern("/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/position/{value_position}"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/AddInstanceCellMetaData", runtime.WithHTTPPathPattern("/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/position/{value_position}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -7614,20 +5909,15 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_AddInstanceCellMetaData_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("DELETE", pattern_Dynizer_RemoveInstanceCellMetaData_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodDelete, pattern_Dynizer_RemoveInstanceCellMetaData_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/RemoveInstanceCellMetaData", runtime.WithHTTPPathPattern("/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/position/{value_position}/keys/{key_name}"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/RemoveInstanceCellMetaData", runtime.WithHTTPPathPattern("/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/position/{value_position}/keys/{key_name}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -7639,20 +5929,15 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_RemoveInstanceCellMetaData_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_Dynizer_AddInstanceCellMetaDataValue_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_Dynizer_AddInstanceCellMetaDataValue_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/AddInstanceCellMetaDataValue", runtime.WithHTTPPathPattern("/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/position/{value_position}/keys/{key_name}/values"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/AddInstanceCellMetaDataValue", runtime.WithHTTPPathPattern("/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/position/{value_position}/keys/{key_name}/values"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -7664,20 +5949,15 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_AddInstanceCellMetaDataValue_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("DELETE", pattern_Dynizer_RemoveInstanceCellMetaDataValue_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodDelete, pattern_Dynizer_RemoveInstanceCellMetaDataValue_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/RemoveInstanceCellMetaDataValue", runtime.WithHTTPPathPattern("/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/position/{value_position}/keys/{key_name}/values/{value}"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/RemoveInstanceCellMetaDataValue", runtime.WithHTTPPathPattern("/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/position/{value_position}/keys/{key_name}/values/{value}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -7689,20 +5969,15 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_RemoveInstanceCellMetaDataValue_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Dynizer_GetInstanceCellMetaDataValues_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Dynizer_GetInstanceCellMetaDataValues_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/GetInstanceCellMetaDataValues", runtime.WithHTTPPathPattern("/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/position/{value_position}/keys/{key_name}"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/GetInstanceCellMetaDataValues", runtime.WithHTTPPathPattern("/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/position/{value_position}/keys/{key_name}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -7714,20 +5989,15 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_GetInstanceCellMetaDataValues_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Dynizer_CountInstanceCellMetaDataKeys_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Dynizer_CountInstanceCellMetaDataKeys_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/CountInstanceCellMetaDataKeys", runtime.WithHTTPPathPattern("/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/position/{value_position}/keys/all/count"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/CountInstanceCellMetaDataKeys", runtime.WithHTTPPathPattern("/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/position/{value_position}/keys/all/count"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -7739,20 +6009,15 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_CountInstanceCellMetaDataKeys_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Dynizer_CountInstanceCellMetaDataKeyValues_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Dynizer_CountInstanceCellMetaDataKeyValues_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/CountInstanceCellMetaDataKeyValues", runtime.WithHTTPPathPattern("/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/position/{value_position}/keys/{key_name}/values/all/count"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/CountInstanceCellMetaDataKeyValues", runtime.WithHTTPPathPattern("/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/position/{value_position}/keys/{key_name}/values/all/count"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -7764,20 +6029,15 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_CountInstanceCellMetaDataKeyValues_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Dynizer_ListInstanceCellMetaData_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Dynizer_ListInstanceCellMetaData_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/ListInstanceCellMetaData", runtime.WithHTTPPathPattern("/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/position/{value_position}/keys"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/ListInstanceCellMetaData", runtime.WithHTTPPathPattern("/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/position/{value_position}/keys"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -7789,20 +6049,15 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_ListInstanceCellMetaData_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Dynizer_GetDynizerConfiguration_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Dynizer_GetDynizerConfiguration_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/GetDynizerConfiguration", runtime.WithHTTPPathPattern("/api/v2/config"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/GetDynizerConfiguration", runtime.WithHTTPPathPattern("/api/v2/config"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -7814,20 +6069,15 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_GetDynizerConfiguration_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_Dynizer_ExportUserActions_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_Dynizer_ExportUserActions_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/ExportUserActions", runtime.WithHTTPPathPattern("/api/v2/system/export/useractions"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/ExportUserActions", runtime.WithHTTPPathPattern("/api/v2/system/export/useractions"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -7839,20 +6089,15 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_ExportUserActions_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_Dynizer_ImportUserActions_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_Dynizer_ImportUserActions_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/ImportUserActions", runtime.WithHTTPPathPattern("/api/v2/system/import/useractions"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/ImportUserActions", runtime.WithHTTPPathPattern("/api/v2/system/import/useractions"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -7864,20 +6109,15 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_ImportUserActions_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("DELETE", pattern_Dynizer_DropData_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodDelete, pattern_Dynizer_DropData_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/DropData", runtime.WithHTTPPathPattern("/api/v2/system/data"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/DropData", runtime.WithHTTPPathPattern("/api/v2/system/data"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -7889,20 +6129,15 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_DropData_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Dynizer_GetDynizerVersion_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Dynizer_GetDynizerVersion_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/GetDynizerVersion", runtime.WithHTTPPathPattern("/api/v2/system/version"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/GetDynizerVersion", runtime.WithHTTPPathPattern("/api/v2/system/version"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -7914,20 +6149,15 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_GetDynizerVersion_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_Dynizer_QueryDataElements_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_Dynizer_QueryDataElements_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/QueryDataElements", runtime.WithHTTPPathPattern("/api/v2/dataelements/query/contains"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/QueryDataElements", runtime.WithHTTPPathPattern("/api/v2/dataelements/query/contains"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -7939,20 +6169,15 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_QueryDataElements_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_Dynizer_GetTopNDataElements_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_Dynizer_GetTopNDataElements_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/GetTopNDataElements", runtime.WithHTTPPathPattern("/api/v2/dataelements/top"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/GetTopNDataElements", runtime.WithHTTPPathPattern("/api/v2/dataelements/top"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -7964,20 +6189,15 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_GetTopNDataElements_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_Dynizer_DynizerFilteredQuery_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_Dynizer_DynizerFilteredQuery_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/DynizerFilteredQuery", runtime.WithHTTPPathPattern("/api/v2/query/filtered"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/DynizerFilteredQuery", runtime.WithHTTPPathPattern("/api/v2/query/filtered"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -7989,20 +6209,15 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_DynizerFilteredQuery_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Dynizer_ReIndex_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Dynizer_ReIndex_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/ReIndex", runtime.WithHTTPPathPattern("/api/v2/maintenance/index/{index_name}"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/ReIndex", runtime.WithHTTPPathPattern("/api/v2/maintenance/index/{index_name}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -8014,20 +6229,15 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_ReIndex_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_Dynizer_DynizerFilteredPlot_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_Dynizer_DynizerFilteredPlot_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/DynizerFilteredPlot", runtime.WithHTTPPathPattern("/api/v2/plots/filtered/{top}/{plot_name}"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/DynizerFilteredPlot", runtime.WithHTTPPathPattern("/api/v2/plots/filtered/{top}/{plot_name}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -8039,20 +6249,15 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_DynizerFilteredPlot_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_Dynizer_CreateShareName_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_Dynizer_CreateShareName_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/CreateShareName", runtime.WithHTTPPathPattern("/api/v2/sharename"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/CreateShareName", runtime.WithHTTPPathPattern("/api/v2/sharename"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -8064,20 +6269,15 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_CreateShareName_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("PATCH", pattern_Dynizer_UpdateShareNameValue_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPatch, pattern_Dynizer_UpdateShareNameValue_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/UpdateShareNameValue", runtime.WithHTTPPathPattern("/api/v2/sharename/{share_name}/value"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/UpdateShareNameValue", runtime.WithHTTPPathPattern("/api/v2/sharename/{share_name}/value"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -8089,20 +6289,15 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_UpdateShareNameValue_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_Dynizer_DeleteShareNameValue_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_Dynizer_DeleteShareNameValue_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/DeleteShareNameValue", runtime.WithHTTPPathPattern("/api/v2/sharename/{share_name}/delete/value"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/DeleteShareNameValue", runtime.WithHTTPPathPattern("/api/v2/sharename/{share_name}/delete/value"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -8114,20 +6309,15 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_DeleteShareNameValue_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_Dynizer_SimpleQuery_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_Dynizer_SimpleQuery_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/SimpleQuery", runtime.WithHTTPPathPattern("/api/v2/query/simple"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/SimpleQuery", runtime.WithHTTPPathPattern("/api/v2/query/simple"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -8139,20 +6329,15 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_SimpleQuery_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_Dynizer_QueryParse_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_Dynizer_QueryParse_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/QueryParse", runtime.WithHTTPPathPattern("/api/v2/query/parse"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/QueryParse", runtime.WithHTTPPathPattern("/api/v2/query/parse"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -8164,20 +6349,15 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_QueryParse_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_Dynizer_QueryBind_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_Dynizer_QueryBind_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/QueryBind", runtime.WithHTTPPathPattern("/api/v2/query/bind"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/QueryBind", runtime.WithHTTPPathPattern("/api/v2/query/bind"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -8189,20 +6369,15 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_QueryBind_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_Dynizer_QueryDescribeStatement_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_Dynizer_QueryDescribeStatement_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/QueryDescribeStatement", runtime.WithHTTPPathPattern("/api/v2/query/statement/describe"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/QueryDescribeStatement", runtime.WithHTTPPathPattern("/api/v2/query/statement/describe"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -8214,20 +6389,15 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_QueryDescribeStatement_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_Dynizer_QueryDescribePortal_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_Dynizer_QueryDescribePortal_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/QueryDescribePortal", runtime.WithHTTPPathPattern("/api/v2/query/portal/describe"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/QueryDescribePortal", runtime.WithHTTPPathPattern("/api/v2/query/portal/describe"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -8239,20 +6409,15 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_QueryDescribePortal_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_Dynizer_QueryExecute_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_Dynizer_QueryExecute_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/QueryExecute", runtime.WithHTTPPathPattern("/api/v2/query/execute"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/QueryExecute", runtime.WithHTTPPathPattern("/api/v2/query/execute"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -8264,20 +6429,15 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_QueryExecute_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_Dynizer_QueryClose_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_Dynizer_QueryClose_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/QueryClose", runtime.WithHTTPPathPattern("/api/v2/query/close"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/QueryClose", runtime.WithHTTPPathPattern("/api/v2/query/close"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -8289,20 +6449,15 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_QueryClose_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_Dynizer_FindActionLabelLinks_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_Dynizer_FindActionLabelLinks_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/FindActionLabelLinks", runtime.WithHTTPPathPattern("/api/v2/find_actionlabel_links"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/FindActionLabelLinks", runtime.WithHTTPPathPattern("/api/v2/find_actionlabel_links"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -8314,9 +6469,7 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_FindActionLabelLinks_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
 
 	return nil
@@ -8325,25 +6478,24 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 // RegisterDynizerHandlerFromEndpoint is same as RegisterDynizerHandler but
 // automatically dials to "endpoint" and closes the connection when "ctx" gets done.
 func RegisterDynizerHandlerFromEndpoint(ctx context.Context, mux *runtime.ServeMux, endpoint string, opts []grpc.DialOption) (err error) {
-	conn, err := grpc.Dial(endpoint, opts...)
+	conn, err := grpc.NewClient(endpoint, opts...)
 	if err != nil {
 		return err
 	}
 	defer func() {
 		if err != nil {
 			if cerr := conn.Close(); cerr != nil {
-				grpclog.Infof("Failed to close conn to %s: %v", endpoint, cerr)
+				grpclog.Errorf("Failed to close conn to %s: %v", endpoint, cerr)
 			}
 			return
 		}
 		go func() {
 			<-ctx.Done()
 			if cerr := conn.Close(); cerr != nil {
-				grpclog.Infof("Failed to close conn to %s: %v", endpoint, cerr)
+				grpclog.Errorf("Failed to close conn to %s: %v", endpoint, cerr)
 			}
 		}()
 	}()
-
 	return RegisterDynizerHandler(ctx, mux, conn)
 }
 
@@ -8357,16 +6509,13 @@ func RegisterDynizerHandler(ctx context.Context, mux *runtime.ServeMux, conn *gr
 // to "mux". The handlers forward requests to the grpc endpoint over the given implementation of "DynizerClient".
 // Note: the gRPC framework executes interceptors within the gRPC handler. If the passed in "DynizerClient"
 // doesn't go through the normal gRPC flow (creating a gRPC client etc.) then it will be up to the passed in
-// "DynizerClient" to call the correct interceptors.
+// "DynizerClient" to call the correct interceptors. This client ignores the HTTP middlewares.
 func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, client DynizerClient) error {
-
-	mux.Handle("POST", pattern_Dynizer_Login_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_Dynizer_Login_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/Login", runtime.WithHTTPPathPattern("/api/v2/login"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/Login", runtime.WithHTTPPathPattern("/api/v2/login"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -8377,18 +6526,13 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_Login_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_Dynizer_ServiceLogin_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_Dynizer_ServiceLogin_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/ServiceLogin", runtime.WithHTTPPathPattern("/api/v2/servicelogin"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/ServiceLogin", runtime.WithHTTPPathPattern("/api/v2/servicelogin"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -8399,18 +6543,13 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_ServiceLogin_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Dynizer_Logout_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Dynizer_Logout_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/Logout", runtime.WithHTTPPathPattern("/api/v2/logout"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/Logout", runtime.WithHTTPPathPattern("/api/v2/logout"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -8421,18 +6560,13 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_Logout_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Dynizer_ValidateToken_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Dynizer_ValidateToken_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/ValidateToken", runtime.WithHTTPPathPattern("/api/v2/jwt/{token}/validate"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/ValidateToken", runtime.WithHTTPPathPattern("/api/v2/jwt/{token}/validate"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -8443,18 +6577,13 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_ValidateToken_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Dynizer_IssueServiceToken_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Dynizer_IssueServiceToken_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/IssueServiceToken", runtime.WithHTTPPathPattern("/api/v2/servicetoken/issue"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/IssueServiceToken", runtime.WithHTTPPathPattern("/api/v2/servicetoken/issue"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -8465,18 +6594,13 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_IssueServiceToken_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Dynizer_ListRoles_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Dynizer_ListRoles_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/ListRoles", runtime.WithHTTPPathPattern("/api/v2/roles"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/ListRoles", runtime.WithHTTPPathPattern("/api/v2/roles"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -8487,18 +6611,13 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_ListRoles_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_Dynizer_AddUser_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_Dynizer_AddUser_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/AddUser", runtime.WithHTTPPathPattern("/api/v2/users"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/AddUser", runtime.WithHTTPPathPattern("/api/v2/users"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -8509,18 +6628,13 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_AddUser_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_Dynizer_AssignUserRole_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_Dynizer_AssignUserRole_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/AssignUserRole", runtime.WithHTTPPathPattern("/api/v2/users/{user}/roles"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/AssignUserRole", runtime.WithHTTPPathPattern("/api/v2/users/{user}/roles"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -8531,18 +6645,13 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_AssignUserRole_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("DELETE", pattern_Dynizer_RevokeUserRole_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodDelete, pattern_Dynizer_RevokeUserRole_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/RevokeUserRole", runtime.WithHTTPPathPattern("/api/v2/users/{user}/roles/{role.name}"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/RevokeUserRole", runtime.WithHTTPPathPattern("/api/v2/users/{user}/roles/{role.name}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -8553,18 +6662,13 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_RevokeUserRole_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("PATCH", pattern_Dynizer_EnableUser_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPatch, pattern_Dynizer_EnableUser_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/EnableUser", runtime.WithHTTPPathPattern("/api/v2/users/{user}/enable"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/EnableUser", runtime.WithHTTPPathPattern("/api/v2/users/{user}/enable"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -8575,18 +6679,13 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_EnableUser_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("PATCH", pattern_Dynizer_DisableUser_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPatch, pattern_Dynizer_DisableUser_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/DisableUser", runtime.WithHTTPPathPattern("/api/v2/users/{user}/disable"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/DisableUser", runtime.WithHTTPPathPattern("/api/v2/users/{user}/disable"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -8597,18 +6696,13 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_DisableUser_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("PUT", pattern_Dynizer_SetUserPassword_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPut, pattern_Dynizer_SetUserPassword_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/SetUserPassword", runtime.WithHTTPPathPattern("/api/v2/users/{user}/password"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/SetUserPassword", runtime.WithHTTPPathPattern("/api/v2/users/{user}/password"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -8619,18 +6713,13 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_SetUserPassword_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("PUT", pattern_Dynizer_ChangeMyPassword_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPut, pattern_Dynizer_ChangeMyPassword_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/ChangeMyPassword", runtime.WithHTTPPathPattern("/api/v2/my/password"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/ChangeMyPassword", runtime.WithHTTPPathPattern("/api/v2/my/password"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -8641,18 +6730,13 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_ChangeMyPassword_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Dynizer_GetUser_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Dynizer_GetUser_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/GetUser", runtime.WithHTTPPathPattern("/api/v2/users/{user}"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/GetUser", runtime.WithHTTPPathPattern("/api/v2/users/{user}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -8663,18 +6747,13 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_GetUser_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Dynizer_GetMyProfile_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Dynizer_GetMyProfile_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/GetMyProfile", runtime.WithHTTPPathPattern("/api/v2/my/profile"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/GetMyProfile", runtime.WithHTTPPathPattern("/api/v2/my/profile"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -8685,18 +6764,13 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_GetMyProfile_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("DELETE", pattern_Dynizer_DeleteUser_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodDelete, pattern_Dynizer_DeleteUser_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/DeleteUser", runtime.WithHTTPPathPattern("/api/v2/users/{user}"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/DeleteUser", runtime.WithHTTPPathPattern("/api/v2/users/{user}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -8707,18 +6781,13 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_DeleteUser_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Dynizer_GetUserCount_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Dynizer_GetUserCount_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/GetUserCount", runtime.WithHTTPPathPattern("/api/v2/users/all/count"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/GetUserCount", runtime.WithHTTPPathPattern("/api/v2/users/all/count"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -8729,18 +6798,13 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_GetUserCount_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Dynizer_ListUsers_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Dynizer_ListUsers_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/ListUsers", runtime.WithHTTPPathPattern("/api/v2/users"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/ListUsers", runtime.WithHTTPPathPattern("/api/v2/users"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -8751,18 +6815,13 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_ListUsers_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Dynizer_ListUserRoles_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Dynizer_ListUserRoles_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/ListUserRoles", runtime.WithHTTPPathPattern("/api/v2/users/{user}/roles"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/ListUserRoles", runtime.WithHTTPPathPattern("/api/v2/users/{user}/roles"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -8773,18 +6832,13 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_ListUserRoles_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Dynizer_GetMyRoles_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Dynizer_GetMyRoles_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/GetMyRoles", runtime.WithHTTPPathPattern("/api/v2/my/roles"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/GetMyRoles", runtime.WithHTTPPathPattern("/api/v2/my/roles"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -8795,18 +6849,13 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_GetMyRoles_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Dynizer_CheckUserName_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Dynizer_CheckUserName_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/CheckUserName", runtime.WithHTTPPathPattern("/api/v2/check/user/{user}"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/CheckUserName", runtime.WithHTTPPathPattern("/api/v2/check/user/{user}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -8817,18 +6866,13 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_CheckUserName_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_Dynizer_CheckPassword_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_Dynizer_CheckPassword_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/CheckPassword", runtime.WithHTTPPathPattern("/api/v2/check/password"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/CheckPassword", runtime.WithHTTPPathPattern("/api/v2/check/password"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -8839,18 +6883,13 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_CheckPassword_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_Dynizer_CreateActionType_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_Dynizer_CreateActionType_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/CreateActionType", runtime.WithHTTPPathPattern("/api/v2/actiontypes"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/CreateActionType", runtime.WithHTTPPathPattern("/api/v2/actiontypes"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -8861,18 +6900,13 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_CreateActionType_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("PATCH", pattern_Dynizer_UpdateActionType_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPatch, pattern_Dynizer_UpdateActionType_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/UpdateActionType", runtime.WithHTTPPathPattern("/api/v2/actiontypes/{action_type_label}"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/UpdateActionType", runtime.WithHTTPPathPattern("/api/v2/actiontypes/{action_type_label}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -8883,18 +6917,13 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_UpdateActionType_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Dynizer_ReadActionType_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Dynizer_ReadActionType_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/ReadActionType", runtime.WithHTTPPathPattern("/api/v2/actiontypes/{action_type_label}"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/ReadActionType", runtime.WithHTTPPathPattern("/api/v2/actiontypes/{action_type_label}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -8905,18 +6934,13 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_ReadActionType_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Dynizer_ListActionTypes_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Dynizer_ListActionTypes_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/ListActionTypes", runtime.WithHTTPPathPattern("/api/v2/actiontypes"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/ListActionTypes", runtime.WithHTTPPathPattern("/api/v2/actiontypes"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -8927,18 +6951,98 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_ListActionTypes_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Dynizer_CheckActionName_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_Dynizer_CreateActionSchema_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/CheckActionName", runtime.WithHTTPPathPattern("/api/v2/check/actions/{action_name}"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/CreateActionSchema", runtime.WithHTTPPathPattern("/api/v2/actionschemas"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_Dynizer_CreateActionSchema_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		forward_Dynizer_CreateActionSchema_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+	})
+	mux.Handle(http.MethodPatch, pattern_Dynizer_UpdateActionSchema_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/UpdateActionSchema", runtime.WithHTTPPathPattern("/api/v2/actionschemas/{action_schema_name}"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_Dynizer_UpdateActionSchema_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		forward_Dynizer_UpdateActionSchema_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+	})
+	mux.Handle(http.MethodDelete, pattern_Dynizer_DeleteActionSchema_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/DeleteActionSchema", runtime.WithHTTPPathPattern("/api/v2/actionschemas/{action_schema_name}"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_Dynizer_DeleteActionSchema_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		forward_Dynizer_DeleteActionSchema_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+	})
+	mux.Handle(http.MethodGet, pattern_Dynizer_ReadActionSchema_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/ReadActionSchema", runtime.WithHTTPPathPattern("/api/v2/actionschemas/{action_schema_name}"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_Dynizer_ReadActionSchema_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		forward_Dynizer_ReadActionSchema_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+	})
+	mux.Handle(http.MethodGet, pattern_Dynizer_ListActionSchemas_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/ListActionSchemas", runtime.WithHTTPPathPattern("/api/v2/actionschemas"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_Dynizer_ListActionSchemas_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		forward_Dynizer_ListActionSchemas_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+	})
+	mux.Handle(http.MethodGet, pattern_Dynizer_CheckActionName_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/CheckActionName", runtime.WithHTTPPathPattern("/api/v2/check/actions/{action_name}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -8949,18 +7053,13 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_CheckActionName_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_Dynizer_CreateAction_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_Dynizer_CreateAction_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/CreateAction", runtime.WithHTTPPathPattern("/api/v2/actions"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/CreateAction", runtime.WithHTTPPathPattern("/api/v2/actions"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -8971,18 +7070,13 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_CreateAction_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("PATCH", pattern_Dynizer_UpdateAction_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPatch, pattern_Dynizer_UpdateAction_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/UpdateAction", runtime.WithHTTPPathPattern("/api/v2/actions/{action_name}"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/UpdateAction", runtime.WithHTTPPathPattern("/api/v2/actions/{action_name}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -8993,18 +7087,13 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_UpdateAction_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("DELETE", pattern_Dynizer_DeleteAction_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodDelete, pattern_Dynizer_DeleteAction_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/DeleteAction", runtime.WithHTTPPathPattern("/api/v2/actions/{action_name}"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/DeleteAction", runtime.WithHTTPPathPattern("/api/v2/actions/{action_name}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -9015,18 +7104,13 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_DeleteAction_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Dynizer_ReadAction_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Dynizer_ReadAction_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/ReadAction", runtime.WithHTTPPathPattern("/api/v2/actions/{action_name}"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/ReadAction", runtime.WithHTTPPathPattern("/api/v2/actions/{action_name}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -9037,18 +7121,13 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_ReadAction_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Dynizer_CountActions_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Dynizer_CountActions_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/CountActions", runtime.WithHTTPPathPattern("/api/v2/actions/types/{action_type_label}/count"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/CountActions", runtime.WithHTTPPathPattern("/api/v2/actions/types/{action_type_label}/count"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -9059,18 +7138,13 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_CountActions_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Dynizer_ListActionNames_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Dynizer_ListActionNames_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/ListActionNames", runtime.WithHTTPPathPattern("/api/v2/actions/types/{action_type_label}/names/all"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/ListActionNames", runtime.WithHTTPPathPattern("/api/v2/actions/types/{action_type_label}/names/all"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -9081,18 +7155,13 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_ListActionNames_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Dynizer_CheckActionLabelName_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Dynizer_CheckActionLabelName_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/CheckActionLabelName", runtime.WithHTTPPathPattern("/api/v2/check/actions/{action_name}/actionlabels/{action_label}"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/CheckActionLabelName", runtime.WithHTTPPathPattern("/api/v2/check/actions/{action_name}/actionlabels/{action_label}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -9103,18 +7172,13 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_CheckActionLabelName_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_Dynizer_AddActionLabel_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_Dynizer_AddActionLabel_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/AddActionLabel", runtime.WithHTTPPathPattern("/api/v2/actions/{action_name}/actionlabels"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/AddActionLabel", runtime.WithHTTPPathPattern("/api/v2/actions/{action_name}/actionlabels"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -9125,18 +7189,13 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_AddActionLabel_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("PUT", pattern_Dynizer_UpdateActionLabel_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPut, pattern_Dynizer_UpdateActionLabel_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/UpdateActionLabel", runtime.WithHTTPPathPattern("/api/v2/actions/{action_name}/actionlabels/{action_label}"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/UpdateActionLabel", runtime.WithHTTPPathPattern("/api/v2/actions/{action_name}/actionlabels/{action_label}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -9147,18 +7206,13 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_UpdateActionLabel_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("DELETE", pattern_Dynizer_DeleteActionLabel_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodDelete, pattern_Dynizer_DeleteActionLabel_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/DeleteActionLabel", runtime.WithHTTPPathPattern("/api/v2/actions/{action_name}/actionlabels/{action_label}"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/DeleteActionLabel", runtime.WithHTTPPathPattern("/api/v2/actions/{action_name}/actionlabels/{action_label}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -9169,18 +7223,13 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_DeleteActionLabel_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Dynizer_ReadActionLabel_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Dynizer_ReadActionLabel_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/ReadActionLabel", runtime.WithHTTPPathPattern("/api/v2/actions/{action_name}/actionlabels/{action_label}"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/ReadActionLabel", runtime.WithHTTPPathPattern("/api/v2/actions/{action_name}/actionlabels/{action_label}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -9191,18 +7240,13 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_ReadActionLabel_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_Dynizer_CreateObject_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_Dynizer_CreateObject_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/CreateObject", runtime.WithHTTPPathPattern("/api/v2/objects"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/CreateObject", runtime.WithHTTPPathPattern("/api/v2/objects"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -9213,18 +7257,13 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_CreateObject_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("PATCH", pattern_Dynizer_ClearObjectData_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPatch, pattern_Dynizer_ClearObjectData_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/ClearObjectData", runtime.WithHTTPPathPattern("/api/v2/objects/{object_ref.type}/{object_ref.ref_uuid}"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/ClearObjectData", runtime.WithHTTPPathPattern("/api/v2/objects/{object_ref.type}/{object_ref.ref_uuid}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -9235,18 +7274,13 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_ClearObjectData_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("DELETE", pattern_Dynizer_DeleteObject_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodDelete, pattern_Dynizer_DeleteObject_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/DeleteObject", runtime.WithHTTPPathPattern("/api/v2/objects/{object_ref.type}/{object_ref.ref_uuid}"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/DeleteObject", runtime.WithHTTPPathPattern("/api/v2/objects/{object_ref.type}/{object_ref.ref_uuid}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -9257,18 +7291,13 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_DeleteObject_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_Dynizer_UploadObjectData_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_Dynizer_UploadObjectData_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/UploadObjectData", runtime.WithHTTPPathPattern("/api/v2/objects/{object_ref.type}/{object_ref.ref_uuid}"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/UploadObjectData", runtime.WithHTTPPathPattern("/api/v2/objects/{object_ref.type}/{object_ref.ref_uuid}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -9279,18 +7308,13 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_UploadObjectData_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Dynizer_DownloadObjectData_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Dynizer_DownloadObjectData_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/DownloadObjectData", runtime.WithHTTPPathPattern("/api/v2/objects/{object_ref.type}/{object_ref.ref_uuid}"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/DownloadObjectData", runtime.WithHTTPPathPattern("/api/v2/objects/{object_ref.type}/{object_ref.ref_uuid}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -9301,18 +7325,13 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_DownloadObjectData_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Dynizer_ListObjectUUIDS_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Dynizer_ListObjectUUIDS_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/ListObjectUUIDS", runtime.WithHTTPPathPattern("/api/v2/objects"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/ListObjectUUIDS", runtime.WithHTTPPathPattern("/api/v2/objects"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -9323,18 +7342,13 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_ListObjectUUIDS_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("DELETE", pattern_Dynizer_DeleteAllObjects_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodDelete, pattern_Dynizer_DeleteAllObjects_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/DeleteAllObjects", runtime.WithHTTPPathPattern("/api/v2/objects"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/DeleteAllObjects", runtime.WithHTTPPathPattern("/api/v2/objects"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -9345,18 +7359,13 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_DeleteAllObjects_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_Dynizer_CreateInstance_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_Dynizer_CreateInstance_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/CreateInstance", runtime.WithHTTPPathPattern("/api/v2/instances"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/CreateInstance", runtime.WithHTTPPathPattern("/api/v2/instances"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -9367,18 +7376,13 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_CreateInstance_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("PATCH", pattern_Dynizer_UpdateInstance_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPatch, pattern_Dynizer_UpdateInstance_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/UpdateInstance", runtime.WithHTTPPathPattern("/api/v2/instances/{instance_id}"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/UpdateInstance", runtime.WithHTTPPathPattern("/api/v2/instances/{instance_id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -9389,18 +7393,13 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_UpdateInstance_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("DELETE", pattern_Dynizer_DeleteInstance_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodDelete, pattern_Dynizer_DeleteInstance_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/DeleteInstance", runtime.WithHTTPPathPattern("/api/v2/instances/{instance_id}"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/DeleteInstance", runtime.WithHTTPPathPattern("/api/v2/instances/{instance_id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -9411,18 +7410,13 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_DeleteInstance_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Dynizer_ReadInstance_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Dynizer_ReadInstance_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/ReadInstance", runtime.WithHTTPPathPattern("/api/v2/instances/{instance_id}"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/ReadInstance", runtime.WithHTTPPathPattern("/api/v2/instances/{instance_id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -9433,18 +7427,13 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_ReadInstance_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_Dynizer_DynizerQuery_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_Dynizer_DynizerQuery_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/DynizerQuery", runtime.WithHTTPPathPattern("/api/v2/query"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/DynizerQuery", runtime.WithHTTPPathPattern("/api/v2/query"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -9455,18 +7444,13 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_DynizerQuery_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Dynizer_QueryResultNext_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Dynizer_QueryResultNext_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/QueryResultNext", runtime.WithHTTPPathPattern("/api/v2/query/{result_handle}/next"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/QueryResultNext", runtime.WithHTTPPathPattern("/api/v2/query/{result_handle}/next"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -9477,18 +7461,13 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_QueryResultNext_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Dynizer_QueryResultClose_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Dynizer_QueryResultClose_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/QueryResultClose", runtime.WithHTTPPathPattern("/api/v2/query/{result_handle}/close"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/QueryResultClose", runtime.WithHTTPPathPattern("/api/v2/query/{result_handle}/close"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -9499,18 +7478,13 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_QueryResultClose_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Dynizer_CheckMetaDataKeyName_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Dynizer_CheckMetaDataKeyName_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/CheckMetaDataKeyName", runtime.WithHTTPPathPattern("/api/v2/check/metadata/keys/{key_name}"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/CheckMetaDataKeyName", runtime.WithHTTPPathPattern("/api/v2/check/metadata/keys/{key_name}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -9521,18 +7495,13 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_CheckMetaDataKeyName_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_Dynizer_CreateMetaDataKey_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_Dynizer_CreateMetaDataKey_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/CreateMetaDataKey", runtime.WithHTTPPathPattern("/api/v2/metadata/keys"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/CreateMetaDataKey", runtime.WithHTTPPathPattern("/api/v2/metadata/keys"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -9543,18 +7512,13 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_CreateMetaDataKey_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Dynizer_ReadMetaDataKey_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Dynizer_ReadMetaDataKey_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/ReadMetaDataKey", runtime.WithHTTPPathPattern("/api/v2/metadata/keys/{key_name}"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/ReadMetaDataKey", runtime.WithHTTPPathPattern("/api/v2/metadata/keys/{key_name}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -9565,18 +7529,13 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_ReadMetaDataKey_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("PATCH", pattern_Dynizer_UpdateMetaDataKey_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPatch, pattern_Dynizer_UpdateMetaDataKey_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/UpdateMetaDataKey", runtime.WithHTTPPathPattern("/api/v2/metadata/keys/{key_name}"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/UpdateMetaDataKey", runtime.WithHTTPPathPattern("/api/v2/metadata/keys/{key_name}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -9587,18 +7546,13 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_UpdateMetaDataKey_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("DELETE", pattern_Dynizer_DeleteMetaDataKey_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodDelete, pattern_Dynizer_DeleteMetaDataKey_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/DeleteMetaDataKey", runtime.WithHTTPPathPattern("/api/v2/metadata/keys/{key_name}"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/DeleteMetaDataKey", runtime.WithHTTPPathPattern("/api/v2/metadata/keys/{key_name}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -9609,18 +7563,13 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_DeleteMetaDataKey_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Dynizer_CountMetaDataKeys_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Dynizer_CountMetaDataKeys_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/CountMetaDataKeys", runtime.WithHTTPPathPattern("/api/v2/metadata/keys/all/count"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/CountMetaDataKeys", runtime.WithHTTPPathPattern("/api/v2/metadata/keys/all/count"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -9631,18 +7580,13 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_CountMetaDataKeys_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Dynizer_ListMetaDataKeys_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Dynizer_ListMetaDataKeys_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/ListMetaDataKeys", runtime.WithHTTPPathPattern("/api/v2/metadata/keys"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/ListMetaDataKeys", runtime.WithHTTPPathPattern("/api/v2/metadata/keys"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -9653,18 +7597,13 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_ListMetaDataKeys_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_Dynizer_AddInstanceMetaData_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_Dynizer_AddInstanceMetaData_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/AddInstanceMetaData", runtime.WithHTTPPathPattern("/api/v2/metadata/instances/{instance_id}"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/AddInstanceMetaData", runtime.WithHTTPPathPattern("/api/v2/metadata/instances/{instance_id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -9675,18 +7614,13 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_AddInstanceMetaData_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("DELETE", pattern_Dynizer_RemoveInstanceMetaData_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodDelete, pattern_Dynizer_RemoveInstanceMetaData_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/RemoveInstanceMetaData", runtime.WithHTTPPathPattern("/api/v2/metadata/instances/{instance_id}/keys/{key_name}"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/RemoveInstanceMetaData", runtime.WithHTTPPathPattern("/api/v2/metadata/instances/{instance_id}/keys/{key_name}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -9697,18 +7631,13 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_RemoveInstanceMetaData_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_Dynizer_AddInstanceMetaDataValue_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_Dynizer_AddInstanceMetaDataValue_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/AddInstanceMetaDataValue", runtime.WithHTTPPathPattern("/api/v2/metadata/instances/{instance_id}/keys/{key_name}/values"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/AddInstanceMetaDataValue", runtime.WithHTTPPathPattern("/api/v2/metadata/instances/{instance_id}/keys/{key_name}/values"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -9719,18 +7648,13 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_AddInstanceMetaDataValue_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("DELETE", pattern_Dynizer_RemoveInstanceMetaDataValue_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodDelete, pattern_Dynizer_RemoveInstanceMetaDataValue_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/RemoveInstanceMetaDataValue", runtime.WithHTTPPathPattern("/api/v2/metadata/instances/{instance_id}/keys/{key_name}/values/{value}"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/RemoveInstanceMetaDataValue", runtime.WithHTTPPathPattern("/api/v2/metadata/instances/{instance_id}/keys/{key_name}/values/{value}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -9741,18 +7665,13 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_RemoveInstanceMetaDataValue_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Dynizer_GetInstanceMetaDataValues_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Dynizer_GetInstanceMetaDataValues_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/GetInstanceMetaDataValues", runtime.WithHTTPPathPattern("/api/v2/metadata/instances/{instance_id}/keys/{key_name}"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/GetInstanceMetaDataValues", runtime.WithHTTPPathPattern("/api/v2/metadata/instances/{instance_id}/keys/{key_name}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -9763,18 +7682,13 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_GetInstanceMetaDataValues_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Dynizer_CountInstanceMetaDataKeys_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Dynizer_CountInstanceMetaDataKeys_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/CountInstanceMetaDataKeys", runtime.WithHTTPPathPattern("/api/v2/metadata/instances/{instance_id}/keys/all/count"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/CountInstanceMetaDataKeys", runtime.WithHTTPPathPattern("/api/v2/metadata/instances/{instance_id}/keys/all/count"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -9785,18 +7699,13 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_CountInstanceMetaDataKeys_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Dynizer_CountInstanceMetaDataKeyValues_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Dynizer_CountInstanceMetaDataKeyValues_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/CountInstanceMetaDataKeyValues", runtime.WithHTTPPathPattern("/api/v2/metadata/instances/{instance_id}/keys/{key_name}/values/all/count"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/CountInstanceMetaDataKeyValues", runtime.WithHTTPPathPattern("/api/v2/metadata/instances/{instance_id}/keys/{key_name}/values/all/count"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -9807,18 +7716,13 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_CountInstanceMetaDataKeyValues_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Dynizer_ListInstanceMetaData_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Dynizer_ListInstanceMetaData_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/ListInstanceMetaData", runtime.WithHTTPPathPattern("/api/v2/metadata/instances/{instance_id}/keys"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/ListInstanceMetaData", runtime.WithHTTPPathPattern("/api/v2/metadata/instances/{instance_id}/keys"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -9829,18 +7733,13 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_ListInstanceMetaData_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_Dynizer_AddInstanceActionLabelMetaData_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_Dynizer_AddInstanceActionLabelMetaData_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/AddInstanceActionLabelMetaData", runtime.WithHTTPPathPattern("/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/AddInstanceActionLabelMetaData", runtime.WithHTTPPathPattern("/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -9851,18 +7750,13 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_AddInstanceActionLabelMetaData_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("DELETE", pattern_Dynizer_RemoveInstanceActionLabelMetaData_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodDelete, pattern_Dynizer_RemoveInstanceActionLabelMetaData_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/RemoveInstanceActionLabelMetaData", runtime.WithHTTPPathPattern("/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/keys/{key_name}"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/RemoveInstanceActionLabelMetaData", runtime.WithHTTPPathPattern("/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/keys/{key_name}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -9873,18 +7767,13 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_RemoveInstanceActionLabelMetaData_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_Dynizer_AddInstanceActionLabelMetaDataValue_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_Dynizer_AddInstanceActionLabelMetaDataValue_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/AddInstanceActionLabelMetaDataValue", runtime.WithHTTPPathPattern("/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/keys/{key_name}/values"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/AddInstanceActionLabelMetaDataValue", runtime.WithHTTPPathPattern("/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/keys/{key_name}/values"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -9895,18 +7784,13 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_AddInstanceActionLabelMetaDataValue_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("DELETE", pattern_Dynizer_RemoveInstanceActionLabelMetaDataValue_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodDelete, pattern_Dynizer_RemoveInstanceActionLabelMetaDataValue_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/RemoveInstanceActionLabelMetaDataValue", runtime.WithHTTPPathPattern("/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/keys/{key_name}/values/{value}"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/RemoveInstanceActionLabelMetaDataValue", runtime.WithHTTPPathPattern("/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/keys/{key_name}/values/{value}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -9917,18 +7801,13 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_RemoveInstanceActionLabelMetaDataValue_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_Dynizer_AddInstanceCellMetaData_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_Dynizer_AddInstanceCellMetaData_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/AddInstanceCellMetaData", runtime.WithHTTPPathPattern("/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/position/{value_position}"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/AddInstanceCellMetaData", runtime.WithHTTPPathPattern("/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/position/{value_position}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -9939,18 +7818,13 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_AddInstanceCellMetaData_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("DELETE", pattern_Dynizer_RemoveInstanceCellMetaData_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodDelete, pattern_Dynizer_RemoveInstanceCellMetaData_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/RemoveInstanceCellMetaData", runtime.WithHTTPPathPattern("/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/position/{value_position}/keys/{key_name}"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/RemoveInstanceCellMetaData", runtime.WithHTTPPathPattern("/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/position/{value_position}/keys/{key_name}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -9961,18 +7835,13 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_RemoveInstanceCellMetaData_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_Dynizer_AddInstanceCellMetaDataValue_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_Dynizer_AddInstanceCellMetaDataValue_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/AddInstanceCellMetaDataValue", runtime.WithHTTPPathPattern("/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/position/{value_position}/keys/{key_name}/values"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/AddInstanceCellMetaDataValue", runtime.WithHTTPPathPattern("/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/position/{value_position}/keys/{key_name}/values"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -9983,18 +7852,13 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_AddInstanceCellMetaDataValue_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("DELETE", pattern_Dynizer_RemoveInstanceCellMetaDataValue_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodDelete, pattern_Dynizer_RemoveInstanceCellMetaDataValue_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/RemoveInstanceCellMetaDataValue", runtime.WithHTTPPathPattern("/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/position/{value_position}/keys/{key_name}/values/{value}"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/RemoveInstanceCellMetaDataValue", runtime.WithHTTPPathPattern("/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/position/{value_position}/keys/{key_name}/values/{value}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -10005,18 +7869,13 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_RemoveInstanceCellMetaDataValue_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Dynizer_GetInstanceCellMetaDataValues_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Dynizer_GetInstanceCellMetaDataValues_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/GetInstanceCellMetaDataValues", runtime.WithHTTPPathPattern("/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/position/{value_position}/keys/{key_name}"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/GetInstanceCellMetaDataValues", runtime.WithHTTPPathPattern("/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/position/{value_position}/keys/{key_name}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -10027,18 +7886,13 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_GetInstanceCellMetaDataValues_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Dynizer_CountInstanceCellMetaDataKeys_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Dynizer_CountInstanceCellMetaDataKeys_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/CountInstanceCellMetaDataKeys", runtime.WithHTTPPathPattern("/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/position/{value_position}/keys/all/count"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/CountInstanceCellMetaDataKeys", runtime.WithHTTPPathPattern("/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/position/{value_position}/keys/all/count"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -10049,18 +7903,13 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_CountInstanceCellMetaDataKeys_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Dynizer_CountInstanceCellMetaDataKeyValues_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Dynizer_CountInstanceCellMetaDataKeyValues_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/CountInstanceCellMetaDataKeyValues", runtime.WithHTTPPathPattern("/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/position/{value_position}/keys/{key_name}/values/all/count"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/CountInstanceCellMetaDataKeyValues", runtime.WithHTTPPathPattern("/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/position/{value_position}/keys/{key_name}/values/all/count"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -10071,18 +7920,13 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_CountInstanceCellMetaDataKeyValues_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Dynizer_ListInstanceCellMetaData_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Dynizer_ListInstanceCellMetaData_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/ListInstanceCellMetaData", runtime.WithHTTPPathPattern("/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/position/{value_position}/keys"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/ListInstanceCellMetaData", runtime.WithHTTPPathPattern("/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/position/{value_position}/keys"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -10093,18 +7937,13 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_ListInstanceCellMetaData_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Dynizer_GetDynizerConfiguration_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Dynizer_GetDynizerConfiguration_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/GetDynizerConfiguration", runtime.WithHTTPPathPattern("/api/v2/config"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/GetDynizerConfiguration", runtime.WithHTTPPathPattern("/api/v2/config"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -10115,18 +7954,13 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_GetDynizerConfiguration_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_Dynizer_ExportUserActions_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_Dynizer_ExportUserActions_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/ExportUserActions", runtime.WithHTTPPathPattern("/api/v2/system/export/useractions"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/ExportUserActions", runtime.WithHTTPPathPattern("/api/v2/system/export/useractions"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -10137,18 +7971,13 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_ExportUserActions_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_Dynizer_ImportUserActions_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_Dynizer_ImportUserActions_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/ImportUserActions", runtime.WithHTTPPathPattern("/api/v2/system/import/useractions"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/ImportUserActions", runtime.WithHTTPPathPattern("/api/v2/system/import/useractions"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -10159,18 +7988,13 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_ImportUserActions_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("DELETE", pattern_Dynizer_DropData_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodDelete, pattern_Dynizer_DropData_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/DropData", runtime.WithHTTPPathPattern("/api/v2/system/data"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/DropData", runtime.WithHTTPPathPattern("/api/v2/system/data"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -10181,18 +8005,13 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_DropData_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Dynizer_GetDynizerVersion_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Dynizer_GetDynizerVersion_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/GetDynizerVersion", runtime.WithHTTPPathPattern("/api/v2/system/version"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/GetDynizerVersion", runtime.WithHTTPPathPattern("/api/v2/system/version"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -10203,18 +8022,13 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_GetDynizerVersion_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_Dynizer_QueryDataElements_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_Dynizer_QueryDataElements_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/QueryDataElements", runtime.WithHTTPPathPattern("/api/v2/dataelements/query/contains"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/QueryDataElements", runtime.WithHTTPPathPattern("/api/v2/dataelements/query/contains"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -10225,18 +8039,13 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_QueryDataElements_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_Dynizer_GetTopNDataElements_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_Dynizer_GetTopNDataElements_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/GetTopNDataElements", runtime.WithHTTPPathPattern("/api/v2/dataelements/top"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/GetTopNDataElements", runtime.WithHTTPPathPattern("/api/v2/dataelements/top"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -10247,18 +8056,13 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_GetTopNDataElements_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_Dynizer_DynizerFilteredQuery_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_Dynizer_DynizerFilteredQuery_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/DynizerFilteredQuery", runtime.WithHTTPPathPattern("/api/v2/query/filtered"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/DynizerFilteredQuery", runtime.WithHTTPPathPattern("/api/v2/query/filtered"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -10269,18 +8073,13 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_DynizerFilteredQuery_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Dynizer_ReIndex_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Dynizer_ReIndex_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/ReIndex", runtime.WithHTTPPathPattern("/api/v2/maintenance/index/{index_name}"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/ReIndex", runtime.WithHTTPPathPattern("/api/v2/maintenance/index/{index_name}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -10291,18 +8090,13 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_ReIndex_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_Dynizer_DynizerFilteredPlot_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_Dynizer_DynizerFilteredPlot_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/DynizerFilteredPlot", runtime.WithHTTPPathPattern("/api/v2/plots/filtered/{top}/{plot_name}"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/DynizerFilteredPlot", runtime.WithHTTPPathPattern("/api/v2/plots/filtered/{top}/{plot_name}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -10313,18 +8107,13 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_DynizerFilteredPlot_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_Dynizer_CreateShareName_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_Dynizer_CreateShareName_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/CreateShareName", runtime.WithHTTPPathPattern("/api/v2/sharename"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/CreateShareName", runtime.WithHTTPPathPattern("/api/v2/sharename"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -10335,18 +8124,13 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_CreateShareName_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("PATCH", pattern_Dynizer_UpdateShareNameValue_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPatch, pattern_Dynizer_UpdateShareNameValue_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/UpdateShareNameValue", runtime.WithHTTPPathPattern("/api/v2/sharename/{share_name}/value"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/UpdateShareNameValue", runtime.WithHTTPPathPattern("/api/v2/sharename/{share_name}/value"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -10357,18 +8141,13 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_UpdateShareNameValue_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_Dynizer_DeleteShareNameValue_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_Dynizer_DeleteShareNameValue_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/DeleteShareNameValue", runtime.WithHTTPPathPattern("/api/v2/sharename/{share_name}/delete/value"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/DeleteShareNameValue", runtime.WithHTTPPathPattern("/api/v2/sharename/{share_name}/delete/value"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -10379,18 +8158,13 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_DeleteShareNameValue_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_Dynizer_SimpleQuery_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_Dynizer_SimpleQuery_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/SimpleQuery", runtime.WithHTTPPathPattern("/api/v2/query/simple"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/SimpleQuery", runtime.WithHTTPPathPattern("/api/v2/query/simple"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -10401,18 +8175,13 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_SimpleQuery_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_Dynizer_QueryParse_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_Dynizer_QueryParse_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/QueryParse", runtime.WithHTTPPathPattern("/api/v2/query/parse"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/QueryParse", runtime.WithHTTPPathPattern("/api/v2/query/parse"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -10423,18 +8192,13 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_QueryParse_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_Dynizer_QueryBind_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_Dynizer_QueryBind_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/QueryBind", runtime.WithHTTPPathPattern("/api/v2/query/bind"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/QueryBind", runtime.WithHTTPPathPattern("/api/v2/query/bind"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -10445,18 +8209,13 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_QueryBind_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_Dynizer_QueryDescribeStatement_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_Dynizer_QueryDescribeStatement_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/QueryDescribeStatement", runtime.WithHTTPPathPattern("/api/v2/query/statement/describe"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/QueryDescribeStatement", runtime.WithHTTPPathPattern("/api/v2/query/statement/describe"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -10467,18 +8226,13 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_QueryDescribeStatement_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_Dynizer_QueryDescribePortal_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_Dynizer_QueryDescribePortal_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/QueryDescribePortal", runtime.WithHTTPPathPattern("/api/v2/query/portal/describe"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/QueryDescribePortal", runtime.WithHTTPPathPattern("/api/v2/query/portal/describe"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -10489,18 +8243,13 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_QueryDescribePortal_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_Dynizer_QueryExecute_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_Dynizer_QueryExecute_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/QueryExecute", runtime.WithHTTPPathPattern("/api/v2/query/execute"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/QueryExecute", runtime.WithHTTPPathPattern("/api/v2/query/execute"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -10511,18 +8260,13 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_QueryExecute_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_Dynizer_QueryClose_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_Dynizer_QueryClose_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/QueryClose", runtime.WithHTTPPathPattern("/api/v2/query/close"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/QueryClose", runtime.WithHTTPPathPattern("/api/v2/query/close"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -10533,18 +8277,13 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_QueryClose_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_Dynizer_FindActionLabelLinks_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_Dynizer_FindActionLabelLinks_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/FindActionLabelLinks", runtime.WithHTTPPathPattern("/api/v2/find_actionlabel_links"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/FindActionLabelLinks", runtime.WithHTTPPathPattern("/api/v2/find_actionlabel_links"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -10555,414 +8294,223 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Dynizer_FindActionLabelLinks_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
 	return nil
 }
 
 var (
-	pattern_Dynizer_Login_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"api", "v2", "login"}, ""))
-
-	pattern_Dynizer_ServiceLogin_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"api", "v2", "servicelogin"}, ""))
-
-	pattern_Dynizer_Logout_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"api", "v2", "logout"}, ""))
-
-	pattern_Dynizer_ValidateToken_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"api", "v2", "jwt", "token", "validate"}, ""))
-
-	pattern_Dynizer_IssueServiceToken_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v2", "servicetoken", "issue"}, ""))
-
-	pattern_Dynizer_ListRoles_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"api", "v2", "roles"}, ""))
-
-	pattern_Dynizer_AddUser_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"api", "v2", "users"}, ""))
-
-	pattern_Dynizer_AssignUserRole_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"api", "v2", "users", "user", "roles"}, ""))
-
-	pattern_Dynizer_RevokeUserRole_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"api", "v2", "users", "user", "roles", "role.name"}, ""))
-
-	pattern_Dynizer_EnableUser_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"api", "v2", "users", "user", "enable"}, ""))
-
-	pattern_Dynizer_DisableUser_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"api", "v2", "users", "user", "disable"}, ""))
-
-	pattern_Dynizer_SetUserPassword_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"api", "v2", "users", "user", "password"}, ""))
-
-	pattern_Dynizer_ChangeMyPassword_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v2", "my", "password"}, ""))
-
-	pattern_Dynizer_GetUser_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"api", "v2", "users", "user"}, ""))
-
-	pattern_Dynizer_GetMyProfile_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v2", "my", "profile"}, ""))
-
-	pattern_Dynizer_DeleteUser_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"api", "v2", "users", "user"}, ""))
-
-	pattern_Dynizer_GetUserCount_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"api", "v2", "users", "all", "count"}, ""))
-
-	pattern_Dynizer_ListUsers_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"api", "v2", "users"}, ""))
-
-	pattern_Dynizer_ListUserRoles_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"api", "v2", "users", "user", "roles"}, ""))
-
-	pattern_Dynizer_GetMyRoles_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v2", "my", "roles"}, ""))
-
-	pattern_Dynizer_CheckUserName_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 3}, []string{"api", "v2", "check", "user"}, ""))
-
-	pattern_Dynizer_CheckPassword_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v2", "check", "password"}, ""))
-
-	pattern_Dynizer_CreateActionType_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"api", "v2", "actiontypes"}, ""))
-
-	pattern_Dynizer_UpdateActionType_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"api", "v2", "actiontypes", "action_type_label"}, ""))
-
-	pattern_Dynizer_ReadActionType_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"api", "v2", "actiontypes", "action_type_label"}, ""))
-
-	pattern_Dynizer_ListActionTypes_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"api", "v2", "actiontypes"}, ""))
-
-	pattern_Dynizer_CheckActionName_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"api", "v2", "check", "actions", "action_name"}, ""))
-
-	pattern_Dynizer_CreateAction_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"api", "v2", "actions"}, ""))
-
-	pattern_Dynizer_UpdateAction_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"api", "v2", "actions", "action_name"}, ""))
-
-	pattern_Dynizer_DeleteAction_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"api", "v2", "actions", "action_name"}, ""))
-
-	pattern_Dynizer_ReadAction_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"api", "v2", "actions", "action_name"}, ""))
-
-	pattern_Dynizer_CountActions_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5}, []string{"api", "v2", "actions", "types", "action_type_label", "count"}, ""))
-
-	pattern_Dynizer_ListActionNames_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5, 2, 6}, []string{"api", "v2", "actions", "types", "action_type_label", "names", "all"}, ""))
-
-	pattern_Dynizer_CheckActionLabelName_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5, 1, 0, 4, 1, 5, 6}, []string{"api", "v2", "check", "actions", "action_name", "actionlabels", "action_label"}, ""))
-
-	pattern_Dynizer_AddActionLabel_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"api", "v2", "actions", "action_name", "actionlabels"}, ""))
-
-	pattern_Dynizer_UpdateActionLabel_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"api", "v2", "actions", "action_name", "actionlabels", "action_label"}, ""))
-
-	pattern_Dynizer_DeleteActionLabel_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"api", "v2", "actions", "action_name", "actionlabels", "action_label"}, ""))
-
-	pattern_Dynizer_ReadActionLabel_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"api", "v2", "actions", "action_name", "actionlabels", "action_label"}, ""))
-
-	pattern_Dynizer_CreateObject_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"api", "v2", "objects"}, ""))
-
-	pattern_Dynizer_ClearObjectData_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 1, 0, 4, 1, 5, 4}, []string{"api", "v2", "objects", "object_ref.type", "object_ref.ref_uuid"}, ""))
-
-	pattern_Dynizer_DeleteObject_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 1, 0, 4, 1, 5, 4}, []string{"api", "v2", "objects", "object_ref.type", "object_ref.ref_uuid"}, ""))
-
-	pattern_Dynizer_UploadObjectData_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 1, 0, 4, 1, 5, 4}, []string{"api", "v2", "objects", "object_ref.type", "object_ref.ref_uuid"}, ""))
-
-	pattern_Dynizer_DownloadObjectData_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 1, 0, 4, 1, 5, 4}, []string{"api", "v2", "objects", "object_ref.type", "object_ref.ref_uuid"}, ""))
-
-	pattern_Dynizer_ListObjectUUIDS_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"api", "v2", "objects"}, ""))
-
-	pattern_Dynizer_DeleteAllObjects_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"api", "v2", "objects"}, ""))
-
-	pattern_Dynizer_CreateInstance_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"api", "v2", "instances"}, ""))
-
-	pattern_Dynizer_UpdateInstance_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"api", "v2", "instances", "instance_id"}, ""))
-
-	pattern_Dynizer_DeleteInstance_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"api", "v2", "instances", "instance_id"}, ""))
-
-	pattern_Dynizer_ReadInstance_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"api", "v2", "instances", "instance_id"}, ""))
-
-	pattern_Dynizer_DynizerQuery_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"api", "v2", "query"}, ""))
-
-	pattern_Dynizer_QueryResultNext_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"api", "v2", "query", "result_handle", "next"}, ""))
-
-	pattern_Dynizer_QueryResultClose_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"api", "v2", "query", "result_handle", "close"}, ""))
-
-	pattern_Dynizer_CheckMetaDataKeyName_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"api", "v2", "check", "metadata", "keys", "key_name"}, ""))
-
-	pattern_Dynizer_CreateMetaDataKey_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v2", "metadata", "keys"}, ""))
-
-	pattern_Dynizer_ReadMetaDataKey_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"api", "v2", "metadata", "keys", "key_name"}, ""))
-
-	pattern_Dynizer_UpdateMetaDataKey_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"api", "v2", "metadata", "keys", "key_name"}, ""))
-
-	pattern_Dynizer_DeleteMetaDataKey_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"api", "v2", "metadata", "keys", "key_name"}, ""))
-
-	pattern_Dynizer_CountMetaDataKeys_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4, 2, 5}, []string{"api", "v2", "metadata", "keys", "all", "count"}, ""))
-
-	pattern_Dynizer_ListMetaDataKeys_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v2", "metadata", "keys"}, ""))
-
-	pattern_Dynizer_AddInstanceMetaData_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"api", "v2", "metadata", "instances", "instance_id"}, ""))
-
-	pattern_Dynizer_RemoveInstanceMetaData_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5, 1, 0, 4, 1, 5, 6}, []string{"api", "v2", "metadata", "instances", "instance_id", "keys", "key_name"}, ""))
-
-	pattern_Dynizer_AddInstanceMetaDataValue_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5, 1, 0, 4, 1, 5, 6, 2, 7}, []string{"api", "v2", "metadata", "instances", "instance_id", "keys", "key_name", "values"}, ""))
-
-	pattern_Dynizer_RemoveInstanceMetaDataValue_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5, 1, 0, 4, 1, 5, 6, 2, 7, 1, 0, 4, 1, 5, 8}, []string{"api", "v2", "metadata", "instances", "instance_id", "keys", "key_name", "values", "value"}, ""))
-
-	pattern_Dynizer_GetInstanceMetaDataValues_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5, 1, 0, 4, 1, 5, 6}, []string{"api", "v2", "metadata", "instances", "instance_id", "keys", "key_name"}, ""))
-
-	pattern_Dynizer_CountInstanceMetaDataKeys_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5, 2, 6, 2, 7}, []string{"api", "v2", "metadata", "instances", "instance_id", "keys", "all", "count"}, ""))
-
-	pattern_Dynizer_CountInstanceMetaDataKeyValues_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5, 1, 0, 4, 1, 5, 6, 2, 7, 2, 8, 2, 9}, []string{"api", "v2", "metadata", "instances", "instance_id", "keys", "key_name", "values", "all", "count"}, ""))
-
-	pattern_Dynizer_ListInstanceMetaData_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5}, []string{"api", "v2", "metadata", "instances", "instance_id", "keys"}, ""))
-
-	pattern_Dynizer_AddInstanceActionLabelMetaData_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5, 1, 0, 4, 1, 5, 6}, []string{"api", "v2", "metadata", "instances", "instance_id", "actionlabels", "action_label"}, ""))
-
-	pattern_Dynizer_RemoveInstanceActionLabelMetaData_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5, 1, 0, 4, 1, 5, 6, 2, 7, 1, 0, 4, 1, 5, 8}, []string{"api", "v2", "metadata", "instances", "instance_id", "actionlabels", "action_label", "keys", "key_name"}, ""))
-
-	pattern_Dynizer_AddInstanceActionLabelMetaDataValue_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5, 1, 0, 4, 1, 5, 6, 2, 7, 1, 0, 4, 1, 5, 8, 2, 9}, []string{"api", "v2", "metadata", "instances", "instance_id", "actionlabels", "action_label", "keys", "key_name", "values"}, ""))
-
+	pattern_Dynizer_Login_0                                  = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"api", "v2", "login"}, ""))
+	pattern_Dynizer_ServiceLogin_0                           = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"api", "v2", "servicelogin"}, ""))
+	pattern_Dynizer_Logout_0                                 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"api", "v2", "logout"}, ""))
+	pattern_Dynizer_ValidateToken_0                          = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"api", "v2", "jwt", "token", "validate"}, ""))
+	pattern_Dynizer_IssueServiceToken_0                      = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v2", "servicetoken", "issue"}, ""))
+	pattern_Dynizer_ListRoles_0                              = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"api", "v2", "roles"}, ""))
+	pattern_Dynizer_AddUser_0                                = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"api", "v2", "users"}, ""))
+	pattern_Dynizer_AssignUserRole_0                         = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"api", "v2", "users", "user", "roles"}, ""))
+	pattern_Dynizer_RevokeUserRole_0                         = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"api", "v2", "users", "user", "roles", "role.name"}, ""))
+	pattern_Dynizer_EnableUser_0                             = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"api", "v2", "users", "user", "enable"}, ""))
+	pattern_Dynizer_DisableUser_0                            = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"api", "v2", "users", "user", "disable"}, ""))
+	pattern_Dynizer_SetUserPassword_0                        = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"api", "v2", "users", "user", "password"}, ""))
+	pattern_Dynizer_ChangeMyPassword_0                       = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v2", "my", "password"}, ""))
+	pattern_Dynizer_GetUser_0                                = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"api", "v2", "users", "user"}, ""))
+	pattern_Dynizer_GetMyProfile_0                           = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v2", "my", "profile"}, ""))
+	pattern_Dynizer_DeleteUser_0                             = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"api", "v2", "users", "user"}, ""))
+	pattern_Dynizer_GetUserCount_0                           = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"api", "v2", "users", "all", "count"}, ""))
+	pattern_Dynizer_ListUsers_0                              = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"api", "v2", "users"}, ""))
+	pattern_Dynizer_ListUserRoles_0                          = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"api", "v2", "users", "user", "roles"}, ""))
+	pattern_Dynizer_GetMyRoles_0                             = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v2", "my", "roles"}, ""))
+	pattern_Dynizer_CheckUserName_0                          = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 3}, []string{"api", "v2", "check", "user"}, ""))
+	pattern_Dynizer_CheckPassword_0                          = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v2", "check", "password"}, ""))
+	pattern_Dynizer_CreateActionType_0                       = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"api", "v2", "actiontypes"}, ""))
+	pattern_Dynizer_UpdateActionType_0                       = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"api", "v2", "actiontypes", "action_type_label"}, ""))
+	pattern_Dynizer_ReadActionType_0                         = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"api", "v2", "actiontypes", "action_type_label"}, ""))
+	pattern_Dynizer_ListActionTypes_0                        = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"api", "v2", "actiontypes"}, ""))
+	pattern_Dynizer_CreateActionSchema_0                     = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"api", "v2", "actionschemas"}, ""))
+	pattern_Dynizer_UpdateActionSchema_0                     = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"api", "v2", "actionschemas", "action_schema_name"}, ""))
+	pattern_Dynizer_DeleteActionSchema_0                     = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"api", "v2", "actionschemas", "action_schema_name"}, ""))
+	pattern_Dynizer_ReadActionSchema_0                       = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"api", "v2", "actionschemas", "action_schema_name"}, ""))
+	pattern_Dynizer_ListActionSchemas_0                      = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"api", "v2", "actionschemas"}, ""))
+	pattern_Dynizer_CheckActionName_0                        = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"api", "v2", "check", "actions", "action_name"}, ""))
+	pattern_Dynizer_CreateAction_0                           = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"api", "v2", "actions"}, ""))
+	pattern_Dynizer_UpdateAction_0                           = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"api", "v2", "actions", "action_name"}, ""))
+	pattern_Dynizer_DeleteAction_0                           = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"api", "v2", "actions", "action_name"}, ""))
+	pattern_Dynizer_ReadAction_0                             = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"api", "v2", "actions", "action_name"}, ""))
+	pattern_Dynizer_CountActions_0                           = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5}, []string{"api", "v2", "actions", "types", "action_type_label", "count"}, ""))
+	pattern_Dynizer_ListActionNames_0                        = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5, 2, 6}, []string{"api", "v2", "actions", "types", "action_type_label", "names", "all"}, ""))
+	pattern_Dynizer_CheckActionLabelName_0                   = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5, 1, 0, 4, 1, 5, 6}, []string{"api", "v2", "check", "actions", "action_name", "actionlabels", "action_label"}, ""))
+	pattern_Dynizer_AddActionLabel_0                         = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"api", "v2", "actions", "action_name", "actionlabels"}, ""))
+	pattern_Dynizer_UpdateActionLabel_0                      = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"api", "v2", "actions", "action_name", "actionlabels", "action_label"}, ""))
+	pattern_Dynizer_DeleteActionLabel_0                      = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"api", "v2", "actions", "action_name", "actionlabels", "action_label"}, ""))
+	pattern_Dynizer_ReadActionLabel_0                        = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"api", "v2", "actions", "action_name", "actionlabels", "action_label"}, ""))
+	pattern_Dynizer_CreateObject_0                           = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"api", "v2", "objects"}, ""))
+	pattern_Dynizer_ClearObjectData_0                        = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 1, 0, 4, 1, 5, 4}, []string{"api", "v2", "objects", "object_ref.type", "object_ref.ref_uuid"}, ""))
+	pattern_Dynizer_DeleteObject_0                           = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 1, 0, 4, 1, 5, 4}, []string{"api", "v2", "objects", "object_ref.type", "object_ref.ref_uuid"}, ""))
+	pattern_Dynizer_UploadObjectData_0                       = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 1, 0, 4, 1, 5, 4}, []string{"api", "v2", "objects", "object_ref.type", "object_ref.ref_uuid"}, ""))
+	pattern_Dynizer_DownloadObjectData_0                     = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 1, 0, 4, 1, 5, 4}, []string{"api", "v2", "objects", "object_ref.type", "object_ref.ref_uuid"}, ""))
+	pattern_Dynizer_ListObjectUUIDS_0                        = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"api", "v2", "objects"}, ""))
+	pattern_Dynizer_DeleteAllObjects_0                       = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"api", "v2", "objects"}, ""))
+	pattern_Dynizer_CreateInstance_0                         = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"api", "v2", "instances"}, ""))
+	pattern_Dynizer_UpdateInstance_0                         = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"api", "v2", "instances", "instance_id"}, ""))
+	pattern_Dynizer_DeleteInstance_0                         = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"api", "v2", "instances", "instance_id"}, ""))
+	pattern_Dynizer_ReadInstance_0                           = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"api", "v2", "instances", "instance_id"}, ""))
+	pattern_Dynizer_DynizerQuery_0                           = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"api", "v2", "query"}, ""))
+	pattern_Dynizer_QueryResultNext_0                        = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"api", "v2", "query", "result_handle", "next"}, ""))
+	pattern_Dynizer_QueryResultClose_0                       = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"api", "v2", "query", "result_handle", "close"}, ""))
+	pattern_Dynizer_CheckMetaDataKeyName_0                   = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"api", "v2", "check", "metadata", "keys", "key_name"}, ""))
+	pattern_Dynizer_CreateMetaDataKey_0                      = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v2", "metadata", "keys"}, ""))
+	pattern_Dynizer_ReadMetaDataKey_0                        = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"api", "v2", "metadata", "keys", "key_name"}, ""))
+	pattern_Dynizer_UpdateMetaDataKey_0                      = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"api", "v2", "metadata", "keys", "key_name"}, ""))
+	pattern_Dynizer_DeleteMetaDataKey_0                      = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"api", "v2", "metadata", "keys", "key_name"}, ""))
+	pattern_Dynizer_CountMetaDataKeys_0                      = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4, 2, 5}, []string{"api", "v2", "metadata", "keys", "all", "count"}, ""))
+	pattern_Dynizer_ListMetaDataKeys_0                       = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v2", "metadata", "keys"}, ""))
+	pattern_Dynizer_AddInstanceMetaData_0                    = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"api", "v2", "metadata", "instances", "instance_id"}, ""))
+	pattern_Dynizer_RemoveInstanceMetaData_0                 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5, 1, 0, 4, 1, 5, 6}, []string{"api", "v2", "metadata", "instances", "instance_id", "keys", "key_name"}, ""))
+	pattern_Dynizer_AddInstanceMetaDataValue_0               = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5, 1, 0, 4, 1, 5, 6, 2, 7}, []string{"api", "v2", "metadata", "instances", "instance_id", "keys", "key_name", "values"}, ""))
+	pattern_Dynizer_RemoveInstanceMetaDataValue_0            = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5, 1, 0, 4, 1, 5, 6, 2, 7, 1, 0, 4, 1, 5, 8}, []string{"api", "v2", "metadata", "instances", "instance_id", "keys", "key_name", "values", "value"}, ""))
+	pattern_Dynizer_GetInstanceMetaDataValues_0              = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5, 1, 0, 4, 1, 5, 6}, []string{"api", "v2", "metadata", "instances", "instance_id", "keys", "key_name"}, ""))
+	pattern_Dynizer_CountInstanceMetaDataKeys_0              = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5, 2, 6, 2, 7}, []string{"api", "v2", "metadata", "instances", "instance_id", "keys", "all", "count"}, ""))
+	pattern_Dynizer_CountInstanceMetaDataKeyValues_0         = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5, 1, 0, 4, 1, 5, 6, 2, 7, 2, 8, 2, 9}, []string{"api", "v2", "metadata", "instances", "instance_id", "keys", "key_name", "values", "all", "count"}, ""))
+	pattern_Dynizer_ListInstanceMetaData_0                   = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5}, []string{"api", "v2", "metadata", "instances", "instance_id", "keys"}, ""))
+	pattern_Dynizer_AddInstanceActionLabelMetaData_0         = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5, 1, 0, 4, 1, 5, 6}, []string{"api", "v2", "metadata", "instances", "instance_id", "actionlabels", "action_label"}, ""))
+	pattern_Dynizer_RemoveInstanceActionLabelMetaData_0      = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5, 1, 0, 4, 1, 5, 6, 2, 7, 1, 0, 4, 1, 5, 8}, []string{"api", "v2", "metadata", "instances", "instance_id", "actionlabels", "action_label", "keys", "key_name"}, ""))
+	pattern_Dynizer_AddInstanceActionLabelMetaDataValue_0    = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5, 1, 0, 4, 1, 5, 6, 2, 7, 1, 0, 4, 1, 5, 8, 2, 9}, []string{"api", "v2", "metadata", "instances", "instance_id", "actionlabels", "action_label", "keys", "key_name", "values"}, ""))
 	pattern_Dynizer_RemoveInstanceActionLabelMetaDataValue_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5, 1, 0, 4, 1, 5, 6, 2, 7, 1, 0, 4, 1, 5, 8, 2, 9, 1, 0, 4, 1, 5, 10}, []string{"api", "v2", "metadata", "instances", "instance_id", "actionlabels", "action_label", "keys", "key_name", "values", "value"}, ""))
-
-	pattern_Dynizer_AddInstanceCellMetaData_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5, 1, 0, 4, 1, 5, 6, 2, 7, 1, 0, 4, 1, 5, 8}, []string{"api", "v2", "metadata", "instances", "instance_id", "actionlabels", "action_label", "position", "value_position"}, ""))
-
-	pattern_Dynizer_RemoveInstanceCellMetaData_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5, 1, 0, 4, 1, 5, 6, 2, 7, 1, 0, 4, 1, 5, 8, 2, 9, 1, 0, 4, 1, 5, 10}, []string{"api", "v2", "metadata", "instances", "instance_id", "actionlabels", "action_label", "position", "value_position", "keys", "key_name"}, ""))
-
-	pattern_Dynizer_AddInstanceCellMetaDataValue_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5, 1, 0, 4, 1, 5, 6, 2, 7, 1, 0, 4, 1, 5, 8, 2, 9, 1, 0, 4, 1, 5, 10, 2, 11}, []string{"api", "v2", "metadata", "instances", "instance_id", "actionlabels", "action_label", "position", "value_position", "keys", "key_name", "values"}, ""))
-
-	pattern_Dynizer_RemoveInstanceCellMetaDataValue_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5, 1, 0, 4, 1, 5, 6, 2, 7, 1, 0, 4, 1, 5, 8, 2, 9, 1, 0, 4, 1, 5, 10, 2, 11, 1, 0, 4, 1, 5, 12}, []string{"api", "v2", "metadata", "instances", "instance_id", "actionlabels", "action_label", "position", "value_position", "keys", "key_name", "values", "value"}, ""))
-
-	pattern_Dynizer_GetInstanceCellMetaDataValues_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5, 1, 0, 4, 1, 5, 6, 2, 7, 1, 0, 4, 1, 5, 8, 2, 9, 1, 0, 4, 1, 5, 10}, []string{"api", "v2", "metadata", "instances", "instance_id", "actionlabels", "action_label", "position", "value_position", "keys", "key_name"}, ""))
-
-	pattern_Dynizer_CountInstanceCellMetaDataKeys_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5, 1, 0, 4, 1, 5, 6, 2, 7, 1, 0, 4, 1, 5, 8, 2, 9, 2, 10, 2, 11}, []string{"api", "v2", "metadata", "instances", "instance_id", "actionlabels", "action_label", "position", "value_position", "keys", "all", "count"}, ""))
-
-	pattern_Dynizer_CountInstanceCellMetaDataKeyValues_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5, 1, 0, 4, 1, 5, 6, 2, 7, 1, 0, 4, 1, 5, 8, 2, 9, 1, 0, 4, 1, 5, 10, 2, 11, 2, 12, 2, 13}, []string{"api", "v2", "metadata", "instances", "instance_id", "actionlabels", "action_label", "position", "value_position", "keys", "key_name", "values", "all", "count"}, ""))
-
-	pattern_Dynizer_ListInstanceCellMetaData_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5, 1, 0, 4, 1, 5, 6, 2, 7, 1, 0, 4, 1, 5, 8, 2, 9}, []string{"api", "v2", "metadata", "instances", "instance_id", "actionlabels", "action_label", "position", "value_position", "keys"}, ""))
-
-	pattern_Dynizer_GetDynizerConfiguration_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"api", "v2", "config"}, ""))
-
-	pattern_Dynizer_ExportUserActions_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"api", "v2", "system", "export", "useractions"}, ""))
-
-	pattern_Dynizer_ImportUserActions_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"api", "v2", "system", "import", "useractions"}, ""))
-
-	pattern_Dynizer_DropData_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v2", "system", "data"}, ""))
-
-	pattern_Dynizer_GetDynizerVersion_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v2", "system", "version"}, ""))
-
-	pattern_Dynizer_QueryDataElements_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"api", "v2", "dataelements", "query", "contains"}, ""))
-
-	pattern_Dynizer_GetTopNDataElements_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v2", "dataelements", "top"}, ""))
-
-	pattern_Dynizer_DynizerFilteredQuery_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v2", "query", "filtered"}, ""))
-
-	pattern_Dynizer_ReIndex_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"api", "v2", "maintenance", "index", "index_name"}, ""))
-
-	pattern_Dynizer_DynizerFilteredPlot_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 1, 0, 4, 1, 5, 5}, []string{"api", "v2", "plots", "filtered", "top", "plot_name"}, ""))
-
-	pattern_Dynizer_CreateShareName_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"api", "v2", "sharename"}, ""))
-
-	pattern_Dynizer_UpdateShareNameValue_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"api", "v2", "sharename", "share_name", "value"}, ""))
-
-	pattern_Dynizer_DeleteShareNameValue_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4, 2, 5}, []string{"api", "v2", "sharename", "share_name", "delete", "value"}, ""))
-
-	pattern_Dynizer_SimpleQuery_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v2", "query", "simple"}, ""))
-
-	pattern_Dynizer_QueryParse_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v2", "query", "parse"}, ""))
-
-	pattern_Dynizer_QueryBind_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v2", "query", "bind"}, ""))
-
-	pattern_Dynizer_QueryDescribeStatement_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"api", "v2", "query", "statement", "describe"}, ""))
-
-	pattern_Dynizer_QueryDescribePortal_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"api", "v2", "query", "portal", "describe"}, ""))
-
-	pattern_Dynizer_QueryExecute_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v2", "query", "execute"}, ""))
-
-	pattern_Dynizer_QueryClose_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v2", "query", "close"}, ""))
-
-	pattern_Dynizer_FindActionLabelLinks_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"api", "v2", "find_actionlabel_links"}, ""))
+	pattern_Dynizer_AddInstanceCellMetaData_0                = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5, 1, 0, 4, 1, 5, 6, 2, 7, 1, 0, 4, 1, 5, 8}, []string{"api", "v2", "metadata", "instances", "instance_id", "actionlabels", "action_label", "position", "value_position"}, ""))
+	pattern_Dynizer_RemoveInstanceCellMetaData_0             = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5, 1, 0, 4, 1, 5, 6, 2, 7, 1, 0, 4, 1, 5, 8, 2, 9, 1, 0, 4, 1, 5, 10}, []string{"api", "v2", "metadata", "instances", "instance_id", "actionlabels", "action_label", "position", "value_position", "keys", "key_name"}, ""))
+	pattern_Dynizer_AddInstanceCellMetaDataValue_0           = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5, 1, 0, 4, 1, 5, 6, 2, 7, 1, 0, 4, 1, 5, 8, 2, 9, 1, 0, 4, 1, 5, 10, 2, 11}, []string{"api", "v2", "metadata", "instances", "instance_id", "actionlabels", "action_label", "position", "value_position", "keys", "key_name", "values"}, ""))
+	pattern_Dynizer_RemoveInstanceCellMetaDataValue_0        = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5, 1, 0, 4, 1, 5, 6, 2, 7, 1, 0, 4, 1, 5, 8, 2, 9, 1, 0, 4, 1, 5, 10, 2, 11, 1, 0, 4, 1, 5, 12}, []string{"api", "v2", "metadata", "instances", "instance_id", "actionlabels", "action_label", "position", "value_position", "keys", "key_name", "values", "value"}, ""))
+	pattern_Dynizer_GetInstanceCellMetaDataValues_0          = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5, 1, 0, 4, 1, 5, 6, 2, 7, 1, 0, 4, 1, 5, 8, 2, 9, 1, 0, 4, 1, 5, 10}, []string{"api", "v2", "metadata", "instances", "instance_id", "actionlabels", "action_label", "position", "value_position", "keys", "key_name"}, ""))
+	pattern_Dynizer_CountInstanceCellMetaDataKeys_0          = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5, 1, 0, 4, 1, 5, 6, 2, 7, 1, 0, 4, 1, 5, 8, 2, 9, 2, 10, 2, 11}, []string{"api", "v2", "metadata", "instances", "instance_id", "actionlabels", "action_label", "position", "value_position", "keys", "all", "count"}, ""))
+	pattern_Dynizer_CountInstanceCellMetaDataKeyValues_0     = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5, 1, 0, 4, 1, 5, 6, 2, 7, 1, 0, 4, 1, 5, 8, 2, 9, 1, 0, 4, 1, 5, 10, 2, 11, 2, 12, 2, 13}, []string{"api", "v2", "metadata", "instances", "instance_id", "actionlabels", "action_label", "position", "value_position", "keys", "key_name", "values", "all", "count"}, ""))
+	pattern_Dynizer_ListInstanceCellMetaData_0               = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5, 1, 0, 4, 1, 5, 6, 2, 7, 1, 0, 4, 1, 5, 8, 2, 9}, []string{"api", "v2", "metadata", "instances", "instance_id", "actionlabels", "action_label", "position", "value_position", "keys"}, ""))
+	pattern_Dynizer_GetDynizerConfiguration_0                = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"api", "v2", "config"}, ""))
+	pattern_Dynizer_ExportUserActions_0                      = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"api", "v2", "system", "export", "useractions"}, ""))
+	pattern_Dynizer_ImportUserActions_0                      = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"api", "v2", "system", "import", "useractions"}, ""))
+	pattern_Dynizer_DropData_0                               = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v2", "system", "data"}, ""))
+	pattern_Dynizer_GetDynizerVersion_0                      = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v2", "system", "version"}, ""))
+	pattern_Dynizer_QueryDataElements_0                      = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"api", "v2", "dataelements", "query", "contains"}, ""))
+	pattern_Dynizer_GetTopNDataElements_0                    = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v2", "dataelements", "top"}, ""))
+	pattern_Dynizer_DynizerFilteredQuery_0                   = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v2", "query", "filtered"}, ""))
+	pattern_Dynizer_ReIndex_0                                = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"api", "v2", "maintenance", "index", "index_name"}, ""))
+	pattern_Dynizer_DynizerFilteredPlot_0                    = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 1, 0, 4, 1, 5, 5}, []string{"api", "v2", "plots", "filtered", "top", "plot_name"}, ""))
+	pattern_Dynizer_CreateShareName_0                        = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"api", "v2", "sharename"}, ""))
+	pattern_Dynizer_UpdateShareNameValue_0                   = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"api", "v2", "sharename", "share_name", "value"}, ""))
+	pattern_Dynizer_DeleteShareNameValue_0                   = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4, 2, 5}, []string{"api", "v2", "sharename", "share_name", "delete", "value"}, ""))
+	pattern_Dynizer_SimpleQuery_0                            = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v2", "query", "simple"}, ""))
+	pattern_Dynizer_QueryParse_0                             = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v2", "query", "parse"}, ""))
+	pattern_Dynizer_QueryBind_0                              = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v2", "query", "bind"}, ""))
+	pattern_Dynizer_QueryDescribeStatement_0                 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"api", "v2", "query", "statement", "describe"}, ""))
+	pattern_Dynizer_QueryDescribePortal_0                    = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"api", "v2", "query", "portal", "describe"}, ""))
+	pattern_Dynizer_QueryExecute_0                           = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v2", "query", "execute"}, ""))
+	pattern_Dynizer_QueryClose_0                             = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v2", "query", "close"}, ""))
+	pattern_Dynizer_FindActionLabelLinks_0                   = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"api", "v2", "find_actionlabel_links"}, ""))
 )
 
 var (
-	forward_Dynizer_Login_0 = runtime.ForwardResponseMessage
-
-	forward_Dynizer_ServiceLogin_0 = runtime.ForwardResponseMessage
-
-	forward_Dynizer_Logout_0 = runtime.ForwardResponseMessage
-
-	forward_Dynizer_ValidateToken_0 = runtime.ForwardResponseMessage
-
-	forward_Dynizer_IssueServiceToken_0 = runtime.ForwardResponseMessage
-
-	forward_Dynizer_ListRoles_0 = runtime.ForwardResponseMessage
-
-	forward_Dynizer_AddUser_0 = runtime.ForwardResponseMessage
-
-	forward_Dynizer_AssignUserRole_0 = runtime.ForwardResponseMessage
-
-	forward_Dynizer_RevokeUserRole_0 = runtime.ForwardResponseMessage
-
-	forward_Dynizer_EnableUser_0 = runtime.ForwardResponseMessage
-
-	forward_Dynizer_DisableUser_0 = runtime.ForwardResponseMessage
-
-	forward_Dynizer_SetUserPassword_0 = runtime.ForwardResponseMessage
-
-	forward_Dynizer_ChangeMyPassword_0 = runtime.ForwardResponseMessage
-
-	forward_Dynizer_GetUser_0 = runtime.ForwardResponseMessage
-
-	forward_Dynizer_GetMyProfile_0 = runtime.ForwardResponseMessage
-
-	forward_Dynizer_DeleteUser_0 = runtime.ForwardResponseMessage
-
-	forward_Dynizer_GetUserCount_0 = runtime.ForwardResponseMessage
-
-	forward_Dynizer_ListUsers_0 = runtime.ForwardResponseMessage
-
-	forward_Dynizer_ListUserRoles_0 = runtime.ForwardResponseMessage
-
-	forward_Dynizer_GetMyRoles_0 = runtime.ForwardResponseMessage
-
-	forward_Dynizer_CheckUserName_0 = runtime.ForwardResponseMessage
-
-	forward_Dynizer_CheckPassword_0 = runtime.ForwardResponseMessage
-
-	forward_Dynizer_CreateActionType_0 = runtime.ForwardResponseMessage
-
-	forward_Dynizer_UpdateActionType_0 = runtime.ForwardResponseMessage
-
-	forward_Dynizer_ReadActionType_0 = runtime.ForwardResponseMessage
-
-	forward_Dynizer_ListActionTypes_0 = runtime.ForwardResponseMessage
-
-	forward_Dynizer_CheckActionName_0 = runtime.ForwardResponseMessage
-
-	forward_Dynizer_CreateAction_0 = runtime.ForwardResponseMessage
-
-	forward_Dynizer_UpdateAction_0 = runtime.ForwardResponseMessage
-
-	forward_Dynizer_DeleteAction_0 = runtime.ForwardResponseMessage
-
-	forward_Dynizer_ReadAction_0 = runtime.ForwardResponseMessage
-
-	forward_Dynizer_CountActions_0 = runtime.ForwardResponseMessage
-
-	forward_Dynizer_ListActionNames_0 = runtime.ForwardResponseMessage
-
-	forward_Dynizer_CheckActionLabelName_0 = runtime.ForwardResponseMessage
-
-	forward_Dynizer_AddActionLabel_0 = runtime.ForwardResponseMessage
-
-	forward_Dynizer_UpdateActionLabel_0 = runtime.ForwardResponseMessage
-
-	forward_Dynizer_DeleteActionLabel_0 = runtime.ForwardResponseMessage
-
-	forward_Dynizer_ReadActionLabel_0 = runtime.ForwardResponseMessage
-
-	forward_Dynizer_CreateObject_0 = runtime.ForwardResponseMessage
-
-	forward_Dynizer_ClearObjectData_0 = runtime.ForwardResponseMessage
-
-	forward_Dynizer_DeleteObject_0 = runtime.ForwardResponseMessage
-
-	forward_Dynizer_UploadObjectData_0 = runtime.ForwardResponseMessage
-
-	forward_Dynizer_DownloadObjectData_0 = runtime.ForwardResponseMessage
-
-	forward_Dynizer_ListObjectUUIDS_0 = runtime.ForwardResponseMessage
-
-	forward_Dynizer_DeleteAllObjects_0 = runtime.ForwardResponseMessage
-
-	forward_Dynizer_CreateInstance_0 = runtime.ForwardResponseMessage
-
-	forward_Dynizer_UpdateInstance_0 = runtime.ForwardResponseMessage
-
-	forward_Dynizer_DeleteInstance_0 = runtime.ForwardResponseMessage
-
-	forward_Dynizer_ReadInstance_0 = runtime.ForwardResponseMessage
-
-	forward_Dynizer_DynizerQuery_0 = runtime.ForwardResponseMessage
-
-	forward_Dynizer_QueryResultNext_0 = runtime.ForwardResponseMessage
-
-	forward_Dynizer_QueryResultClose_0 = runtime.ForwardResponseMessage
-
-	forward_Dynizer_CheckMetaDataKeyName_0 = runtime.ForwardResponseMessage
-
-	forward_Dynizer_CreateMetaDataKey_0 = runtime.ForwardResponseMessage
-
-	forward_Dynizer_ReadMetaDataKey_0 = runtime.ForwardResponseMessage
-
-	forward_Dynizer_UpdateMetaDataKey_0 = runtime.ForwardResponseMessage
-
-	forward_Dynizer_DeleteMetaDataKey_0 = runtime.ForwardResponseMessage
-
-	forward_Dynizer_CountMetaDataKeys_0 = runtime.ForwardResponseMessage
-
-	forward_Dynizer_ListMetaDataKeys_0 = runtime.ForwardResponseMessage
-
-	forward_Dynizer_AddInstanceMetaData_0 = runtime.ForwardResponseMessage
-
-	forward_Dynizer_RemoveInstanceMetaData_0 = runtime.ForwardResponseMessage
-
-	forward_Dynizer_AddInstanceMetaDataValue_0 = runtime.ForwardResponseMessage
-
-	forward_Dynizer_RemoveInstanceMetaDataValue_0 = runtime.ForwardResponseMessage
-
-	forward_Dynizer_GetInstanceMetaDataValues_0 = runtime.ForwardResponseMessage
-
-	forward_Dynizer_CountInstanceMetaDataKeys_0 = runtime.ForwardResponseMessage
-
-	forward_Dynizer_CountInstanceMetaDataKeyValues_0 = runtime.ForwardResponseMessage
-
-	forward_Dynizer_ListInstanceMetaData_0 = runtime.ForwardResponseMessage
-
-	forward_Dynizer_AddInstanceActionLabelMetaData_0 = runtime.ForwardResponseMessage
-
-	forward_Dynizer_RemoveInstanceActionLabelMetaData_0 = runtime.ForwardResponseMessage
-
-	forward_Dynizer_AddInstanceActionLabelMetaDataValue_0 = runtime.ForwardResponseMessage
-
+	forward_Dynizer_Login_0                                  = runtime.ForwardResponseMessage
+	forward_Dynizer_ServiceLogin_0                           = runtime.ForwardResponseMessage
+	forward_Dynizer_Logout_0                                 = runtime.ForwardResponseMessage
+	forward_Dynizer_ValidateToken_0                          = runtime.ForwardResponseMessage
+	forward_Dynizer_IssueServiceToken_0                      = runtime.ForwardResponseMessage
+	forward_Dynizer_ListRoles_0                              = runtime.ForwardResponseMessage
+	forward_Dynizer_AddUser_0                                = runtime.ForwardResponseMessage
+	forward_Dynizer_AssignUserRole_0                         = runtime.ForwardResponseMessage
+	forward_Dynizer_RevokeUserRole_0                         = runtime.ForwardResponseMessage
+	forward_Dynizer_EnableUser_0                             = runtime.ForwardResponseMessage
+	forward_Dynizer_DisableUser_0                            = runtime.ForwardResponseMessage
+	forward_Dynizer_SetUserPassword_0                        = runtime.ForwardResponseMessage
+	forward_Dynizer_ChangeMyPassword_0                       = runtime.ForwardResponseMessage
+	forward_Dynizer_GetUser_0                                = runtime.ForwardResponseMessage
+	forward_Dynizer_GetMyProfile_0                           = runtime.ForwardResponseMessage
+	forward_Dynizer_DeleteUser_0                             = runtime.ForwardResponseMessage
+	forward_Dynizer_GetUserCount_0                           = runtime.ForwardResponseMessage
+	forward_Dynizer_ListUsers_0                              = runtime.ForwardResponseMessage
+	forward_Dynizer_ListUserRoles_0                          = runtime.ForwardResponseMessage
+	forward_Dynizer_GetMyRoles_0                             = runtime.ForwardResponseMessage
+	forward_Dynizer_CheckUserName_0                          = runtime.ForwardResponseMessage
+	forward_Dynizer_CheckPassword_0                          = runtime.ForwardResponseMessage
+	forward_Dynizer_CreateActionType_0                       = runtime.ForwardResponseMessage
+	forward_Dynizer_UpdateActionType_0                       = runtime.ForwardResponseMessage
+	forward_Dynizer_ReadActionType_0                         = runtime.ForwardResponseMessage
+	forward_Dynizer_ListActionTypes_0                        = runtime.ForwardResponseMessage
+	forward_Dynizer_CreateActionSchema_0                     = runtime.ForwardResponseMessage
+	forward_Dynizer_UpdateActionSchema_0                     = runtime.ForwardResponseMessage
+	forward_Dynizer_DeleteActionSchema_0                     = runtime.ForwardResponseMessage
+	forward_Dynizer_ReadActionSchema_0                       = runtime.ForwardResponseMessage
+	forward_Dynizer_ListActionSchemas_0                      = runtime.ForwardResponseMessage
+	forward_Dynizer_CheckActionName_0                        = runtime.ForwardResponseMessage
+	forward_Dynizer_CreateAction_0                           = runtime.ForwardResponseMessage
+	forward_Dynizer_UpdateAction_0                           = runtime.ForwardResponseMessage
+	forward_Dynizer_DeleteAction_0                           = runtime.ForwardResponseMessage
+	forward_Dynizer_ReadAction_0                             = runtime.ForwardResponseMessage
+	forward_Dynizer_CountActions_0                           = runtime.ForwardResponseMessage
+	forward_Dynizer_ListActionNames_0                        = runtime.ForwardResponseMessage
+	forward_Dynizer_CheckActionLabelName_0                   = runtime.ForwardResponseMessage
+	forward_Dynizer_AddActionLabel_0                         = runtime.ForwardResponseMessage
+	forward_Dynizer_UpdateActionLabel_0                      = runtime.ForwardResponseMessage
+	forward_Dynizer_DeleteActionLabel_0                      = runtime.ForwardResponseMessage
+	forward_Dynizer_ReadActionLabel_0                        = runtime.ForwardResponseMessage
+	forward_Dynizer_CreateObject_0                           = runtime.ForwardResponseMessage
+	forward_Dynizer_ClearObjectData_0                        = runtime.ForwardResponseMessage
+	forward_Dynizer_DeleteObject_0                           = runtime.ForwardResponseMessage
+	forward_Dynizer_UploadObjectData_0                       = runtime.ForwardResponseMessage
+	forward_Dynizer_DownloadObjectData_0                     = runtime.ForwardResponseMessage
+	forward_Dynizer_ListObjectUUIDS_0                        = runtime.ForwardResponseMessage
+	forward_Dynizer_DeleteAllObjects_0                       = runtime.ForwardResponseMessage
+	forward_Dynizer_CreateInstance_0                         = runtime.ForwardResponseMessage
+	forward_Dynizer_UpdateInstance_0                         = runtime.ForwardResponseMessage
+	forward_Dynizer_DeleteInstance_0                         = runtime.ForwardResponseMessage
+	forward_Dynizer_ReadInstance_0                           = runtime.ForwardResponseMessage
+	forward_Dynizer_DynizerQuery_0                           = runtime.ForwardResponseMessage
+	forward_Dynizer_QueryResultNext_0                        = runtime.ForwardResponseMessage
+	forward_Dynizer_QueryResultClose_0                       = runtime.ForwardResponseMessage
+	forward_Dynizer_CheckMetaDataKeyName_0                   = runtime.ForwardResponseMessage
+	forward_Dynizer_CreateMetaDataKey_0                      = runtime.ForwardResponseMessage
+	forward_Dynizer_ReadMetaDataKey_0                        = runtime.ForwardResponseMessage
+	forward_Dynizer_UpdateMetaDataKey_0                      = runtime.ForwardResponseMessage
+	forward_Dynizer_DeleteMetaDataKey_0                      = runtime.ForwardResponseMessage
+	forward_Dynizer_CountMetaDataKeys_0                      = runtime.ForwardResponseMessage
+	forward_Dynizer_ListMetaDataKeys_0                       = runtime.ForwardResponseMessage
+	forward_Dynizer_AddInstanceMetaData_0                    = runtime.ForwardResponseMessage
+	forward_Dynizer_RemoveInstanceMetaData_0                 = runtime.ForwardResponseMessage
+	forward_Dynizer_AddInstanceMetaDataValue_0               = runtime.ForwardResponseMessage
+	forward_Dynizer_RemoveInstanceMetaDataValue_0            = runtime.ForwardResponseMessage
+	forward_Dynizer_GetInstanceMetaDataValues_0              = runtime.ForwardResponseMessage
+	forward_Dynizer_CountInstanceMetaDataKeys_0              = runtime.ForwardResponseMessage
+	forward_Dynizer_CountInstanceMetaDataKeyValues_0         = runtime.ForwardResponseMessage
+	forward_Dynizer_ListInstanceMetaData_0                   = runtime.ForwardResponseMessage
+	forward_Dynizer_AddInstanceActionLabelMetaData_0         = runtime.ForwardResponseMessage
+	forward_Dynizer_RemoveInstanceActionLabelMetaData_0      = runtime.ForwardResponseMessage
+	forward_Dynizer_AddInstanceActionLabelMetaDataValue_0    = runtime.ForwardResponseMessage
 	forward_Dynizer_RemoveInstanceActionLabelMetaDataValue_0 = runtime.ForwardResponseMessage
-
-	forward_Dynizer_AddInstanceCellMetaData_0 = runtime.ForwardResponseMessage
-
-	forward_Dynizer_RemoveInstanceCellMetaData_0 = runtime.ForwardResponseMessage
-
-	forward_Dynizer_AddInstanceCellMetaDataValue_0 = runtime.ForwardResponseMessage
-
-	forward_Dynizer_RemoveInstanceCellMetaDataValue_0 = runtime.ForwardResponseMessage
-
-	forward_Dynizer_GetInstanceCellMetaDataValues_0 = runtime.ForwardResponseMessage
-
-	forward_Dynizer_CountInstanceCellMetaDataKeys_0 = runtime.ForwardResponseMessage
-
-	forward_Dynizer_CountInstanceCellMetaDataKeyValues_0 = runtime.ForwardResponseMessage
-
-	forward_Dynizer_ListInstanceCellMetaData_0 = runtime.ForwardResponseMessage
-
-	forward_Dynizer_GetDynizerConfiguration_0 = runtime.ForwardResponseMessage
-
-	forward_Dynizer_ExportUserActions_0 = runtime.ForwardResponseMessage
-
-	forward_Dynizer_ImportUserActions_0 = runtime.ForwardResponseMessage
-
-	forward_Dynizer_DropData_0 = runtime.ForwardResponseMessage
-
-	forward_Dynizer_GetDynizerVersion_0 = runtime.ForwardResponseMessage
-
-	forward_Dynizer_QueryDataElements_0 = runtime.ForwardResponseMessage
-
-	forward_Dynizer_GetTopNDataElements_0 = runtime.ForwardResponseMessage
-
-	forward_Dynizer_DynizerFilteredQuery_0 = runtime.ForwardResponseMessage
-
-	forward_Dynizer_ReIndex_0 = runtime.ForwardResponseMessage
-
-	forward_Dynizer_DynizerFilteredPlot_0 = runtime.ForwardResponseMessage
-
-	forward_Dynizer_CreateShareName_0 = runtime.ForwardResponseMessage
-
-	forward_Dynizer_UpdateShareNameValue_0 = runtime.ForwardResponseMessage
-
-	forward_Dynizer_DeleteShareNameValue_0 = runtime.ForwardResponseMessage
-
-	forward_Dynizer_SimpleQuery_0 = runtime.ForwardResponseMessage
-
-	forward_Dynizer_QueryParse_0 = runtime.ForwardResponseMessage
-
-	forward_Dynizer_QueryBind_0 = runtime.ForwardResponseMessage
-
-	forward_Dynizer_QueryDescribeStatement_0 = runtime.ForwardResponseMessage
-
-	forward_Dynizer_QueryDescribePortal_0 = runtime.ForwardResponseMessage
-
-	forward_Dynizer_QueryExecute_0 = runtime.ForwardResponseMessage
-
-	forward_Dynizer_QueryClose_0 = runtime.ForwardResponseMessage
-
-	forward_Dynizer_FindActionLabelLinks_0 = runtime.ForwardResponseMessage
+	forward_Dynizer_AddInstanceCellMetaData_0                = runtime.ForwardResponseMessage
+	forward_Dynizer_RemoveInstanceCellMetaData_0             = runtime.ForwardResponseMessage
+	forward_Dynizer_AddInstanceCellMetaDataValue_0           = runtime.ForwardResponseMessage
+	forward_Dynizer_RemoveInstanceCellMetaDataValue_0        = runtime.ForwardResponseMessage
+	forward_Dynizer_GetInstanceCellMetaDataValues_0          = runtime.ForwardResponseMessage
+	forward_Dynizer_CountInstanceCellMetaDataKeys_0          = runtime.ForwardResponseMessage
+	forward_Dynizer_CountInstanceCellMetaDataKeyValues_0     = runtime.ForwardResponseMessage
+	forward_Dynizer_ListInstanceCellMetaData_0               = runtime.ForwardResponseMessage
+	forward_Dynizer_GetDynizerConfiguration_0                = runtime.ForwardResponseMessage
+	forward_Dynizer_ExportUserActions_0                      = runtime.ForwardResponseMessage
+	forward_Dynizer_ImportUserActions_0                      = runtime.ForwardResponseMessage
+	forward_Dynizer_DropData_0                               = runtime.ForwardResponseMessage
+	forward_Dynizer_GetDynizerVersion_0                      = runtime.ForwardResponseMessage
+	forward_Dynizer_QueryDataElements_0                      = runtime.ForwardResponseMessage
+	forward_Dynizer_GetTopNDataElements_0                    = runtime.ForwardResponseMessage
+	forward_Dynizer_DynizerFilteredQuery_0                   = runtime.ForwardResponseMessage
+	forward_Dynizer_ReIndex_0                                = runtime.ForwardResponseMessage
+	forward_Dynizer_DynizerFilteredPlot_0                    = runtime.ForwardResponseMessage
+	forward_Dynizer_CreateShareName_0                        = runtime.ForwardResponseMessage
+	forward_Dynizer_UpdateShareNameValue_0                   = runtime.ForwardResponseMessage
+	forward_Dynizer_DeleteShareNameValue_0                   = runtime.ForwardResponseMessage
+	forward_Dynizer_SimpleQuery_0                            = runtime.ForwardResponseMessage
+	forward_Dynizer_QueryParse_0                             = runtime.ForwardResponseMessage
+	forward_Dynizer_QueryBind_0                              = runtime.ForwardResponseMessage
+	forward_Dynizer_QueryDescribeStatement_0                 = runtime.ForwardResponseMessage
+	forward_Dynizer_QueryDescribePortal_0                    = runtime.ForwardResponseMessage
+	forward_Dynizer_QueryExecute_0                           = runtime.ForwardResponseMessage
+	forward_Dynizer_QueryClose_0                             = runtime.ForwardResponseMessage
+	forward_Dynizer_FindActionLabelLinks_0                   = runtime.ForwardResponseMessage
 )

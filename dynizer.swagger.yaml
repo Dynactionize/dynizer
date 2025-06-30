@@ -2,7 +2,7 @@ swagger: "2.0"
 info:
   title: Dynizer API
   description: This is the [Dynizer API](https://www.consono.ai/technology)
-  version: "2.1"
+  version: "2.2"
   contact:
     name: Consono
     url: https://www.consono.ai
@@ -26,7 +26,7 @@ paths:
   /api/v2/actions:
     post:
       summary: Create Action
-      description: Creates an **Action** with the provided name.<br>The name needs to be unqiue, the CheckActionName call can be used to verify this.<br>The name can not start or end with a whitespace character.<br>The name can not contain any control characters at any position.
+      description: Creates an **Action** with the provided name.<br>The name needs to be unique, the CheckActionName call can be used to verify this.<br>The name can not start or end with a whitespace character.<br>The name can not contain any control characters at any position.
       operationId: CreateAction
       responses:
         "200":
@@ -128,7 +128,7 @@ paths:
         - Actions
     patch:
       summary: Update Action
-      description: Updates an **Action**, at the moment this is only the name.<br>The new_name needs to be unqiue.<br>The *new_name* can not start or end with a whitespace character.<br>The *new_name* can not contain any control characters at any position
+      description: Updates an **Action**, at the moment this is only the name.<br>The new_name needs to be unique.<br>The *new_name* can not start or end with a whitespace character.<br>The *new_name* can not contain any control characters at any position
       operationId: UpdateAction
       responses:
         "200":
@@ -472,9 +472,189 @@ paths:
           default: Asc
       tags:
         - Actions
+  /api/v2/actionschemas:
+    get:
+      summary: List ActionSchemas
+      description: Returns a list of **ActionSchemas**.<br>By default all rows are returned. Optionally a window can be provided to fetch just a specific sub-set of rows to support pagination.
+      operationId: ListActionSchemas
+      responses:
+        "200":
+          description: A successful response.
+          schema:
+            $ref: '#/definitions/ActionSchemaArrayRes'
+        "401":
+          description: Unauthorized call
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        "500":
+          description: Unexpected internal error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        default:
+          description: An unexpected error response.
+          schema:
+            $ref: '#/definitions/rpcStatus'
+      parameters:
+        - name: window.limit
+          description: Defines how many records at max are returned.<br>If fewer records are available, all will be returned.<br>Setting this to -1 will be interpreted as no limit
+          in: query
+          required: true
+          type: integer
+          format: int64
+        - name: window.offset
+          description: Defines the offset at which to start reading.<br>An offset of 0 will bean to start from the first possible record.
+          in: query
+          required: true
+          type: integer
+          format: int64
+        - name: window.relative
+          description: The Dynizer keeps track of the last read position, this flag indicates wether the offset is relative to the current read position or absolute.
+          in: query
+          required: false
+          type: boolean
+      tags:
+        - ActionSchemas
+    post:
+      summary: Create ActionSchema
+      description: Creates a new **ActionSchema**.
+      operationId: CreateActionSchema
+      responses:
+        "200":
+          description: A successful response.
+          schema:
+            $ref: '#/definitions/EmptyRes'
+        "401":
+          description: Unauthorized call
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        "500":
+          description: Unexpected internal error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        default:
+          description: An unexpected error response.
+          schema:
+            $ref: '#/definitions/rpcStatus'
+      parameters:
+        - name: body
+          description: This is used to create an **ActionSchema**.<br>The *if_not_exists* flag allows if set not to raise an error if the **ActionSchema** already exists.
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/CreateActionSchemaReq'
+      tags:
+        - ActionSchemas
+  /api/v2/actionschemas/{action_schema_name}:
+    get:
+      summary: Read ActionSchema
+      description: Reads an **ActionSchema** definition.
+      operationId: ReadActionSchema
+      responses:
+        "200":
+          description: A successful response.
+          schema:
+            $ref: '#/definitions/ActionSchemaRes'
+        "401":
+          description: Unauthorized call
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        "500":
+          description: Unexpected internal error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        default:
+          description: An unexpected error response.
+          schema:
+            $ref: '#/definitions/rpcStatus'
+      parameters:
+        - name: action_schema_name
+          description: The name of the **ActionSchema**.
+          in: path
+          required: true
+          type: string
+      tags:
+        - ActionSchemas
+    delete:
+      summary: Delete ActionSchema
+      description: A **ActionSchema** can only be deleted if no **Actions** are defined.<br>If the **ActionSchema** has **Actions** and *cascade* is not set to *true* and Error will be returned.<br>The *cascade* flag can be used to mark the **Actions** and all its **Instances** as deleted.
+      operationId: DeleteActionSchema
+      responses:
+        "200":
+          description: A successful response.
+          schema:
+            $ref: '#/definitions/EmptyRes'
+        "401":
+          description: Unauthorized call
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        "500":
+          description: Unexpected internal error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        default:
+          description: An unexpected error response.
+          schema:
+            $ref: '#/definitions/rpcStatus'
+      parameters:
+        - name: action_schema_name
+          description: The current name of the **ActionSchema** to be deleted.
+          in: path
+          required: true
+          type: string
+        - name: cascade
+          description: This flag allows to mark all associated **Actions** and **Instances** as deleted.<br>If cascade == <span style="color:blue">false</span> an error is raised if this **ActionSchema** has **Actions** and **Instances**.<br>**ActionSchema** with no **Actions** can be deleted no matter what value cascade has.
+          in: query
+          required: false
+          type: boolean
+      tags:
+        - ActionSchemas
+    patch:
+      summary: Update ActionSchema
+      description: Updates a **ActionSchema**, at the moment this is only the name.<br>The new_name needs to be unique.<br>The *new_name* can not start or end with a whitespace character.<br>The *new_name* can not contain any control characters at any position
+      operationId: UpdateActionSchema
+      responses:
+        "200":
+          description: A successful response.
+          schema:
+            $ref: '#/definitions/EmptyRes'
+        "401":
+          description: Unauthorized call
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        "500":
+          description: Unexpected internal error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        default:
+          description: An unexpected error response.
+          schema:
+            $ref: '#/definitions/rpcStatus'
+      parameters:
+        - name: action_schema_name
+          description: The current name of the **ActionSchema** to be renamed.
+          in: path
+          required: true
+          type: string
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              new_action_schema_name:
+                type: string
+                description: The new name of the **ActionSchema**.<br>The name needs to be unique.
+            description: Use to rename an **ActionSchema**.
+            title: UpdateActionSchemaRequest
+            required:
+              - new_action_schema_name
+      tags:
+        - ActionSchemas
   /api/v2/actiontypes:
     get:
-      summary: List Action Types
+      summary: |-
+        List Action Types
+        Deprecated: Use `ListActionSchemas` instead.
       description: Returns a list of **ActionTypes**.<br>By default all rows are returned. Optionally a window can be provided to fetch just a specific sub-set of rows to support pagination.
       operationId: ListActionTypes
       responses:
@@ -515,7 +695,9 @@ paths:
       tags:
         - ActionTypes
     post:
-      summary: Create ActionType
+      summary: |-
+        Create ActionType
+        Deprecated: Use `CreateActionSchema` instead.
       description: Creates a new **ActionType**.
       operationId: CreateActionType
       responses:
@@ -546,7 +728,9 @@ paths:
         - ActionTypes
   /api/v2/actiontypes/{action_type_label}:
     get:
-      summary: Read ActionType
+      summary: |-
+        Read ActionType
+        Deprecated: Use `ReadActionSchema` instead.
       description: Reads an **ActionType** definition with all **ActionLabels**.
       operationId: ReadActionType
       responses:
@@ -575,8 +759,10 @@ paths:
       tags:
         - ActionTypes
     patch:
-      summary: Update ActionType
-      description: Updates a **ActionType**, at the moment this is only the name.<br>The new_name needs to be unqiue.<br>The *new_name* can not start or end with a whitespace character.<br>The *new_name* can not contain any control characters at any position
+      summary: |-
+        Update ActionType
+        Deprecated: Use `UpdateActionSchema` instead.
+      description: Updates a **ActionType**, at the moment this is only the name.<br>The new_name needs to be unique.<br>The *new_name* can not start or end with a whitespace character.<br>The *new_name* can not contain any control characters at any position
       operationId: UpdateActionType
       responses:
         "200":
@@ -1139,6 +1325,14 @@ paths:
           in: path
           required: true
           type: string
+        - name: args
+          description: Optional list of arguments for index build
+          in: query
+          required: false
+          type: array
+          items:
+            type: string
+          collectionFormat: multi
       tags:
         - Maintenance
   /api/v2/metadata/instances/{instance_id}:
@@ -3980,6 +4174,282 @@ paths:
             $ref: '#/definitions/rpcStatus'
       tags:
         - Users
+  /api/v2/objects/download/{type}/{uuid}:
+    get:
+      summary: Download an object
+      description: Downloads an object of provided type and UUID. Returns the raw bytes of the object.
+      operationId: DownloadObject
+      responses:
+        "200":
+          description: A successful response.
+          schema:
+            type: string
+            format: binary
+        "400":
+          description: Invalid Argument
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        "401":
+          description: Unauthorized call
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        "500":
+          description: Unexpected internal error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        default:
+          description: An unexpected error response.
+          schema:
+            $ref: '#/definitions/rpcStatus'
+      parameters:
+        - name: type
+          description: The type of the object.
+          in: path
+          required: true
+          type: string
+        - name: uuid
+          description: The UUID of the object.
+          in: path
+          required: true
+          type: string
+      tags:
+        - Objects
+  /api/v2/objects/upload/{type}/{uuid}:
+    post:
+      summary: Upload an object
+      description: Uploads an object of provided type and UUID. Accepts the raw bytes of the object.
+      operationId: UploadObject
+      responses:
+        "200":
+          description: A successful response.
+          schema: {}
+        "400":
+          description: Invalid Argument
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        "401":
+          description: Unauthorized call
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        "500":
+          description: Unexpected internal error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        default:
+          description: An unexpected error response.
+          schema:
+            $ref: '#/definitions/rpcStatus'
+      parameters:
+        - name: type
+          description: The type of the object.
+          in: path
+          required: true
+          type: string
+        - name: uuid
+          description: The UUID of the object.
+          in: path
+          required: true
+          type: string
+        - in: body
+          name: raw_bytes
+          required: true
+          schema:
+            type: string
+            format: binary
+      tags:
+        - Objects
+  /api/v2/docs:
+    get:
+      summary: Download the docs
+      description: Downloads the docs of Dynizer in HTML format.
+      operationId: DownloadDocs
+      responses:
+        "200":
+          description: A successful response.
+          schema:
+            type: string
+            format: binary
+        "401":
+          description: Unauthorized call
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        "404":
+          description: Not found
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        "500":
+          description: Unexpected internal error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        default:
+          description: An unexpected error response.
+          schema:
+            $ref: '#/definitions/rpcStatus'
+      tags:
+        - Documentation
+  /api/v2/docs/{file}:
+    get:
+      summary: Download the docs
+      description: Downloads the docs of Dynizer in HTML format (index.html).
+      operationId: DownloadDocsFile
+      responses:
+        "200":
+          description: A successful response.
+          schema:
+            type: string
+            format: binary
+        "401":
+          description: Unauthorized call
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        "404":
+          description: Not found
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        "500":
+          description: Unexpected internal error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        default:
+          description: An unexpected error response.
+          schema:
+            $ref: '#/definitions/rpcStatus'
+      parameters:
+        - name: file
+          description: The documentation filename.
+          in: path
+          required: true
+          type: string
+      tags:
+        - Documentation
+  /api/v2/spec:
+    get:
+      summary: Download the spec
+      description: Downloads the spec of Dynizer in format defined by the Accept header (default = application/yaml, others = application/json).
+      operationId: DownloadSpec
+      responses:
+        "200":
+          description: A successful response.
+          schema:
+            type: string
+            format: binary
+        "401":
+          description: Unauthorized call
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        "404":
+          description: Not found
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        "500":
+          description: Unexpected internal error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        default:
+          description: An unexpected error response.
+          schema:
+            $ref: '#/definitions/rpcStatus'
+      tags:
+        - Documentation
+  /api/v2/spec/{file}:
+    get:
+      summary: Download the spec
+      description: Downloads the spec of Dynizer in the format defined by the Accept header and filename (application/yaml = dynizer.swagger.yaml, application/json = dynizer.swagger.json).
+      operationId: DownloadSpecFile
+      responses:
+        "200":
+          description: A successful response.
+          schema:
+            type: string
+            format: binary
+        "401":
+          description: Unauthorized call
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        "404":
+          description: Not found
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        "500":
+          description: Unexpected internal error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        default:
+          description: An unexpected error response.
+          schema:
+            $ref: '#/definitions/rpcStatus'
+      parameters:
+        - name: file
+          description: The spec filename.
+          in: path
+          required: true
+          type: string
+      tags:
+        - Documentation
+  /api/v2/proto:
+    get:
+      summary: Download the proto definition
+      description: Downloads the proto definition of Dynizer.
+      operationId: DownloadProto
+      responses:
+        "200":
+          description: A successful response.
+          schema:
+            type: string
+            format: binary
+        "401":
+          description: Unauthorized call
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        "404":
+          description: Not found
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        "500":
+          description: Unexpected internal error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        default:
+          description: An unexpected error response.
+          schema:
+            $ref: '#/definitions/rpcStatus'
+      tags:
+        - Documentation
+  /api/v2/proto/{file}:
+    get:
+      summary: Download the proto definition
+      description: Downloads the proto definition of Dynizer (dynizer.proto).
+      operationId: DownloadProtoFile
+      responses:
+        "200":
+          description: A successful response.
+          schema:
+            type: string
+            format: binary
+        "401":
+          description: Unauthorized call
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        "404":
+          description: Not found
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        "500":
+          description: Unexpected internal error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        default:
+          description: An unexpected error response.
+          schema:
+            $ref: '#/definitions/rpcStatus'
+      parameters:
+        - name: file
+          description: The proto filename.
+          in: path
+          required: true
+          type: string
+      tags:
+        - Documentation
 definitions:
   Action:
     type: object
@@ -4107,6 +4577,33 @@ definitions:
     title: ActionResponse
     required:
       - action
+  ActionSchemaArrayRes:
+    type: object
+    properties:
+      total_action_schemas:
+        type: integer
+        format: int64
+        description: Total number of **ActionSchemas** in the system.
+      action_schema_names:
+        type: array
+        items:
+          type: string
+        description: Array of **ActionSchemaNames** within the requested window.
+    description: Response that holds **ActionSchemas**
+    title: ActionSchemaArrayRes
+    required:
+      - action_schema_names
+      - total_action_schemas
+  ActionSchemaRes:
+    type: object
+    properties:
+      action_schema_name:
+        type: string
+        description: The **ActionSchemaName**
+    description: Response which holds an **ActionSchema**.
+    title: ActionSchemaResponse
+    required:
+      - action_schema_name
   ActionTypeArrayRes:
     type: object
     properties:
@@ -4120,7 +4617,6 @@ definitions:
           type: string
         description: Array of **ActionTypeLabels** within the requested window.
     description: Response that holds **ActionTypes**
-    title: ActionTypeArrayRes
     required:
       - action_type_labels
       - total_action_types
@@ -4129,6 +4625,9 @@ definitions:
     properties:
       label:
         type: string
+    description: |-
+      ActionTypeLabel
+      Deprecated: Use `string` instead.
   ActionTypeRes:
     type: object
     properties:
@@ -4140,7 +4639,6 @@ definitions:
         type: string
         description: This holds an **ActionTypeLabel**
     description: Response which holds an **ActionType**.
-    title: ActionTypeResponse
     required:
       - action_type_label
   AddUserReq:
@@ -4289,6 +4787,19 @@ definitions:
     title: CreateActionRequest
     required:
       - action_name
+  CreateActionSchemaReq:
+    type: object
+    properties:
+      action_schema_name:
+        type: string
+        description: The unique name for the **ActionSchema**.
+      if_not_exists:
+        type: boolean
+        description: if set to true -> NO ERROR is returned if a **ActionSchema** by the provided name already exists in the system.
+    description: This is used to create an **ActionSchema**.<br>The *if_not_exists* flag allows if set not to raise an error if the **ActionSchema** already exists.
+    title: CreateActionSchemaRequest
+    required:
+      - action_schema_name
   CreateActionTypeReq:
     type: object
     properties:
@@ -4299,7 +4810,6 @@ definitions:
         type: boolean
         description: if set to true -> NO ERROR is returned if a **ActionType** by the provided name already exists in the system.
     description: This is used to create an **ActionType**.<br>The *if_not_exists* flag allows if set not to raise an error if the **ActionType** already exists.
-    title: CreateActionTypeRequest
     required:
       - action_type_label
   CreateInstanceReq:
@@ -5516,7 +6026,7 @@ definitions:
     properties:
       action_name:
         type: string
-        description: This is the name of the **Action** for which the **Instance** will be created
+        description: This is the name of the **Action** of **ActionLabel**
       result_label_name:
         type: string
         description: The unique name of the **ActionLabel**.
@@ -5529,7 +6039,10 @@ definitions:
         description: The **ComponentType** of the **ActionLabel**
       default_data_type:
         $ref: '#/definitions/DataType'
-        description: The default **DataType** of the **ActionLabel**.<br>If an **InstanceCell* has that overwritten, than this will be provided with the specific cell data row
+        description: The default **DataType** of the **ActionLabel**.<br>If an **InstanceCell** has that overwritten, than this will be provided with the specific cell data row
+      action_schema_name:
+        type: string
+        description: This is the name of the **ActionSchema** of the **ActionLabel**'s action
     description: Message to hold a result label
     title: ResultLabel
   ResultLabelWithOverride:
@@ -5537,7 +6050,7 @@ definitions:
     properties:
       action_name:
         type: string
-        description: This is the name of the **Action** for which the **Instance** will be created
+        description: This is the name of the **Action** of the **ActionLabel**.
       result_label_name:
         type: string
         description: The unique name of the **ActionLabel**.
@@ -5554,6 +6067,9 @@ definitions:
       override_data_type:
         $ref: '#/definitions/DataType'
         description: The override **DataType** of the **ActionLabel**.<br>If **InstanceCells* have more than one datatype, the override datatype will specify what to use as general datatype
+      action_schema_name:
+        type: string
+        description: This is the name of the **ActionSchema** of the **ActionLabel**'s action
     description: Message to hold a result label
     title: ResultLabelWithOverride
   ResultRow:
@@ -5912,3 +6428,6 @@ x-tagGroups:
   - name: ShareName
     tags:
       - ShareName
+  - name: Documentation
+    tags:
+      - Documentation

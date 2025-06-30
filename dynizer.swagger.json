@@ -3,7 +3,7 @@
   "info": {
     "title": "Dynizer API",
     "description": "This is the [Dynizer API](https://www.consono.ai/technology)",
-    "version": "2.1",
+    "version": "2.2",
     "contact": {
       "name": "Consono",
       "url": "https://www.consono.ai",
@@ -16,11 +16,6 @@
       "url": "https://www.consono.ai/company-logo/consono-logo-inverted.svg"
     }
   },
-  "tags": [
-    {
-      "name": "Dynizer"
-    }
-  ],
   "host": "*.dynizer.com",
   "basePath": "/",
   "schemes": [
@@ -32,11 +27,21 @@
   "produces": [
     "application/json"
   ],
+  "security": [
+    {
+      "JWT": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Dynizer"
+    }
+  ],
   "paths": {
     "/api/v2/actions": {
       "post": {
         "summary": "Create Action",
-        "description": "Creates an **Action** with the provided name.\u003cbr\u003eThe name needs to be unqiue, the CheckActionName call can be used to verify this.\u003cbr\u003eThe name can not start or end with a whitespace character.\u003cbr\u003eThe name can not contain any control characters at any position.",
+        "description": "Creates an **Action** with the provided name.<br>The name needs to be unique, the CheckActionName call can be used to verify this.<br>The name can not start or end with a whitespace character.<br>The name can not contain any control characters at any position.",
         "operationId": "CreateAction",
         "responses": {
           "200": {
@@ -79,149 +84,12 @@
         "parameters": [
           {
             "name": "body",
-            "description": "This is used to create an **Action**.\u003cbr\u003eIf supplied **ActionLabels** can be addes as well.\u003cbr\u003eThe *if_not_exists* flag allows if set not to raise an error if the **Action** already exists.",
+            "description": "This is used to create an **Action**.<br>If supplied **ActionLabels** can be addes as well.<br>The *if_not_exists* flag allows if set not to raise an error if the **Action** already exists.",
             "in": "body",
             "required": true,
             "schema": {
               "$ref": "#/definitions/CreateActionReq"
             }
-          }
-        ],
-        "tags": [
-          "Actions"
-        ]
-      }
-    },
-    "/api/v2/actions/types/{action_type_label}/count": {
-      "get": {
-        "summary": "Count Actions",
-        "description": "Returns the total number of **Actions**.",
-        "operationId": "CountActions",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/CountRes"
-            }
-          },
-          "401": {
-            "description": "Unauthorized call",
-            "schema": {
-              "$ref": "#/definitions/ErrorResponse"
-            }
-          },
-          "500": {
-            "description": "Unexpected internal error",
-            "schema": {
-              "$ref": "#/definitions/ErrorResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/rpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "action_type_label",
-            "description": "This is the label of the **ActionType**.",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "tags": [
-          "Actions"
-        ]
-      }
-    },
-    "/api/v2/actions/types/{action_type_label}/names/all": {
-      "get": {
-        "summary": "List Action Names",
-        "description": "Returns a list of **Action** names.\u003cbr\u003eBy default all rows are returned. Optionally a window can be provided to fetch just a specific sub-set of rows to support pagination.",
-        "operationId": "ListActionNames",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/ActionNameArrayRes"
-            }
-          },
-          "401": {
-            "description": "Unauthorized call",
-            "schema": {
-              "$ref": "#/definitions/ErrorResponse"
-            }
-          },
-          "500": {
-            "description": "Unexpected internal error",
-            "schema": {
-              "$ref": "#/definitions/ErrorResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/rpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "action_type_label",
-            "description": "The name of the **ActionType**.",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "window.limit",
-            "description": "Defines how many records at max are returned.\u003cbr\u003eIf fewer records are available, all will be returned.\u003cbr\u003eSetting this to -1 will be interpreted as no limit",
-            "in": "query",
-            "required": true,
-            "type": "integer",
-            "format": "int64"
-          },
-          {
-            "name": "window.offset",
-            "description": "Defines the offset at which to start reading.\u003cbr\u003eAn offset of 0 will bean to start from the first possible record.",
-            "in": "query",
-            "required": true,
-            "type": "integer",
-            "format": "int64"
-          },
-          {
-            "name": "window.relative",
-            "description": "The Dynizer keeps track of the last read position, this flag indicates wether the offset is relative to the current read position or absolute.",
-            "in": "query",
-            "required": false,
-            "type": "boolean"
-          },
-          {
-            "name": "order_field",
-            "description": "By which field to order **Action** names.\n\n - Created: order by created\n - Name: order by name",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "Created",
-              "Name"
-            ],
-            "default": "Created"
-          },
-          {
-            "name": "order_direction",
-            "description": "Order in which to load the **Action** names.\n\n - Asc: order ascending\n - Desc: order descending",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "Asc",
-              "Desc"
-            ],
-            "default": "Asc"
           }
         ],
         "tags": [
@@ -275,7 +143,7 @@
       },
       "delete": {
         "summary": "Delete Action",
-        "description": "An **Action** can only be deleted if no **Instances** are attached.\u003cbr\u003eIf the **Action** has **Instances** attached and *cascade* is not set to *true* an error is returned.\u003cbr\u003eThe *cascade* flag can be used to mark the **Action** and all its **Instances** as deleted.",
+        "description": "An **Action** can only be deleted if no **Instances** are attached.<br>If the **Action** has **Instances** attached and *cascade* is not set to *true* an error is returned.<br>The *cascade* flag can be used to mark the **Action** and all its **Instances** as deleted.",
         "operationId": "DeleteAction",
         "responses": {
           "200": {
@@ -313,7 +181,7 @@
           },
           {
             "name": "cascade",
-            "description": "This flag allows to mark all associated **Instances** as deleted.\u003cbr\u003eIf cascade == \u003cspan style=\"color:blue\"\u003efalse\u003c/span\u003e an error is raised if this **Action** has **Instances**.\u003cbr\u003e**Action** with no **Instances** can be deleted no matter what value cascade has.",
+            "description": "This flag allows to mark all associated **Instances** as deleted.<br>If cascade == <span style=\"color:blue\">false</span> an error is raised if this **Action** has **Instances**.<br>**Action** with no **Instances** can be deleted no matter what value cascade has.",
             "in": "query",
             "required": false,
             "type": "boolean"
@@ -325,7 +193,7 @@
       },
       "patch": {
         "summary": "Update Action",
-        "description": "Updates an **Action**, at the moment this is only the name.\u003cbr\u003eThe new_name needs to be unqiue.\u003cbr\u003eThe *new_name* can not start or end with a whitespace character.\u003cbr\u003eThe *new_name* can not contain any control characters at any position",
+        "description": "Updates an **Action**, at the moment this is only the name.<br>The new_name needs to be unique.<br>The *new_name* can not start or end with a whitespace character.<br>The *new_name* can not contain any control characters at any position",
         "operationId": "UpdateAction",
         "responses": {
           "200": {
@@ -367,7 +235,7 @@
             "required": true,
             "schema": {
               "$ref": "#/definitions/ActionName",
-              "description": "The new name of the **Action**.\u003cbr\u003eThe name needs to be unique.\u003cbr\u003eUse the CheckActionName, call to verify the name, without trying to create it."
+              "description": "The new name of the **Action**.<br>The name needs to be unique.<br>Use the CheckActionName, call to verify the name, without trying to create it."
             }
           }
         ],
@@ -379,7 +247,7 @@
     "/api/v2/actions/{action_name}/actionlabels": {
       "post": {
         "summary": "Add ActionLabel",
-        "description": "Adds an **ActionLabel** to an existing **Action**.\u003cbr\u003eUse the CheckActionLabelName call to verify that the ActionLabel name can be added.",
+        "description": "Adds an **ActionLabel** to an existing **Action**.<br>Use the CheckActionLabelName call to verify that the ActionLabel name can be added.",
         "operationId": "AddActionLabel",
         "responses": {
           "200": {
@@ -410,7 +278,7 @@
         "parameters": [
           {
             "name": "action_name",
-            "description": "The unique name for the **Action**.\u003cbr\u003eUse the CheckActionName, call to verify the name, without trying to create it.",
+            "description": "The unique name for the **Action**.<br>Use the CheckActionName, call to verify the name, without trying to create it.",
             "in": "path",
             "required": true,
             "type": "string"
@@ -424,11 +292,11 @@
               "properties": {
                 "if_not_exists": {
                   "type": "boolean",
-                  "description": "if set to true -\u003e NO ERROR is returned if a **Action** already has an **ActionLabel** by the provided name.\u003cbr\u003eNo changes to the ActionLabel will be performed when if_not_exists == true and the **ActionLabel** already exists."
+                  "description": "if set to true -> NO ERROR is returned if a **Action** already has an **ActionLabel** by the provided name.<br>No changes to the ActionLabel will be performed when if_not_exists == true and the **ActionLabel** already exists."
                 },
                 "action_label_name": {
                   "type": "string",
-                  "description": "The unique name of the **ActionLabel** within the **Action.\u003cbr\u003eUse the CheckActionLabelName, call to verify the name, without creating it."
+                  "description": "The unique name of the **ActionLabel** within the **Action.<br>Use the CheckActionLabelName, call to verify the name, without creating it."
                 },
                 "component": {
                   "$ref": "#/definitions/ComponentType",
@@ -436,7 +304,7 @@
                 },
                 "default_data_type": {
                   "$ref": "#/definitions/DataType",
-                  "description": "The **DataType** for this **ActionLabel**.\u003cbr\u003eThis **DataType** will be used when creating **Instances** with this **ActionLabel**."
+                  "description": "The **DataType** for this **ActionLabel**.<br>This **DataType** will be used when creating **Instances** with this **ActionLabel**."
                 },
                 "min_occurrence": {
                   "type": "integer",
@@ -446,14 +314,14 @@
                 "max_occurrence": {
                   "type": "integer",
                   "format": "int64",
-                  "description": "Allows to set maximum number of values that can be provided when using this **ActionLabel*** in an **Instance**.\u003cbr\u003eThis value needs to be either zero or it can be equal or greater then *min_occurrence*.\u003cbr\u003eSetting it to 0 will be interpreted as open-ended."
+                  "description": "Allows to set maximum number of values that can be provided when using this **ActionLabel*** in an **Instance**.<br>This value needs to be either zero or it can be equal or greater then *min_occurrence*.<br>Setting it to 0 will be interpreted as open-ended."
                 },
                 "alternative_data_types": {
                   "type": "array",
                   "items": {
                     "$ref": "#/definitions/DataType"
                   },
-                  "description": "List of additional allowed **DataTypes** for this **ActionLabel**.\u003cbr\u003eIf left empty only the *default_data_type* is allowed for the values of this **ActionLabel**.\u003cbr\u003eProvide **DT_Any** as the only element to allow all **DataTypes**."
+                  "description": "List of additional allowed **DataTypes** for this **ActionLabel**.<br>If left empty only the *default_data_type* is allowed for the values of this **ActionLabel**.<br>Provide **DT_Any** as the only element to allow all **DataTypes**."
                 },
                 "share_name": {
                   "type": "string",
@@ -528,7 +396,7 @@
       },
       "delete": {
         "summary": "Delete ActionLabel",
-        "description": "Delete an **ActionLabel**. This will prevent any new **Instances** with the **ActionLabel** to be created.\u003cbr\u003eExisting values from already created **Instances** will be removed.",
+        "description": "Delete an **ActionLabel**. This will prevent any new **Instances** with the **ActionLabel** to be created.<br>Existing values from already created **Instances** will be removed.",
         "operationId": "DeleteActionLabel",
         "responses": {
           "200": {
@@ -578,7 +446,7 @@
       },
       "put": {
         "summary": "Update ActionLabel",
-        "description": "Updates an **ActionLabel** for an **Action**.\u003cbr\u003eIf the *cascade* flag is set to true, all **Instances** for the **Action** which would violate the **ActionLabel** definition will get marked as deleted.",
+        "description": "Updates an **ActionLabel** for an **Action**.<br>If the *cascade* flag is set to true, all **Instances** for the **Action** which would violate the **ActionLabel** definition will get marked as deleted.",
         "operationId": "UpdateActionLabel",
         "responses": {
           "200": {
@@ -630,11 +498,11 @@
               "properties": {
                 "new_action_label_name": {
                   "type": "string",
-                  "description": "The new unique name of the **ActionLabel** within the **Action**.\u003cbr\u003eUse the CheckActionLabelName call to verify the name, without creating it."
+                  "description": "The new unique name of the **ActionLabel** within the **Action**.<br>Use the CheckActionLabelName call to verify the name, without creating it."
                 },
                 "default_data_type": {
                   "$ref": "#/definitions/DataType",
-                  "description": "The **DataType** for this **ActionLabel**.\u003cbr\u003eThis **DataType** will be used when creating **Instances** with this **ActionLabel**."
+                  "description": "The **DataType** for this **ActionLabel**.<br>This **DataType** will be used when creating **Instances** with this **ActionLabel**."
                 },
                 "min_occurrence": {
                   "type": "integer",
@@ -644,18 +512,18 @@
                 "max_occurrence": {
                   "type": "integer",
                   "format": "int64",
-                  "description": "Allows to set the maximum number of values that can be provided when using this **ActionLabel*** in an **Instance**.\u003cbr\u003eThis value needs to be either zero or it can be equal or greater then *min_occurrence*.\u003cbr\u003eSetting it to 0 will be interpreted as open-ended. Not providing a value will be interpreted as 0."
+                  "description": "Allows to set the maximum number of values that can be provided when using this **ActionLabel*** in an **Instance**.<br>This value needs to be either zero or it can be equal or greater then *min_occurrence*.<br>Setting it to 0 will be interpreted as open-ended. Not providing a value will be interpreted as 0."
                 },
                 "alternative_data_types": {
                   "type": "array",
                   "items": {
                     "$ref": "#/definitions/DataType"
                   },
-                  "description": "List of additional allowed **DataTypes** for this **ActionLabel**.\u003cbr\u003eIf left empty only the *default_data_type* is allowed for the values of this **ActionLabel**."
+                  "description": "List of additional allowed **DataTypes** for this **ActionLabel**.<br>If left empty only the *default_data_type* is allowed for the values of this **ActionLabel**."
                 },
                 "cascade": {
                   "type": "boolean",
-                  "description": "Flag to define the behaviour if the update will cause a violation of existing **Instances**.\u003cbr\u003eIf set to \u003cspan style=\"color:blue\"\u003etrue\u003c/span\u003e the **Instances** in violation will be marked as deleted."
+                  "description": "Flag to define the behaviour if the update will cause a violation of existing **Instances**.<br>If set to <span style=\"color:blue\">true</span> the **Instances** in violation will be marked as deleted."
                 }
               },
               "description": "Use this to modify an **ActionLabel** associated to an **Action**. To ensure data integrity, please provide values for the fields alternative_data_types, min_occurrence, and max_occurrence. If these fields are omitted, they will be reset. Other fields can be safely omitted to retain their current values.",
@@ -674,10 +542,410 @@
         ]
       }
     },
+    "/api/v2/actions/types/{action_type_label}/count": {
+      "get": {
+        "summary": "Count Actions",
+        "description": "Returns the total number of **Actions**.",
+        "operationId": "CountActions",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CountRes"
+            }
+          },
+          "401": {
+            "description": "Unauthorized call",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Unexpected internal error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "action_type_label",
+            "description": "This is the label of the **ActionType**.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Actions"
+        ]
+      }
+    },
+    "/api/v2/actions/types/{action_type_label}/names/all": {
+      "get": {
+        "summary": "List Action Names",
+        "description": "Returns a list of **Action** names.<br>By default all rows are returned. Optionally a window can be provided to fetch just a specific sub-set of rows to support pagination.",
+        "operationId": "ListActionNames",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ActionNameArrayRes"
+            }
+          },
+          "401": {
+            "description": "Unauthorized call",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Unexpected internal error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "action_type_label",
+            "description": "The name of the **ActionType**.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "window.limit",
+            "description": "Defines how many records at max are returned.<br>If fewer records are available, all will be returned.<br>Setting this to -1 will be interpreted as no limit",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "window.offset",
+            "description": "Defines the offset at which to start reading.<br>An offset of 0 will bean to start from the first possible record.",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "window.relative",
+            "description": "The Dynizer keeps track of the last read position, this flag indicates wether the offset is relative to the current read position or absolute.",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "order_field",
+            "description": "By which field to order **Action** names.\n\n - Created: order by created\n - Name: order by name",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "Created",
+              "Name"
+            ],
+            "default": "Created"
+          },
+          {
+            "name": "order_direction",
+            "description": "Order in which to load the **Action** names.\n\n - Asc: order ascending\n - Desc: order descending",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "Asc",
+              "Desc"
+            ],
+            "default": "Asc"
+          }
+        ],
+        "tags": [
+          "Actions"
+        ]
+      }
+    },
+    "/api/v2/actionschemas": {
+      "get": {
+        "summary": "List ActionSchemas",
+        "description": "Returns a list of **ActionSchemas**.<br>By default all rows are returned. Optionally a window can be provided to fetch just a specific sub-set of rows to support pagination.",
+        "operationId": "ListActionSchemas",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ActionSchemaArrayRes"
+            }
+          },
+          "401": {
+            "description": "Unauthorized call",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Unexpected internal error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "window.limit",
+            "description": "Defines how many records at max are returned.<br>If fewer records are available, all will be returned.<br>Setting this to -1 will be interpreted as no limit",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "window.offset",
+            "description": "Defines the offset at which to start reading.<br>An offset of 0 will bean to start from the first possible record.",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "window.relative",
+            "description": "The Dynizer keeps track of the last read position, this flag indicates wether the offset is relative to the current read position or absolute.",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          }
+        ],
+        "tags": [
+          "ActionSchemas"
+        ]
+      },
+      "post": {
+        "summary": "Create ActionSchema",
+        "description": "Creates a new **ActionSchema**.",
+        "operationId": "CreateActionSchema",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/EmptyRes"
+            }
+          },
+          "401": {
+            "description": "Unauthorized call",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Unexpected internal error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": "This is used to create an **ActionSchema**.<br>The *if_not_exists* flag allows if set not to raise an error if the **ActionSchema** already exists.",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateActionSchemaReq"
+            }
+          }
+        ],
+        "tags": [
+          "ActionSchemas"
+        ]
+      }
+    },
+    "/api/v2/actionschemas/{action_schema_name}": {
+      "get": {
+        "summary": "Read ActionSchema",
+        "description": "Reads an **ActionSchema** definition.",
+        "operationId": "ReadActionSchema",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ActionSchemaRes"
+            }
+          },
+          "401": {
+            "description": "Unauthorized call",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Unexpected internal error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "action_schema_name",
+            "description": "The name of the **ActionSchema**.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "ActionSchemas"
+        ]
+      },
+      "delete": {
+        "summary": "Delete ActionSchema",
+        "description": "A **ActionSchema** can only be deleted if no **Actions** are defined.<br>If the **ActionSchema** has **Actions** and *cascade* is not set to *true* and Error will be returned.<br>The *cascade* flag can be used to mark the **Actions** and all its **Instances** as deleted.",
+        "operationId": "DeleteActionSchema",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/EmptyRes"
+            }
+          },
+          "401": {
+            "description": "Unauthorized call",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Unexpected internal error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "action_schema_name",
+            "description": "The current name of the **ActionSchema** to be deleted.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "cascade",
+            "description": "This flag allows to mark all associated **Actions** and **Instances** as deleted.<br>If cascade == <span style=\"color:blue\">false</span> an error is raised if this **ActionSchema** has **Actions** and **Instances**.<br>**ActionSchema** with no **Actions** can be deleted no matter what value cascade has.",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          }
+        ],
+        "tags": [
+          "ActionSchemas"
+        ]
+      },
+      "patch": {
+        "summary": "Update ActionSchema",
+        "description": "Updates a **ActionSchema**, at the moment this is only the name.<br>The new_name needs to be unique.<br>The *new_name* can not start or end with a whitespace character.<br>The *new_name* can not contain any control characters at any position",
+        "operationId": "UpdateActionSchema",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/EmptyRes"
+            }
+          },
+          "401": {
+            "description": "Unauthorized call",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Unexpected internal error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "action_schema_name",
+            "description": "The current name of the **ActionSchema** to be renamed.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "new_action_schema_name": {
+                  "type": "string",
+                  "description": "The new name of the **ActionSchema**.<br>The name needs to be unique."
+                }
+              },
+              "description": "Use to rename an **ActionSchema**.",
+              "title": "UpdateActionSchemaRequest",
+              "required": [
+                "new_action_schema_name"
+              ]
+            }
+          }
+        ],
+        "tags": [
+          "ActionSchemas"
+        ]
+      }
+    },
     "/api/v2/actiontypes": {
       "get": {
-        "summary": "List Action Types",
-        "description": "Returns a list of **ActionTypes**.\u003cbr\u003eBy default all rows are returned. Optionally a window can be provided to fetch just a specific sub-set of rows to support pagination.",
+        "summary": "List Action Types\nDeprecated: Use `ListActionSchemas` instead.",
+        "description": "Returns a list of **ActionTypes**.<br>By default all rows are returned. Optionally a window can be provided to fetch just a specific sub-set of rows to support pagination.",
         "operationId": "ListActionTypes",
         "responses": {
           "200": {
@@ -708,7 +976,7 @@
         "parameters": [
           {
             "name": "window.limit",
-            "description": "Defines how many records at max are returned.\u003cbr\u003eIf fewer records are available, all will be returned.\u003cbr\u003eSetting this to -1 will be interpreted as no limit",
+            "description": "Defines how many records at max are returned.<br>If fewer records are available, all will be returned.<br>Setting this to -1 will be interpreted as no limit",
             "in": "query",
             "required": true,
             "type": "integer",
@@ -716,7 +984,7 @@
           },
           {
             "name": "window.offset",
-            "description": "Defines the offset at which to start reading.\u003cbr\u003eAn offset of 0 will bean to start from the first possible record.",
+            "description": "Defines the offset at which to start reading.<br>An offset of 0 will bean to start from the first possible record.",
             "in": "query",
             "required": true,
             "type": "integer",
@@ -735,7 +1003,7 @@
         ]
       },
       "post": {
-        "summary": "Create ActionType",
+        "summary": "Create ActionType\nDeprecated: Use `CreateActionSchema` instead.",
         "description": "Creates a new **ActionType**.",
         "operationId": "CreateActionType",
         "responses": {
@@ -767,7 +1035,7 @@
         "parameters": [
           {
             "name": "body",
-            "description": "This is used to create an **ActionType**.\u003cbr\u003eThe *if_not_exists* flag allows if set not to raise an error if the **ActionType** already exists.",
+            "description": "This is used to create an **ActionType**.<br>The *if_not_exists* flag allows if set not to raise an error if the **ActionType** already exists.",
             "in": "body",
             "required": true,
             "schema": {
@@ -782,7 +1050,7 @@
     },
     "/api/v2/actiontypes/{action_type_label}": {
       "get": {
-        "summary": "Read ActionType",
+        "summary": "Read ActionType\nDeprecated: Use `ReadActionSchema` instead.",
         "description": "Reads an **ActionType** definition with all **ActionLabels**.",
         "operationId": "ReadActionType",
         "responses": {
@@ -825,8 +1093,8 @@
         ]
       },
       "patch": {
-        "summary": "Update ActionType",
-        "description": "Updates a **ActionType**, at the moment this is only the name.\u003cbr\u003eThe new_name needs to be unqiue.\u003cbr\u003eThe *new_name* can not start or end with a whitespace character.\u003cbr\u003eThe *new_name* can not contain any control characters at any position",
+        "summary": "Update ActionType\nDeprecated: Use `UpdateActionSchema` instead.",
+        "description": "Updates a **ActionType**, at the moment this is only the name.<br>The new_name needs to be unique.<br>The *new_name* can not start or end with a whitespace character.<br>The *new_name* can not contain any control characters at any position",
         "operationId": "UpdateActionType",
         "responses": {
           "200": {
@@ -868,7 +1136,7 @@
             "required": true,
             "schema": {
               "$ref": "#/definitions/ActionTypeLabel",
-              "description": "The new name of the **ActionType**.\u003cbr\u003eThe label needs to be unique."
+              "description": "The new name of the **ActionType**.<br>The label needs to be unique."
             }
           }
         ],
@@ -1126,7 +1394,7 @@
     },
     "/api/v2/config": {
       "get": {
-        "description": "Returns all **Dynizer** configuration values as key::value pairs.\u003cbr\u003eAll security related configurations will be omitted from the config.",
+        "description": "Returns all **Dynizer** configuration values as key::value pairs.<br>All security related configurations will be omitted from the config.",
         "operationId": "GetDynizerConfiguration",
         "responses": {
           "200": {
@@ -1162,7 +1430,7 @@
     "/api/v2/dataelements/query/contains": {
       "post": {
         "summary": "Query DataElements Contains",
-        "description": "This can be used to query **DataElements** by with contains and **DataType**.\u003cbr\u003eOptional filter possibilities.\u003cbr\u003eThis is an **experimental** feature and it's implementation and API might change in a minor update.",
+        "description": "This can be used to query **DataElements** by with contains and **DataType**.<br>Optional filter possibilities.<br>This is an **experimental** feature and it's implementation and API might change in a minor update.",
         "operationId": "QueryDataElements",
         "responses": {
           "200": {
@@ -1209,7 +1477,7 @@
     "/api/v2/dataelements/top": {
       "post": {
         "summary": "Query DataElements TopN",
-        "description": "This can be used to fetch the top N **DataElements** used in **Instances**\u003cbr\u003eOptional filter possibilities.\u003cbr\u003eThis is an **experimental** feature and it's implementation and API might change in a minor update.",
+        "description": "This can be used to fetch the top N **DataElements** used in **Instances**<br>Optional filter possibilities.<br>This is an **experimental** feature and it's implementation and API might change in a minor update.",
         "operationId": "GetTopNDataElements",
         "responses": {
           "200": {
@@ -1303,7 +1571,7 @@
     "/api/v2/instances": {
       "post": {
         "summary": "Create Instance",
-        "description": "Creates a new **Instance** with values.\u003cbr\u003eEach used **ActionLabel** can support as many values as supported in the definition.\u003cbr\u003eFor each value the **DataType** can be overwritten from the **ActionLabel** default.\u003cbr\u003eIn addition is it also possible to add MetaData on all levels (experimental).",
+        "description": "Creates a new **Instance** with values.<br>Each used **ActionLabel** can support as many values as supported in the definition.<br>For each value the **DataType** can be overwritten from the **ActionLabel** default.<br>In addition is it also possible to add MetaData on all levels (experimental).",
         "operationId": "CreateInstance",
         "responses": {
           "200": {
@@ -1334,7 +1602,7 @@
         "parameters": [
           {
             "name": "body",
-            "description": "This will create an Instance, for each ActionLabel defined in the Action and element can be defined.\u003cbr\u003eEach element can have multiple values.",
+            "description": "This will create an Instance, for each ActionLabel defined in the Action and element can be defined.<br>Each element can have multiple values.",
             "in": "body",
             "required": true,
             "schema": {
@@ -1436,7 +1704,7 @@
       },
       "patch": {
         "summary": "Update Instance",
-        "description": "Updates an existing **Instance** with values.\u003cbr\u003eOnly the changed values need to be provided.\u003cbr\u003eTo remove a value, set the **ActionLabel** datatype to *DT_Delete*.\u003cbr\u003eEach used **ActionLabel** can support as many values as supported in the definition.\u003cbr\u003eFor each value the **DataType** can be overwritten from the **ActionLabel** default.\u003cbr\u003eIn addition is it also possible to add MetaData on all levels (experimental).",
+        "description": "Updates an existing **Instance** with values.<br>Only the changed values need to be provided.<br>To remove a value, set the **ActionLabel** datatype to *DT_Delete*.<br>Each used **ActionLabel** can support as many values as supported in the definition.<br>For each value the **DataType** can be overwritten from the **ActionLabel** default.<br>In addition is it also possible to add MetaData on all levels (experimental).",
         "operationId": "UpdateInstance",
         "responses": {
           "200": {
@@ -1484,10 +1752,10 @@
                   "items": {
                     "$ref": "#/definitions/InstanceUpdateElementCell"
                   },
-                  "description": "Qualify a cell which is to be updated.\u003cbr\u003eUsing the virtual **DataType** DT_Delete"
+                  "description": "Qualify a cell which is to be updated.<br>Using the virtual **DataType** DT_Delete"
                 }
               },
-              "description": "Used to update an Instance.\u003cbr\u003e",
+              "description": "Used to update an Instance.<br>",
               "title": "UpdateInstanceRequest",
               "required": [
                 "instance_elements"
@@ -1549,7 +1817,7 @@
     "/api/v2/login": {
       "post": {
         "summary": "Login",
-        "description": "To Login to the Dynizer using a password.\u003cbr\u003eIf the user has access, a [Json Web Token](https://jwt.io/) [(RFC 7519)](https://tools.ietf.org/html/rfc7519) will be returned.",
+        "description": "To Login to the Dynizer using a password.<br>If the user has access, a [Json Web Token](https://jwt.io/) [(RFC 7519)](https://tools.ietf.org/html/rfc7519) will be returned.",
         "operationId": "Login",
         "responses": {
           "200": {
@@ -1597,7 +1865,7 @@
     "/api/v2/logout": {
       "get": {
         "summary": "Logout",
-        "description": "Logout will clean server side resources.\u003cbr\u003eThis invalidates the security token as well.",
+        "description": "Logout will clean server side resources.<br>This invalidates the security token as well.",
         "operationId": "Logout",
         "responses": {
           "200": {
@@ -1668,6 +1936,17 @@
             "in": "path",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "args",
+            "description": "Optional list of arguments for index build",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi"
           }
         ],
         "tags": [
@@ -1678,7 +1957,7 @@
     "/api/v2/metadata/instances/{instance_id}": {
       "post": {
         "summary": "Add Instance MetaData",
-        "description": "Adds a **MetaDataKey** and its values to an **Instance**.\u003cbr\u003eThis is an **experimental** feature and it's implementation and API might change in a minor update.",
+        "description": "Adds a **MetaDataKey** and its values to an **Instance**.<br>This is an **experimental** feature and it's implementation and API might change in a minor update.",
         "operationId": "AddInstanceMetaData",
         "responses": {
           "200": {
@@ -1730,7 +2009,7 @@
                   "items": {
                     "type": "string"
                   },
-                  "description": "String representation of the value for the **MetaDataKey**.\u003cbr\u003eTo parse non standard string represetations set a proper parse-format string in *format*"
+                  "description": "String representation of the value for the **MetaDataKey**.<br>To parse non standard string represetations set a proper parse-format string in *format*"
                 },
                 "specs": {
                   "type": "array",
@@ -1758,7 +2037,7 @@
     "/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}": {
       "post": {
         "summary": "Add Instance ActionLabel MetaData",
-        "description": "Adds a **MetaDataKey** and its values to all **InstanceCells** under the **ActionLabel**.\u003cbr\u003eThis is an **experimental** feature and it's implementation and API might change in a minor update.",
+        "description": "Adds a **MetaDataKey** and its values to all **InstanceCells** under the **ActionLabel**.<br>This is an **experimental** feature and it's implementation and API might change in a minor update.",
         "operationId": "AddInstanceActionLabelMetaData",
         "responses": {
           "200": {
@@ -1817,7 +2096,7 @@
                   "items": {
                     "type": "string"
                   },
-                  "description": "String representation of the value for the **MetaDataKey**.\u003cbr\u003eTo parse non standard string represetations set a proper parse-format string in *format*"
+                  "description": "String representation of the value for the **MetaDataKey**.<br>To parse non standard string represetations set a proper parse-format string in *format*"
                 },
                 "specs": {
                   "type": "array",
@@ -1845,7 +2124,7 @@
     "/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/keys/{key_name}": {
       "delete": {
         "summary": "Remove Instance ActionLabel MetaData",
-        "description": "Removes a **MetaDataKey** and *all* its values from all the **InstanceCells** under the **ActionLabel**.\u003cbr\u003eThis is an **experimental** feature and it's implementation and API might change in a minor update.",
+        "description": "Removes a **MetaDataKey** and *all* its values from all the **InstanceCells** under the **ActionLabel**.<br>This is an **experimental** feature and it's implementation and API might change in a minor update.",
         "operationId": "RemoveInstanceActionLabelMetaData",
         "responses": {
           "200": {
@@ -1905,7 +2184,7 @@
     "/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/keys/{key_name}/values": {
       "post": {
         "summary": "Add Instance ActionLabel MetaData Value",
-        "description": "Adds an additional value to the values of a particular **MetaDataKey** linked to all **InstanceCells* under the **ActionLabel**.\u003cbr\u003eIf the value should already be in the array of values, an error is returned.\u003cbr\u003eThis is an **experimental** feature and it's implementation and API might change in a minor update.",
+        "description": "Adds an additional value to the values of a particular **MetaDataKey** linked to all **InstanceCells* under the **ActionLabel**.<br>If the value should already be in the array of values, an error is returned.<br>This is an **experimental** feature and it's implementation and API might change in a minor update.",
         "operationId": "AddInstanceActionLabelMetaDataValue",
         "responses": {
           "200": {
@@ -1964,7 +2243,7 @@
               "properties": {
                 "value": {
                   "type": "string",
-                  "description": "String representation of the value for the **MetaDataKey**.\u003cbr\u003eTo parse non standard string represetations set a proper parse-format string in *format*"
+                  "description": "String representation of the value for the **MetaDataKey**.<br>To parse non standard string represetations set a proper parse-format string in *format*"
                 },
                 "spec": {
                   "$ref": "#/definitions/DataTypeFormat",
@@ -1988,7 +2267,7 @@
     "/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/keys/{key_name}/values/{value}": {
       "delete": {
         "summary": "Remove Instance ActionLabel MetaData Value",
-        "description": "Removes an existing value from the values of a particular **MetaDataKey** linked to all **InstanceCells* under the **ActionLabel**.\u003cbr\u003eIf the value is not in the array of values, an error is returned.\u003cbr\u003eThis is an **experimental** feature and it's implementation and API might change in a minor update.",
+        "description": "Removes an existing value from the values of a particular **MetaDataKey** linked to all **InstanceCells* under the **ActionLabel**.<br>If the value is not in the array of values, an error is returned.<br>This is an **experimental** feature and it's implementation and API might change in a minor update.",
         "operationId": "RemoveInstanceActionLabelMetaDataValue",
         "responses": {
           "200": {
@@ -2090,7 +2369,7 @@
     "/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/position/{value_position}": {
       "post": {
         "summary": "Add InstanceCell MetaData",
-        "description": "Adds a **MetaDataKey** and its values to an **InstanceCell**.\u003cbr\u003eThis is an **experimental** feature and it's implementation and API might change in a minor update.",
+        "description": "Adds a **MetaDataKey** and its values to an **InstanceCell**.<br>This is an **experimental** feature and it's implementation and API might change in a minor update.",
         "operationId": "AddInstanceCellMetaData",
         "responses": {
           "200": {
@@ -2157,7 +2436,7 @@
                   "items": {
                     "type": "string"
                   },
-                  "description": "String representation of the value for the **MetaDataKey**.\u003cbr\u003eTo parse non standard string represetations set a proper parse-format string in *format*"
+                  "description": "String representation of the value for the **MetaDataKey**.<br>To parse non standard string represetations set a proper parse-format string in *format*"
                 },
                 "specs": {
                   "type": "array",
@@ -2185,7 +2464,7 @@
     "/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/position/{value_position}/keys": {
       "get": {
         "summary": "List InstanceCell MetaData",
-        "description": "Returns all **MetaDataKeys** linked to an **Instance** with all set values.\u003cbr\u003eThis is an **experimental** feature and it's implementation and API might change in a minor update.",
+        "description": "Returns all **MetaDataKeys** linked to an **Instance** with all set values.<br>This is an **experimental** feature and it's implementation and API might change in a minor update.",
         "operationId": "ListInstanceCellMetaData",
         "responses": {
           "200": {
@@ -2243,71 +2522,10 @@
         ]
       }
     },
-    "/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/position/{value_position}/keys/all/count": {
-      "get": {
-        "summary": "Count InstanceCell MetaDataKeys",
-        "description": "Returns the number of **MetaDataKeys** which are associated with the **InstanceCell**.\u003cbr\u003eThis is an **experimental** feature and it's implementation and API might change in a minor update.",
-        "operationId": "CountInstanceCellMetaDataKeys",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/CountRes"
-            }
-          },
-          "401": {
-            "description": "Unauthorized call",
-            "schema": {
-              "$ref": "#/definitions/ErrorResponse"
-            }
-          },
-          "500": {
-            "description": "Unexpected internal error",
-            "schema": {
-              "$ref": "#/definitions/ErrorResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/rpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "instance_id",
-            "description": "The special UUID identifying an **Instance**.",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "action_label",
-            "description": "The unique name of the **ActionLabel**.",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "value_position",
-            "description": "The 1-based position of the value within the values for an **ActionLabel**",
-            "in": "path",
-            "required": true,
-            "type": "integer",
-            "format": "int64"
-          }
-        ],
-        "tags": [
-          "MetaData",
-          "Instances Cells MetaData"
-        ]
-      }
-    },
     "/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/position/{value_position}/keys/{key_name}": {
       "get": {
         "summary": "Get InstanceCell MetaData",
-        "description": "Returns all the values for the given **MetaDataKey** linked to the given **InstanceCell**.\u003cbr\u003eThis is an **experimental** feature and it's implementation and API might change in a minor update.",
+        "description": "Returns all the values for the given **MetaDataKey** linked to the given **InstanceCell**.<br>This is an **experimental** feature and it's implementation and API might change in a minor update.",
         "operationId": "GetInstanceCellMetaDataValues",
         "responses": {
           "200": {
@@ -2373,7 +2591,7 @@
       },
       "delete": {
         "summary": "Remove InstanceCell MetaData",
-        "description": "Removes a **MetaDataKey** and *all* its values from an **InstanceCell**.\u003cbr\u003eThis is an **experimental** feature and it's implementation and API might change in a minor update.",
+        "description": "Removes a **MetaDataKey** and *all* its values from an **InstanceCell**.<br>This is an **experimental** feature and it's implementation and API might change in a minor update.",
         "operationId": "RemoveInstanceCellMetaData",
         "responses": {
           "200": {
@@ -2441,7 +2659,7 @@
     "/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/position/{value_position}/keys/{key_name}/values": {
       "post": {
         "summary": "Add InstanceCell MetaData Value",
-        "description": "Adds an additional value to the values of a particular **MetaDataKey** linked to an **InstanceCell*.\u003cbr\u003eIf the value should already be in the array of values, an error is returned.\u003cbr\u003eThis is an **experimental** feature and it's implementation and API might change in a minor update.",
+        "description": "Adds an additional value to the values of a particular **MetaDataKey** linked to an **InstanceCell*.<br>If the value should already be in the array of values, an error is returned.<br>This is an **experimental** feature and it's implementation and API might change in a minor update.",
         "operationId": "AddInstanceCellMetaDataValue",
         "responses": {
           "200": {
@@ -2529,10 +2747,120 @@
         ]
       }
     },
+    "/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/position/{value_position}/keys/{key_name}/values/{value}": {
+      "delete": {
+        "summary": "Remove InstanceCell MetaData Value",
+        "description": "Removes an existing value from the values of a particular **MetaDataKey** linked to an **InstanceCell*.<br>If the value is not in the array of values, an error is returned. The value is case sensitive.",
+        "operationId": "RemoveInstanceCellMetaDataValue",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/EmptyRes"
+            }
+          },
+          "401": {
+            "description": "Unauthorized call",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Unexpected internal error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "instance_id",
+            "description": "The special UUID identifying an **Instance**.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "action_label",
+            "description": "The unique name of the **ActionLabel**.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "value_position",
+            "description": "The 1-based position of the value within the values for an **ActionLabel**",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "key_name",
+            "description": "Unique name of the **MetaDataKey**.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "value",
+            "description": "String representation of the value for the **MetaDataKey**.<br>To parse non standard string represetations set a proper parse-format string in *format*",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "spec.data_type",
+            "description": "overwrites the default_data_type from the default value\n\n - DT_Integer: Integer\n - DT_String: String\n - DT_Boolean: Boolean\n - DT_Decimal: Decimal fixed\n - DT_Timestamp: Timestamp\n - DT_Uri: URI\n - DT_Void: VOID is a designated DataType to indicate no value\n - DT_Float: Float\n - DT_UnsignedInteger: UInt\n - DT_Binary: Byte Array\n - DT_Uuid: UUID\n - DT_Text: FullTextIndex large object\n - DT_Blob: Binary large object\n - DT_Clob: Character large object\n - DT_Document: Document large object, stores/indexes document analysis output\n - DT_Any: DT_Date = 16;\nDT_Time = 17;\nspecial flag to indicate all DataTypes, to be used in AlternativeDataTypes for ActionLabels and MetaDataKeys\n - DT_Delete: special flag to indicate that the value is to be removed",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "InvalidDataType",
+              "DT_Integer",
+              "DT_String",
+              "DT_Boolean",
+              "DT_Decimal",
+              "DT_Timestamp",
+              "DT_Uri",
+              "DT_Void",
+              "DT_Float",
+              "DT_UnsignedInteger",
+              "DT_Binary",
+              "DT_Uuid",
+              "DT_Text",
+              "DT_Blob",
+              "DT_Clob",
+              "DT_Document",
+              "DT_Any",
+              "DT_Delete"
+            ],
+            "default": "InvalidDataType"
+          },
+          {
+            "name": "spec.format",
+            "description": "is a format string which allows to specify on how the input-value is to be parsed from string to the internal DataType for storing",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "MetaData",
+          "Instances Cells MetaData"
+        ]
+      }
+    },
     "/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/position/{value_position}/keys/{key_name}/values/all/count": {
       "get": {
         "summary": "Count InstanceCell MetaDataKey Values",
-        "description": "Returns the number of values set for a given **MetaDataKey** of the **InstanceCell**.\u003cbr\u003eThis is an **experimental** feature and it's implementation and API might change in a minor update.",
+        "description": "Returns the number of values set for a given **MetaDataKey** of the **InstanceCell**.<br>This is an **experimental** feature and it's implementation and API might change in a minor update.",
         "operationId": "CountInstanceCellMetaDataKeyValues",
         "responses": {
           "200": {
@@ -2597,16 +2925,16 @@
         ]
       }
     },
-    "/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/position/{value_position}/keys/{key_name}/values/{value}": {
-      "delete": {
-        "summary": "Remove InstanceCell MetaData Value",
-        "description": "Removes an existing value from the values of a particular **MetaDataKey** linked to an **InstanceCell*.\u003cbr\u003eIf the value is not in the array of values, an error is returned. The value is case sensitive.",
-        "operationId": "RemoveInstanceCellMetaDataValue",
+    "/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/position/{value_position}/keys/all/count": {
+      "get": {
+        "summary": "Count InstanceCell MetaDataKeys",
+        "description": "Returns the number of **MetaDataKeys** which are associated with the **InstanceCell**.<br>This is an **experimental** feature and it's implementation and API might change in a minor update.",
+        "operationId": "CountInstanceCellMetaDataKeys",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/EmptyRes"
+              "$ref": "#/definitions/CountRes"
             }
           },
           "401": {
@@ -2650,55 +2978,6 @@
             "required": true,
             "type": "integer",
             "format": "int64"
-          },
-          {
-            "name": "key_name",
-            "description": "Unique name of the **MetaDataKey**.",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "value",
-            "description": "String representation of the value for the **MetaDataKey**.\u003cbr\u003eTo parse non standard string represetations set a proper parse-format string in *format*",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "spec.data_type",
-            "description": "overwrites the default_data_type from the default value\n\n - DT_Integer: Integer\n - DT_String: String\n - DT_Boolean: Boolean\n - DT_Decimal: Decimal fixed\n - DT_Timestamp: Timestamp\n - DT_Uri: URI\n - DT_Void: VOID is a designated DataType to indicate no value\n - DT_Float: Float\n - DT_UnsignedInteger: UInt\n - DT_Binary: Byte Array\n - DT_Uuid: UUID\n - DT_Text: FullTextIndex large object\n - DT_Blob: Binary large object\n - DT_Clob: Character large object\n - DT_Document: Document large object, stores/indexes document analysis output\n - DT_Any: DT_Date = 16;\nDT_Time = 17;\nspecial flag to indicate all DataTypes, to be used in AlternativeDataTypes for ActionLabels and MetaDataKeys\n - DT_Delete: special flag to indicate that the value is to be removed",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "InvalidDataType",
-              "DT_Integer",
-              "DT_String",
-              "DT_Boolean",
-              "DT_Decimal",
-              "DT_Timestamp",
-              "DT_Uri",
-              "DT_Void",
-              "DT_Float",
-              "DT_UnsignedInteger",
-              "DT_Binary",
-              "DT_Uuid",
-              "DT_Text",
-              "DT_Blob",
-              "DT_Clob",
-              "DT_Document",
-              "DT_Any",
-              "DT_Delete"
-            ],
-            "default": "InvalidDataType"
-          },
-          {
-            "name": "spec.format",
-            "description": "is a format string which allows to specify on how the input-value is to be parsed from string to the internal DataType for storing",
-            "in": "query",
-            "required": false,
-            "type": "string"
           }
         ],
         "tags": [
@@ -2710,7 +2989,7 @@
     "/api/v2/metadata/instances/{instance_id}/keys": {
       "get": {
         "summary": "List Instance MetaData",
-        "description": "Returns all **MetaDataKeys** linked to an **Instance** with all set values.\u003cbr\u003eThis is an **experimental** feature and it's implementation and API might change in a minor update.",
+        "description": "Returns all **MetaDataKeys** linked to an **Instance** with all set values.<br>This is an **experimental** feature and it's implementation and API might change in a minor update.",
         "operationId": "ListInstanceMetaData",
         "responses": {
           "200": {
@@ -2753,56 +3032,10 @@
         ]
       }
     },
-    "/api/v2/metadata/instances/{instance_id}/keys/all/count": {
-      "get": {
-        "summary": "Count Instance MetaDataKeys",
-        "description": "Returns the number of **MetaDataKeys** which are associated with the **Instance**.\u003cbr\u003eThis is an **experimental** feature and it's implementation and API might change in a minor update.",
-        "operationId": "CountInstanceMetaDataKeys",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/CountRes"
-            }
-          },
-          "401": {
-            "description": "Unauthorized call",
-            "schema": {
-              "$ref": "#/definitions/ErrorResponse"
-            }
-          },
-          "500": {
-            "description": "Unexpected internal error",
-            "schema": {
-              "$ref": "#/definitions/ErrorResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/rpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "instance_id",
-            "description": "The special UUID identifying an **Instance**.",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "tags": [
-          "MetaData",
-          "Instances MetaData"
-        ]
-      }
-    },
     "/api/v2/metadata/instances/{instance_id}/keys/{key_name}": {
       "get": {
         "summary": "Get Instance MetaData Values",
-        "description": "Returns all the values for the given **MetaDataKey** linked to the give **Instance**.\u003cbr\u003eThis is an **experimental** feature and it's implementation and API might change in a minor update.",
+        "description": "Returns all the values for the given **MetaDataKey** linked to the give **Instance**.<br>This is an **experimental** feature and it's implementation and API might change in a minor update.",
         "operationId": "GetInstanceMetaDataValues",
         "responses": {
           "200": {
@@ -2853,7 +3086,7 @@
       },
       "delete": {
         "summary": "Remove Instance MetaData",
-        "description": "Removes a **MetaDataKey** and *all* its values from an **Instance**.\u003cbr\u003eThis is an **experimental** feature and it's implementation and API might change in a minor update.",
+        "description": "Removes a **MetaDataKey** and *all* its values from an **Instance**.<br>This is an **experimental** feature and it's implementation and API might change in a minor update.",
         "operationId": "RemoveInstanceMetaData",
         "responses": {
           "200": {
@@ -2906,7 +3139,7 @@
     "/api/v2/metadata/instances/{instance_id}/keys/{key_name}/values": {
       "post": {
         "summary": "Add Instance MetaData Value",
-        "description": "Adds an additional value to the values of a particular **MetaDataKey** linked to an **Instance*.\u003cbr\u003eIf the value should already be in the array of values, an error is returned.\u003cbr\u003eThis is an **experimental** feature and it's implementation and API might change in a minor update.",
+        "description": "Adds an additional value to the values of a particular **MetaDataKey** linked to an **Instance*.<br>If the value should already be in the array of values, an error is returned.<br>This is an **experimental** feature and it's implementation and API might change in a minor update.",
         "operationId": "AddInstanceMetaDataValue",
         "responses": {
           "200": {
@@ -2958,7 +3191,7 @@
               "properties": {
                 "value": {
                   "type": "string",
-                  "description": "String representation of the value for the **MetaDataKey**.\u003cbr\u003eTo parse non standard string represetations set a proper parse-format string in *format*"
+                  "description": "String representation of the value for the **MetaDataKey**.<br>To parse non standard string represetations set a proper parse-format string in *format*"
                 },
                 "spec": {
                   "$ref": "#/definitions/DataTypeFormat",
@@ -2979,10 +3212,105 @@
         ]
       }
     },
+    "/api/v2/metadata/instances/{instance_id}/keys/{key_name}/values/{value}": {
+      "delete": {
+        "summary": "Remove Instance MetaData Value",
+        "description": "Removes an existing value from the values of a particular **MetaDataKey** linked to an **Instance*.<br>If the value is not in the array of values, an error is returned.<br>This is an **experimental** feature and it's implementation and API might change in a minor update.",
+        "operationId": "RemoveInstanceMetaDataValue",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/EmptyRes"
+            }
+          },
+          "401": {
+            "description": "Unauthorized call",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Unexpected internal error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "instance_id",
+            "description": "The special UUID identifying an **Instance**.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "key_name",
+            "description": "Unique name of the **MetaDataKey**.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "value",
+            "description": "String representation of the value for the **MetaDataKey**.<br>To parse non standard string represetations set a proper parse-format string in *format*",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "spec.data_type",
+            "description": "overwrites the default_data_type from the default value\n\n - DT_Integer: Integer\n - DT_String: String\n - DT_Boolean: Boolean\n - DT_Decimal: Decimal fixed\n - DT_Timestamp: Timestamp\n - DT_Uri: URI\n - DT_Void: VOID is a designated DataType to indicate no value\n - DT_Float: Float\n - DT_UnsignedInteger: UInt\n - DT_Binary: Byte Array\n - DT_Uuid: UUID\n - DT_Text: FullTextIndex large object\n - DT_Blob: Binary large object\n - DT_Clob: Character large object\n - DT_Document: Document large object, stores/indexes document analysis output\n - DT_Any: DT_Date = 16;\nDT_Time = 17;\nspecial flag to indicate all DataTypes, to be used in AlternativeDataTypes for ActionLabels and MetaDataKeys\n - DT_Delete: special flag to indicate that the value is to be removed",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "InvalidDataType",
+              "DT_Integer",
+              "DT_String",
+              "DT_Boolean",
+              "DT_Decimal",
+              "DT_Timestamp",
+              "DT_Uri",
+              "DT_Void",
+              "DT_Float",
+              "DT_UnsignedInteger",
+              "DT_Binary",
+              "DT_Uuid",
+              "DT_Text",
+              "DT_Blob",
+              "DT_Clob",
+              "DT_Document",
+              "DT_Any",
+              "DT_Delete"
+            ],
+            "default": "InvalidDataType"
+          },
+          {
+            "name": "spec.format",
+            "description": "is a format string which allows to specify on how the input-value is to be parsed from string to the internal DataType for storing",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "MetaData",
+          "Instances MetaData"
+        ]
+      }
+    },
     "/api/v2/metadata/instances/{instance_id}/keys/{key_name}/values/all/count": {
       "get": {
         "summary": "Count Instance MetaDataKey Values",
-        "description": "Returns the number of values set for a given **MetaDataKey** of the **Instance**.\u003cbr\u003eThis is an **experimental** feature and it's implementation and API might change in a minor update.",
+        "description": "Returns the number of values set for a given **MetaDataKey** of the **Instance**.<br>This is an **experimental** feature and it's implementation and API might change in a minor update.",
         "operationId": "CountInstanceMetaDataKeyValues",
         "responses": {
           "200": {
@@ -3032,16 +3360,16 @@
         ]
       }
     },
-    "/api/v2/metadata/instances/{instance_id}/keys/{key_name}/values/{value}": {
-      "delete": {
-        "summary": "Remove Instance MetaData Value",
-        "description": "Removes an existing value from the values of a particular **MetaDataKey** linked to an **Instance*.\u003cbr\u003eIf the value is not in the array of values, an error is returned.\u003cbr\u003eThis is an **experimental** feature and it's implementation and API might change in a minor update.",
-        "operationId": "RemoveInstanceMetaDataValue",
+    "/api/v2/metadata/instances/{instance_id}/keys/all/count": {
+      "get": {
+        "summary": "Count Instance MetaDataKeys",
+        "description": "Returns the number of **MetaDataKeys** which are associated with the **Instance**.<br>This is an **experimental** feature and it's implementation and API might change in a minor update.",
+        "operationId": "CountInstanceMetaDataKeys",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/EmptyRes"
+              "$ref": "#/definitions/CountRes"
             }
           },
           "401": {
@@ -3070,55 +3398,6 @@
             "in": "path",
             "required": true,
             "type": "string"
-          },
-          {
-            "name": "key_name",
-            "description": "Unique name of the **MetaDataKey**.",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "value",
-            "description": "String representation of the value for the **MetaDataKey**.\u003cbr\u003eTo parse non standard string represetations set a proper parse-format string in *format*",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "spec.data_type",
-            "description": "overwrites the default_data_type from the default value\n\n - DT_Integer: Integer\n - DT_String: String\n - DT_Boolean: Boolean\n - DT_Decimal: Decimal fixed\n - DT_Timestamp: Timestamp\n - DT_Uri: URI\n - DT_Void: VOID is a designated DataType to indicate no value\n - DT_Float: Float\n - DT_UnsignedInteger: UInt\n - DT_Binary: Byte Array\n - DT_Uuid: UUID\n - DT_Text: FullTextIndex large object\n - DT_Blob: Binary large object\n - DT_Clob: Character large object\n - DT_Document: Document large object, stores/indexes document analysis output\n - DT_Any: DT_Date = 16;\nDT_Time = 17;\nspecial flag to indicate all DataTypes, to be used in AlternativeDataTypes for ActionLabels and MetaDataKeys\n - DT_Delete: special flag to indicate that the value is to be removed",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "InvalidDataType",
-              "DT_Integer",
-              "DT_String",
-              "DT_Boolean",
-              "DT_Decimal",
-              "DT_Timestamp",
-              "DT_Uri",
-              "DT_Void",
-              "DT_Float",
-              "DT_UnsignedInteger",
-              "DT_Binary",
-              "DT_Uuid",
-              "DT_Text",
-              "DT_Blob",
-              "DT_Clob",
-              "DT_Document",
-              "DT_Any",
-              "DT_Delete"
-            ],
-            "default": "InvalidDataType"
-          },
-          {
-            "name": "spec.format",
-            "description": "is a format string which allows to specify on how the input-value is to be parsed from string to the internal DataType for storing",
-            "in": "query",
-            "required": false,
-            "type": "string"
           }
         ],
         "tags": [
@@ -3130,7 +3409,7 @@
     "/api/v2/metadata/keys": {
       "get": {
         "summary": "List MetaDataKeys",
-        "description": "Lists all MetaDataKeys in the Dynizer.\u003cbr\u003eBy default all rows are returned. Optionally a window can be provided to fetch just a specific sub-set of rows to support pagination.\u003cbr\u003eThis is an **experimental** feature and it's implementation and API might change in a minor update.",
+        "description": "Lists all MetaDataKeys in the Dynizer.<br>By default all rows are returned. Optionally a window can be provided to fetch just a specific sub-set of rows to support pagination.<br>This is an **experimental** feature and it's implementation and API might change in a minor update.",
         "operationId": "ListMetaDataKeys",
         "responses": {
           "200": {
@@ -3161,7 +3440,7 @@
         "parameters": [
           {
             "name": "window.limit",
-            "description": "Defines how many records at max are returned.\u003cbr\u003eIf fewer records are available, all will be returned.\u003cbr\u003eSetting this to -1 will be interpreted as no limit",
+            "description": "Defines how many records at max are returned.<br>If fewer records are available, all will be returned.<br>Setting this to -1 will be interpreted as no limit",
             "in": "query",
             "required": true,
             "type": "integer",
@@ -3169,7 +3448,7 @@
           },
           {
             "name": "window.offset",
-            "description": "Defines the offset at which to start reading.\u003cbr\u003eAn offset of 0 will bean to start from the first possible record.",
+            "description": "Defines the offset at which to start reading.<br>An offset of 0 will bean to start from the first possible record.",
             "in": "query",
             "required": true,
             "type": "integer",
@@ -3190,7 +3469,7 @@
       },
       "post": {
         "summary": "Create MetaDataKey",
-        "description": "Create a **MetaDataKey** definition.\u003cbr\u003eThis is an **experimental** feature and it's implementation and API might change in a minor update.",
+        "description": "Create a **MetaDataKey** definition.<br>This is an **experimental** feature and it's implementation and API might change in a minor update.",
         "operationId": "CreateMetaDataKey",
         "responses": {
           "200": {
@@ -3235,47 +3514,10 @@
         ]
       }
     },
-    "/api/v2/metadata/keys/all/count": {
-      "get": {
-        "summary": "Count MetaDataKeys",
-        "description": "Returns the number of MetaDataKeys in the Dynizer.\u003cbr\u003eThis is an **experimental** feature and it's implementation and API might change in a minor update.",
-        "operationId": "CountMetaDataKeys",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/CountRes"
-            }
-          },
-          "401": {
-            "description": "Unauthorized call",
-            "schema": {
-              "$ref": "#/definitions/ErrorResponse"
-            }
-          },
-          "500": {
-            "description": "Unexpected internal error",
-            "schema": {
-              "$ref": "#/definitions/ErrorResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/rpcStatus"
-            }
-          }
-        },
-        "tags": [
-          "MetaData",
-          "MetaDataKey"
-        ]
-      }
-    },
     "/api/v2/metadata/keys/{key_name}": {
       "get": {
         "summary": "Read MetaDataKey",
-        "description": "Reads the **MetaDataKey** definition\u003cbr\u003eThis is an **experimental** feature and it's implementation and API might change in a minor update.",
+        "description": "Reads the **MetaDataKey** definition<br>This is an **experimental** feature and it's implementation and API might change in a minor update.",
         "operationId": "ReadMetaDataKey",
         "responses": {
           "200": {
@@ -3319,7 +3561,7 @@
       },
       "delete": {
         "summary": "Delete MetaDataKey",
-        "description": "Deletes a **MetaDataKey**.\u003cbr\u003eIf *cascade* is set to true, all usages of the **MetaDataKey** are deleted as well.\u003cbr\u003eThis is an **experimental** feature and it's implementation and API might change in a minor update.",
+        "description": "Deletes a **MetaDataKey**.<br>If *cascade* is set to true, all usages of the **MetaDataKey** are deleted as well.<br>This is an **experimental** feature and it's implementation and API might change in a minor update.",
         "operationId": "DeleteMetaDataKey",
         "responses": {
           "200": {
@@ -3357,7 +3599,7 @@
           },
           {
             "name": "cascade",
-            "description": "Flag which contrls the behaviour of the delete.\u003cbr\u003eIf set to \u003cspan style=\"color:green\"\u003e**true**\u003c/span\u003e, all usages of the **MetaDataKey** will get deleted as well.\u003cbr\u003eIf set to \u003cspan style=\"color:red\"\u003e**false**\u003c/span\u003e an error will be raised if the **MetaDataKey** is in use.",
+            "description": "Flag which contrls the behaviour of the delete.<br>If set to <span style=\"color:green\">**true**</span>, all usages of the **MetaDataKey** will get deleted as well.<br>If set to <span style=\"color:red\">**false**</span> an error will be raised if the **MetaDataKey** is in use.",
             "in": "query",
             "required": false,
             "type": "boolean"
@@ -3370,7 +3612,7 @@
       },
       "patch": {
         "summary": "Update MetaDataKey",
-        "description": "Updates the **MetaDataKey**. The *name* of the **MetaDataKey** can be changed.\u003cbr\u003eThe default DataType can be changed.\u003cbr\u003eThe max occurrence can be changed.\u003cbr\u003eThe list of alternative DataTypes can be adapted as well.\u003cbr\u003eIf an update to the **MetaDataKey** should lead to a violation of any MetaDataKey - value, and error is raised.\u003cbr\u003eThis is an **experimental** feature and it's implementation and API might change in a minor update.",
+        "description": "Updates the **MetaDataKey**. The *name* of the **MetaDataKey** can be changed.<br>The default DataType can be changed.<br>The max occurrence can be changed.<br>The list of alternative DataTypes can be adapted as well.<br>If an update to the **MetaDataKey** should lead to a violation of any MetaDataKey - value, and error is raised.<br>This is an **experimental** feature and it's implementation and API might change in a minor update.",
         "operationId": "UpdateMetaDataKey",
         "responses": {
           "200": {
@@ -3415,23 +3657,23 @@
               "properties": {
                 "new_key_name": {
                   "type": "string",
-                  "description": "New unique name of the **MetaDataKey**.\u003cbr\u003eThe CheckMetaDataKeyName call can be used to check if the name can be used."
+                  "description": "New unique name of the **MetaDataKey**.<br>The CheckMetaDataKeyName call can be used to check if the name can be used."
                 },
                 "default_data_type": {
                   "$ref": "#/definitions/DataType",
-                  "description": "The **DataType** for this **MetaDataKey** value.\u003cbr\u003eThis **DataType** will be used when creating values for the MetaData with this **MetaDataKey**."
+                  "description": "The **DataType** for this **MetaDataKey** value.<br>This **DataType** will be used when creating values for the MetaData with this **MetaDataKey**."
                 },
                 "max_occurrence": {
                   "type": "integer",
                   "format": "int64",
-                  "description": "How many values at most can be stored in the **MetaDataKey** value array for one use.\u003cbr\u003eNot setting this property or setting it to 0, will mean to the maximum based on system settings."
+                  "description": "How many values at most can be stored in the **MetaDataKey** value array for one use.<br>Not setting this property or setting it to 0, will mean to the maximum based on system settings."
                 },
                 "alternative_data_types": {
                   "type": "array",
                   "items": {
                     "$ref": "#/definitions/DataType"
                   },
-                  "description": "List of additional allowed **DataTypes** for this **MetaDataKey**.\u003cbr\u003eIf left empty only the *default_data_type* is allowed for the values of this **MetaDataKey**."
+                  "description": "List of additional allowed **DataTypes** for this **MetaDataKey**.<br>If left empty only the *default_data_type* is allowed for the values of this **MetaDataKey**."
                 }
               },
               "description": "Used to update a **MetaDataKey**.",
@@ -3445,10 +3687,47 @@
         ]
       }
     },
+    "/api/v2/metadata/keys/all/count": {
+      "get": {
+        "summary": "Count MetaDataKeys",
+        "description": "Returns the number of MetaDataKeys in the Dynizer.<br>This is an **experimental** feature and it's implementation and API might change in a minor update.",
+        "operationId": "CountMetaDataKeys",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CountRes"
+            }
+          },
+          "401": {
+            "description": "Unauthorized call",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Unexpected internal error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "MetaData",
+          "MetaDataKey"
+        ]
+      }
+    },
     "/api/v2/my/password": {
       "put": {
         "summary": "Change My Password",
-        "description": "Can be used by any user to change ones own password.\u003cbr\u003eIt requires the current password for added security.",
+        "description": "Can be used by any user to change ones own password.<br>It requires the current password for added security.",
         "operationId": "ChangeMyPassword",
         "responses": {
           "200": {
@@ -3495,7 +3774,7 @@
     "/api/v2/my/profile": {
       "get": {
         "summary": "Get My Profile",
-        "description": "Returns the current users information.\u003cbr\u003eThis includes all roles.",
+        "description": "Returns the current users information.<br>This includes all roles.",
         "operationId": "GetMyProfile",
         "responses": {
           "200": {
@@ -3635,7 +3914,7 @@
       },
       "post": {
         "summary": "Create Object",
-        "description": "Creates a reference URI value in the Dynizer which is needed to upload a large value of type *TEXT*, *CLOB*, *BLOB* or *DOCUMENT*.\u003cbr\u003e*TEXT* is the DataType which will get indexed by the **FullTextIndex** if enabled.\u003cbr\u003e*CLOB* is a charatecr LOB, unindexed large string\u003cbr\u003e*BLOB* is a binary LOB, unindexed bytes\u003cbr\u003e*DOCUMENT* is the JSON structured output of document analysis.",
+        "description": "Creates a reference URI value in the Dynizer which is needed to upload a large value of type *TEXT*, *CLOB*, *BLOB* or *DOCUMENT*.<br>*TEXT* is the DataType which will get indexed by the **FullTextIndex** if enabled.<br>*CLOB* is a charatecr LOB, unindexed large string<br>*BLOB* is a binary LOB, unindexed bytes<br>*DOCUMENT* is the JSON structured output of document analysis.",
         "operationId": "CreateObject",
         "responses": {
           "200": {
@@ -3751,7 +4030,7 @@
           },
           {
             "name": "object_ref.ref_uri",
-            "description": "The URI referencing the **Object**. This field is used to support an old version that returns \u003cobject_type\u003e/\u003cuuid\u003e. Use 'ref_uuid' instead.",
+            "description": "The URI referencing the **Object**. This field is used to support an old version that returns <object_type>/<uuid>. Use 'ref_uuid' instead.",
             "in": "query",
             "required": false,
             "type": "string"
@@ -3833,7 +4112,7 @@
           },
           {
             "name": "object_ref.ref_uri",
-            "description": "The URI referencing the **Object**. This field is used to support an old version that returns \u003cobject_type\u003e/\u003cuuid\u003e. Use 'ref_uuid' instead.",
+            "description": "The URI referencing the **Object**. This field is used to support an old version that returns <object_type>/<uuid>. Use 'ref_uuid' instead.",
             "in": "query",
             "required": false,
             "type": "string"
@@ -3924,7 +4203,7 @@
                   "properties": {
                     "ref_uri": {
                       "type": "string",
-                      "description": "The URI referencing the **Object**. This field is used to support an old version that returns \u003cobject_type\u003e/\u003cuuid\u003e. Use 'ref_uuid' instead."
+                      "description": "The URI referencing the **Object**. This field is used to support an old version that returns <object_type>/<uuid>. Use 'ref_uuid' instead."
                     }
                   },
                   "description": "Message to hold a **ObjectReference*",
@@ -4028,7 +4307,7 @@
           },
           {
             "name": "object_ref.ref_uri",
-            "description": "The URI referencing the **Object**. This field is used to support an old version that returns \u003cobject_type\u003e/\u003cuuid\u003e. Use 'ref_uuid' instead.",
+            "description": "The URI referencing the **Object**. This field is used to support an old version that returns <object_type>/<uuid>. Use 'ref_uuid' instead.",
             "in": "query",
             "required": false,
             "type": "string"
@@ -4042,7 +4321,7 @@
     "/api/v2/plots/filtered/{top}/{plot_name}": {
       "post": {
         "summary": "Dynizer Filtered Plot",
-        "description": "Sends in a filtered statement to retrieve plot data json.\u003cbr\u003eThis is an **experimental** feature and it's implementation and API might change in a minor update.",
+        "description": "Sends in a filtered statement to retrieve plot data json.<br>This is an **experimental** feature and it's implementation and API might change in a minor update.",
         "operationId": "DynizerFilteredPlot",
         "responses": {
           "200": {
@@ -4098,21 +4377,21 @@
                   "items": {
                     "type": "string"
                   },
-                  "description": "List of allowed **Actions** for the returned **Instances**.\u003cbr\u003eIf left empty the search scope will include all **Actions**."
+                  "description": "List of allowed **Actions** for the returned **Instances**.<br>If left empty the search scope will include all **Actions**."
                 },
                 "data_types": {
                   "type": "array",
                   "items": {
                     "$ref": "#/definitions/DataType"
                   },
-                  "description": "List of allowed **DataTypes** for the returned **DataElement**.\u003cbr\u003eIf left empty all **DataTypes** will be returned."
+                  "description": "List of allowed **DataTypes** for the returned **DataElement**.<br>If left empty all **DataTypes** will be returned."
                 },
                 "component_types": {
                   "type": "array",
                   "items": {
                     "$ref": "#/definitions/ComponentType"
                   },
-                  "description": "List of allowed **ComponentTypes** for the returned **DataElement**.\u003cbr\u003eIf left empty all **ComponentTypes** will be returned."
+                  "description": "List of allowed **ComponentTypes** for the returned **DataElement**.<br>If left empty all **ComponentTypes** will be returned."
                 },
                 "filters": {
                   "type": "array",
@@ -4134,7 +4413,7 @@
     "/api/v2/query": {
       "post": {
         "summary": "Dynizer Query",
-        "description": "Sends in a DQL statement.\u003cbr\u003e*SELECT* to retrieve instances.\u003cbr\u003eINSERT, UPDATE, DELETE, CREATE, DROP, ... are not supported at this point in time.",
+        "description": "Sends in a DQL statement.<br>*SELECT* to retrieve instances.<br>INSERT, UPDATE, DELETE, CREATE, DROP, ... are not supported at this point in time.",
         "operationId": "DynizerQuery",
         "responses": {
           "200": {
@@ -4178,386 +4457,10 @@
         ]
       }
     },
-    "/api/v2/query/bind": {
-      "post": {
-        "summary": "Binds the parameter to a parsed query",
-        "description": "Binds parameters to a parsed DQL statement.\u003cbr\u003eThis is part of the new experimental query engine in development but can be used for the current engine as well.\u003cbr\u003eTo change the query engine, set the session variable 'query_v3_session to *true*.",
-        "operationId": "QueryBind",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/EmptyRes"
-            }
-          },
-          "401": {
-            "description": "Unauthorized call",
-            "schema": {
-              "$ref": "#/definitions/ErrorResponse"
-            }
-          },
-          "500": {
-            "description": "Unexpected internal error",
-            "schema": {
-              "$ref": "#/definitions/ErrorResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/rpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "description": "Performs the Bind of Parameter values",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/QueryBindReq"
-            }
-          }
-        ],
-        "tags": [
-          "Query"
-        ]
-      }
-    },
-    "/api/v2/query/close": {
-      "post": {
-        "summary": "Closes and cleans parsed and/or bind queries",
-        "description": "Closes a DQL statement.\u003cbr\u003eThis is part of the new experimental query engine in development but can be used for the current engine as well.\u003cbr\u003eTo change the query engine, set the session variable 'query_v3_session to *true*.",
-        "operationId": "QueryClose",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/EmptyRes"
-            }
-          },
-          "401": {
-            "description": "Unauthorized call",
-            "schema": {
-              "$ref": "#/definitions/ErrorResponse"
-            }
-          },
-          "500": {
-            "description": "Unexpected internal error",
-            "schema": {
-              "$ref": "#/definitions/ErrorResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/rpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "description": "Cleans up the session data for weither a portal or a statement.\nIf a statement close is issued all associated portals are closed too.",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/QueryCloseReq"
-            }
-          }
-        ],
-        "tags": [
-          "Query"
-        ]
-      }
-    },
-    "/api/v2/query/execute": {
-      "post": {
-        "summary": "Executes a parsed and bound query",
-        "description": "Executes and fetches the ResultRows for the parsed and bound DQL statement for given window or offset.\u003cbr\u003eThis is part of the new experimental query engine in development but can be used for the current engine as well.\u003cbr\u003eTo change the query engine, set the session variable 'query_v3_session to *true*.",
-        "operationId": "QueryExecute",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/QueryExecuteRes"
-            }
-          },
-          "401": {
-            "description": "Unauthorized call",
-            "schema": {
-              "$ref": "#/definitions/ErrorResponse"
-            }
-          },
-          "500": {
-            "description": "Unexpected internal error",
-            "schema": {
-              "$ref": "#/definitions/ErrorResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/rpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "description": "Executes a prepared and bound query",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/QueryExecuteReq"
-            }
-          }
-        ],
-        "tags": [
-          "Query"
-        ]
-      }
-    },
-    "/api/v2/query/filtered": {
-      "post": {
-        "summary": "Dynizer Filtered Query",
-        "description": "Sends in a filtered statement to retrieve **Instances**.\u003cbr\u003eThis is an **experimental** feature and it's implementation and API might change in a minor update.",
-        "operationId": "DynizerFilteredQuery",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/DQLRes"
-            }
-          },
-          "401": {
-            "description": "Unauthorized call",
-            "schema": {
-              "$ref": "#/definitions/ErrorResponse"
-            }
-          },
-          "500": {
-            "description": "Unexpected internal error",
-            "schema": {
-              "$ref": "#/definitions/ErrorResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/rpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "description": "Returns **DataElements** with their count in the Instances slected by the filter or overall if no filter has been set",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/FilterQueryReq"
-            }
-          }
-        ],
-        "tags": [
-          "Query"
-        ]
-      }
-    },
-    "/api/v2/query/parse": {
-      "post": {
-        "summary": "Parses a dql and stores the result in the session",
-        "description": "Parses a DQL statement.\u003cbr\u003eThis is part of the new experimental query engine in development but can be used for the current engine as well.\u003cbr\u003eTo change the query engine, set the session variable 'query_v3_session to *true*.",
-        "operationId": "QueryParse",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/EmptyRes"
-            }
-          },
-          "401": {
-            "description": "Unauthorized call",
-            "schema": {
-              "$ref": "#/definitions/ErrorResponse"
-            }
-          },
-          "500": {
-            "description": "Unexpected internal error",
-            "schema": {
-              "$ref": "#/definitions/ErrorResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/rpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "description": "DQL statement to be parsed",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/QueryParseReq"
-            }
-          }
-        ],
-        "tags": [
-          "Query"
-        ]
-      }
-    },
-    "/api/v2/query/portal/describe": {
-      "post": {
-        "summary": "Returns the description for the result labels and optionally for the bound parameters",
-        "description": "Fetches the ResultLabels for the parsed DQL statement and bound parameters.\u003cbr\u003eThis is part of the new experimental query engine in development but can be used for the current engine as well.\u003cbr\u003eTo change the query engine, set the session variable 'query_v3_session to *true*.",
-        "operationId": "QueryDescribePortal",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/QueryDescribePortalRes"
-            }
-          },
-          "401": {
-            "description": "Unauthorized call",
-            "schema": {
-              "$ref": "#/definitions/ErrorResponse"
-            }
-          },
-          "500": {
-            "description": "Unexpected internal error",
-            "schema": {
-              "$ref": "#/definitions/ErrorResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/rpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "description": "Performs the Describe for wither a statement or a portal.\nA statement description will return the definition for both the Parameters as well as the ActionLabels.\nA portal description will just return the ActionLabels.",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/QueryDescribePortalReq"
-            }
-          }
-        ],
-        "tags": [
-          "Query"
-        ]
-      }
-    },
-    "/api/v2/query/simple": {
-      "post": {
-        "summary": "Simple Query with immediate results",
-        "description": "Sends in a DQL statement, executes it and returns the result.\u003cbr\u003eThis is part of the new experimental query engine in development but can be used for the current engine as well.\u003cbr\u003eTo change the query engine, set the session variable 'query_v3_session to *true*.",
-        "operationId": "SimpleQuery",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/SimpleQueryRes"
-            }
-          },
-          "401": {
-            "description": "Unauthorized call",
-            "schema": {
-              "$ref": "#/definitions/ErrorResponse"
-            }
-          },
-          "500": {
-            "description": "Unexpected internal error",
-            "schema": {
-              "$ref": "#/definitions/ErrorResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/rpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "description": "DQL statment",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/DQLReq"
-            }
-          }
-        ],
-        "tags": [
-          "Query"
-        ]
-      }
-    },
-    "/api/v2/query/statement/describe": {
-      "post": {
-        "summary": "Returns the description for the result labels and optionally for the bound parameters",
-        "description": "Fetches the ResultLabels for the parsed DQL statement.\u003cbr\u003eThis is part of the new experimental query engine in development but can be used for the current engine as well.\u003cbr\u003eTo change the query engine, set the session variable 'query_v3_session to *true*.",
-        "operationId": "QueryDescribeStatement",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/QueryDescribeStatementRes"
-            }
-          },
-          "401": {
-            "description": "Unauthorized call",
-            "schema": {
-              "$ref": "#/definitions/ErrorResponse"
-            }
-          },
-          "500": {
-            "description": "Unexpected internal error",
-            "schema": {
-              "$ref": "#/definitions/ErrorResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/rpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "description": "Performs the Describe for wither a statement or a portal.\nA statement description will return the definition for both the Parameters as well as the ActionLabels.\nA portal description will just return the ActionLabels.",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/QueryDescribeStatementReq"
-            }
-          }
-        ],
-        "tags": [
-          "Query"
-        ]
-      }
-    },
     "/api/v2/query/{result_handle}/close": {
       "get": {
         "summary": "QueryResultClose",
-        "description": "Close a ResultHandle.\u003cbr\u003eThis will free all result cache resources.",
+        "description": "Close a ResultHandle.<br>This will free all result cache resources.",
         "operationId": "QueryResultClose",
         "responses": {
           "200": {
@@ -4616,7 +4519,7 @@
     "/api/v2/query/{result_handle}/next": {
       "get": {
         "summary": "Query Result Next",
-        "description": "Reads ResultRows from a ResultHandle.\u003cbr\u003eBy default no rows are returned. A window must be provided to fetch just a specific sub-set of rows.",
+        "description": "Reads ResultRows from a ResultHandle.<br>By default no rows are returned. A window must be provided to fetch just a specific sub-set of rows.",
         "operationId": "QueryResultNext",
         "responses": {
           "200": {
@@ -4654,7 +4557,7 @@
           },
           {
             "name": "window.limit",
-            "description": "Defines how many records at max are returned.\u003cbr\u003eIf fewer records are available, all will be returned.\u003cbr\u003eSetting this to -1 will be interpreted as no limit",
+            "description": "Defines how many records at max are returned.<br>If fewer records are available, all will be returned.<br>Setting this to -1 will be interpreted as no limit",
             "in": "query",
             "required": true,
             "type": "integer",
@@ -4662,7 +4565,7 @@
           },
           {
             "name": "window.offset",
-            "description": "Defines the offset at which to start reading.\u003cbr\u003eAn offset of 0 will bean to start from the first possible record.",
+            "description": "Defines the offset at which to start reading.<br>An offset of 0 will bean to start from the first possible record.",
             "in": "query",
             "required": true,
             "type": "integer",
@@ -4674,6 +4577,382 @@
             "in": "query",
             "required": false,
             "type": "boolean"
+          }
+        ],
+        "tags": [
+          "Query"
+        ]
+      }
+    },
+    "/api/v2/query/bind": {
+      "post": {
+        "summary": "Binds the parameter to a parsed query",
+        "description": "Binds parameters to a parsed DQL statement.<br>This is part of the new experimental query engine in development but can be used for the current engine as well.<br>To change the query engine, set the session variable 'query_v3_session to *true*.",
+        "operationId": "QueryBind",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/EmptyRes"
+            }
+          },
+          "401": {
+            "description": "Unauthorized call",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Unexpected internal error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": "Performs the Bind of Parameter values",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/QueryBindReq"
+            }
+          }
+        ],
+        "tags": [
+          "Query"
+        ]
+      }
+    },
+    "/api/v2/query/close": {
+      "post": {
+        "summary": "Closes and cleans parsed and/or bind queries",
+        "description": "Closes a DQL statement.<br>This is part of the new experimental query engine in development but can be used for the current engine as well.<br>To change the query engine, set the session variable 'query_v3_session to *true*.",
+        "operationId": "QueryClose",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/EmptyRes"
+            }
+          },
+          "401": {
+            "description": "Unauthorized call",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Unexpected internal error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": "Cleans up the session data for weither a portal or a statement.\nIf a statement close is issued all associated portals are closed too.",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/QueryCloseReq"
+            }
+          }
+        ],
+        "tags": [
+          "Query"
+        ]
+      }
+    },
+    "/api/v2/query/execute": {
+      "post": {
+        "summary": "Executes a parsed and bound query",
+        "description": "Executes and fetches the ResultRows for the parsed and bound DQL statement for given window or offset.<br>This is part of the new experimental query engine in development but can be used for the current engine as well.<br>To change the query engine, set the session variable 'query_v3_session to *true*.",
+        "operationId": "QueryExecute",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/QueryExecuteRes"
+            }
+          },
+          "401": {
+            "description": "Unauthorized call",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Unexpected internal error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": "Executes a prepared and bound query",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/QueryExecuteReq"
+            }
+          }
+        ],
+        "tags": [
+          "Query"
+        ]
+      }
+    },
+    "/api/v2/query/filtered": {
+      "post": {
+        "summary": "Dynizer Filtered Query",
+        "description": "Sends in a filtered statement to retrieve **Instances**.<br>This is an **experimental** feature and it's implementation and API might change in a minor update.",
+        "operationId": "DynizerFilteredQuery",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/DQLRes"
+            }
+          },
+          "401": {
+            "description": "Unauthorized call",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Unexpected internal error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": "Returns **DataElements** with their count in the Instances slected by the filter or overall if no filter has been set",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/FilterQueryReq"
+            }
+          }
+        ],
+        "tags": [
+          "Query"
+        ]
+      }
+    },
+    "/api/v2/query/parse": {
+      "post": {
+        "summary": "Parses a dql and stores the result in the session",
+        "description": "Parses a DQL statement.<br>This is part of the new experimental query engine in development but can be used for the current engine as well.<br>To change the query engine, set the session variable 'query_v3_session to *true*.",
+        "operationId": "QueryParse",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/EmptyRes"
+            }
+          },
+          "401": {
+            "description": "Unauthorized call",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Unexpected internal error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": "DQL statement to be parsed",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/QueryParseReq"
+            }
+          }
+        ],
+        "tags": [
+          "Query"
+        ]
+      }
+    },
+    "/api/v2/query/portal/describe": {
+      "post": {
+        "summary": "Returns the description for the result labels and optionally for the bound parameters",
+        "description": "Fetches the ResultLabels for the parsed DQL statement and bound parameters.<br>This is part of the new experimental query engine in development but can be used for the current engine as well.<br>To change the query engine, set the session variable 'query_v3_session to *true*.",
+        "operationId": "QueryDescribePortal",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/QueryDescribePortalRes"
+            }
+          },
+          "401": {
+            "description": "Unauthorized call",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Unexpected internal error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": "Performs the Describe for wither a statement or a portal.\nA statement description will return the definition for both the Parameters as well as the ActionLabels.\nA portal description will just return the ActionLabels.",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/QueryDescribePortalReq"
+            }
+          }
+        ],
+        "tags": [
+          "Query"
+        ]
+      }
+    },
+    "/api/v2/query/simple": {
+      "post": {
+        "summary": "Simple Query with immediate results",
+        "description": "Sends in a DQL statement, executes it and returns the result.<br>This is part of the new experimental query engine in development but can be used for the current engine as well.<br>To change the query engine, set the session variable 'query_v3_session to *true*.",
+        "operationId": "SimpleQuery",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/SimpleQueryRes"
+            }
+          },
+          "401": {
+            "description": "Unauthorized call",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Unexpected internal error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": "DQL statment",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DQLReq"
+            }
+          }
+        ],
+        "tags": [
+          "Query"
+        ]
+      }
+    },
+    "/api/v2/query/statement/describe": {
+      "post": {
+        "summary": "Returns the description for the result labels and optionally for the bound parameters",
+        "description": "Fetches the ResultLabels for the parsed DQL statement.<br>This is part of the new experimental query engine in development but can be used for the current engine as well.<br>To change the query engine, set the session variable 'query_v3_session to *true*.",
+        "operationId": "QueryDescribeStatement",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/QueryDescribeStatementRes"
+            }
+          },
+          "401": {
+            "description": "Unauthorized call",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Unexpected internal error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": "Performs the Describe for wither a statement or a portal.\nA statement description will return the definition for both the Parameters as well as the ActionLabels.\nA portal description will just return the ActionLabels.",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/QueryDescribeStatementReq"
+            }
           }
         ],
         "tags": [
@@ -4720,7 +4999,7 @@
     "/api/v2/servicelogin": {
       "post": {
         "summary": "Service Login",
-        "description": "To Login to the Dynizer using a service token.\u003cbr\u003eIf the service-token is valid and the associated user has access, a [Json Web Token](https://jwt.io/) [(RFC 7519)](https://tools.ietf.org/html/rfc7519) will be returned.",
+        "description": "To Login to the Dynizer using a service token.<br>If the service-token is valid and the associated user has access, a [Json Web Token](https://jwt.io/) [(RFC 7519)](https://tools.ietf.org/html/rfc7519) will be returned.",
         "operationId": "ServiceLogin",
         "responses": {
           "200": {
@@ -5158,7 +5437,7 @@
     "/api/v2/users": {
       "get": {
         "summary": "List Users",
-        "description": "Returns all users from the Dynizer.\u003cbr\u003eBy default all rows are returned. Optionally a window can be provided to fetch just a specific sub-set of rows to support pagination.",
+        "description": "Returns all users from the Dynizer.<br>By default all rows are returned. Optionally a window can be provided to fetch just a specific sub-set of rows to support pagination.",
         "operationId": "ListUsers",
         "responses": {
           "200": {
@@ -5189,7 +5468,7 @@
         "parameters": [
           {
             "name": "window.limit",
-            "description": "Defines how many records at max are returned.\u003cbr\u003eIf fewer records are available, all will be returned.\u003cbr\u003eSetting this to -1 will be interpreted as no limit",
+            "description": "Defines how many records at max are returned.<br>If fewer records are available, all will be returned.<br>Setting this to -1 will be interpreted as no limit",
             "in": "query",
             "required": true,
             "type": "integer",
@@ -5197,7 +5476,7 @@
           },
           {
             "name": "window.offset",
-            "description": "Defines the offset at which to start reading.\u003cbr\u003eAn offset of 0 will bean to start from the first possible record.",
+            "description": "Defines the offset at which to start reading.<br>An offset of 0 will bean to start from the first possible record.",
             "in": "query",
             "required": true,
             "type": "integer",
@@ -5217,7 +5496,7 @@
       },
       "post": {
         "summary": "Add User",
-        "description": "Adds a user to the Dynizer.\u003cbr\u003eRequires the admin role to perform this.",
+        "description": "Adds a user to the Dynizer.<br>Requires the admin role to perform this.",
         "operationId": "AddUser",
         "responses": {
           "200": {
@@ -5261,46 +5540,10 @@
         ]
       }
     },
-    "/api/v2/users/all/count": {
-      "get": {
-        "summary": "Get User Count",
-        "description": "Returns the total number of users.\u003cbr\u003eAdditional an individual count for enabled and disabled users will be returned as well.",
-        "operationId": "GetUserCount",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/UserCountRes"
-            }
-          },
-          "401": {
-            "description": "Unauthorized call",
-            "schema": {
-              "$ref": "#/definitions/ErrorResponse"
-            }
-          },
-          "500": {
-            "description": "Unexpected internal error",
-            "schema": {
-              "$ref": "#/definitions/ErrorResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/rpcStatus"
-            }
-          }
-        },
-        "tags": [
-          "Users"
-        ]
-      }
-    },
     "/api/v2/users/{user}": {
       "get": {
         "summary": "Get User",
-        "description": "Get the user information.\u003cbr\u003eAll assigned roles and the current state are returned.",
+        "description": "Get the user information.<br>All assigned roles and the current state are returned.",
         "operationId": "GetUser",
         "responses": {
           "200": {
@@ -5343,7 +5586,7 @@
       },
       "delete": {
         "summary": "Delete User",
-        "description": "Removes a user from the Dynizer.\u003cbr\u003eThis can not be undone.",
+        "description": "Removes a user from the Dynizer.<br>This can not be undone.",
         "operationId": "DeleteUser",
         "responses": {
           "200": {
@@ -5388,7 +5631,7 @@
     "/api/v2/users/{user}/disable": {
       "patch": {
         "summary": "Disable User",
-        "description": "Disables a user.\u003cbr\u003eThis will inhibit the user to log on to the Dynizer.\u003cbr\u003eRequires the admin role to perform this.",
+        "description": "Disables a user.<br>This will inhibit the user to log on to the Dynizer.<br>Requires the admin role to perform this.",
         "operationId": "DisableUser",
         "responses": {
           "200": {
@@ -5433,7 +5676,7 @@
     "/api/v2/users/{user}/enable": {
       "patch": {
         "summary": "Enable User",
-        "description": "Enables a user.\u003cbr\u003eOnly enabled users can log onto the Dynizer.\u003cbr\u003eRequires the admin role to perform this.",
+        "description": "Enables a user.<br>Only enabled users can log onto the Dynizer.<br>Requires the admin role to perform this.",
         "operationId": "EnableUser",
         "responses": {
           "200": {
@@ -5478,7 +5721,7 @@
     "/api/v2/users/{user}/password": {
       "put": {
         "summary": "Set User Password",
-        "description": "Sets a new password for a user.\u003cbr\u003eRequires the admin role to perform this.",
+        "description": "Sets a new password for a user.<br>Requires the admin role to perform this.",
         "operationId": "SetUserPassword",
         "responses": {
           "200": {
@@ -5585,7 +5828,7 @@
       },
       "post": {
         "summary": "Assign User Role",
-        "description": "Assigns a specific role to a user.\u003cbr\u003eRequires the admin role to perform this.",
+        "description": "Assigns a specific role to a user.<br>Requires the admin role to perform this.",
         "operationId": "AssignUserRole",
         "responses": {
           "200": {
@@ -5649,7 +5892,7 @@
     "/api/v2/users/{user}/roles/{role.name}": {
       "delete": {
         "summary": "Revoke User Role",
-        "description": "Revokes a specific role from a user.\u003cbr\u003eRequires the admin role to perform this.",
+        "description": "Revokes a specific role from a user.<br>Requires the admin role to perform this.",
         "operationId": "RevokeUserRole",
         "responses": {
           "200": {
@@ -5697,6 +5940,451 @@
           "Users"
         ]
       }
+    },
+    "/api/v2/users/all/count": {
+      "get": {
+        "summary": "Get User Count",
+        "description": "Returns the total number of users.<br>Additional an individual count for enabled and disabled users will be returned as well.",
+        "operationId": "GetUserCount",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/UserCountRes"
+            }
+          },
+          "401": {
+            "description": "Unauthorized call",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Unexpected internal error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "Users"
+        ]
+      }
+    },
+    "/api/v2/objects/download/{type}/{uuid}": {
+      "get": {
+        "summary": "Download an object",
+        "description": "Downloads an object of provided type and UUID. Returns the raw bytes of the object.",
+        "operationId": "DownloadObject",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "type": "string",
+              "format": "binary"
+            }
+          },
+          "400": {
+            "description": "Invalid Argument",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized call",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Unexpected internal error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "type",
+            "description": "The type of the object.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "uuid",
+            "description": "The UUID of the object.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Objects"
+        ]
+      }
+    },
+    "/api/v2/objects/upload/{type}/{uuid}": {
+      "post": {
+        "summary": "Upload an object",
+        "description": "Uploads an object of provided type and UUID. Accepts the raw bytes of the object.",
+        "operationId": "UploadObject",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {}
+          },
+          "400": {
+            "description": "Invalid Argument",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized call",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Unexpected internal error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "type",
+            "description": "The type of the object.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "uuid",
+            "description": "The UUID of the object.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "raw_bytes",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "binary"
+            }
+          }
+        ],
+        "tags": [
+          "Objects"
+        ]
+      }
+    },
+    "/api/v2/docs": {
+      "get": {
+        "summary": "Download the docs",
+        "description": "Downloads the docs of Dynizer in HTML format.",
+        "operationId": "DownloadDocs",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "type": "string",
+              "format": "binary"
+            }
+          },
+          "401": {
+            "description": "Unauthorized call",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Unexpected internal error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "Documentation"
+        ]
+      }
+    },
+    "/api/v2/docs/{file}": {
+      "get": {
+        "summary": "Download the docs",
+        "description": "Downloads the docs of Dynizer in HTML format (index.html).",
+        "operationId": "DownloadDocsFile",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "type": "string",
+              "format": "binary"
+            }
+          },
+          "401": {
+            "description": "Unauthorized call",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Unexpected internal error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "file",
+            "description": "The documentation filename.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Documentation"
+        ]
+      }
+    },
+    "/api/v2/spec": {
+      "get": {
+        "summary": "Download the spec",
+        "description": "Downloads the spec of Dynizer in format defined by the Accept header (default = application/yaml, others = application/json).",
+        "operationId": "DownloadSpec",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "type": "string",
+              "format": "binary"
+            }
+          },
+          "401": {
+            "description": "Unauthorized call",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Unexpected internal error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "Documentation"
+        ]
+      }
+    },
+    "/api/v2/spec/{file}": {
+      "get": {
+        "summary": "Download the spec",
+        "description": "Downloads the spec of Dynizer in the format defined by the Accept header and filename (application/yaml = dynizer.swagger.yaml, application/json = dynizer.swagger.json).",
+        "operationId": "DownloadSpecFile",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "type": "string",
+              "format": "binary"
+            }
+          },
+          "401": {
+            "description": "Unauthorized call",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Unexpected internal error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "file",
+            "description": "The spec filename.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Documentation"
+        ]
+      }
+    },
+    "/api/v2/proto": {
+      "get": {
+        "summary": "Download the proto definition",
+        "description": "Downloads the proto definition of Dynizer.",
+        "operationId": "DownloadProto",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "type": "string",
+              "format": "binary"
+            }
+          },
+          "401": {
+            "description": "Unauthorized call",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Unexpected internal error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "Documentation"
+        ]
+      }
+    },
+    "/api/v2/proto/{file}": {
+      "get": {
+        "summary": "Download the proto definition",
+        "description": "Downloads the proto definition of Dynizer (dynizer.proto).",
+        "operationId": "DownloadProtoFile",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "type": "string",
+              "format": "binary"
+            }
+          },
+          "401": {
+            "description": "Unauthorized call",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Unexpected internal error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "file",
+            "description": "The proto filename.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Documentation"
+        ]
+      }
     }
   },
   "definitions": {
@@ -5731,7 +6419,7 @@
         },
         "default_data_type": {
           "$ref": "#/definitions/DataType",
-          "description": "The **DataType** for this **ActionLabel**.\u003cbr\u003eThis **DataType** will be used when creating **Instances** with this **ActionLabel**."
+          "description": "The **DataType** for this **ActionLabel**.<br>This **DataType** will be used when creating **Instances** with this **ActionLabel**."
         },
         "min_occurrence": {
           "type": "integer",
@@ -5741,21 +6429,21 @@
         "max_occurrence": {
           "type": "integer",
           "format": "int64",
-          "description": "Allows to set maximum number of values that can be provided when using this **ActionLabel*** in an **Instance**.\u003cbr\u003eThis value needs to be either zero or it can be equal or greater then *min_occurrence*.\u003cbr\u003eSetting it to 0 will be interpreted as open-ended."
+          "description": "Allows to set maximum number of values that can be provided when using this **ActionLabel*** in an **Instance**.<br>This value needs to be either zero or it can be equal or greater then *min_occurrence*.<br>Setting it to 0 will be interpreted as open-ended."
         },
         "alternative_data_types": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/DataType"
           },
-          "description": "List of additional allowed **DataTypes** for this **ActionLabel**.\u003cbr\u003eIf left empty only the *default_data_type* is allowed for the values of this **ActionLabel**.\u003cbr\u003eProvide **DT_Any** as the only element to allow all **DataTypes**."
+          "description": "List of additional allowed **DataTypes** for this **ActionLabel**.<br>If left empty only the *default_data_type* is allowed for the values of this **ActionLabel**.<br>Provide **DT_Any** as the only element to allow all **DataTypes**."
         },
         "share_name": {
           "type": "string",
           "description": "The **ShareName** to use by default when a new instance is created and a value is set for this **ActionLabel**"
         }
       },
-      "description": "An **ActionLabel** defines a group of columns with the same name and **ComponentType**.\u003cbr\u003eThe default **DataType** is used when no overwrite is used.\u003cbr\u003eMin and Max occurrence is used to limit the amount of values which can be used for an **ActionLabel**.\u003cbr\u003eThe alternative **dataTypes** can be used to constrain which **DataTypes** can be used for the overwrite.\u003cbr\u003eWith it you can define all the **DataTypes** allowed to be used under this **ActionLabel**.",
+      "description": "An **ActionLabel** defines a group of columns with the same name and **ComponentType**.<br>The default **DataType** is used when no overwrite is used.<br>Min and Max occurrence is used to limit the amount of values which can be used for an **ActionLabel**.<br>The alternative **dataTypes** can be used to constrain which **DataTypes** can be used for the overwrite.<br>With it you can define all the **DataTypes** allowed to be used under this **ActionLabel**.",
       "title": "ActionLabel",
       "required": [
         "action_label_name",
@@ -5868,6 +6556,43 @@
         "action"
       ]
     },
+    "ActionSchemaArrayRes": {
+      "type": "object",
+      "properties": {
+        "total_action_schemas": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Total number of **ActionSchemas** in the system."
+        },
+        "action_schema_names": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Array of **ActionSchemaNames** within the requested window."
+        }
+      },
+      "description": "Response that holds **ActionSchemas**",
+      "title": "ActionSchemaArrayRes",
+      "required": [
+        "action_schema_names",
+        "total_action_schemas"
+      ]
+    },
+    "ActionSchemaRes": {
+      "type": "object",
+      "properties": {
+        "action_schema_name": {
+          "type": "string",
+          "description": "The **ActionSchemaName**"
+        }
+      },
+      "description": "Response which holds an **ActionSchema**.",
+      "title": "ActionSchemaResponse",
+      "required": [
+        "action_schema_name"
+      ]
+    },
     "ActionTypeArrayRes": {
       "type": "object",
       "properties": {
@@ -5885,7 +6610,6 @@
         }
       },
       "description": "Response that holds **ActionTypes**",
-      "title": "ActionTypeArrayRes",
       "required": [
         "action_type_labels",
         "total_action_types"
@@ -5897,7 +6621,8 @@
         "label": {
           "type": "string"
         }
-      }
+      },
+      "description": "ActionTypeLabel\nDeprecated: Use `string` instead."
     },
     "ActionTypeRes": {
       "type": "object",
@@ -5913,7 +6638,6 @@
         }
       },
       "description": "Response which holds an **ActionType**.",
-      "title": "ActionTypeResponse",
       "required": [
         "action_type_label"
       ]
@@ -5996,7 +6720,7 @@
         },
         "valid": {
           "type": "boolean",
-          "description": "if the password would be valid when used for a user.\u003cbr\u003eIf not the fail_reason will give the detaiuls"
+          "description": "if the password would be valid when used for a user.<br>If not the fail_reason will give the detaiuls"
         },
         "fail_reason": {
           "type": "string",
@@ -6088,11 +6812,11 @@
       "properties": {
         "action_name": {
           "type": "string",
-          "description": "The unique name for the **Action**.\u003cbr\u003eUse the CheckActionName, call to verify the name, without trying to create it."
+          "description": "The unique name for the **Action**.<br>Use the CheckActionName, call to verify the name, without trying to create it."
         },
         "if_not_exists": {
           "type": "boolean",
-          "description": "if set to true -\u003e NO ERROR is returned if a **Action** by the provided name already exists in the system.\u003cbr\u003eAny ActionLabels provided are IGNORED when if_not_exists == true and the **Action** already existed."
+          "description": "if set to true -> NO ERROR is returned if a **Action** by the provided name already exists in the system.<br>Any ActionLabels provided are IGNORED when if_not_exists == true and the **Action** already existed."
         },
         "action_labels": {
           "type": "array",
@@ -6102,10 +6826,28 @@
           "description": "This allows to create the **ActionLabels** for the newly created **Action** in one go."
         }
       },
-      "description": "This is used to create an **Action**.\u003cbr\u003eIf supplied **ActionLabels** can be addes as well.\u003cbr\u003eThe *if_not_exists* flag allows if set not to raise an error if the **Action** already exists.",
+      "description": "This is used to create an **Action**.<br>If supplied **ActionLabels** can be addes as well.<br>The *if_not_exists* flag allows if set not to raise an error if the **Action** already exists.",
       "title": "CreateActionRequest",
       "required": [
         "action_name"
+      ]
+    },
+    "CreateActionSchemaReq": {
+      "type": "object",
+      "properties": {
+        "action_schema_name": {
+          "type": "string",
+          "description": "The unique name for the **ActionSchema**."
+        },
+        "if_not_exists": {
+          "type": "boolean",
+          "description": "if set to true -> NO ERROR is returned if a **ActionSchema** by the provided name already exists in the system."
+        }
+      },
+      "description": "This is used to create an **ActionSchema**.<br>The *if_not_exists* flag allows if set not to raise an error if the **ActionSchema** already exists.",
+      "title": "CreateActionSchemaRequest",
+      "required": [
+        "action_schema_name"
       ]
     },
     "CreateActionTypeReq": {
@@ -6117,11 +6859,10 @@
         },
         "if_not_exists": {
           "type": "boolean",
-          "description": "if set to true -\u003e NO ERROR is returned if a **ActionType** by the provided name already exists in the system."
+          "description": "if set to true -> NO ERROR is returned if a **ActionType** by the provided name already exists in the system."
         }
       },
-      "description": "This is used to create an **ActionType**.\u003cbr\u003eThe *if_not_exists* flag allows if set not to raise an error if the **ActionType** already exists.",
-      "title": "CreateActionTypeRequest",
+      "description": "This is used to create an **ActionType**.<br>The *if_not_exists* flag allows if set not to raise an error if the **ActionType** already exists.",
       "required": [
         "action_type_label"
       ]
@@ -6148,7 +6889,7 @@
           "description": "MetaData can also be added in one go"
         }
       },
-      "description": "This will create an Instance, for each ActionLabel defined in the Action and element can be defined.\u003cbr\u003eEach element can have multiple values.",
+      "description": "This will create an Instance, for each ActionLabel defined in the Action and element can be defined.<br>Each element can have multiple values.",
       "title": "CreateInstanceRequest",
       "required": [
         "action_name",
@@ -6160,23 +6901,23 @@
       "properties": {
         "key_name": {
           "type": "string",
-          "description": "The unique name of a **MetaDataKey**.\u003cbr\u003eThe CheckMetaDataKeyName call can be used to check if the name can be used."
+          "description": "The unique name of a **MetaDataKey**.<br>The CheckMetaDataKeyName call can be used to check if the name can be used."
         },
         "default_data_type": {
           "$ref": "#/definitions/DataType",
-          "description": "The **DataType** of a **MetaDataKey**.\u003cbr\u003eThis **DataType** will be used when creating values for the MetaData with this **MetaDataKey**."
+          "description": "The **DataType** of a **MetaDataKey**.<br>This **DataType** will be used when creating values for the MetaData with this **MetaDataKey**."
         },
         "max_occurrence": {
           "type": "integer",
           "format": "int64",
-          "description": "How many values at most can be stored in the **MetaDataKey** value array for one use.\u003cbr\u003eNot setting this property or setting it to 0, will mean to the maximum based on system settings."
+          "description": "How many values at most can be stored in the **MetaDataKey** value array for one use.<br>Not setting this property or setting it to 0, will mean to the maximum based on system settings."
         },
         "alternative_data_types": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/DataType"
           },
-          "description": "List of additional allowed **DataTypes** for this **MetaDataKey**.\u003cbr\u003eIf left empty only the *default_data_type* is allowed for the values of this **MetaDataKey**.\u003cbr\u003eProvide **DT_Any** as the only element to allow all **DataTypes**."
+          "description": "List of additional allowed **DataTypes** for this **MetaDataKey**.<br>If left empty only the *default_data_type* is allowed for the values of this **MetaDataKey**.<br>Provide **DT_Any** as the only element to allow all **DataTypes**."
         }
       },
       "description": "Properties to create a new MetaDataKey",
@@ -6337,7 +7078,7 @@
         "DQL_Explain"
       ],
       "default": "DQL_None",
-      "description": "- DQL_None: Empty query type\n - DQL_Set: Type of a SET query\n - DQL_Show: Type of a SHOW query\n - DQL_Select: Type of a SELECT query\n - DQL_Insert: Type of a INSERT query\n - DQL_Update: Type of a UPDATE query\n - DQL_Delete: Type of a DELETE query\n - DQL_CreateSchema: Type of a CREATE SCHEMA query\n - DQL_CreateTable: Type of a CREATE_TABLE query\n - DQL_AlterSchema: Type of a ALTER SCHEMA query\n - DQL_AlterTable: Type of a ALTER TABLE query\n - DQL_DropSchema: Type of a DROP SCHEMA query\n - DQL_DropTable: Type of a DROP TABLE query\n - DQL_Begin: Type of a BEGIN query =\u003e Not implemented, no-op\n - DQL_Commit: Type of a COMMIT query =\u003e Not implemented, no-op\n - DQL_Rollback: Type of a ROLLBACK query =\u003e Not implemented, no-op\n - DQL_Discard: Type of a DISCARD query =\u003e Not implemented, no-op\n - DQL_Prepare: Type of a PREPARE query\n - DQL_Execute: Type of a EXECUTE query\n - DQL_Deallocate: Type of a DEALLOCATE query\n - DQL_Explain: Type of a EXPLAIN query",
+      "description": "- DQL_None: Empty query type\n - DQL_Set: Type of a SET query\n - DQL_Show: Type of a SHOW query\n - DQL_Select: Type of a SELECT query\n - DQL_Insert: Type of a INSERT query\n - DQL_Update: Type of a UPDATE query\n - DQL_Delete: Type of a DELETE query\n - DQL_CreateSchema: Type of a CREATE SCHEMA query\n - DQL_CreateTable: Type of a CREATE_TABLE query\n - DQL_AlterSchema: Type of a ALTER SCHEMA query\n - DQL_AlterTable: Type of a ALTER TABLE query\n - DQL_DropSchema: Type of a DROP SCHEMA query\n - DQL_DropTable: Type of a DROP TABLE query\n - DQL_Begin: Type of a BEGIN query => Not implemented, no-op\n - DQL_Commit: Type of a COMMIT query => Not implemented, no-op\n - DQL_Rollback: Type of a ROLLBACK query => Not implemented, no-op\n - DQL_Discard: Type of a DISCARD query => Not implemented, no-op\n - DQL_Prepare: Type of a PREPARE query\n - DQL_Execute: Type of a EXECUTE query\n - DQL_Deallocate: Type of a DEALLOCATE query\n - DQL_Explain: Type of a EXPLAIN query",
       "title": "DQLType"
     },
     "DataElement": {
@@ -6454,7 +7195,7 @@
     },
     "EmptyRes": {
       "type": "object",
-      "description": "Response with no data.\u003cbr\u003eUsed whenever there is no payload to be returned",
+      "description": "Response with no data.<br>Used whenever there is no payload to be returned",
       "title": "EmptyResponse"
     },
     "ErrorArg": {
@@ -6486,12 +7227,12 @@
       "properties": {
         "type": {
           "type": "string",
-          "description": "A URI reference [RFC3986](https://tools.ietf.org/html/rfc3986) that identifies the problem type.\u003cbr\u003eThis specification encourages that, when dereferenced, it provide human-readable documentation for the problem type (e.g., using HTML [W3C.REC-html5-20141028]).\u003cbr\u003eWhen this member is not present, its value is assumed to be 'about:blank'.",
+          "description": "A URI reference [RFC3986](https://tools.ietf.org/html/rfc3986) that identifies the problem type.<br>This specification encourages that, when dereferenced, it provide human-readable documentation for the problem type (e.g., using HTML [W3C.REC-html5-20141028]).<br>When this member is not present, its value is assumed to be 'about:blank'.",
           "title": "A URI reference"
         },
         "title": {
           "type": "string",
-          "description": "A short, human-readable summary of the problem type. \u003cbr\u003eIt **SHOULD NOT** change from occurrence to occurrence of the problem, except for purposes of localization (e.g., using proactive content negotiation; see [RFC7231, Section 3.4](https://tools.ietf.org/html/rfc7231#section-3.4))",
+          "description": "A short, human-readable summary of the problem type. <br>It **SHOULD NOT** change from occurrence to occurrence of the problem, except for purposes of localization (e.g., using proactive content negotiation; see [RFC7231, Section 3.4](https://tools.ietf.org/html/rfc7231#section-3.4))",
           "title": "summary in human readable form"
         },
         "status": {
@@ -6507,7 +7248,7 @@
         },
         "reference": {
           "type": "string",
-          "description": "A URI reference that identifies the specific occurrence of the problem.\u003cbr\u003eIt may or may not yield further information if dereferenced",
+          "description": "A URI reference that identifies the specific occurrence of the problem.<br>It may or may not yield further information if dereferenced",
           "title": "RFC name instance, a reference URI"
         },
         "args": {
@@ -6515,7 +7256,7 @@
           "items": {
             "$ref": "#/definitions/ErrorArg"
           },
-          "description": "The arguments of the error.\u003cbr\u003eThe arguments can be used to reconstruct the DynaStatus based on the code.",
+          "description": "The arguments of the error.<br>The arguments can be used to reconstruct the DynaStatus based on the code.",
           "title": "Custom field containing the arguments passed to the error"
         }
       },
@@ -6561,7 +7302,7 @@
           "items": {
             "type": "string"
           },
-          "description": "List of allowed **Actions** for the returned **Instances**.\u003cbr\u003eIf left empty the search scope will include all **Actions**."
+          "description": "List of allowed **Actions** for the returned **Instances**.<br>If left empty the search scope will include all **Actions**."
         },
         "filters": {
           "type": "array",
@@ -6689,28 +7430,28 @@
           "items": {
             "type": "string"
           },
-          "description": "List of allowed **Actions** for the returned **DataElement**.\u003cbr\u003eIf left empty the search scope will include all **Actions**."
+          "description": "List of allowed **Actions** for the returned **DataElement**.<br>If left empty the search scope will include all **Actions**."
         },
         "data_types": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/DataType"
           },
-          "description": "List of allowed **DataTypes** for the returned **DataElement**.\u003cbr\u003eIf left empty all **DataTypes** will be returned."
+          "description": "List of allowed **DataTypes** for the returned **DataElement**.<br>If left empty all **DataTypes** will be returned."
         },
         "component_types": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/ComponentType"
           },
-          "description": "List of allowed **ComponentTypes** for the returned **DataElement**.\u003cbr\u003eIf left empty all **ComponentTypes** will be returned."
+          "description": "List of allowed **ComponentTypes** for the returned **DataElement**.<br>If left empty all **ComponentTypes** will be returned."
         },
         "filters": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/InstanceFilter"
           },
-          "description": "List of **Instance** - filters for the returned **DataElement**.\u003cbr\u003eIf left empty no additional filter will by applied.\nTo limit the ActionLabel to a specific **Action** or specific **Actions** use the actions property."
+          "description": "List of **Instance** - filters for the returned **DataElement**.<br>If left empty no additional filter will by applied.\nTo limit the ActionLabel to a specific **Action** or specific **Actions** use the actions property."
         }
       },
       "description": "Returns **DataElements** with their count in the Instances slected by the filter or overall if no filter has been set",
@@ -6726,28 +7467,28 @@
           "items": {
             "$ref": "#/definitions/TopNDataElement"
           },
-          "description": "List of allowed **Actions** for the returned **DataElement**.\u003cbr\u003eIf left empty the search socpe will include all **Actions**."
+          "description": "List of allowed **Actions** for the returned **DataElement**.<br>If left empty the search socpe will include all **Actions**."
         },
         "what": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/TopNDataElement"
           },
-          "description": "List of allowed **Actions** for the returned **DataElement**.\u003cbr\u003eIf left empty the search socpe will include all **Actions**."
+          "description": "List of allowed **Actions** for the returned **DataElement**.<br>If left empty the search socpe will include all **Actions**."
         },
         "where": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/TopNDataElement"
           },
-          "description": "List of allowed **Actions** for the returned **DataElement**.\u003cbr\u003eIf left empty the search socpe will include all **Actions**."
+          "description": "List of allowed **Actions** for the returned **DataElement**.<br>If left empty the search socpe will include all **Actions**."
         },
         "when": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/TopNDataElement"
           },
-          "description": "List of allowed **Actions** for the returned **DataElement**.\u003cbr\u003eIf left empty the search socpe will include all **Actions**."
+          "description": "List of allowed **Actions** for the returned **DataElement**.<br>If left empty the search socpe will include all **Actions**."
         }
       },
       "description": "Returns **DataElements** which match a contains value"
@@ -6764,7 +7505,7 @@
         },
         "if_not_exists": {
           "type": "boolean",
-          "description": "if set to true -\u003e NO ERROR is returned if a **Action** by the provided name already exists in the system.\u003cbr\u003eAny ActionLabels provided are IGNORED when if_not_exists == true and the **Action** already existed."
+          "description": "if set to true -> NO ERROR is returned if a **Action** by the provided name already exists in the system.<br>Any ActionLabels provided are IGNORED when if_not_exists == true and the **Action** already existed."
         }
       },
       "description": "This is used to import **Actions**.",
@@ -6785,7 +7526,7 @@
           "items": {
             "type": "string"
           },
-          "description": "the value as a string, which will be parsed into the correct Dynizer DataType.\u003cbr\u003eWith the specs parameter a parse format string can be provided."
+          "description": "the value as a string, which will be parsed into the correct Dynizer DataType.<br>With the specs parameter a parse format string can be provided."
         },
         "specs": {
           "type": "array",
@@ -6799,10 +7540,10 @@
           "items": {
             "$ref": "#/definitions/InstanceElementMetaData"
           },
-          "description": "We can have more entries in here than we have Element values, as it is allowed to attach more than one MetaDataKey per value.\u003cbr\u003eEach MetaDataKey allows multiple values, up to the amount configured."
+          "description": "We can have more entries in here than we have Element values, as it is allowed to attach more than one MetaDataKey per value.<br>Each MetaDataKey allows multiple values, up to the amount configured."
         }
       },
-      "description": "each Element represents one ActionLabel and multiple values.\u003cbr\u003eThe specs allow for DataType override and pars format definition.\u003cbr\u003eAdditionaly can you also add MetaData for each value.",
+      "description": "each Element represents one ActionLabel and multiple values.<br>The specs allow for DataType override and pars format definition.<br>Additionaly can you also add MetaData for each value.",
       "title": "InstanceElement",
       "required": [
         "action_label",
@@ -6822,7 +7563,7 @@
           "description": "MetaData Key Value defintion"
         }
       },
-      "description": "MetaData information to be added per individual InstanceElement value.\u003cbr\u003eMultiple MetaDataKeys with values can be added per InstanceElement value position",
+      "description": "MetaData information to be added per individual InstanceElement value.<br>Multiple MetaDataKeys with values can be added per InstanceElement value position",
       "title": "InstanceElementMetaData",
       "required": [
         "position",
@@ -6917,7 +7658,7 @@
         },
         "value": {
           "type": "string",
-          "description": "the value as a string, which will be parsed into the correct Dynizer DataType.\u003cbr\u003eWith the specs parameter a parse format string can be provided."
+          "description": "the value as a string, which will be parsed into the correct Dynizer DataType.<br>With the specs parameter a parse format string can be provided."
         },
         "value_position": {
           "type": "integer",
@@ -6930,7 +7671,7 @@
           "description": "overwrites the default_data_type from the MetaDataKey definition and/or provides a format string to parse the values"
         }
       },
-      "description": "each Element represents one ActionLabel and multiple values.\u003cbr\u003eThe specs allow for DataType override and pars format definition.\u003cbr\u003eAdditionaly can you also add MetaData for each value.",
+      "description": "each Element represents one ActionLabel and multiple values.<br>The specs allow for DataType override and pars format definition.<br>Additionaly can you also add MetaData for each value.",
       "title": "InstanceUpdateElementCell",
       "required": [
         "action_label",
@@ -7143,19 +7884,19 @@
         },
         "default_data_type": {
           "$ref": "#/definitions/DataType",
-          "description": "The **DataType** for this **ActionLabel**.\u003cbr\u003eThis **DataType** will be used when creating **Instances** with this **ActionLabel**."
+          "description": "The **DataType** for this **ActionLabel**.<br>This **DataType** will be used when creating **Instances** with this **ActionLabel**."
         },
         "max_occurrence": {
           "type": "integer",
           "format": "int64",
-          "description": "How many values at most can be stored in the **MetaDataKey** value array for one use.\u003cbr\u003eNot setting this property or setting it to 0, will mean to the maximum based on system settings."
+          "description": "How many values at most can be stored in the **MetaDataKey** value array for one use.<br>Not setting this property or setting it to 0, will mean to the maximum based on system settings."
         },
         "alternative_data_types": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/DataType"
           },
-          "description": "List of additional allowed **DataTypes** for this **MetaDataKey**.\u003cbr\u003eIf left empty only the *default_data_type* is allowed for the values of this **MetaDataKey**."
+          "description": "List of additional allowed **DataTypes** for this **MetaDataKey**.<br>If left empty only the *default_data_type* is allowed for the values of this **MetaDataKey**."
         }
       },
       "description": "Message to hold a **MetaDataKey*",
@@ -7288,7 +8029,7 @@
       "properties": {
         "ref_uri": {
           "type": "string",
-          "description": "The URI referencing the **Object**. This field is used to support an old version that returns \u003cobject_type\u003e/\u003cuuid\u003e. Use 'ref_uuid' instead."
+          "description": "The URI referencing the **Object**. This field is used to support an old version that returns <object_type>/<uuid>. Use 'ref_uuid' instead."
         },
         "type": {
           "$ref": "#/definitions/ObjectDataType",
@@ -7419,21 +8160,21 @@
           "items": {
             "type": "string"
           },
-          "description": "List of allowed **Actions** for the returned **DataElement**.\u003cbr\u003eIf left empty the search scope will include all **Actions**."
+          "description": "List of allowed **Actions** for the returned **DataElement**.<br>If left empty the search scope will include all **Actions**."
         },
         "data_types": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/DataType"
           },
-          "description": "List of allowed **DataTypes** for the returned **DataElement**.\u003cbr\u003eIf left empty all **DataTypes** will be returned."
+          "description": "List of allowed **DataTypes** for the returned **DataElement**.<br>If left empty all **DataTypes** will be returned."
         },
         "filters": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/InstanceFilter"
           },
-          "description": "List of **Instance** - filters for the returned **DataElement**.\u003cbr\u003eIf left empty no additional filter will by applied.\nTo limit the ActionLabel to a specific **Action** or specific **Actions** use the actions property."
+          "description": "List of **Instance** - filters for the returned **DataElement**.<br>If left empty no additional filter will by applied.\nTo limit the ActionLabel to a specific **Action** or specific **Actions** use the actions property."
         },
         "max_length": {
           "type": "integer",
@@ -7445,7 +8186,7 @@
           "items": {
             "$ref": "#/definitions/ComponentType"
           },
-          "description": "List of allowed **ComponentTypes** for the returned **DataElement**.\u003cbr\u003eIf left empty all **ComponentTypes** will be returned.",
+          "description": "List of allowed **ComponentTypes** for the returned **DataElement**.<br>If left empty all **ComponentTypes** will be returned.",
           "title": "int64 top = 6 [\n       (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {\n           description: \"Defines the topN **DataElement** to be returned based on occurrence.\"\n       }\n   ];"
         },
         "with_component_type_split": {
@@ -7471,7 +8212,7 @@
           "items": {
             "$ref": "#/definitions/DataElement"
           },
-          "description": "List of allowed **Actions** for the returned **DataElement**.\u003cbr\u003eIf left empty the search socpe will include all **Actions**."
+          "description": "List of allowed **Actions** for the returned **DataElement**.<br>If left empty the search socpe will include all **Actions**."
         }
       },
       "description": "Returns **DataElements** which match a contains value",
@@ -7673,7 +8414,7 @@
       "properties": {
         "action_name": {
           "type": "string",
-          "description": "This is the name of the **Action** for which the **Instance** will be created"
+          "description": "This is the name of the **Action** of **ActionLabel**"
         },
         "result_label_name": {
           "type": "string",
@@ -7690,7 +8431,11 @@
         },
         "default_data_type": {
           "$ref": "#/definitions/DataType",
-          "description": "The default **DataType** of the **ActionLabel**.\u003cbr\u003eIf an **InstanceCell* has that overwritten, than this will be provided with the specific cell data row"
+          "description": "The default **DataType** of the **ActionLabel**.<br>If an **InstanceCell** has that overwritten, than this will be provided with the specific cell data row"
+        },
+        "action_schema_name": {
+          "type": "string",
+          "description": "This is the name of the **ActionSchema** of the **ActionLabel**'s action"
         }
       },
       "description": "Message to hold a result label",
@@ -7701,7 +8446,7 @@
       "properties": {
         "action_name": {
           "type": "string",
-          "description": "This is the name of the **Action** for which the **Instance** will be created"
+          "description": "This is the name of the **Action** of the **ActionLabel**."
         },
         "result_label_name": {
           "type": "string",
@@ -7718,11 +8463,15 @@
         },
         "default_data_type": {
           "$ref": "#/definitions/DataType",
-          "description": "The default **DataType** of the **ActionLabel**.\u003cbr\u003eIf an **InstanceCell* has that overwritten, than this will be provided with the specific cell data row"
+          "description": "The default **DataType** of the **ActionLabel**.<br>If an **InstanceCell* has that overwritten, than this will be provided with the specific cell data row"
         },
         "override_data_type": {
           "$ref": "#/definitions/DataType",
-          "description": "The override **DataType** of the **ActionLabel**.\u003cbr\u003eIf **InstanceCells* have more than one datatype, the override datatype will specify what to use as general datatype"
+          "description": "The override **DataType** of the **ActionLabel**.<br>If **InstanceCells* have more than one datatype, the override datatype will specify what to use as general datatype"
+        },
+        "action_schema_name": {
+          "type": "string",
+          "description": "This is the name of the **ActionSchema** of the **ActionLabel**'s action"
         }
       },
       "description": "Message to hold a result label",
@@ -7748,12 +8497,12 @@
         "row": {
           "type": "integer",
           "format": "int64",
-          "description": "The row number relative in the result window.\u003cbr\u003e The value is 1-based."
+          "description": "The row number relative in the result window.<br> The value is 1-based."
         },
         "col": {
           "type": "integer",
           "format": "int64",
-          "description": "The absolut cell number in the row.\u003cbr\u003e The value is 1-based."
+          "description": "The absolut cell number in the row.<br> The value is 1-based."
         },
         "data_type": {
           "$ref": "#/definitions/DataType",
@@ -7773,7 +8522,7 @@
         },
         "result_handle": {
           "type": "string",
-          "description": "The Handle of the result.\u003cbr\u003eUsed to walk the result with a window or a stream."
+          "description": "The Handle of the result.<br>Used to walk the result with a window or a stream."
         },
         "result_labels": {
           "type": "array",
@@ -8044,7 +8793,7 @@
         "position": {
           "type": "integer",
           "format": "int64",
-          "description": "1-based to identify for which value from the referenced array this treatment is to be used. \u003cbr\u003e0 ... indicates that all values get the same overwrite"
+          "description": "1-based to identify for which value from the referenced array this treatment is to be used. <br>0 ... indicates that all values get the same overwrite"
         },
         "override": {
           "$ref": "#/definitions/DataTypeFormat",
@@ -8088,13 +8837,13 @@
         "limit": {
           "type": "integer",
           "format": "int64",
-          "description": "Defines how many records at max are returned.\u003cbr\u003eIf fewer records are available, all will be returned.\u003cbr\u003eSetting this to -1 will be interpreted as no limit",
+          "description": "Defines how many records at max are returned.<br>If fewer records are available, all will be returned.<br>Setting this to -1 will be interpreted as no limit",
           "minimum": -1
         },
         "offset": {
           "type": "integer",
           "format": "int64",
-          "description": "Defines the offset at which to start reading.\u003cbr\u003eAn offset of 0 will bean to start from the first possible record."
+          "description": "Defines the offset at which to start reading.<br>An offset of 0 will bean to start from the first possible record."
         },
         "relative": {
           "type": "boolean",
@@ -8143,11 +8892,6 @@
       "in": "header"
     }
   },
-  "security": [
-    {
-      "JWT": []
-    }
-  ],
   "x-tagGroups": [
     {
       "name": "User Management",
@@ -8237,6 +8981,12 @@
       "name": "ShareName",
       "tags": [
         "ShareName"
+      ]
+    },
+    {
+      "name": "Documentation",
+      "tags": [
+        "Documentation"
       ]
     }
   ]
