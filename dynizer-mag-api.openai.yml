@@ -1,0 +1,820 @@
+openapi: "3.0.0"
+info:
+  version: 0.0.1
+  title: Dynizer RAG POC API
+  description: |
+    POC of RAG based on Dynizer.
+    Unstable API.
+  contact:
+    name: Consono
+    email: info@consono.ai
+    url: https://consono.ai
+  # termsOfService: TODO
+  # license:
+  #     name: TODO
+  # url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+tags:
+  - name: Chat
+    description: Creates a chat conversation based on a user chosen ID.
+
+security:
+  - bearerAuth: []
+
+paths:
+  /cohere/chat:
+    post:
+      description: |
+        Send a chat post request.
+      operationId: chat
+      requestBody:
+        $ref: "#/components/requestBodies/PostChatRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/PostChatResponse"
+        "400":
+          $ref: "#/components/responses/400ErrorResponse"
+        "401":
+          $ref: "#/components/responses/401ErrorResponse"
+        default:
+          $ref: "#/components/responses/DefaultErrorResponse"
+      tags:
+        - Chat
+      security:
+        - bearerAuth: []
+
+  /cohere/chat/{id}:
+    get:
+      description: |
+        Get a chat conversation by conversation ID.
+      operationId: getChatById
+      parameters:
+        - $ref: "#/components/parameters/ID"
+        - $ref: "#/components/parameters/PathAPIURL"
+      responses:
+        "200":
+          $ref: "#/components/responses/GetChatResponse"
+        "400":
+          $ref: "#/components/responses/400ErrorResponse"
+        "401":
+          $ref: "#/components/responses/401ErrorResponse"
+        "404":
+          $ref: "#/components/responses/404ErrorResponse"
+        default:
+          $ref: "#/components/responses/DefaultErrorResponse"
+      tags:
+        - Chat
+      security:
+        - bearerAuth: []
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  parameters:
+    ID:
+      name: id
+      in: path
+      description: ID of object to fetch.
+      required: true
+      schema:
+        $ref: "#/components/schemas/ID"
+      x-go-name: PathID
+
+    Limit:
+      name: limit
+      in: query
+      description: |
+        Defines how many records at max are returned.
+        If fewer records are available, all will be returned.
+        Omitting or setting this to -1 will be interpreted as no limit
+      schema:
+        $ref: "#/components/schemas/Limit"
+      x-go-name: PathLimit
+
+    Offset:
+      name: offset
+      in: query
+      description: |
+        Defines the offset at which to start reading.
+        An offset of 0 means to start from the first possible record.
+      schema:
+        $ref: "#/components/schemas/Offset"
+      x-go-name: PathOffset
+
+    PathAPIURL:
+      name: api_url
+      in: query
+      required: true
+      schema:
+        $ref: "#/components/schemas/APIURL"
+
+  requestBodies:
+    PostChatRequest:
+      description: Chat body.
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Chat"
+
+  responses:
+    DefaultErrorResponse:
+      description: Unexpected error.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+
+    400ErrorResponse:
+      description: Bad request.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+
+    401ErrorResponse:
+      description: Unauthorized.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+
+    404ErrorResponse:
+      description: Not found.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+
+    409ErrorResponse:
+      description: Conflict.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+
+    410ErrorResponse:
+      description: Gone.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+
+    503ErrorResponse:
+      description: Service unavailable.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+
+    PostChatResponse:
+      description: Post chat response body.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Conversation"
+
+    GetChatResponse:
+      description: Get chat response body.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ConversationList"
+
+  schemas:
+    Limit:
+      type: integer
+      description: Limits the amount of records to return.
+
+    Offset:
+      type: integer
+      description: Offsets the records to return.
+
+    ID:
+      type: string
+      description: ID of an object within the collection.
+
+    URI:
+      type: string
+      description: Full URI string.
+
+    Total:
+      type: integer
+      description: Total number of records available within a collection query.
+
+    Message:
+      type: string
+      description: A message that was sent in the chat.
+
+    Role:
+      type: string
+      description: The owner of a message (USER or CHATBOT).
+
+    ToolCalls:
+      type: string
+      description: N/A
+
+    Preamble:
+      type: string
+      description: The initial guideline message set as a preamble for each question.
+
+    Text:
+      type: string
+      description: The message to send as prompt in the chat request.
+
+    RagType:
+      type: string
+      description: |
+        The RAG type to use.
+        Omit this parameter to add no RAG. Your prompt will be directly forwarded.
+        Possible values:
+          - ANNOTATE => Add WWWW information
+          - TEXT => Send text only
+      default: ANNOTATE
+
+    RagMode:
+      type: string
+      description: |
+        The RAG mode to use.
+        Possible values:
+          - FIRST => Search documents based only on the first message
+          - LAST => Search documents based only on the last message
+          - ALL => Search documents based on all messages
+      default: FIRST
+
+    SummaryPct:
+      type: integer
+      format: int32
+      description: How much of the summarized content to send as RAG.
+      default: 25
+
+    ConversationID:
+      type: string
+      description: The ID to keep track of the conversation. If omitted, the conversation is not tracked.
+
+    MaxTokens:
+      type: integer
+      description: The response maximum amount of tokens.
+      default: 2500
+
+    Temperature:
+      type: number
+      description: |
+        Controls the randomness of the generated text. 
+        Needs to be between 0-1.
+        ~0 = more deterministic and focused outputs.
+        ~1 = more creative and diverse outputs.
+      default: 0.5
+
+    FrequencyPenalty:
+      type: number
+      description: |
+        Controls the repetition of tokens (words or phrases) in the generated text.
+        Needs to be between 0-1.
+        ~0 = Minimal or no penalty is applied.
+        ~1 = A strong penalty is applied to repeated words.
+      default: 0.5
+
+    TopP:
+      type: number
+      description: |
+        Controls the diversity of the generated text.
+        It does this by considering only the most probable next words, up to a certain cumulative probability, for sampling.
+        Needs to be between 0-1.
+        ~0 = Fewer words are considered, leading to more focused and deterministic outputs.
+        ~1 = More words are considered, leading to more diverse outputs.
+      default: 0.5
+
+    TopK:
+      type: number
+      description: |
+        Controls the diversity of the generated text by limiting the sampling pool to the top k most probable next words. 
+        This parameter is used to control the trade-off between diversity and coherence in the generated text. 
+        Needs to be greater or equal than 0.
+        ~10 = The model is restricted to the very top probable tokens, making the text more deterministic and focused.
+        ~100 = The model considers a larger set of tokens, introducing more variability and potential creativity.
+      default: 10
+
+    ModelID:
+      type: string
+      description: |
+        Specifies which pre-trained language model you want to use for generating text.
+
+        OCI Cohere options:
+        - cohere.command-r-08-2024
+        - cohere.command-r-plus-08-2024
+        - cohere.command-a-03-2025
+      default: cohere.command-r-plus-08-2024
+
+    Language:
+      type: string
+      description: |
+        The conversation language. 
+
+        This can be updated during the conversation. Switching language mid conversation without
+        updating this parameter is not recommended.
+
+        If omitted:
+          - For the first message of a conversation, the system will attempt to detect the language from this message.
+          - For subsequent messages, the previously set language will be used.
+
+        Supported languages:
+          - `en` (English)
+          - `nl` (Dutch)
+
+    APIURL:
+      type: string
+      format: uri
+      description: |
+        The Dynizer API to use for RAG.
+
+    NoPrompt:
+      type: boolean
+      description: |
+        If true, the API will not prompt the LLM
+      default: false
+
+    NoToolCall:
+      type: boolean
+      description: |
+        If true, the API will not use a tool call
+      default: false
+
+    DocumentSelector:
+      type: object
+      description: |
+        Parameters for selecting documents in RAG.
+
+        Fields:
+        - `action`: 
+              The action to select documents from.
+        - `action_schema`: 
+              The action schema that the action belongs to.
+        - `action_label`: 
+              The action's actionlabel that contains the document.
+        - `action_label_id`: 
+              The action's actionlabel that contains a client id of a document.
+              If omitted, defaults to the given `action_label`. These values are
+              used to keep track of the documents in a session and are used as
+              references in `citations` and `links` of a chat response. 
+        - `action_label_name`: 
+              The action's actionlabel that contains a client name of a
+              document. If omitted, defaults to the given `action_label`. These
+              values are used in `links` of a chat response. 
+        - `filter`: 
+              Filters the documents.
+        - `operation`: 
+              Specifies how elements in `filter` should be combined. Must be
+              'AND' or 'OR'.
+        - `text_search`: 
+              Specifies whether to use text-based search to select relevant
+              documents based on the user's message.
+                - Documents deemed more relevant are more likely to be sent to
+                the LLM and will have a higher score in the link response field.
+                - If the `filter` parameter is empty, text_search is always
+                applied.  
+                - If `text_search` is not applied, the order of selected
+                documents will be random, and the likelihood of a document being
+                sent to the LLM will also be random.
+        - `vector_search`: 
+              If true, vector search is used and all other parameters in this
+              document_selector are ignored, as well as summary_pct and
+              sentence_selector. This parameter cannot be changed within one
+              conversation. If true, api_url and jwt bearer should match the
+              internal dynizer url and authorization used by vector search.
+        - `max`: 
+              Applicable only if `text_search` is applied. Not for
+              vector search. It specifies the maximum number of relevant
+              documents returned from text_search. This also limits the number
+              of documents sent to the LLM. If omitted, defaults to 10.
+        - `max_rag_tokens`: 
+              Maximum number of RAG tokens sent to the LLM. 
+        - `top_rerank`: 
+              Number of top vector search results used in reranking. Applicable
+              only for vector search.
+        - `priority`: 
+              Applicable only for vector search.
+      required:
+        - action
+        - action_label
+      properties:
+        action:
+          $ref: "#/components/schemas/Action"
+        action_schema:
+          $ref: "#/components/schemas/ActionSchema"
+        action_label:
+          $ref: "#/components/schemas/ActionLabel"
+        action_label_id:
+          $ref: "#/components/schemas/ActionLabel"
+        action_label_name:
+          $ref: "#/components/schemas/ActionLabel"
+        filter:
+          $ref: "#/components/schemas/DocumentFilter"
+        operation:
+          $ref: "#/components/schemas/Operation"
+        text_search:
+          $ref: "#/components/schemas/TextSearch"
+        vector_search:
+          $ref: "#/components/schemas/VectorSearch"
+        max:
+          $ref: "#/components/schemas/MaxDocuments"
+        max_rag_tokens:
+          $ref: "#/components/schemas/MaxRagTokens"
+        top_rerank:
+          $ref: "#/components/schemas/TopRerank"
+        priority:
+          $ref: "#/components/schemas/Priority"
+
+    Priority:
+      type: object
+      description: |
+        Priority definition.
+
+        Field `categories` is an ordered list of category values. First value in
+        the category list has highest priority, last value has lowest priority.
+
+        Field `action_label_priority` must match the internal actionlabel used for categorization.
+      properties:
+        action_label_priority:
+          $ref: "#/components/schemas/ActionLabel"
+        categories:
+          $ref: "#/components/schemas/Values"
+        merge_strategy:
+          $ref: "#/components/schemas/MergeStrategy"
+
+    SentenceSelector:
+      type: array
+      description: |
+        Parameters to select sentences from returned documents.
+
+        Behaviour:
+
+        - If this array is empty, returned documents will be summarized by the
+        system and sent to the LLM.
+        - If this array is non-empty, only the returned documents listed in this
+        array will be summarized and sent to the LLM. Returned documents not in
+        this array will not be sent to the LLM.
+
+        Use this to create summaries by specifying sentence IDs instead of
+        relying on the system to generate summaries.
+      items:
+        $ref: "#/components/schemas/SentenceSelectorItem"
+
+    SentenceSelectorItem:
+      type: object
+      description: |
+        Parameters to select sentences from a specific document.
+
+        Behavior:  
+        - If the `sentences` array is empty, the system will summarize the
+          document.  
+        - If specific `sentences` are listed, those sentences will form the
+          document's summary.
+      properties:
+        document_id:
+          $ref: "#/components/schemas/ClientID"
+        sentences:
+          $ref: "#/components/schemas/SentenceIDList"
+
+    SentenceIDList:
+      type: array
+      description: |
+        Sentence IDs to use from the document
+      items:
+        $ref: "#/components/schemas/SentenceID"
+
+    SentenceID:
+      type: integer
+      description: |
+        Sentence ID to use from the document
+
+    ClientID:
+      type: string
+      description: |
+        Client ID for a document
+
+    DynizerDocumentURI:
+      type: string
+      description: |
+        Unique reference ID that points to a dynizer document (an analysis)
+
+    ClientName:
+      type: string
+      description: |
+        Client human-readable name for a document
+
+    Score:
+      type: number
+      description: |
+        Text search score
+
+    ActionSchema:
+      type: string
+      description: |
+        Dynizer action schema to use in a DocumentSelector
+      default: user
+
+    Action:
+      type: string
+      description: |
+        Dynizer action to use in a DocumentSelector
+
+    ActionLabel:
+      type: string
+      description: |
+        Dynizer actionlabel to use in a DocumentSelector or DocumentFilter.
+
+    MergeStrategy:
+      type: string
+      description: |
+        Strategy for merging responses from different categories.
+
+    Values:
+      type: array
+      description: |
+        Array of string values to filter the RAG documents.
+      items:
+        $ref: "#/components/schemas/Value"
+
+    Value:
+      type: string
+      description: |
+        Value to filter the RAG documents.
+
+    ValueFunction:
+      type: string
+      description: |
+        Name of a function that takes no arguments and returns one value, e.g. 'current_user'. 
+        Used to filter the RAG documents.
+
+    SetReturningFunction:
+      type: string
+      description: |
+        Name of a function that takes no arguments and might return more than one row., e.g. 'current_microsoft_user_teams'. 
+        Used to filter the RAG documents.
+
+    TextSearch:
+      type: boolean
+      description: |
+        Indicates whether or not to use DQL's text_search() function in a DocumentSelector
+
+    VectorSearch:
+      type: boolean
+      description: |
+        Indicates whether or not to use vector search function in a DocumentSelector
+      default: true
+
+    Operation:
+      type: string
+      description: |
+        Operation between filters, must be 'AND' or 'OR'
+      default: OR
+
+    MaxDocuments:
+      type: integer
+      description: Maximum number of RAG documents
+      default: 10
+
+    TopRerank:
+      type: integer
+      description: Number of top vector search results used in the reranker.
+      default: 83
+
+    MaxRagTokens:
+      type: integer
+      description: Maximum number of tokens sent to the LLM as RAG content.
+      default: 5333
+
+    DocumentFilter:
+      type: array
+      description: |
+        List of filter items to filter the RAG documents
+      items:
+        $ref: "#/components/schemas/DocumentFilterItem"
+
+    DocumentFilterItem:
+      type: object
+      description: |
+        A filter item.
+
+        Use one of these property combinations:
+        - action_label  + value                   -> WHERE {action_label} = '{value}'
+        - action_label  + value_function          -> WHERE {action_label} = {value_function}()
+        - action_label  + set_returning_function  -> WHERE {action_label} IN (SELECT {set_returning_function}())
+        - filter        + operation (AND/OR)      -> WHERE ({filter1}) {operation} ({filter2}) {operation} ({filter3}) ...
+      properties:
+        action_label:
+          $ref: "#/components/schemas/ActionLabel"
+        value:
+          $ref: "#/components/schemas/Value"
+        value_function:
+          $ref: "#/components/schemas/ValueFunction"
+        set_returning_function:
+          $ref: "#/components/schemas/SetReturningFunction"
+        filter:
+          $ref: "#/components/schemas/DocumentFilter"
+        operation:
+          $ref: "#/components/schemas/Operation"
+
+    Chat:
+      type: object
+      description: |
+        Chat properties.
+
+        Behaviour:
+        - `document_selector`:
+              Required for the first chat message of a conversation.
+              For subsequent messages, the latest provided one will be used.
+        - `sentence_selector` 
+              Not required. 
+              If not provided or an empty array, the last provided sentence_selector for that conversation is used.
+              It cannot be reset to null or an empty array.
+        - `history_override`: 
+              If provided, this will replace the chat history. An empty array will also replace the chat history.
+      required:
+        - text
+        - api_url
+      properties:
+        text:
+          $ref: "#/components/schemas/Text"
+        rag_type:
+          $ref: "#/components/schemas/RagType"
+        rag_mode:
+          $ref: "#/components/schemas/RagMode"
+        summary_pct:
+          $ref: "#/components/schemas/SummaryPct"
+        conversation_id:
+          $ref: "#/components/schemas/ConversationID"
+        max_tokens:
+          $ref: "#/components/schemas/MaxTokens"
+        temperature:
+          $ref: "#/components/schemas/Temperature"
+        frequency_penalty:
+          $ref: "#/components/schemas/FrequencyPenalty"
+        top_p:
+          $ref: "#/components/schemas/TopP"
+        top_k:
+          $ref: "#/components/schemas/TopK"
+        model_id:
+          $ref: "#/components/schemas/ModelID"
+        language:
+          $ref: "#/components/schemas/Language"
+        api_url:
+          $ref: "#/components/schemas/APIURL"
+        no_prompt:
+          $ref: "#/components/schemas/NoPrompt"
+        no_tool_call:
+          $ref: "#/components/schemas/NoToolCall"
+        document_selector:
+          $ref: "#/components/schemas/DocumentSelector"
+        sentence_selector:
+          $ref: "#/components/schemas/SentenceSelector"
+        history_override:
+          $ref: "#/components/schemas/ConversationList"
+
+    ConversationItem:
+      type: object
+      description: ConversationItem properties
+      properties:
+        message:
+          $ref: "#/components/schemas/Message"
+        role:
+          $ref: "#/components/schemas/Role"
+        tool_calls:
+          $ref: "#/components/schemas/ToolCalls"
+
+    ConversationList:
+      type: array
+      description: List of conversation items.
+      nullable: true
+      items:
+        $ref: "#/components/schemas/ConversationItem"
+
+    Conversation:
+      type: object
+      description: ConversationItem properties
+      properties:
+        conversation:
+          $ref: "#/components/schemas/ConversationList"
+        preamble:
+          $ref: "#/components/schemas/Preamble"
+        links:
+          $ref: "#/components/schemas/Links"
+        citations:
+          $ref: "#/components/schemas/Citations"
+        citation_documents:
+          $ref: "#/components/schemas/CitationDocuments"
+
+    Citations:
+      type: array
+      description: List of citations in the current generated response.
+      items:
+        $ref: "#/components/schemas/Citation"
+
+    CitationDocuments:
+      type: array
+      description: List of documents cited in the current generated response.
+      items:
+        $ref: "#/components/schemas/CitationDocument"
+
+    Citation:
+      type: object
+      description: |
+        A citation in the model's response, linking a specific portion of the response text to input documents.
+      properties:
+        document_ids:
+          $ref: "#/components/schemas/CitationClientIDs"
+        start:
+          $ref: "#/components/schemas/CitationStart"
+        end:
+          $ref: "#/components/schemas/CitationEnd"
+        text:
+          $ref: "#/components/schemas/CitationText"
+
+    CitationDocument:
+      type: object
+      description: A snippet from one of the input documents.
+      properties:
+        id:
+          $ref: "#/components/schemas/ClientID"
+        language:
+          $ref: "#/components/schemas/DocumentLanguage"
+        snippet:
+          $ref: "#/components/schemas/CitationDocumentSnippet"
+
+    CitationClientIDs:
+      type: array
+      description: Client ids of cited documents
+      items:
+        $ref: "#/components/schemas/ClientID"
+
+    CitationStart:
+      type: integer
+      description: The starting character position of the citation in the model's response text
+
+    CitationEnd:
+      type: integer
+      description: The ending character position of the citation in the model's response text
+
+    CitationText:
+      type: string
+      description: The exact segment of the model's response text that is cited from the input documents.
+
+    CitationDocumentSnippet:
+      type: string
+      description: A cited text snippet from an input document
+
+    DocumentLanguage:
+      type: string
+      description: |
+        Language detected for a document
+
+    Links:
+      type: array
+      description: List of Links.
+      items:
+        $ref: "#/components/schemas/Link"
+
+    Link:
+      type: object
+      description: |
+        Link to a dynizer document.
+
+        `dynizer_document_uri`: dynizer URI of the document
+        `score`: relevancy score of the document
+        `client_id`: the value in the actionlabel `action_label_id` provided in the chat request
+        `client_name`: the value in the actionlabel `action_label_name` provided in the chat request 
+        `used_fraction`: the fraction of the document summary sent to the LLM.
+      properties:
+        dynizer_document_uri:
+          $ref: "#/components/schemas/DynizerDocumentURI"
+        score:
+          $ref: "#/components/schemas/Score"
+        client_id:
+          $ref: "#/components/schemas/ClientID"
+        client_name:
+          $ref: "#/components/schemas/ClientName"
+        used_fraction:
+          $ref: "#/components/schemas/UsedFraction"
+
+    UsedFraction:
+      type: number
+      description: |
+        Number between 0 and 1 representing the fraction of the document summary sent to the LLM.
+
+    Error:
+      type: object
+      description: API error.
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string

@@ -16,3 +16,13 @@
 
 # DS_Store
 *.DS_Store
+
+# Node modules/files (only for generating)
+node_modules
+package.json
+package-lock.json
+
+# Proto libs
+custom
+google
+protoc-gen-openapiv2

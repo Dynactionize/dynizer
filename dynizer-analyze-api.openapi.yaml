@@ -1,0 +1,555 @@
+openapi: "3.0.0"
+info:
+  version: 1.0.0
+  title: Analyze API
+  description: TODO
+  termsOfService: TODO
+  contact:
+    name: Consono
+    email: info@consono.ai
+    url: https://consono.ai
+  license:
+    name: TODO
+    #url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+tags:
+  - name: Analyze
+    description: Manage analyze requests and processes
+  - name: Documents
+    description: Add documents for processing
+  - name: State
+    description: State of the API
+  - name: Health check
+    description: Checks regarding the health of the service
+
+paths:
+  /analyze:
+    get:
+      description: Get the status and data of all analyze processes
+      operationId: getAnalyze
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/Limit"
+        - $ref: "#/components/parameters/Offset"
+      responses:
+        "200":
+          $ref: "#/components/responses/GetAnalyzeResponse"
+        "404":
+          $ref: "#/components/responses/404ErrorResponse"
+        default:
+          $ref: "#/components/responses/DefaultErrorResponse"
+      tags:
+        - Analyze
+    post:
+      description: Request processing from the analyzer.
+      operationId: postAnalyze
+      security:
+        - bearerAuth: []
+      requestBody:
+        $ref: "#/components/requestBodies/PostAnalyzeRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/PostAnalyzeResponse"
+        default:
+          $ref: "#/components/responses/DefaultErrorResponse"
+      tags:
+        - Analyze
+
+  /analyze/{id}:
+    get:
+      description: Get the status and data of an analyze process
+      operationId: getAnalyzeByID
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/ID"
+      responses:
+        "200":
+          $ref: "#/components/responses/GetAnalyzeByIDResponse"
+        "404":
+          $ref: "#/components/responses/404ErrorResponse"
+        default:
+          $ref: "#/components/responses/DefaultErrorResponse"
+      tags:
+        - Analyze
+
+    put:
+      description: Send an operation to be performed on an analyze process
+      operationId: putAnalyzeByID
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/ID"
+      requestBody:
+        $ref: "#/components/requestBodies/PutAnalyzeRequest"
+      responses:
+        "204":
+          description: Put analyze response
+        "404":
+          $ref: "#/components/responses/404ErrorResponse"
+        "409":
+          $ref: "#/components/responses/409ErrorResponse"
+        default:
+          $ref: "#/components/responses/DefaultErrorResponse"
+      tags:
+        - Analyze
+
+    delete:
+      description: Stop and delete an analyze process.
+      operationId: deleteAnalyzeByID
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/ID"
+      responses:
+        "204":
+          description: Delete analyze response
+        "404":
+          $ref: "#/components/responses/404ErrorResponse"
+        default:
+          $ref: "#/components/responses/DefaultErrorResponse"
+      tags:
+        - Analyze
+
+  /documents:
+    post:
+      description: Upload a document for processing
+      operationId: postDocuments
+      security:
+        - bearerAuth: []
+      requestBody:
+        $ref: "#/components/requestBodies/PostDocumentRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/PostDocumentResponse"
+        default:
+          $ref: "#/components/responses/DefaultErrorResponse"
+      tags:
+        - Documents
+
+  /state:
+    get:
+      description: Get state of the analyze-api
+      operationId: getState
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          $ref: "#/components/responses/GetStateResponse"
+        default:
+          $ref: "#/components/responses/DefaultErrorResponse"
+      tags:
+        - State
+
+  /healthz:
+    get:
+      description: |
+        k8s style health check. Returns 200 if running correctly
+      operationId: getHealthz
+      responses:
+        "200":
+          description: "Health check successful"
+        "503":
+          $ref: "#/components/responses/503ErrorResponse"
+        default:
+          $ref: "#/components/responses/DefaultErrorResponse"
+      tags:
+        - Health check
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  parameters:
+    ID:
+      name: id
+      in: path
+      description: ID of object to fetch.
+      required: true
+      schema:
+        $ref: "#/components/schemas/ID"
+      x-go-name: PathID
+
+    Limit:
+      name: limit
+      in: query
+      description: |
+        Defines how many records at max are returned.
+        If fewer records are available, all will be returned.
+        Omitting or setting this to -1 will be interpreted as no limit
+      schema:
+        $ref: "#/components/schemas/Limit"
+      x-go-name: PathLimit
+
+    Offset:
+      name: offset
+      in: query
+      description: |
+        Defines the offset at which to start reading.
+        An offset of 0 means to start from the first possible record.
+      schema:
+        $ref: "#/components/schemas/Offset"
+      x-go-name: PathOffset
+
+  requestBodies:
+    PostAnalyzeRequest:
+      description: Analyze document request
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/AnalyzeRequest"
+
+    PutAnalyzeRequest:
+      description: Analyze document operation request
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/UpdateAnalyzeRequestStatus"
+
+    PostDocumentRequest:
+      description: Set document data for processing
+      required: true
+      content:
+        application/octet-stream:
+          schema:
+            type: string
+            format: binary
+
+  responses:
+    DefaultErrorResponse:
+      description: Unexpected error.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+
+    400ErrorResponse:
+      description: Bad request.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+
+    401ErrorResponse:
+      description: Unauthorized.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+
+    404ErrorResponse:
+      description: Not found.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+
+    409ErrorResponse:
+      description: Conflict.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+
+    503ErrorResponse:
+      description: Service unavailable.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+
+    GetAnalyzeResponse:
+      description: Get all analyze processes response
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/AnalyzeResponsePage"
+
+    PostAnalyzeResponse:
+      description: Request analyze process response
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/AnalyzeResponse"
+
+    GetAnalyzeByIDResponse:
+      description: Get analyze process response
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/AnalyzeResponse"
+
+    PostDocumentResponse:
+      description: Set document data response
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/DocumentResponse"
+
+    GetStateResponse:
+      description: Get API state response
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/StateResponse"
+
+  schemas:
+    Limit:
+      type: integer
+      description: Limits the amount of records to return.
+
+    Offset:
+      type: integer
+      description: Offsets the records to return.
+
+    ID:
+      type: string
+      description: ID of an object within the collection.
+
+    Name:
+      type: string
+      description: Name of an object within the collection.
+
+    RemoteID:
+      type: string
+      description: Remote ID from the API that requested the analyze process.
+
+    Status:
+      type: string
+      description: Status of an analyze process. Can be one of QUEUED|RUNNING|FAILED|SUCCESS|CANCELED|PAUSED.
+
+    Filetype:
+      type: string
+      description: Filetype of a document. Can be one of txt|pdf|doc|docx|rtf|odt|eml|msg.
+
+    AnalyzeRequestType:
+      type: string
+      description: Type of request for analyze. Can be one of background|immediate.
+
+    AnalyzeRequestWebhook:
+      type: string
+      description: Webhook to call to push updates from the analyze process.
+
+    URI:
+      type: string
+      description: Full URI string.
+
+    Operation:
+      type: string
+      description: Operation to perform on the analyze process.
+
+    Timestamp:
+      type: string
+      description: Timestamp
+
+    Data:
+      type: string
+      description: Raw text string.
+
+    Total:
+      type: integer
+      description: Total number of records available within a collection query
+
+    ProcessAvailable:
+      type: integer
+      description: Amount of processes available
+
+    NameList:
+      type: array
+      description: List of names.
+      items:
+        $ref: "#/components/schemas/Name"
+
+    FiletypeConfiguration: {}
+
+    Encoding:
+      type: string
+      description: Encoding of a document.
+
+    DocumentFiletypeConfiguration:
+      type: object
+      description: Filetype and configuration of a document.
+      properties:
+        name:
+          $ref: "#/components/schemas/Name"
+        config:
+          $ref: "#/components/schemas/FiletypeConfiguration"
+
+    TextDocument:
+      type: object
+      description: Document raw text.
+      properties:
+        data:
+          $ref: "#/components/schemas/Data"
+
+    Base64Document:
+      type: object
+      description: Document serialized in base64 string.
+      properties:
+        data:
+          $ref: "#/components/schemas/Data"
+
+    PrivateDocument:
+      type: object
+      description: Document uploaded to the API.
+      properties:
+        id:
+          $ref: "#/components/schemas/ID"
+
+    PublicDocument:
+      type: object
+      description: Document which is publicly available. Full URI must be given.
+      properties:
+        uri:
+          $ref: "#/components/schemas/URI"
+
+    Document:
+      type: object
+      description: |
+        Data of a document to process. The filetype describes the type of document. See /filetype_configurations endpoint of pipeline-api to get a list of supported filetypes.
+        Optionally the encoding of the document can be given. If this is not set, the process will try to detect the encoding of the data.
+        To add data, set (only) one of the following fields: text, base64, private, public.
+      required:
+        - filetype_configuration
+      properties:
+        filetype_configuration:
+          $ref: "#/components/schemas/DocumentFiletypeConfiguration"
+        encoding:
+          $ref: "#/components/schemas/Encoding"
+        text:
+          $ref: "#/components/schemas/TextDocument"
+        base64:
+          $ref: "#/components/schemas/Base64Document"
+        private:
+          $ref: "#/components/schemas/PrivateDocument"
+        public:
+          $ref: "#/components/schemas/PublicDocument"
+
+    AnalyzeRequestConfig: {}
+
+    AnalyzeRequest:
+      type: object
+      description: All data related to an analyze process.
+      required:
+        - type
+        - flow_name
+        - document
+      properties:
+        type:
+          $ref: "#/components/schemas/AnalyzeRequestType"
+        flow_name:
+          $ref: "#/components/schemas/Name"
+        config:
+          $ref: "#/components/schemas/AnalyzeRequestConfig"
+        webhook:
+          $ref: "#/components/schemas/AnalyzeRequestWebhook"
+        document:
+          $ref: "#/components/schemas/Document"
+        remote_id:
+          $ref: "#/components/schemas/RemoteID"
+        error: {}
+
+    AnalyzeOutput: {}
+
+    DocumentResponse:
+      type: object
+      description: Response to a document upload. Contains the ID to refer to the document.
+      required:
+        - id
+      properties:
+        id:
+          $ref: "#/components/schemas/ID"
+
+    StateResponse:
+      type: object
+      description: All data regarding the state of the API.
+      required:
+        - endpoint
+        - process_available
+        - flow_names
+      properties:
+        endpoint:
+          $ref: "#/components/schemas/URI"
+        process_available:
+          $ref: "#/components/schemas/ProcessAvailable"
+        flow_names:
+          $ref: "#/components/schemas/NameList"
+
+    AnalyzeResponsePage:
+      type: object
+      description: Analyze processes list. Contains the list that was fetched and the total.
+      required:
+        - total
+      properties:
+        total:
+          $ref: "#/components/schemas/Total"
+        records:
+          $ref: "#/components/schemas/AnalyzeResponseList"
+
+    AnalyzeResponseList:
+      type: array
+      items:
+        $ref: "#/components/schemas/AnalyzeResponse"
+
+    AnalyzeResponse:
+      type: object
+      description: Analyze process data.
+      required:
+        - id
+      properties:
+        id:
+          $ref: "#/components/schemas/ID"
+        remote_id:
+          $ref: "#/components/schemas/RemoteID"
+        status:
+          $ref: "#/components/schemas/Status"
+        output:
+          $ref: "#/components/schemas/AnalyzeOutput"
+        error:
+          $ref: "#/components/schemas/AnalyzeError"
+        timestamp:
+          $ref: "#/components/schemas/Timestamp"
+        started_at:
+          $ref: "#/components/schemas/Timestamp"
+        finished_at:
+          $ref: "#/components/schemas/Timestamp"
+
+    UpdateAnalyzeRequestStatus:
+      type: object
+      description: Update request to perform an operation on an analyze process.
+      required:
+        - operation
+      properties:
+        operation:
+          $ref: "#/components/schemas/Operation"
+
+    AnalyzeError:
+      type: object
+      description: Error that occurred during an analyze process. Contains additional log.
+      required:
+        - message
+        - log
+      properties:
+        message:
+          type: string
+        log:
+          type: string
+
+    Error:
+      type: object
+      description: API error.
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string

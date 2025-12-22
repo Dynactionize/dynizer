@@ -1,0 +1,2623 @@
+openapi: "3.0.0"
+info:
+  version: 1.0.0
+  title: Pipeline API
+  description: TODO
+  termsOfService: TODO
+  contact:
+    name: Consono
+    email: info@consono.ai
+    url: https://consono.ai
+  license:
+    name: TODO
+    #url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+tags:
+  - name: Login
+    description: Login to the API
+  - name: Authentication Configurations
+    description: Authentication configurations store credentials and methods to use as authentication in a connection.
+  - name: Connections
+    description: Connections keep information about services that can provide document data, or serve as a destination for the result data.
+  - name: Connectiontypes
+    description: ConnectionTypes describe available types to be used as a connection.
+  - name: Filetype Configurations
+    description: Filetype configurations are supported filetypes which can be used in a document and the configuration model that can be passed along with it.
+  - name: Documents
+    description: Documents store the data to be used in a pipeline. They contain raw data or links to (external) data.
+  - name: Flows
+    description: Flows describe available flows to be executed in a pipeline.
+  - name: Pipeline Configurations
+    description: Pipeline configurations store parameters that can be used to execute a pipeline
+  - name: Pipelines
+    description: Pipelines are all pipelines that have been executed in the system
+  - name: Plugins
+    description: Plugins contain all the plugins that can be executed in a pipeline
+  - name: Analyzers
+    description: Analyzers are all the registered analyzers that can be used by pipelines
+  - name: Health check
+    description: Checks regarding the health of the service
+
+paths:
+  /login:
+    post:
+      description: |
+        Send a login authentication request.
+      operationId: postLogin
+      requestBody:
+        $ref: "#/components/requestBodies/LoginRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/PostLoginResponse"
+        "400":
+          $ref: "#/components/responses/400ErrorResponse"
+        "401":
+          $ref: "#/components/responses/401ErrorResponse"
+        default:
+          $ref: "#/components/responses/DefaultErrorResponse"
+      tags:
+        - Login
+
+  /authentication_configurations:
+    get:
+      description: |
+        Get all defined authentication configurations.
+      operationId: getAuthenticationConfigurations
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/Search"
+        - $ref: "#/components/parameters/Limit"
+        - $ref: "#/components/parameters/Offset"
+      responses:
+        "200":
+          $ref: "#/components/responses/GetAuthenticationConfigurationsResponse"
+        default:
+          $ref: "#/components/responses/DefaultErrorResponse"
+      tags:
+        - Authentication Configurations
+
+    post:
+      description: |
+        Create a new authentication configuration.
+      operationId: postAuthenticationConfigurations
+      security:
+        - bearerAuth: []
+      requestBody:
+        $ref: "#/components/requestBodies/CreateAuthenticationConfigurationRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/CreateAuthenticationConfigurationResponse"
+        "400":
+          $ref: "#/components/responses/400ErrorResponse"
+        default:
+          $ref: "#/components/responses/DefaultErrorResponse"
+      tags:
+        - Authentication Configurations
+
+  /authentication_configurations/{id}:
+    get:
+      description: |
+        Get an authentication configuration by ID.
+      operationId: getAuthenticationConfigurationByID
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/ID"
+      responses:
+        "200":
+          $ref: "#/components/responses/GetAuthenticationConfigurationByIDResponse"
+        "400":
+          $ref: "#/components/responses/400ErrorResponse"
+        "404":
+          $ref: "#/components/responses/404ErrorResponse"
+        default:
+          $ref: "#/components/responses/DefaultErrorResponse"
+      tags:
+        - Authentication Configurations
+
+    put:
+      description: |
+        Update an authentication configuration by ID.
+      operationId: putAuthenticationConfigurationByID
+      security:
+        - bearerAuth: []
+      requestBody:
+        $ref: "#/components/requestBodies/UpdateAuthenticationConfigurationRequest"
+      parameters:
+        - $ref: "#/components/parameters/ID"
+      responses:
+        "204":
+          description: Put authentication configuration response
+        "400":
+          $ref: "#/components/responses/400ErrorResponse"
+        "404":
+          $ref: "#/components/responses/404ErrorResponse"
+        default:
+          $ref: "#/components/responses/DefaultErrorResponse"
+      tags:
+        - Authentication Configurations
+
+    delete:
+      description: |
+        Delete an authentication configuration by ID.
+      operationId: deleteAuthenticationConfigurationByID
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/ID"
+      responses:
+        "204":
+          description: Delete authentication configuration response
+        "400":
+          $ref: "#/components/responses/400ErrorResponse"
+        "404":
+          $ref: "#/components/responses/404ErrorResponse"
+        "409":
+          $ref: "#/components/responses/409ErrorResponse"
+        default:
+          $ref: "#/components/responses/DefaultErrorResponse"
+      tags:
+        - Authentication Configurations
+
+  /connections:
+    get:
+      description: |
+        Get all defined connections.
+      operationId: getConnections
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/Search"
+        - $ref: "#/components/parameters/Limit"
+        - $ref: "#/components/parameters/Offset"
+      responses:
+        "200":
+          $ref: "#/components/responses/GetConnectionsResponse"
+        default:
+          $ref: "#/components/responses/DefaultErrorResponse"
+      tags:
+        - Connections
+
+    post:
+      description: |
+        Create a new connection.
+      operationId: postConnections
+      security:
+        - bearerAuth: []
+      requestBody:
+        $ref: "#/components/requestBodies/CreateConnectionRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/CreateConnectionResponse"
+        "400":
+          $ref: "#/components/responses/400ErrorResponse"
+        default:
+          $ref: "#/components/responses/DefaultErrorResponse"
+      tags:
+        - Connections
+
+  /connections/{id}:
+    get:
+      description: |
+        Get a connection by ID.
+      operationId: getConnectionByID
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/ID"
+      responses:
+        "200":
+          $ref: "#/components/responses/GetConnectionByIDResponse"
+        "400":
+          $ref: "#/components/responses/400ErrorResponse"
+        "404":
+          $ref: "#/components/responses/404ErrorResponse"
+        default:
+          $ref: "#/components/responses/DefaultErrorResponse"
+      tags:
+        - Connections
+
+    put:
+      description: |
+        Update a connection by ID.
+      operationId: putConnectionByID
+      security:
+        - bearerAuth: []
+      requestBody:
+        $ref: "#/components/requestBodies/UpdateConnectionRequest"
+      parameters:
+        - $ref: "#/components/parameters/ID"
+      responses:
+        "204":
+          description: Put connection response
+        "400":
+          $ref: "#/components/responses/400ErrorResponse"
+        "404":
+          $ref: "#/components/responses/404ErrorResponse"
+        default:
+          $ref: "#/components/responses/DefaultErrorResponse"
+      tags:
+        - Connections
+
+    delete:
+      description: |
+        Delete a connection by ID. This operation will not delete any data on the storage itself.
+      operationId: deleteConnectionByID
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/ID"
+      responses:
+        "204":
+          description: Delete connection response
+        "400":
+          $ref: "#/components/responses/400ErrorResponse"
+        "404":
+          $ref: "#/components/responses/404ErrorResponse"
+        "409":
+          $ref: "#/components/responses/409ErrorResponse"
+        default:
+          $ref: "#/components/responses/DefaultErrorResponse"
+      tags:
+        - Connections
+
+  /connections/{id}/storage:
+    get:
+      description: |
+        Download a large object from a connection. Specify the connection ID in the path parameter, and the server path in the query parameters.
+      operationId: getConnectionByIDStorage
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/ID"
+        - $ref: "#/components/parameters/URIPath"
+      responses:
+        "200":
+          $ref: "#/components/responses/DownloadLOBResponse"
+        "400":
+          $ref: "#/components/responses/400ErrorResponse"
+        "404":
+          $ref: "#/components/responses/404ErrorResponse"
+        default:
+          $ref: "#/components/responses/DefaultErrorResponse"
+      tags:
+        - Connections
+
+    post:
+      description: |
+        Upload a large object to a connection. Specify the connection ID in the path parameter, and the server path in the query parameters.
+      operationId: postConnectionByIDStorage
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/ID"
+        - $ref: "#/components/parameters/URIPath"
+      requestBody:
+        $ref: "#/components/requestBodies/UploadLOB"
+      responses:
+        "200":
+          $ref: "#/components/responses/UploadLOBResponse"
+        "400":
+          $ref: "#/components/responses/400ErrorResponse"
+        "404":
+          $ref: "#/components/responses/404ErrorResponse"
+        default:
+          $ref: "#/components/responses/DefaultErrorResponse"
+      tags:
+        - Connections
+
+    delete:
+      description: |
+        Delete a large object from a connection. Specify the connection ID in the path parameter, and the server path in the query parameters.
+      operationId: deleteConnectionByIDStorage
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/ID"
+        - $ref: "#/components/parameters/URIPath"
+      responses:
+        "204":
+          description: Delete large object response
+        "400":
+          $ref: "#/components/responses/400ErrorResponse"
+        "404":
+          $ref: "#/components/responses/404ErrorResponse"
+        default:
+          $ref: "#/components/responses/DefaultErrorResponse"
+      tags:
+        - Connections
+
+  /documents:
+    get:
+      description: |
+        Get all defined documents.
+      operationId: getDocuments
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/Search"
+        - $ref: "#/components/parameters/Limit"
+        - $ref: "#/components/parameters/Offset"
+      responses:
+        "200":
+          $ref: "#/components/responses/GetDocumentsResponse"
+        default:
+          $ref: "#/components/responses/DefaultErrorResponse"
+      tags:
+        - Documents
+
+    post:
+      description: |
+        Create a new document.
+      operationId: postDocuments
+      security:
+        - bearerAuth: []
+      requestBody:
+        $ref: "#/components/requestBodies/CreateDocumentRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/CreateDocumentResponse"
+        "400":
+          $ref: "#/components/responses/400ErrorResponse"
+        default:
+          $ref: "#/components/responses/DefaultErrorResponse"
+      tags:
+        - Documents
+
+  /documents/{id}:
+    get:
+      description: |
+        Get a document by ID.
+      operationId: getDocumentByID
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/ID"
+      responses:
+        "200":
+          $ref: "#/components/responses/GetDocumentByIDResponse"
+        "400":
+          $ref: "#/components/responses/400ErrorResponse"
+        "404":
+          $ref: "#/components/responses/404ErrorResponse"
+        default:
+          $ref: "#/components/responses/DefaultErrorResponse"
+      tags:
+        - Documents
+
+    put:
+      description: |
+        Update a document by ID.
+      operationId: putDocumentByID
+      security:
+        - bearerAuth: []
+      requestBody:
+        $ref: "#/components/requestBodies/UpdateDocumentRequest"
+      parameters:
+        - $ref: "#/components/parameters/ID"
+      responses:
+        "204":
+          description: Put document response
+        "400":
+          $ref: "#/components/responses/400ErrorResponse"
+        "404":
+          $ref: "#/components/responses/404ErrorResponse"
+        default:
+          $ref: "#/components/responses/DefaultErrorResponse"
+      tags:
+        - Documents
+
+    delete:
+      description: |
+        Delete a document by ID.
+      operationId: deleteDocumentByID
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/ID"
+      responses:
+        "204":
+          description: Delete document response
+        "400":
+          $ref: "#/components/responses/400ErrorResponse"
+        "404":
+          $ref: "#/components/responses/404ErrorResponse"
+        "409":
+          $ref: "#/components/responses/409ErrorResponse"
+        default:
+          $ref: "#/components/responses/DefaultErrorResponse"
+      tags:
+        - Documents
+
+  /flows:
+    get:
+      description: |
+        Get all flows.
+      operationId: getFlows
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/Search"
+        - $ref: "#/components/parameters/Limit"
+        - $ref: "#/components/parameters/Offset"
+      responses:
+        "200":
+          $ref: "#/components/responses/GetFlowsResponse"
+        default:
+          $ref: "#/components/responses/DefaultErrorResponse"
+      tags:
+        - Flows
+
+  /flows/{name}:
+    get:
+      description: |
+        Get a flow by Name.
+      operationId: getFlowByName
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/Name"
+      responses:
+        "200":
+          $ref: "#/components/responses/GetFlowByNameResponse"
+        "400":
+          $ref: "#/components/responses/400ErrorResponse"
+        "404":
+          $ref: "#/components/responses/404ErrorResponse"
+        default:
+          $ref: "#/components/responses/DefaultErrorResponse"
+      tags:
+        - Flows
+
+  /filetype_configurations:
+    get:
+      description: |
+        Get all filetype configurations.
+      operationId: getFiletypeConfigurations
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/Search"
+        - $ref: "#/components/parameters/Limit"
+        - $ref: "#/components/parameters/Offset"
+      responses:
+        "200":
+          $ref: "#/components/responses/GetFiletypeConfigurationsResponse"
+        default:
+          $ref: "#/components/responses/DefaultErrorResponse"
+      tags:
+        - Filetype Configurations
+
+  /filetype_configurations/{name}:
+    get:
+      description: |
+        Get a filetype configuration by name.
+      operationId: getFiletypeConfigurationByName
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/Name"
+      responses:
+        "200":
+          $ref: "#/components/responses/GetFiletypeConfigurationByNameResponse"
+        "400":
+          $ref: "#/components/responses/400ErrorResponse"
+        "404":
+          $ref: "#/components/responses/404ErrorResponse"
+        default:
+          $ref: "#/components/responses/DefaultErrorResponse"
+      tags:
+        - Filetype Configurations
+
+  /connectiontypes:
+    get:
+      description: |
+        Get all connectiontypes.
+      operationId: getConnectiontypes
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/Search"
+        - $ref: "#/components/parameters/Limit"
+        - $ref: "#/components/parameters/Offset"
+      responses:
+        "200":
+          $ref: "#/components/responses/GetConnectiontypesResponse"
+        default:
+          $ref: "#/components/responses/DefaultErrorResponse"
+      tags:
+        - Connectiontypes
+
+  /connectiontypes/{name}:
+    get:
+      description: |
+        Get a connectiontype by Name.
+      operationId: getConnectiontypeByName
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/Name"
+      responses:
+        "200":
+          $ref: "#/components/responses/GetConnectiontypeByNameResponse"
+        "400":
+          $ref: "#/components/responses/400ErrorResponse"
+        "404":
+          $ref: "#/components/responses/404ErrorResponse"
+        default:
+          $ref: "#/components/responses/DefaultErrorResponse"
+      tags:
+        - Connectiontypes
+
+  /pipeline_configurations:
+    get:
+      description: |
+        Get all defined pipeline configurations.
+      operationId: getPipelineConfigurations
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/Search"
+        - $ref: "#/components/parameters/Limit"
+        - $ref: "#/components/parameters/Offset"
+      responses:
+        "200":
+          $ref: "#/components/responses/GetPipelineConfigurationsResponse"
+        default:
+          $ref: "#/components/responses/DefaultErrorResponse"
+      tags:
+        - Pipeline Configurations
+
+    post:
+      description: |
+        Create a new pipeline configuration.
+      operationId: postPipelineConfigurations
+      security:
+        - bearerAuth: []
+      requestBody:
+        $ref: "#/components/requestBodies/CreatePipelineConfigurationRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/CreatePipelineConfigurationResponse"
+        "400":
+          $ref: "#/components/responses/400ErrorResponse"
+        default:
+          $ref: "#/components/responses/DefaultErrorResponse"
+      tags:
+        - Pipeline Configurations
+
+  /pipeline_configurations/{id}:
+    get:
+      description: |
+        Get a pipeline configuration by ID.
+      operationId: getPipelineConfigurationByID
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/ID"
+      responses:
+        "200":
+          $ref: "#/components/responses/GetPipelineConfigurationByIDResponse"
+        "400":
+          $ref: "#/components/responses/400ErrorResponse"
+        "404":
+          $ref: "#/components/responses/404ErrorResponse"
+        default:
+          $ref: "#/components/responses/DefaultErrorResponse"
+      tags:
+        - Pipeline Configurations
+
+    put:
+      description: |
+        Update a pipeline configuration by ID. This update only applies to new pipelines and does not impact existing pipelines.
+      operationId: putPipelineConfigurationByID
+      security:
+        - bearerAuth: []
+      requestBody:
+        $ref: "#/components/requestBodies/UpdatePipelineConfigurationRequest"
+      parameters:
+        - $ref: "#/components/parameters/ID"
+      responses:
+        "204":
+          description: Put pipeline configuration response
+        "400":
+          $ref: "#/components/responses/400ErrorResponse"
+        "404":
+          $ref: "#/components/responses/404ErrorResponse"
+        default:
+          $ref: "#/components/responses/DefaultErrorResponse"
+      tags:
+        - Pipeline Configurations
+
+    delete:
+      description: |
+        Delete a pipeline configuration by ID.
+      operationId: deletePipelineConfigurationByID
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/ID"
+      responses:
+        "204":
+          description: Delete pipeline configuration response
+        "400":
+          $ref: "#/components/responses/400ErrorResponse"
+        "404":
+          $ref: "#/components/responses/404ErrorResponse"
+        "409":
+          $ref: "#/components/responses/409ErrorResponse"
+        default:
+          $ref: "#/components/responses/DefaultErrorResponse"
+      tags:
+        - Pipeline Configurations
+
+  /pipelines:
+    get:
+      description: |
+        Get all executed pipelines.
+      operationId: getPipelines
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/Search"
+        - $ref: "#/components/parameters/Status"
+        - $ref: "#/components/parameters/Limit"
+        - $ref: "#/components/parameters/Offset"
+        - $ref: "#/components/parameters/IncludeOutput"
+        - $ref: "#/components/parameters/IncludeDocument"
+      responses:
+        "200":
+          $ref: "#/components/responses/GetPipelinesResponse"
+        default:
+          $ref: "#/components/responses/DefaultErrorResponse"
+      tags:
+        - Pipelines
+
+    post:
+      description: |
+        Execute a new pipeline.
+      operationId: postPipelines
+      security:
+        - bearerAuth: []
+      requestBody:
+        $ref: "#/components/requestBodies/CreatePipelineRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/CreatePipelineResponse"
+        "400":
+          $ref: "#/components/responses/400ErrorResponse"
+        "503":
+          $ref: "#/components/responses/503ErrorResponse"
+        default:
+          $ref: "#/components/responses/DefaultErrorResponse"
+      tags:
+        - Pipelines
+
+  /pipelines/{id}:
+    get:
+      description: |
+        Get a pipeline by ID.
+      operationId: getPipelineByID
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/ID"
+        - $ref: "#/components/parameters/IncludeOutput"
+        - $ref: "#/components/parameters/IncludeDocument"
+      responses:
+        "200":
+          $ref: "#/components/responses/GetPipelineByIDResponse"
+        "400":
+          $ref: "#/components/responses/400ErrorResponse"
+        "404":
+          $ref: "#/components/responses/404ErrorResponse"
+        default:
+          $ref: "#/components/responses/DefaultErrorResponse"
+      tags:
+        - Pipelines
+
+    put:
+      description: |
+        Update a pipeline by ID.
+      operationId: putPipelineByID
+      security:
+        - bearerAuth: []
+      requestBody:
+        $ref: "#/components/requestBodies/UpdatePipelineRequest"
+      parameters:
+        - $ref: "#/components/parameters/ID"
+      responses:
+        "204":
+          description: Put pipeline response
+        "400":
+          $ref: "#/components/responses/400ErrorResponse"
+        "404":
+          $ref: "#/components/responses/404ErrorResponse"
+        "410":
+          $ref: "#/components/responses/410ErrorResponse"
+        "503":
+          $ref: "#/components/responses/503ErrorResponse"
+        default:
+          $ref: "#/components/responses/DefaultErrorResponse"
+      tags:
+        - Pipelines
+
+    delete:
+      description: |
+        Delete a pipeline by ID.
+      operationId: deletePipelineByID
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/ID"
+      responses:
+        "204":
+          description: Delete pipeline response
+        "400":
+          $ref: "#/components/responses/400ErrorResponse"
+        "404":
+          $ref: "#/components/responses/404ErrorResponse"
+        default:
+          $ref: "#/components/responses/DefaultErrorResponse"
+      tags:
+        - Pipelines
+
+  /pipelines/{id}/restart:
+    post:
+      description: |
+        Restart (a part of) a pipeline.
+      operationId: postPipelinesByIDRestart
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/ID"
+      requestBody:
+        $ref: "#/components/requestBodies/PipelineRestartRequest"
+      responses:
+        "204":
+          description: Pipeline plugins execute response
+        "400":
+          $ref: "#/components/responses/400ErrorResponse"
+        "404":
+          $ref: "#/components/responses/404ErrorResponse"
+        "409":
+          $ref: "#/components/responses/409ErrorResponse"
+        default:
+          $ref: "#/components/responses/DefaultErrorResponse"
+      tags:
+        - Pipelines
+
+  /pipelines/filter:
+    post:
+      description: |
+        Get the pipelines that meet the specified filter criteria.
+      operationId: getFilteredPipelines
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/IncludeOutput"
+        - $ref: "#/components/parameters/IncludeDocument"
+      requestBody:
+        $ref: "#/components/requestBodies/GetFilteredPipelinesRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/GetPipelinesResponse"
+        default:
+          $ref: "#/components/responses/DefaultErrorResponse"
+      tags:
+        - Pipelines
+
+  /plugins:
+    get:
+      description: |
+        Get all configured plugins.
+      operationId: getPlugins
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/Search"
+        - $ref: "#/components/parameters/Limit"
+        - $ref: "#/components/parameters/Offset"
+      responses:
+        "200":
+          $ref: "#/components/responses/GetPluginsResponse"
+        default:
+          $ref: "#/components/responses/DefaultErrorResponse"
+      tags:
+        - Plugins
+
+    post:
+      description: |
+        Create a new plugin.
+      operationId: postPlugins
+      security:
+        - bearerAuth: []
+      requestBody:
+        $ref: "#/components/requestBodies/CreatePluginRequest"
+      responses:
+        "204":
+          description: Post plugin response
+        "400":
+          $ref: "#/components/responses/400ErrorResponse"
+        default:
+          $ref: "#/components/responses/DefaultErrorResponse"
+      tags:
+        - Plugins
+
+  /plugins/{name}:
+    get:
+      description: |
+        Get a plugin by name.
+      operationId: getPluginByName
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/Name"
+      responses:
+        "200":
+          $ref: "#/components/responses/GetPluginByNameResponse"
+        "400":
+          $ref: "#/components/responses/400ErrorResponse"
+        "404":
+          $ref: "#/components/responses/404ErrorResponse"
+        default:
+          $ref: "#/components/responses/DefaultErrorResponse"
+      tags:
+        - Plugins
+
+    put:
+      description: |
+        Update a plugin by Name.
+      operationId: putPluginByName
+      security:
+        - bearerAuth: []
+      requestBody:
+        $ref: "#/components/requestBodies/UpdatePluginRequest"
+      parameters:
+        - $ref: "#/components/parameters/Name"
+      responses:
+        "204":
+          description: Put plugin response
+        "400":
+          $ref: "#/components/responses/400ErrorResponse"
+        "404":
+          $ref: "#/components/responses/404ErrorResponse"
+        default:
+          $ref: "#/components/responses/DefaultErrorResponse"
+      tags:
+        - Plugins
+
+    delete:
+      description: |
+        Delete a plugin by name.
+      operationId: deletePluginByName
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/Name"
+      responses:
+        "204":
+          description: Delete plugin response
+        "400":
+          $ref: "#/components/responses/400ErrorResponse"
+        "404":
+          $ref: "#/components/responses/404ErrorResponse"
+        default:
+          $ref: "#/components/responses/DefaultErrorResponse"
+      tags:
+        - Plugins
+
+  /analyzers:
+    get:
+      description: |
+        Get all registered analyzers.
+      operationId: getAnalyzers
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/Limit"
+        - $ref: "#/components/parameters/Offset"
+      responses:
+        "200":
+          $ref: "#/components/responses/GetAnalyzersResponse"
+        default:
+          $ref: "#/components/responses/DefaultErrorResponse"
+      tags:
+        - Analyzers
+
+  /healthz:
+    get:
+      description: |
+        k8s style health check. Returns 200 if running correctly
+      operationId: getHealthz
+      responses:
+        "200":
+          description: "Health check successful"
+        "503":
+          $ref: "#/components/responses/503ErrorResponse"
+        default:
+          $ref: "#/components/responses/DefaultErrorResponse"
+      tags:
+        - Health check
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  parameters:
+    ID:
+      name: id
+      in: path
+      description: ID of object to fetch.
+      required: true
+      schema:
+        $ref: "#/components/schemas/ID"
+      x-go-name: PathID
+
+    Name:
+      name: name
+      in: path
+      description: Name of object to fetch.
+      required: true
+      schema:
+        $ref: "#/components/schemas/Name"
+      x-go-name: PathName
+
+    Limit:
+      name: limit
+      in: query
+      description: |
+        Defines how many records at max are returned.
+        If fewer records are available, all will be returned.
+        Omitting or setting this to -1 will be interpreted as no limit
+      schema:
+        $ref: "#/components/schemas/Limit"
+      x-go-name: PathLimit
+
+    Offset:
+      name: offset
+      in: query
+      description: |
+        Defines the offset at which to start reading.
+        An offset of 0 means to start from the first possible record.
+      schema:
+        $ref: "#/components/schemas/Offset"
+      x-go-name: PathOffset
+
+    Search:
+      name: search
+      in: query
+      description: Search string to search within the collection.
+      required: false
+      schema:
+        $ref: "#/components/schemas/SearchString"
+
+    Status:
+      name: status
+      in: query
+      description: Status string to filter on pipeline status within the collection.
+      required: false
+      schema:
+        $ref: "#/components/schemas/PipelineStatus"
+
+    URIPath:
+      name: path
+      in: query
+      description: Server path to upload/download a large object.
+      required: true
+      schema:
+        $ref: "#/components/schemas/URIPath"
+      x-go-name: PathURIPath
+
+    IncludeOutput:
+      name: include_output
+      in: query
+      description: Flag to indicate wether to include the pipeline output.
+      required: false
+      schema:
+        $ref: "#/components/schemas/IncludeOutput"
+      x-go-name: PathIncludeOutput
+
+    IncludeDocument:
+      name: include_document
+      in: query
+      description: Flag to indicate wether to include the pipeline document.
+      required: false
+      schema:
+        $ref: "#/components/schemas/IncludeDocument"
+      x-go-name: PathIncludeDocument
+
+  requestBodies:
+    LoginRequest:
+      description: Login body.
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Login"
+
+    CreateAuthenticationConfigurationRequest:
+      description: Create authentication configuration body.
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/CreateAuthenticationConfiguration"
+
+    UpdateAuthenticationConfigurationRequest:
+      description: Update authentication configuration body.
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/UpdateAuthenticationConfiguration"
+
+    CreateConnectionRequest:
+      description: Create connection body.
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/CreateConnection"
+
+    UpdateConnectionRequest:
+      description: Update connection body.
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/UpdateConnection"
+
+    CreateDocumentRequest:
+      description: Create document body.
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/CreateDocument"
+
+    UpdateDocumentRequest:
+      description: Update document body.
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/UpdateDocument"
+
+    CreatePipelineConfigurationRequest:
+      description: Create pipeline configuration body.
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/CreatePipelineConfiguration"
+
+    UpdatePipelineConfigurationRequest:
+      description: Update pipeline configuration body.
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/UpdatePipelineConfiguration"
+
+    CreatePipelineRequest:
+      description: Create pipeline body.
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/CreatePipeline"
+
+    GetFilteredPipelinesRequest:
+      description: Get pipelines body.
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/GetFilteredPipelines"
+
+    UpdatePipelineRequest:
+      description: Update pipeline body.
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/UpdatePipeline"
+
+    PipelineRestartRequest:
+      description: Execute pipeline plugins body.
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/PipelineRestart"
+
+    CreatePluginRequest:
+      description: Create plugin body.
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/CreatePlugin"
+
+    UpdatePluginRequest:
+      description: Update plugin body.
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/UpdatePlugin"
+
+    UploadLOB:
+      description: Upload large object body.
+      required: true
+      content:
+        application/octet-stream:
+          schema: {}
+
+  responses:
+    DefaultErrorResponse:
+      description: Unexpected error.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+
+    400ErrorResponse:
+      description: Bad request.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+
+    401ErrorResponse:
+      description: Unauthorized.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+
+    404ErrorResponse:
+      description: Not found.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+
+    409ErrorResponse:
+      description: Conflict.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+
+    410ErrorResponse:
+      description: Gone.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+
+    503ErrorResponse:
+      description: Service unavailable.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+
+    PostLoginResponse:
+      description: Post login response body.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/LoginToken"
+
+    GetAuthenticationConfigurationByIDResponse:
+      description: Get document by ID response body.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/GetAuthenticationConfiguration"
+
+    GetAuthenticationConfigurationsResponse:
+      description: Get documents response body.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/GetAuthenticationConfigurations"
+
+    CreateAuthenticationConfigurationResponse:
+      description: Create document response body.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/CreateAuthenticationConfigurationResult"
+
+    GetConnectionByIDResponse:
+      description: Get connection by ID response body.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/GetConnection"
+
+    GetConnectionsResponse:
+      description: Get connection response body.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/GetConnections"
+
+    CreateConnectionResponse:
+      description: Create connection response body.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/CreateConnectionResult"
+
+    GetDocumentByIDResponse:
+      description: Get document by ID response body.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/GetDocument"
+
+    GetDocumentsResponse:
+      description: Get documents response body.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/GetDocuments"
+
+    CreateDocumentResponse:
+      description: Create document response body.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/CreateDocumentResult"
+
+    GetFlowByNameResponse:
+      description: Get flow by Name response body.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/GetFlow"
+
+    GetFlowsResponse:
+      description: Get flows response body.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/GetFlows"
+
+    GetFiletypeConfigurationByNameResponse:
+      description: Get filetype configuration by name response body.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/GetFiletypeConfiguration"
+
+    GetFiletypeConfigurationsResponse:
+      description: Get filetype configurations response body.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/GetFiletypeConfigurations"
+
+    GetConnectiontypeByNameResponse:
+      description: Get connectiontype by Name response body.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/GetConnectiontype"
+
+    GetConnectiontypesResponse:
+      description: Get connectiontypes response body.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/GetConnectiontypes"
+
+    GetPipelineConfigurationByIDResponse:
+      description: Get pipeline configuration by ID response body.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/GetPipelineConfiguration"
+
+    GetPipelineConfigurationsResponse:
+      description: Get pipeline configurations response body.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/GetPipelineConfigurations"
+
+    CreatePipelineConfigurationResponse:
+      description: Create pipeline configuration response body.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/CreatePipelineConfigurationResult"
+
+    GetPipelineByIDResponse:
+      description: Get pipeline by ID response body.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/GetPipeline"
+
+    GetPipelinesResponse:
+      description: Get pipelines response body.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/GetPipelines"
+
+    CreatePipelineResponse:
+      description: Create pipeline response body.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/CreatePipelineResult"
+
+    GetPluginByNameResponse:
+      description: Get plugin by name response body.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/GetPlugin"
+
+    GetPluginResponse:
+      description: Get plugin response body.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/GetPlugins"
+
+    GetPluginsResponse:
+      description: Get plugins response body.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/GetPlugins"
+
+    GetAnalyzersResponse:
+      description: Get analyzers response body.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/GetAnalyzers"
+
+    DownloadLOBResponse:
+      description: Download large object response body.
+      content:
+        application/octet-stream:
+          schema: {}
+
+    UploadLOBResponse:
+      description: Upload large object response body.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/UploadLOB"
+
+  schemas:
+    Limit:
+      type: integer
+      description: Limits the amount of records to return.
+
+    Offset:
+      type: integer
+      description: Offsets the records to return.
+
+    ID:
+      type: string
+      description: ID of an object within the collection.
+
+    Name:
+      type: string
+      description: Name of an object within the collection (searchable).
+
+    SearchString:
+      type: string
+      description: Search string to search for objects within a collection (by name).
+
+    Data:
+      type: string
+      description: Raw text string.
+
+    Encoding:
+      type: string
+      description: Encoding of a document.
+
+    ExternalID:
+      type: string
+      description: A client side ID that can be set to reference a document.
+
+    URIPath:
+      type: string
+      description: Path part of a URI.
+
+    URI:
+      type: string
+      description: Full URI string.
+
+    Total:
+      type: integer
+      description: Total number of records available within a collection query
+
+    User:
+      type: string
+      description: User name.
+
+    Password:
+      type: string
+      description: User password
+
+    Token:
+      type: string
+      description: Authentication token
+
+    ServiceToken:
+      type: string
+      description: Service token to be used to login to Dynizer
+
+    Host:
+      type: string
+      description: hostname of a service
+
+    Port:
+      type: integer
+      description: port of a service
+
+    ProcessAvailable:
+      type: integer
+      description: Number of processes available
+
+    MemoryAvailable:
+      type: string
+      description: Amount of memory available
+
+    ProcessQueued:
+      type: integer
+      description: Number of processes queued
+
+    IncludeOutput:
+      type: boolean
+      description: Include output data
+
+    IncludeDocument:
+      type: boolean
+      description: Include document
+
+    NameList:
+      type: array
+      description: List of names.
+      items:
+        $ref: "#/components/schemas/Name"
+
+    Login:
+      type: object
+      description: Login parameters. Currently only dynizer supported.
+      required:
+        - dynizer
+      properties:
+        dynizer:
+          $ref: "#/components/schemas/DynizerAuth"
+
+    LoginToken:
+      type: object
+      description: Login response token.
+      required:
+        - token
+      properties:
+        token:
+          $ref: "#/components/schemas/Token"
+
+    BasicAuth:
+      type: object
+      description: Basic authentication parameters. User and password.
+      required:
+        - user
+        - password
+      properties:
+        user:
+          $ref: "#/components/schemas/User"
+        password:
+          $ref: "#/components/schemas/Password"
+
+    BearerAuth:
+      type: object
+      description: Bearer authentication parameters. Token.
+      required:
+        - token
+      properties:
+        token:
+          $ref: "#/components/schemas/Token"
+
+    DynizerUserAuth:
+      type: object
+      description: Dynizer user authentication parameters. User and password.
+      required:
+        - user
+        - password
+      properties:
+        user:
+          $ref: "#/components/schemas/User"
+        password:
+          $ref: "#/components/schemas/Password"
+
+    DynizerServiceTokenAuth:
+      type: object
+      description: Dynizer service token authentication parameters. Service token string.
+      required:
+        - token
+      properties:
+        token:
+          $ref: "#/components/schemas/ServiceToken"
+
+    DynizerAuth:
+      type: object
+      description: Dynizer authentication parameters. Either a user and password or a service token.
+      properties:
+        user:
+          $ref: "#/components/schemas/DynizerUserAuth"
+        service_token:
+          $ref: "#/components/schemas/DynizerServiceTokenAuth"
+
+    AuthenticationParameters:
+      type: object
+      description: |
+        Authentication configuration parameters
+        Set (only) one of the supported methods: 'basic', 'bearer', 'dynizer'
+      properties:
+        basic:
+          $ref: "#/components/schemas/BasicAuth"
+        bearer:
+          $ref: "#/components/schemas/BearerAuth"
+        dynizer:
+          $ref: "#/components/schemas/DynizerAuth"
+
+    CreateAuthenticationConfiguration:
+      type: object
+      description: |
+        Create authentication configuration request object. Contains a name and the authentication parameters to use.
+      required:
+        - name
+        - parameters
+      properties:
+        name:
+          $ref: "#/components/schemas/Name"
+        parameters:
+          $ref: "#/components/schemas/AuthenticationParameters"
+
+    UpdateAuthenticationConfiguration:
+      type: object
+      description: |
+        Update authentication configuration request object. Both the name as well as the authentication parameters can be updated
+      properties:
+        name:
+          $ref: "#/components/schemas/Name"
+        parameters:
+          $ref: "#/components/schemas/AuthenticationParameters"
+
+    CreateAuthenticationConfigurationResult:
+      description: Create authentication configuration response object. Contains a unique ID to refer to the configuration.
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          $ref: "#/components/schemas/ID"
+
+    GetAuthenticationConfigurations:
+      type: object
+      description: Get authentication configuration response object. A list of authentication configurations along with the total number that can be returned.
+      required:
+        - total
+      properties:
+        total:
+          $ref: "#/components/schemas/Total"
+        records:
+          $ref: "#/components/schemas/GetAuthenticationConfigurationsList"
+
+    GetAuthenticationConfigurationsList:
+      type: array
+      description: List of authentication configurations.
+      items:
+        $ref: "#/components/schemas/GetAuthenticationConfiguration"
+
+    GetAuthenticationConfiguration:
+      type: object
+      description: Get authentication configuration response object. Contains the ID along with the configured name and authentication parameters.
+      required:
+        - id
+        - name
+        - parameters
+      properties:
+        id:
+          $ref: "#/components/schemas/ID"
+        name:
+          $ref: "#/components/schemas/Name"
+        parameters:
+          $ref: "#/components/schemas/AuthenticationParameters"
+
+    ConnectionParameters:
+      type: object
+      description: |
+        Connection parameters.
+      required:
+        - host
+        - port
+      properties:
+        host:
+          $ref: "#/components/schemas/Host"
+        port:
+          $ref: "#/components/schemas/Port"
+        authentication_configuration_id:
+          $ref: "#/components/schemas/ID"
+
+    CreateConnection:
+      type: object
+      description: |
+        Create connection request object. Contains a name, type and the authentication parameters to use. Use /connectiontypes to get a list of supported connection types.
+      required:
+        - name
+        - type_name
+        - parameters
+      properties:
+        name:
+          $ref: "#/components/schemas/Name"
+        type_name:
+          $ref: "#/components/schemas/Name"
+        parameters:
+          $ref: "#/components/schemas/ConnectionParameters"
+
+    UpdateConnection:
+      type: object
+      description: |
+        Update connection request object. Both the name, type as well as the connection parameters can be updated. Use /connectiontypes to get a list of supported connection types.
+      properties:
+        name:
+          $ref: "#/components/schemas/Name"
+        type_name:
+          $ref: "#/components/schemas/Name"
+        parameters:
+          $ref: "#/components/schemas/ConnectionParameters"
+
+    CreateConnectionResult:
+      description: Create connection response object. Contains a unique ID to refer to the connection.
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          $ref: "#/components/schemas/ID"
+
+    GetConnections:
+      type: object
+      description: Get connection response object. A list of connections along with the total number that can be returned.
+      required:
+        - total
+      properties:
+        total:
+          $ref: "#/components/schemas/Total"
+        records:
+          $ref: "#/components/schemas/GetConnectionsList"
+
+    GetConnectionsList:
+      type: array
+      description: List of connections.
+      items:
+        $ref: "#/components/schemas/GetConnection"
+
+    GetConnection:
+      type: object
+      description: Get connection response object. Contains the ID along with the configured name, type and connection parameters. Use /connectiontypes to get a list of supported connection types.
+      required:
+        - id
+        - name
+        - type_name
+        - parameters
+      properties:
+        id:
+          $ref: "#/components/schemas/ID"
+        name:
+          $ref: "#/components/schemas/Name"
+        type_name:
+          $ref: "#/components/schemas/Name"
+        parameters:
+          $ref: "#/components/schemas/ConnectionParameters"
+
+    TextDocument:
+      type: object
+      description: Document raw text
+      required:
+        - data
+      properties:
+        data:
+          $ref: "#/components/schemas/Data"
+
+    Base64Document:
+      type: object
+      description: Document serialized in base64 string
+      required:
+        - data
+      properties:
+        data:
+          $ref: "#/components/schemas/Data"
+
+    PrivateDocument:
+      type: object
+      description: Document stored in a private storage. Needs a **Connection** defined to store the parameters on where to reach the storage, and a path to the file on that storage.
+      required:
+        - path
+        - connection_id
+      properties:
+        path:
+          $ref: "#/components/schemas/URIPath"
+        connection_id:
+          $ref: "#/components/schemas/ID"
+
+    PublicDocument:
+      type: object
+      description: Document which is publicly available. Full URI must be given.
+      required:
+        - uri
+      properties:
+        uri:
+          $ref: "#/components/schemas/URI"
+
+    FiletypeConfiguration: {}
+
+    FlowConfiguration: {}
+
+    PluginConfiguration: {}
+
+    DocumentFiletypeConfiguration:
+      type: object
+      description: Filetype and configuration of a document
+      required:
+        - name
+      properties:
+        name:
+          $ref: "#/components/schemas/Name"
+        config:
+          $ref: "#/components/schemas/FiletypeConfiguration"
+
+    Document:
+      type: object
+      description: |
+        Data to store for the document. The filetype describes the type of document. Call /filetype_configurations endpoint to get a list of supported filetypes.
+        Optionally the encoding of the document can be given. If this is not set, the process will try to detect the encoding of the data.
+        To add data, set (only) one of the following fields: text, base64, private, public.
+        In case the data is passed on as 'text' or 'base64', it is not stored permanently and cannot be accessed again.
+      required:
+        - filetype_configuration
+      properties:
+        filetype_configuration:
+          $ref: "#/components/schemas/DocumentFiletypeConfiguration"
+        encoding:
+          $ref: "#/components/schemas/Encoding"
+        text:
+          $ref: "#/components/schemas/TextDocument"
+        base64:
+          $ref: "#/components/schemas/Base64Document"
+        private:
+          $ref: "#/components/schemas/PrivateDocument"
+        public:
+          $ref: "#/components/schemas/PublicDocument"
+        external_id:
+          $ref: "#/components/schemas/ExternalID"
+
+    CreateDocument:
+      type: object
+      description: Create document request object. Contains a name and the document data.
+      required:
+        - name
+        - document
+      properties:
+        name:
+          $ref: "#/components/schemas/Name"
+        document:
+          $ref: "#/components/schemas/Document"
+
+    CreateDocumentResult:
+      description: Create document response object. Contains a unique ID to refer to the document.
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          $ref: "#/components/schemas/ID"
+
+    GetDocuments:
+      type: object
+      description: Get documents response object. A list of documents along with the total number of documents that can be returned.
+      required:
+        - total
+      properties:
+        total:
+          $ref: "#/components/schemas/Total"
+        records:
+          $ref: "#/components/schemas/GetDocumentsList"
+
+    GetDocumentsList:
+      type: array
+      description: List of documents.
+      items:
+        $ref: "#/components/schemas/GetDocument"
+
+    GetDocument:
+      type: object
+      description: Get document response object. Contains the ID along with the configured name and document.
+      required:
+        - id
+        - name
+        - document
+      properties:
+        id:
+          $ref: "#/components/schemas/ID"
+        name:
+          $ref: "#/components/schemas/Name"
+        document:
+          $ref: "#/components/schemas/Document"
+
+    UpdateDocument:
+      type: object
+      description: Update document request object. Both name and document can be updated.
+      properties:
+        name:
+          $ref: "#/components/schemas/Name"
+        document:
+          $ref: "#/components/schemas/Document"
+
+    GetFlows:
+      type: object
+      description: Get flows response object. A list of flows along with the total number of flows that can be returned.
+      required:
+        - total
+      properties:
+        total:
+          $ref: "#/components/schemas/Total"
+        records:
+          $ref: "#/components/schemas/GetFlowsList"
+
+    GetFlowsList:
+      type: array
+      description: List of flows.
+      items:
+        $ref: "#/components/schemas/GetFlow"
+
+    GetFlow:
+      type: object
+      description: Get flow response object. Contains the name of the flow and a JSON Schema of the flow config.
+      required:
+        - name
+        - config_model
+      properties:
+        name:
+          $ref: "#/components/schemas/Name"
+        config_model:
+          $ref: "#/components/schemas/JSONSchema"
+
+    GetFiletypeConfigurations:
+      type: object
+      description: Get filetype configurations response object. A list of filetype configurations along with the total number that can be returned.
+      required:
+        - total
+      properties:
+        total:
+          $ref: "#/components/schemas/Total"
+        records:
+          $ref: "#/components/schemas/GetFiletypeConfigurationsList"
+
+    GetFiletypeConfigurationsList:
+      type: array
+      description: List of filetype configurations.
+      items:
+        $ref: "#/components/schemas/GetFiletypeConfiguration"
+
+    GetFiletypeConfiguration:
+      type: object
+      description: Get filetype configuration response object. Contains the name of the filetype and a JSON Schema of the filetype config.
+      required:
+        - name
+        - config_model
+      properties:
+        name:
+          $ref: "#/components/schemas/Name"
+        config_model:
+          $ref: "#/components/schemas/JSONSchema"
+
+    GetConnectiontypes:
+      type: object
+      description: Get connectiontypes response object. A list of connectiontypes along with the total number of connectiontypes that can be returned.
+      required:
+        - total
+      properties:
+        total:
+          $ref: "#/components/schemas/Total"
+        records:
+          $ref: "#/components/schemas/GetConnectiontypesList"
+
+    GetConnectiontypesList:
+      type: array
+      description: List of connectiontypes.
+      items:
+        $ref: "#/components/schemas/GetConnectiontype"
+
+    DocumentSupport:
+      type: boolean
+      description: Wether the connection can be used to refer documents.
+
+    DestinationSupport:
+      type: boolean
+      description: Wether the connection can be used to store the output of the pipeline and plugins.
+
+    GetConnectiontype:
+      type: object
+      description: Get connectiontype response object. Contains the name of the connectiontype and wether it is a document and/or destination connection.
+      required:
+        - name
+        - document_support
+        - destination_support
+      properties:
+        name:
+          $ref: "#/components/schemas/Name"
+        document_support:
+          $ref: "#/components/schemas/DocumentSupport"
+        destination_support:
+          $ref: "#/components/schemas/DestinationSupport"
+
+    FlowPlugin:
+      type: object
+      description: Plugin to execute on the flow result once it has been completed.
+      required:
+        - name
+      properties:
+        name:
+          $ref: "#/components/schemas/Name"
+        config:
+          $ref: "#/components/schemas/PluginConfiguration"
+
+    FlowPluginsList:
+      type: array
+      description: List of flow plugins.
+      items:
+        $ref: "#/components/schemas/FlowPlugin"
+
+    PipelineFlowConfiguration:
+      type: object
+      description: Flow configuration of a pipeline
+      required:
+        - name
+      properties:
+        name:
+          $ref: "#/components/schemas/Name"
+        config:
+          $ref: "#/components/schemas/FlowConfiguration"
+
+    CreatePipelineConfiguration:
+      type: object
+      description: |
+        Create pipeline configuration request object. Contains a name, the flow, config and plugin(s) to execute, the Dynizer connection to store the result, webhook configuration and a client ID.
+        Each field except 'name' can be omitted. In case fields connection_id or flow_configuration are empty, they will have to be provided when starting the pipeline.
+      required:
+        - name
+      properties:
+        name:
+          $ref: "#/components/schemas/Name"
+        connection_id:
+          $ref: "#/components/schemas/ID"
+        flow_configuration:
+          $ref: "#/components/schemas/PipelineFlowConfiguration"
+        plugins:
+          $ref: "#/components/schemas/FlowPluginsList"
+        instance:
+          $ref: "#/components/schemas/Instance"
+        webhook:
+          $ref: "#/components/schemas/Webhook"
+        client_id:
+          $ref: "#/components/schemas/ClientID"
+
+    CreatePipelineConfigurationResult:
+      description: Create pipeline configuration response object. Contains a unique ID to refer to the pipeline configuration.
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          $ref: "#/components/schemas/ID"
+
+    GetPipelineConfigurations:
+      type: object
+      description: Get pipeline configurations response object. A list of pipeline configurations along with the total number of configurations that can be returned.
+      required:
+        - total
+      properties:
+        total:
+          $ref: "#/components/schemas/Total"
+        records:
+          $ref: "#/components/schemas/GetPipelineConfigurationsList"
+
+    GetPipelineConfigurationsList:
+      type: array
+      description: List of pipeline configurations.
+      items:
+        $ref: "#/components/schemas/GetPipelineConfiguration"
+
+    GetPipelineConfiguration:
+      type: object
+      description: Get pipeline configuration response object. Contains the ID along with the configured name, flow, config, plugins, connection, instance, webhook and client ID.
+      required:
+        - id
+        - name
+      properties:
+        id:
+          $ref: "#/components/schemas/ID"
+        name:
+          $ref: "#/components/schemas/Name"
+        connection_id:
+          $ref: "#/components/schemas/ID"
+        flow_configuration:
+          $ref: "#/components/schemas/PipelineFlowConfiguration"
+        plugins:
+          $ref: "#/components/schemas/FlowPluginsList"
+        instance:
+          $ref: "#/components/schemas/Instance"
+        webhook:
+          $ref: "#/components/schemas/Webhook"
+        client_id:
+          $ref: "#/components/schemas/ClientID"
+
+    UpdatePipelineConfiguration:
+      type: object
+      description: Update pipeline configuration request object. The name, flow, config, plugins, connection, instance, webhook and client ID can be updated.
+      properties:
+        name:
+          $ref: "#/components/schemas/Name"
+        connection_id:
+          $ref: "#/components/schemas/ID"
+        flow_configuration:
+          $ref: "#/components/schemas/PipelineFlowConfiguration"
+        plugins:
+          $ref: "#/components/schemas/FlowPluginsList"
+        instance:
+          $ref: "#/components/schemas/Instance"
+        webhook:
+          $ref: "#/components/schemas/Webhook"
+        client_id:
+          $ref: "#/components/schemas/ClientID"
+
+    CreatePipeline:
+      type: object
+      description: |
+        Execute pipeline request object. Set the 'configuration_id' field to the pipeline configuration ID to execute.
+        Additionally, 'configuration' can be set to override any parameters from the pipeline configuration. The configurations will be merged before execution.
+        It is allowed to omit the 'configuration_id' and pass a full config in the 'configuration' field.
+        Either the document ID can be set in the 'document_id' field to refer to a previously configured document, or a full document can be passed in the 'document' field.
+        In the case a full document is given, it will not be stored and available via the /documents endpoint.
+      properties:
+        configuration_id:
+          $ref: "#/components/schemas/ID"
+        configuration:
+          $ref: "#/components/schemas/CreatePipelineConfiguration"
+        document_id:
+          $ref: "#/components/schemas/ID"
+        document:
+          $ref: "#/components/schemas/Document"
+
+    GetFilteredPipelines:
+      type: object
+      description: |
+        A request object used for retrieving pipelines based on specific filtering criteria.
+        Use the 'client_ids' property to retrieve only those pipelines associated with any of the specified client IDs.
+        No pipelines will be returned if client_ids is not given or empty.
+      properties:
+        client_ids:
+          $ref: "#/components/schemas/ClientIDs"
+
+    Webhook:
+      type: object
+      description: |
+        Webhook configuration object. Optionally configure a webhook that will be called on status updates.
+        The endpoint will be called with method POST. The body contains the pipeline ID and status.
+        The provided endpoint should be reachable without authentication by the API and should return HTTP 200 when succesfully handled.
+        If the endpoint is unreachable or returns a status code that is not HTTP 200, the API will retry the webhook up until a maximum of 10 times with an increasing timeout.
+        The receiving webhook handler should always fetch the pipeline by its ID to be sure the incoming request and/or data is valid.
+        The status is only informative to be able to discard updates that aren't relevant to an implementation, but should only be used for this purpose.
+      required:
+        - endpoint
+      properties:
+        endpoint:
+          $ref: "#/components/schemas/URI"
+
+    PipelineRestart:
+      type: object
+      description: |
+        Restart pipeline request object. Contains optional plugin(s) to execute, instance to write as metadata, webhook configuration and a client ID.
+        All options will overwite the current stored values of the pipeline. If the options are not given, the run will use the original values for these fields.
+        Setting flag 'reanalyze' to 'true' reanalyzes the document and clears the output. If 'false', only the plugins are executed.
+        The 'clear_data' flag causes plugins to erase all data, if supported, before they are restarted. Data is cleared from the current configured plugins, not the new ones passed in the body (if there are any).
+        The pipeline's status, start and finish times are reset.
+      properties:
+        reanalyze:
+          $ref: "#/components/schemas/Reanalyze"
+        clear_data:
+          $ref: "#/components/schemas/ClearData"
+        plugins:
+          $ref: "#/components/schemas/FlowPluginsList"
+        instance:
+          $ref: "#/components/schemas/Instance"
+        webhook:
+          $ref: "#/components/schemas/Webhook"
+        client_id:
+          $ref: "#/components/schemas/ClientID"
+
+    Reanalyze:
+      type: boolean
+      description: Wether to reanalyze the result
+
+    ClearData:
+      type: boolean
+      description: Wether to clear the data generated by the plugins (if the plugin supports it)
+
+    ClearPlugins:
+      type: boolean
+      description: Wether to clear all the plugins (empty array does no changes)
+
+    ClientIDs:
+      type: array
+      description: List of client IDs.
+      items:
+        $ref: "#/components/schemas/ClientID"
+
+    ClientID:
+      type: string
+      description: Optional ID for client side verification
+
+    Timestamp:
+      type: string
+      description: Timestamp
+
+    PipelineStatus:
+      type: string
+      description: |
+        The status the pipeline is currently in. The following statuses can be returned: QUEUED_LOCAL, QUEUED, RUNNING, FAILED, SUCCESS, CANCELED, PAUSED
+
+    PipelineStep:
+      type: object
+      description: |
+        A pipeline step. Contains data about the start/end time and the status it is currently in
+      required:
+        - name
+        - started_at
+        - status
+      properties:
+        name:
+          $ref: "#/components/schemas/Name"
+        started_at:
+          $ref: "#/components/schemas/Timestamp"
+        finished_at:
+          $ref: "#/components/schemas/Timestamp"
+        status:
+          $ref: "#/components/schemas/PipelineStatus"
+
+    PipelineSteps:
+      type: array
+      description: The pipeline individual steps'
+      items:
+        $ref: "#/components/schemas/PipelineStep"
+
+    PipelineInfo:
+      type: object
+      description: Info of a pipeline. Contains data about the start/end time, status/step it is currently in and additional error info if the pipeline failed.
+      required:
+        - status
+      properties:
+        requested_at:
+          $ref: "#/components/schemas/Timestamp"
+        started_at:
+          $ref: "#/components/schemas/Timestamp"
+        finished_at:
+          $ref: "#/components/schemas/Timestamp"
+        status:
+          $ref: "#/components/schemas/PipelineStatus"
+        steps:
+          $ref: "#/components/schemas/PipelineSteps"
+        error:
+          $ref: "#/components/schemas/PipelineError"
+
+    PipelineError:
+      type: object
+      description: Pipeline error information
+      required:
+        - message
+      properties:
+        message:
+          $ref: "#/components/schemas/PipelineErrorMessage"
+        log:
+          $ref: "#/components/schemas/PipelineErrorLog"
+
+    PipelineErrorMessage:
+      type: string
+      description: Pipeline error message
+
+    PipelineErrorLog:
+      type: string
+      description: Pipeline error log
+
+    CreatePipelineResult:
+      description: Execute pipeline response object. Contains a unique ID to refer to the pipeline and an info object describing the current status of the pipeline.
+      type: object
+      required:
+        - id
+        - info
+      properties:
+        id:
+          $ref: "#/components/schemas/ID"
+        info:
+          $ref: "#/components/schemas/PipelineInfo"
+
+    GetPipelines:
+      type: object
+      description: Get pipelines response object. A list of pipelines along with the total number of pipelines that can be returned.
+      required:
+        - total
+      properties:
+        total:
+          $ref: "#/components/schemas/Total"
+        records:
+          $ref: "#/components/schemas/GetPipelinesList"
+
+    GetPipelinesList:
+      type: array
+      description: List of pipelines.
+      items:
+        $ref: "#/components/schemas/GetPipeline"
+
+    GetPipeline:
+      type: object
+      description: |
+        Get pipeline response object. Contains the ID along with the status, configuration and document of the pipeline run.
+        Optionally contains the output of the the pipeline, if there is any.
+      required:
+        - id
+        - info
+      properties:
+        id:
+          $ref: "#/components/schemas/ID"
+        configuration_id:
+          $ref: "#/components/schemas/ID"
+        configuration:
+          $ref: "#/components/schemas/CreatePipelineConfiguration"
+        info:
+          $ref: "#/components/schemas/PipelineInfo"
+        document_id:
+          $ref: "#/components/schemas/ID"
+        document:
+          $ref: "#/components/schemas/GetDocument"
+        output:
+          $ref: "#/components/schemas/PipelineOutput"
+
+    PipelineOutput: {}
+
+    Operation:
+      type: string
+      description: The operation to execute on the pipeline update.
+
+    UpdatePipeline:
+      type: object
+      description: |
+        Update pipeline request object. The following operations are supported: CANCEL, PAUSE, RESUME.
+      required:
+        - operation
+      properties:
+        operation:
+          $ref: "#/components/schemas/Operation"
+
+    DockerRepository:
+      type: string
+      description: The docker repository of the plugin container
+
+    DockerImageTag:
+      type: string
+      description: The docker image tag of the plugin container
+
+    CreatePlugin:
+      type: object
+      description: Create a plugin. Contains a name, the docker repository and image tag, documentation URL and an icon URL. The name of the plugin must be unique.
+      required:
+        - name
+        - docker_repository
+        - docker_image_tag
+      properties:
+        name:
+          $ref: "#/components/schemas/Name"
+        docker_repository:
+          $ref: "#/components/schemas/DockerRepository"
+        docker_image_tag:
+          $ref: "#/components/schemas/DockerImageTag"
+        documentation_url:
+          $ref: "#/components/schemas/URI"
+        icon:
+          $ref: "#/components/schemas/URI"
+
+    GetPlugins:
+      type: object
+      description: Get plugins response object. A list of plugins along with the total number that can be returned.
+      required:
+        - total
+      properties:
+        total:
+          $ref: "#/components/schemas/Total"
+        records:
+          $ref: "#/components/schemas/GetPluginsList"
+
+    GetPluginsList:
+      type: array
+      description: List of plugins.
+      items:
+        $ref: "#/components/schemas/GetPlugin"
+
+    GetPlugin:
+      type: object
+      description: Get plugin response object. Contains the name along with the configuration.
+      properties:
+        name:
+          $ref: "#/components/schemas/Name"
+        docker_repository:
+          $ref: "#/components/schemas/DockerRepository"
+        docker_image_tag:
+          $ref: "#/components/schemas/DockerImageTag"
+        documentation_url:
+          $ref: "#/components/schemas/URI"
+        icon:
+          $ref: "#/components/schemas/URI"
+        config_model:
+          $ref: "#/components/schemas/JSONSchema"
+
+    UpdatePlugin:
+      type: object
+      description: Update plugin request object.
+      properties:
+        name:
+          $ref: "#/components/schemas/Name"
+        docker_repository:
+          $ref: "#/components/schemas/DockerRepository"
+        docker_image_tag:
+          $ref: "#/components/schemas/DockerImageTag"
+        documentation_url:
+          $ref: "#/components/schemas/URI"
+        icon:
+          $ref: "#/components/schemas/URI"
+
+    GetAnalyzers:
+      type: object
+      description: Get analyzers response object. A list of registered analyzers.
+      properties:
+        records:
+          $ref: "#/components/schemas/GetAnalyzerList"
+
+    GetAnalyzerList:
+      type: array
+      items:
+        $ref: "#/components/schemas/GetAnalyzer"
+
+    GetAnalyzer:
+      type: object
+      description: A registered Analyzer. Contains the endpoint of the analyzer, how much processes are available and the flow names it supports.
+      required:
+        - endpoint
+        - process_available
+        - memory_available
+        - process_queued
+        - flow_names
+        - updated_at
+      properties:
+        endpoint:
+          $ref: "#/components/schemas/URI"
+        process_available:
+          $ref: "#/components/schemas/ProcessAvailable"
+        memory_available:
+          $ref: "#/components/schemas/MemoryAvailable"
+        process_queued:
+          $ref: "#/components/schemas/ProcessQueued"
+        flow_names:
+          $ref: "#/components/schemas/NameList"
+        updated_at:
+          $ref: "#/components/schemas/Timestamp"
+
+    UploadLOB:
+      type: object
+      description: Result information about an uploaded large object.
+      required:
+        - path
+      properties:
+        path:
+          $ref: "#/components/schemas/URIPath"
+
+    JSONSchemaID:
+      type: string
+      description: |
+        The $id keyword defines a URI for the schema, and the base URI that other URI references within the schema are resolved against.
+
+    JSONSchemaSchema:
+      type: string
+      description: |
+        The $schema keyword states that this schema is written according to a specific draft of the standard and used for a variety of reasons, primarily version control.
+
+    JSONSchemaTitle:
+      type: string
+      description: |
+        The title and description annotation keywords are descriptive only. They do not add constraints to the data being validated. The intent of the schema is stated with these two keywords.
+
+    JSONSchemaDescription:
+      type: string
+      description: |
+        The title and description annotation keywords are descriptive only. They do not add constraints to the data being validated. The intent of the schema is stated with these two keywords.
+
+    JSONSchemaType:
+      type: string
+      description: |
+        The type validation keyword defines the first constraint on our JSON data.
+
+    JSONSchemaRequired:
+      type: array
+      items:
+        type: string
+
+    JSONSchemaProperties: {}
+
+    JSONSchema:
+      type: object
+      description: JSON Schema definition
+      required:
+        - $id
+        - $schema
+        - type
+        - properties
+      properties:
+        $id:
+          $ref: "#/components/schemas/JSONSchemaID"
+        $schema:
+          $ref: "#/components/schemas/JSONSchemaSchema"
+        title:
+          $ref: "#/components/schemas/JSONSchemaTitle"
+        description:
+          $ref: "#/components/schemas/JSONSchemaDescription"
+        type:
+          $ref: "#/components/schemas/JSONSchemaType"
+        required:
+          $ref: "#/components/schemas/JSONSchemaRequired"
+        properties:
+          $ref: "#/components/schemas/JSONSchemaProperties"
+
+    Instance:
+      type: object
+      description: |
+        Setting this will add these static values to the resulting instances.
+      required:
+        - instance_elements
+      properties:
+        instance_elements:
+          $ref: "#/components/schemas/InstanceElements"
+
+    InstanceElements:
+      type: array
+      description: A list of Dynizer instance elements
+      items:
+        $ref: "#/components/schemas/InstanceElement"
+
+    InstanceElement:
+      type: object
+      required:
+        - action_label
+        - component
+        - default_data_type
+        - specs
+        - min_occurence
+        - max_occurence
+        - values
+      properties:
+        action_label:
+          $ref: "#/components/schemas/ActionLabel"
+        component:
+          $ref: "#/components/schemas/Component"
+        default_data_type:
+          $ref: "#/components/schemas/DataType"
+        specs:
+          $ref: "#/components/schemas/Specs"
+        min_occurence:
+          $ref: "#/components/schemas/MinOccurence"
+        max_occurence:
+          $ref: "#/components/schemas/MaxOccurence"
+        values:
+          $ref: "#/components/schemas/InstanceValues"
+
+    MinOccurence:
+      type: integer
+      description: Amount of values that have to occur for a dynizer action label
+      example: 0
+
+    MaxOccurence:
+      type: integer
+      description: Amount of values that may occur for a dynizer action label
+      example: 3
+
+    Specs:
+      type: array
+      description: A list of value specs.
+      items:
+        $ref: "#/components/schemas/Spec"
+
+    Position:
+      type: integer
+      description: A position of a Dynizer action label.
+      example: 1
+
+    Spec:
+      type: object
+      description: Spec of a value. Contains the position of the value and a datatype/format pair.
+      properties:
+        position:
+          $ref: "#/components/schemas/Position"
+        override:
+          $ref: "#/components/schemas/DataTypeFormat"
+
+    DataTypeFormat:
+      type: object
+      description: Datatype and/or format of a value
+      properties:
+        data_type:
+          $ref: "#/components/schemas/DataType"
+        format:
+          $ref: "#/components/schemas/Format"
+
+    DataType:
+      type: string
+      description: A datatype of a Dynizer action label.
+      example: "DT_String"
+
+    Format:
+      type: string
+      description: A format string of a Dynizer instance value.
+      example: "2006-01-02T15:04:05Z"
+
+    Component:
+      type: string
+      description: A component of a Dynizer action label.
+      example: "What"
+
+    InstanceValues:
+      type: array
+      description: A list of dynizer instance values.
+      items:
+        $ref: "#/components/schemas/InstanceValue"
+
+    ActionLabel:
+      type: string
+      description: A label within a Dynizer instance.
+      example: "LabelName"
+
+    InstanceValue:
+      type: string
+      description: A value within a Dynizer instance.
+      example: "test"
+
+    Error:
+      type: object
+      description: API error.
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string

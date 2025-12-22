@@ -62,6 +62,109 @@ paths:
             $ref: '#/definitions/CreateActionReq'
       tags:
         - Actions
+  /api/v2/actions/types/{action_type_label}/count:
+    get:
+      summary: Count Actions
+      description: Return the total number of **Actions** for a given **ActionType**.
+      operationId: CountActions
+      responses:
+        "200":
+          description: A successful response.
+          schema:
+            $ref: '#/definitions/CountRes'
+        "401":
+          description: Unauthorized call
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        "500":
+          description: Unexpected internal error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        default:
+          description: An unexpected error response.
+          schema:
+            $ref: '#/definitions/rpcStatus'
+      parameters:
+        - name: action_type_label
+          description: This is the label of the **ActionType**.
+          in: path
+          required: true
+          type: string
+      tags:
+        - Actions
+  /api/v2/actions/types/{action_type_label}/names/all:
+    get:
+      summary: List Action Names
+      description: List **Action** names for a given **ActionType** with optional pagination window.
+      operationId: ListActionNames
+      responses:
+        "200":
+          description: A successful response.
+          schema:
+            $ref: '#/definitions/ActionNameArrayRes'
+        "401":
+          description: Unauthorized call
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        "500":
+          description: Unexpected internal error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        default:
+          description: An unexpected error response.
+          schema:
+            $ref: '#/definitions/rpcStatus'
+      parameters:
+        - name: action_type_label
+          description: The name of the **ActionType**.
+          in: path
+          required: true
+          type: string
+        - name: window.limit
+          description: Defines how many records at max are returned.<br>If fewer records are available, all will be returned.<br>Setting this to -1 will be interpreted as no limit
+          in: query
+          required: true
+          type: integer
+          format: int64
+        - name: window.offset
+          description: Defines the offset at which to start reading.<br>An offset of 0 will bean to start from the first possible record.
+          in: query
+          required: true
+          type: integer
+          format: int64
+        - name: window.relative
+          description: The Dynizer keeps track of the last read position, this flag indicates wether the offset is relative to the current read position or absolute.
+          in: query
+          required: false
+          type: boolean
+        - name: order_field
+          description: |-
+            By which field to order **Action** names.
+
+             - Created: order by created
+             - Name: order by name
+          in: query
+          required: false
+          type: string
+          enum:
+            - Created
+            - Name
+          default: Created
+        - name: order_direction
+          description: |-
+            Order in which to load the **Action** names.
+
+             - Asc: order ascending
+             - Desc: order descending
+          in: query
+          required: false
+          type: string
+          enum:
+            - Asc
+            - Desc
+          default: Asc
+      tags:
+        - Actions
   /api/v2/actions/{action_name}:
     get:
       summary: Read Action
@@ -158,7 +261,6 @@ paths:
           required: true
           schema:
             $ref: '#/definitions/ActionName'
-            description: The new name of the **Action**.<br>The name needs to be unique.<br>Use the CheckActionName, call to verify the name, without trying to create it.
       tags:
         - Actions
   /api/v2/actions/{action_name}/actionlabels:
@@ -193,42 +295,7 @@ paths:
           in: body
           required: true
           schema:
-            type: object
-            properties:
-              if_not_exists:
-                type: boolean
-                description: if set to true -> NO ERROR is returned if a **Action** already has an **ActionLabel** by the provided name.<br>No changes to the ActionLabel will be performed when if_not_exists == true and the **ActionLabel** already exists.
-              action_label_name:
-                type: string
-                description: The unique name of the **ActionLabel** within the **Action.<br>Use the CheckActionLabelName, call to verify the name, without creating it.
-              component:
-                $ref: '#/definitions/ComponentType'
-                description: The **ComponentType** for this **ActionLabel**.
-              default_data_type:
-                $ref: '#/definitions/DataType'
-                description: The **DataType** for this **ActionLabel**.<br>This **DataType** will be used when creating **Instances** with this **ActionLabel**.
-              min_occurrence:
-                type: integer
-                format: int64
-                description: Allows to set minimum number of values that need to be provided when using this **ActionLabel*** in an **Instance**.
-              max_occurrence:
-                type: integer
-                format: int64
-                description: Allows to set maximum number of values that can be provided when using this **ActionLabel*** in an **Instance**.<br>This value needs to be either zero or it can be equal or greater then *min_occurrence*.<br>Setting it to 0 will be interpreted as open-ended.
-              alternative_data_types:
-                type: array
-                items:
-                  $ref: '#/definitions/DataType'
-                description: List of additional allowed **DataTypes** for this **ActionLabel**.<br>If left empty only the *default_data_type* is allowed for the values of this **ActionLabel**.<br>Provide **DT_Any** as the only element to allow all **DataTypes**.
-              share_name:
-                type: string
-                description: The **ShareName** to use by default when an new instance is created and a value is set for this **ActionLabel**
-            description: Use this to add a new **ActionLabel** to an **Action**
-            title: AddActionLabelRequest
-            required:
-              - action_label_name
-              - component
-              - default_data_type
+            $ref: '#/definitions/DynizerAddActionLabelBody'
       tags:
         - Actions
   /api/v2/actions/{action_name}/actionlabels/{action_label}:
@@ -336,140 +403,7 @@ paths:
           in: body
           required: true
           schema:
-            type: object
-            properties:
-              new_action_label_name:
-                type: string
-                description: The new unique name of the **ActionLabel** within the **Action**.<br>Use the CheckActionLabelName call to verify the name, without creating it.
-              default_data_type:
-                $ref: '#/definitions/DataType'
-                description: The **DataType** for this **ActionLabel**.<br>This **DataType** will be used when creating **Instances** with this **ActionLabel**.
-              min_occurrence:
-                type: integer
-                format: int64
-                description: Allows to set the minimum number of values that need to be provided when using this **ActionLabel*** in an **Instance**. Not providing a value will be interpreted as 0.
-              max_occurrence:
-                type: integer
-                format: int64
-                description: Allows to set the maximum number of values that can be provided when using this **ActionLabel*** in an **Instance**.<br>This value needs to be either zero or it can be equal or greater then *min_occurrence*.<br>Setting it to 0 will be interpreted as open-ended. Not providing a value will be interpreted as 0.
-              alternative_data_types:
-                type: array
-                items:
-                  $ref: '#/definitions/DataType'
-                description: List of additional allowed **DataTypes** for this **ActionLabel**.<br>If left empty only the *default_data_type* is allowed for the values of this **ActionLabel**.
-              cascade:
-                type: boolean
-                description: Flag to define the behaviour if the update will cause a violation of existing **Instances**.<br>If set to <span style="color:blue">true</span> the **Instances** in violation will be marked as deleted.
-            description: Use this to modify an **ActionLabel** associated to an **Action**. To ensure data integrity, please provide values for the fields alternative_data_types, min_occurrence, and max_occurrence. If these fields are omitted, they will be reset. Other fields can be safely omitted to retain their current values.
-            title: UpdateActionLabelReq
-            required:
-              - default_data_type
-              - min_occurrence
-              - max_occurrence
-              - alternative_data_types
-      tags:
-        - Actions
-  /api/v2/actions/types/{action_type_label}/count:
-    get:
-      summary: Count Actions
-      description: Return the total number of **Actions** for a given **ActionType**.
-      operationId: CountActions
-      responses:
-        "200":
-          description: A successful response.
-          schema:
-            $ref: '#/definitions/CountRes'
-        "401":
-          description: Unauthorized call
-          schema:
-            $ref: '#/definitions/ErrorResponse'
-        "500":
-          description: Unexpected internal error
-          schema:
-            $ref: '#/definitions/ErrorResponse'
-        default:
-          description: An unexpected error response.
-          schema:
-            $ref: '#/definitions/rpcStatus'
-      parameters:
-        - name: action_type_label
-          description: This is the label of the **ActionType**.
-          in: path
-          required: true
-          type: string
-      tags:
-        - Actions
-  /api/v2/actions/types/{action_type_label}/names/all:
-    get:
-      summary: List Action Names
-      description: List **Action** names for a given **ActionType** with optional pagination window.
-      operationId: ListActionNames
-      responses:
-        "200":
-          description: A successful response.
-          schema:
-            $ref: '#/definitions/ActionNameArrayRes'
-        "401":
-          description: Unauthorized call
-          schema:
-            $ref: '#/definitions/ErrorResponse'
-        "500":
-          description: Unexpected internal error
-          schema:
-            $ref: '#/definitions/ErrorResponse'
-        default:
-          description: An unexpected error response.
-          schema:
-            $ref: '#/definitions/rpcStatus'
-      parameters:
-        - name: action_type_label
-          description: The name of the **ActionType**.
-          in: path
-          required: true
-          type: string
-        - name: window.limit
-          description: Defines how many records at max are returned.<br>If fewer records are available, all will be returned.<br>Setting this to -1 will be interpreted as no limit
-          in: query
-          required: true
-          type: integer
-          format: int64
-        - name: window.offset
-          description: Defines the offset at which to start reading.<br>An offset of 0 will bean to start from the first possible record.
-          in: query
-          required: true
-          type: integer
-          format: int64
-        - name: window.relative
-          description: The Dynizer keeps track of the last read position, this flag indicates wether the offset is relative to the current read position or absolute.
-          in: query
-          required: false
-          type: boolean
-        - name: order_field
-          description: |-
-            By which field to order **Action** names.
-
-             - Created: order by created
-             - Name: order by name
-          in: query
-          required: false
-          type: string
-          enum:
-            - Created
-            - Name
-          default: Created
-        - name: order_direction
-          description: |-
-            Order in which to load the **Action** names.
-
-             - Asc: order ascending
-             - Desc: order descending
-          in: query
-          required: false
-          type: string
-          enum:
-            - Asc
-            - Desc
-          default: Asc
+            $ref: '#/definitions/DynizerUpdateActionLabelBody'
       tags:
         - Actions
   /api/v2/actionschemas:
@@ -639,15 +573,7 @@ paths:
           in: body
           required: true
           schema:
-            type: object
-            properties:
-              new_action_schema_name:
-                type: string
-                description: The new name of the **ActionSchema**.<br>The name needs to be unique.
-            description: Use to rename an **ActionSchema**.
-            title: UpdateActionSchemaRequest
-            required:
-              - new_action_schema_name
+            $ref: '#/definitions/DynizerUpdateActionSchemaBody'
       tags:
         - ActionSchemas
   /api/v2/actiontypes:
@@ -792,7 +718,6 @@ paths:
           required: true
           schema:
             $ref: '#/definitions/ActionTypeLabel'
-            description: The new name of the **ActionType**.<br>The label needs to be unique.
       tags:
         - ActionTypes
   /api/v2/check/actions/{action_name}:
@@ -1197,17 +1122,7 @@ paths:
           in: body
           required: true
           schema:
-            type: object
-            properties:
-              instance_cell_elements:
-                type: array
-                items:
-                  $ref: '#/definitions/InstanceUpdateElementCell'
-                description: Qualify a cell which is to be updated.<br>Using the virtual **DataType** DT_Delete
-            description: Used to update an Instance.<br>
-            title: UpdateInstanceRequest
-            required:
-              - instance_elements
+            $ref: '#/definitions/DynizerUpdateInstanceBody'
       tags:
         - Instances
   /api/v2/jwt/{token}/validate:
@@ -1367,26 +1282,7 @@ paths:
           in: body
           required: true
           schema:
-            type: object
-            properties:
-              key_name:
-                type: string
-                description: Unique name of the **MetaDataKey**.
-              values:
-                type: array
-                items:
-                  type: string
-                description: String representation of the value for the **MetaDataKey**.<br>To parse non standard string represetations set a proper parse-format string in *format*
-              specs:
-                type: array
-                items:
-                  $ref: '#/definitions/ValueSpec'
-                description: allows to add special handling for a value, based on its position in the array (1-based)
-            description: Used for adding a **MetaDataKey** with its values to an **Instance**.
-            title: AddInstanceMetaDataRequest
-            required:
-              - key_name
-              - values
+            $ref: '#/definitions/DynizerAddInstanceMetaDataBody'
       tags:
         - MetaData
         - Instances MetaData
@@ -1427,26 +1323,7 @@ paths:
           in: body
           required: true
           schema:
-            type: object
-            properties:
-              key_name:
-                type: string
-                description: Unique name of the **MetaDataKey**.
-              values:
-                type: array
-                items:
-                  type: string
-                description: String representation of the value for the **MetaDataKey**.<br>To parse non standard string represetations set a proper parse-format string in *format*
-              specs:
-                type: array
-                items:
-                  $ref: '#/definitions/ValueSpec'
-                description: allows to add special handling for a value
-            description: Holds the properties to set MetaData for all cells under the **ActionLabel**.
-            title: AddInstanceActionLabelMetaDataRequest
-            required:
-              - key_name
-              - values
+            $ref: '#/definitions/DynizerAddInstanceActionLabelMetaDataBody'
       tags:
         - MetaData
         - Instances ActionLabels MetaData
@@ -1533,18 +1410,7 @@ paths:
           in: body
           required: true
           schema:
-            type: object
-            properties:
-              value:
-                type: string
-                description: String representation of the value for the **MetaDataKey**.<br>To parse non standard string represetations set a proper parse-format string in *format*
-              spec:
-                $ref: '#/definitions/DataTypeFormat'
-                description: Set this value if you want to use a different **DataType** from the default **DataType** for the values of the **MetaDataKey**.
-            description: Holds the properties to add a value to the MetaData to ActionLabel grouped cells.
-            title: AddInstanceActionLabelMetaDataValueRequest
-            required:
-              - value
+            $ref: '#/definitions/DynizerAddInstanceActionLabelMetaDataValueBody'
       tags:
         - MetaData
         - Instances ActionLabels MetaData
@@ -1688,26 +1554,7 @@ paths:
           in: body
           required: true
           schema:
-            type: object
-            properties:
-              key_name:
-                type: string
-                description: Unique name of the **MetaDataKey**.
-              values:
-                type: array
-                items:
-                  type: string
-                description: String representation of the value for the **MetaDataKey**.<br>To parse non standard string represetations set a proper parse-format string in *format*
-              specs:
-                type: array
-                items:
-                  $ref: '#/definitions/ValueSpec'
-                description: allows to add special handling for a value, based on its position in the array (1-based)
-            description: Holds the properties to identify MetaData assciated to an **InstanceCell**.
-            title: AddInstanceCellMetaDataRequest
-            required:
-              - key_name
-              - values
+            $ref: '#/definitions/DynizerAddInstanceCellMetaDataBody'
       tags:
         - MetaData
         - Instances Cells MetaData
@@ -1721,6 +1568,48 @@ paths:
           description: A successful response.
           schema:
             $ref: '#/definitions/ListInstanceCellMetaDataRes'
+        "401":
+          description: Unauthorized call
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        "500":
+          description: Unexpected internal error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        default:
+          description: An unexpected error response.
+          schema:
+            $ref: '#/definitions/rpcStatus'
+      parameters:
+        - name: instance_id
+          description: The special UUID identifying an **Instance**.
+          in: path
+          required: true
+          type: string
+        - name: action_label
+          description: The unique name of the **ActionLabel**.
+          in: path
+          required: true
+          type: string
+        - name: value_position
+          description: The 1-based position of the value within the values for an **ActionLabel**
+          in: path
+          required: true
+          type: integer
+          format: int64
+      tags:
+        - MetaData
+        - Instances Cells MetaData
+  /api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/position/{value_position}/keys/all/count:
+    get:
+      summary: Count InstanceCell MetaDataKeys
+      description: 'Count **MetaDataKeys** associated with a specific **InstanceCell**.<br>Experimental: interface may change in a minor update.'
+      operationId: CountInstanceCellMetaDataKeys
+      responses:
+        "200":
+          description: A successful response.
+          schema:
+            $ref: '#/definitions/CountRes'
         "401":
           description: Unauthorized call
           schema:
@@ -1894,18 +1783,54 @@ paths:
           in: body
           required: true
           schema:
-            type: object
-            properties:
-              value:
-                type: string
-                description: String representation of the value of the **MetaDataKey**.
-              spec:
-                $ref: '#/definitions/DataTypeFormat'
-                description: Use this to specify on how to parse the input value from string to the internal **DataType**
-            description: Identifies a single value of a MetaData from an **InstanceCell**
-            title: AddInstanceCellMetaDataValueRequest
-            required:
-              - value
+            $ref: '#/definitions/DynizerAddInstanceCellMetaDataValueBody'
+      tags:
+        - MetaData
+        - Instances Cells MetaData
+  /api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/position/{value_position}/keys/{key_name}/values/all/count:
+    get:
+      summary: Count InstanceCell MetaDataKey Values
+      description: 'Count values set for a **MetaDataKey** on a specific **InstanceCell**.<br>Experimental: interface may change in a minor update.'
+      operationId: CountInstanceCellMetaDataKeyValues
+      responses:
+        "200":
+          description: A successful response.
+          schema:
+            $ref: '#/definitions/CountRes'
+        "401":
+          description: Unauthorized call
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        "500":
+          description: Unexpected internal error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        default:
+          description: An unexpected error response.
+          schema:
+            $ref: '#/definitions/rpcStatus'
+      parameters:
+        - name: instance_id
+          description: The special UUID identifying an **Instance**.
+          in: path
+          required: true
+          type: string
+        - name: action_label
+          description: The unique name of the **ActionLabel**.
+          in: path
+          required: true
+          type: string
+        - name: value_position
+          description: The 1-based position of the value within the values for an **ActionLabel**
+          in: path
+          required: true
+          type: integer
+          format: int64
+        - name: key_name
+          description: Unique name of the **MetaDataKey**.
+          in: path
+          required: true
+          type: string
       tags:
         - MetaData
         - Instances Cells MetaData
@@ -2012,95 +1937,6 @@ paths:
       tags:
         - MetaData
         - Instances Cells MetaData
-  /api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/position/{value_position}/keys/{key_name}/values/all/count:
-    get:
-      summary: Count InstanceCell MetaDataKey Values
-      description: 'Count values set for a **MetaDataKey** on a specific **InstanceCell**.<br>Experimental: interface may change in a minor update.'
-      operationId: CountInstanceCellMetaDataKeyValues
-      responses:
-        "200":
-          description: A successful response.
-          schema:
-            $ref: '#/definitions/CountRes'
-        "401":
-          description: Unauthorized call
-          schema:
-            $ref: '#/definitions/ErrorResponse'
-        "500":
-          description: Unexpected internal error
-          schema:
-            $ref: '#/definitions/ErrorResponse'
-        default:
-          description: An unexpected error response.
-          schema:
-            $ref: '#/definitions/rpcStatus'
-      parameters:
-        - name: instance_id
-          description: The special UUID identifying an **Instance**.
-          in: path
-          required: true
-          type: string
-        - name: action_label
-          description: The unique name of the **ActionLabel**.
-          in: path
-          required: true
-          type: string
-        - name: value_position
-          description: The 1-based position of the value within the values for an **ActionLabel**
-          in: path
-          required: true
-          type: integer
-          format: int64
-        - name: key_name
-          description: Unique name of the **MetaDataKey**.
-          in: path
-          required: true
-          type: string
-      tags:
-        - MetaData
-        - Instances Cells MetaData
-  /api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/position/{value_position}/keys/all/count:
-    get:
-      summary: Count InstanceCell MetaDataKeys
-      description: 'Count **MetaDataKeys** associated with a specific **InstanceCell**.<br>Experimental: interface may change in a minor update.'
-      operationId: CountInstanceCellMetaDataKeys
-      responses:
-        "200":
-          description: A successful response.
-          schema:
-            $ref: '#/definitions/CountRes'
-        "401":
-          description: Unauthorized call
-          schema:
-            $ref: '#/definitions/ErrorResponse'
-        "500":
-          description: Unexpected internal error
-          schema:
-            $ref: '#/definitions/ErrorResponse'
-        default:
-          description: An unexpected error response.
-          schema:
-            $ref: '#/definitions/rpcStatus'
-      parameters:
-        - name: instance_id
-          description: The special UUID identifying an **Instance**.
-          in: path
-          required: true
-          type: string
-        - name: action_label
-          description: The unique name of the **ActionLabel**.
-          in: path
-          required: true
-          type: string
-        - name: value_position
-          description: The 1-based position of the value within the values for an **ActionLabel**
-          in: path
-          required: true
-          type: integer
-          format: int64
-      tags:
-        - MetaData
-        - Instances Cells MetaData
   /api/v2/metadata/instances/{instance_id}/keys:
     get:
       summary: List Instance MetaData
@@ -2111,6 +1947,37 @@ paths:
           description: A successful response.
           schema:
             $ref: '#/definitions/ListInstanceMetaDataRes'
+        "401":
+          description: Unauthorized call
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        "500":
+          description: Unexpected internal error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        default:
+          description: An unexpected error response.
+          schema:
+            $ref: '#/definitions/rpcStatus'
+      parameters:
+        - name: instance_id
+          description: The special UUID identifying an **Instance**.
+          in: path
+          required: true
+          type: string
+      tags:
+        - MetaData
+        - Instances MetaData
+  /api/v2/metadata/instances/{instance_id}/keys/all/count:
+    get:
+      summary: Count Instance MetaDataKeys
+      description: 'Count **MetaDataKeys** attached to an **Instance**.<br>Experimental: interface may change in a minor update.'
+      operationId: CountInstanceMetaDataKeys
+      responses:
+        "200":
+          description: A successful response.
+          schema:
+            $ref: '#/definitions/CountRes'
         "401":
           description: Unauthorized call
           schema:
@@ -2240,18 +2107,43 @@ paths:
           in: body
           required: true
           schema:
-            type: object
-            properties:
-              value:
-                type: string
-                description: String representation of the value for the **MetaDataKey**.<br>To parse non standard string represetations set a proper parse-format string in *format*
-              spec:
-                $ref: '#/definitions/DataTypeFormat'
-                description: Use this to specify on how to parse the input value from string to the internal **DataType**
-            description: Adds a new value to an already linked **MetaDataKey**
-            title: AddInstanceMetaDataValueRequest
-            required:
-              - value
+            $ref: '#/definitions/DynizerAddInstanceMetaDataValueBody'
+      tags:
+        - MetaData
+        - Instances MetaData
+  /api/v2/metadata/instances/{instance_id}/keys/{key_name}/values/all/count:
+    get:
+      summary: Count Instance MetaDataKey Values
+      description: 'Count values set for a **MetaDataKey** on an **Instance**.<br>Experimental: interface may change in a minor update.'
+      operationId: CountInstanceMetaDataKeyValues
+      responses:
+        "200":
+          description: A successful response.
+          schema:
+            $ref: '#/definitions/CountRes'
+        "401":
+          description: Unauthorized call
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        "500":
+          description: Unexpected internal error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        default:
+          description: An unexpected error response.
+          schema:
+            $ref: '#/definitions/rpcStatus'
+      parameters:
+        - name: instance_id
+          description: The special UUID identifying an **Instance**.
+          in: path
+          required: true
+          type: string
+        - name: key_name
+          description: Unique name of the **MetaDataKey**.
+          in: path
+          required: true
+          type: string
       tags:
         - MetaData
         - Instances MetaData
@@ -2347,73 +2239,6 @@ paths:
       tags:
         - MetaData
         - Instances MetaData
-  /api/v2/metadata/instances/{instance_id}/keys/{key_name}/values/all/count:
-    get:
-      summary: Count Instance MetaDataKey Values
-      description: 'Count values set for a **MetaDataKey** on an **Instance**.<br>Experimental: interface may change in a minor update.'
-      operationId: CountInstanceMetaDataKeyValues
-      responses:
-        "200":
-          description: A successful response.
-          schema:
-            $ref: '#/definitions/CountRes'
-        "401":
-          description: Unauthorized call
-          schema:
-            $ref: '#/definitions/ErrorResponse'
-        "500":
-          description: Unexpected internal error
-          schema:
-            $ref: '#/definitions/ErrorResponse'
-        default:
-          description: An unexpected error response.
-          schema:
-            $ref: '#/definitions/rpcStatus'
-      parameters:
-        - name: instance_id
-          description: The special UUID identifying an **Instance**.
-          in: path
-          required: true
-          type: string
-        - name: key_name
-          description: Unique name of the **MetaDataKey**.
-          in: path
-          required: true
-          type: string
-      tags:
-        - MetaData
-        - Instances MetaData
-  /api/v2/metadata/instances/{instance_id}/keys/all/count:
-    get:
-      summary: Count Instance MetaDataKeys
-      description: 'Count **MetaDataKeys** attached to an **Instance**.<br>Experimental: interface may change in a minor update.'
-      operationId: CountInstanceMetaDataKeys
-      responses:
-        "200":
-          description: A successful response.
-          schema:
-            $ref: '#/definitions/CountRes'
-        "401":
-          description: Unauthorized call
-          schema:
-            $ref: '#/definitions/ErrorResponse'
-        "500":
-          description: Unexpected internal error
-          schema:
-            $ref: '#/definitions/ErrorResponse'
-        default:
-          description: An unexpected error response.
-          schema:
-            $ref: '#/definitions/rpcStatus'
-      parameters:
-        - name: instance_id
-          description: The special UUID identifying an **Instance**.
-          in: path
-          required: true
-          type: string
-      tags:
-        - MetaData
-        - Instances MetaData
   /api/v2/metadata/keys:
     get:
       summary: List MetaDataKeys
@@ -2485,6 +2310,31 @@ paths:
           required: true
           schema:
             $ref: '#/definitions/CreateMetaDataKeyReq'
+      tags:
+        - MetaData
+        - MetaDataKey
+  /api/v2/metadata/keys/all/count:
+    get:
+      summary: Count MetaDataKeys
+      description: 'Count **MetaDataKeys** in the Dynizer.<br>Experimental: interface may change in a minor update.'
+      operationId: CountMetaDataKeys
+      responses:
+        "200":
+          description: A successful response.
+          schema:
+            $ref: '#/definitions/CountRes'
+        "401":
+          description: Unauthorized call
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        "500":
+          description: Unexpected internal error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        default:
+          description: An unexpected error response.
+          schema:
+            $ref: '#/definitions/rpcStatus'
       tags:
         - MetaData
         - MetaDataKey
@@ -2585,50 +2435,7 @@ paths:
           in: body
           required: true
           schema:
-            type: object
-            properties:
-              new_key_name:
-                type: string
-                description: New unique name of the **MetaDataKey**.<br>The CheckMetaDataKeyName call can be used to check if the name can be used.
-              default_data_type:
-                $ref: '#/definitions/DataType'
-                description: The **DataType** for this **MetaDataKey** value.<br>This **DataType** will be used when creating values for the MetaData with this **MetaDataKey**.
-              max_occurrence:
-                type: integer
-                format: int64
-                description: How many values at most can be stored in the **MetaDataKey** value array for one use.<br>Not setting this property or setting it to 0, will mean to the maximum based on system settings.
-              alternative_data_types:
-                type: array
-                items:
-                  $ref: '#/definitions/DataType'
-                description: List of additional allowed **DataTypes** for this **MetaDataKey**.<br>If left empty only the *default_data_type* is allowed for the values of this **MetaDataKey**.
-            description: Used to update a **MetaDataKey**.
-            title: UpdateMetaDataKeyRequest
-      tags:
-        - MetaData
-        - MetaDataKey
-  /api/v2/metadata/keys/all/count:
-    get:
-      summary: Count MetaDataKeys
-      description: 'Count **MetaDataKeys** in the Dynizer.<br>Experimental: interface may change in a minor update.'
-      operationId: CountMetaDataKeys
-      responses:
-        "200":
-          description: A successful response.
-          schema:
-            $ref: '#/definitions/CountRes'
-        "401":
-          description: Unauthorized call
-          schema:
-            $ref: '#/definitions/ErrorResponse'
-        "500":
-          description: Unexpected internal error
-          schema:
-            $ref: '#/definitions/ErrorResponse'
-        default:
-          description: An unexpected error response.
-          schema:
-            $ref: '#/definitions/rpcStatus'
+            $ref: '#/definitions/DynizerUpdateMetaDataKeyBody'
       tags:
         - MetaData
         - MetaDataKey
@@ -2952,31 +2759,7 @@ paths:
           in: body
           required: true
           schema:
-            type: object
-            properties:
-              type:
-                type: string
-                description: The type of the **Object**. This field is used to support an old version that required a string. Use 'object_ref' instead.
-              ref_uuid:
-                type: string
-                description: The **ObjectReference** UUID which the data will be stored. This field is used to support an old version that required a string. Use 'object_ref' instead.
-              data:
-                type: string
-                format: byte
-                description: The **Object** data as base64 encoded string.
-              object_ref:
-                type: object
-                properties:
-                  ref_uri:
-                    type: string
-                    description: The URI referencing the **Object**. This field is used to support an old version that returns <object_type>/<uuid>. Use 'ref_uuid' instead.
-                description: Message to hold a **ObjectReference*
-                title: ObjectReference
-              content_type:
-                type: string
-                description: The content type of the data (optional).
-            description: URL for an **Object**
-            title: UploadObjectDataRequest
+            $ref: '#/definitions/DynizerUploadObjectDataBody'
       tags:
         - Objects
     patch:
@@ -3093,29 +2876,7 @@ paths:
           in: body
           required: true
           schema:
-            type: object
-            properties:
-              actions:
-                type: array
-                items:
-                  type: string
-                description: List of allowed **Actions** for the returned **Instances**.<br>If left empty the search scope will include all **Actions**.
-              data_types:
-                type: array
-                items:
-                  $ref: '#/definitions/DataType'
-                description: List of allowed **DataTypes** for the returned **DataElement**.<br>If left empty all **DataTypes** will be returned.
-              component_types:
-                type: array
-                items:
-                  $ref: '#/definitions/ComponentType'
-                description: List of allowed **ComponentTypes** for the returned **DataElement**.<br>If left empty all **ComponentTypes** will be returned.
-              filters:
-                type: array
-                items:
-                  $ref: '#/definitions/InstanceFilter'
-                description: The filter for the **Instance** requested
-            description: Returns plot data based on the fliter and plot name
+            $ref: '#/definitions/DynizerDynizerFilteredPlotBody'
       tags:
         - Plots
   /api/v2/query:
@@ -3147,93 +2908,6 @@ paths:
           required: true
           schema:
             $ref: '#/definitions/DQLReq'
-      tags:
-        - Query
-  /api/v2/query/{result_handle}/close:
-    get:
-      summary: QueryResultClose
-      description: Close a `result_handle` and free its server-side resources.
-      operationId: QueryResultClose
-      responses:
-        "200":
-          description: A successful response.
-          schema:
-            $ref: '#/definitions/EmptyRes'
-        "401":
-          description: Unauthorized call
-          schema:
-            $ref: '#/definitions/ErrorResponse'
-        "500":
-          description: Unexpected internal error
-          schema:
-            $ref: '#/definitions/ErrorResponse'
-        default:
-          description: An unexpected error response.
-          schema:
-            $ref: '#/definitions/rpcStatus'
-      parameters:
-        - name: result_handle
-          description: The unique identifier for the DQL Result to close. Legacy compatibility field, use close_for instead.
-          in: path
-          required: true
-          type: string
-        - name: statement
-          description: The name of the statement.
-          in: query
-          required: false
-          type: string
-        - name: portal
-          description: The name of the portal.
-          in: query
-          required: false
-          type: string
-      tags:
-        - Query
-  /api/v2/query/{result_handle}/next:
-    get:
-      summary: Query Result Next
-      description: Fetch result rows from a `result_handle` using an optional window for pagination.
-      operationId: QueryResultNext
-      responses:
-        "200":
-          description: A successful response.
-          schema:
-            $ref: '#/definitions/QueryResultRes'
-        "401":
-          description: Unauthorized call
-          schema:
-            $ref: '#/definitions/ErrorResponse'
-        "500":
-          description: Unexpected internal error
-          schema:
-            $ref: '#/definitions/ErrorResponse'
-        default:
-          description: An unexpected error response.
-          schema:
-            $ref: '#/definitions/rpcStatus'
-      parameters:
-        - name: result_handle
-          description: The unique identifier for the DQL Result to read from.
-          in: path
-          required: true
-          type: string
-        - name: window.limit
-          description: Defines how many records at max are returned.<br>If fewer records are available, all will be returned.<br>Setting this to -1 will be interpreted as no limit
-          in: query
-          required: true
-          type: integer
-          format: int64
-        - name: window.offset
-          description: Defines the offset at which to start reading.<br>An offset of 0 will bean to start from the first possible record.
-          in: query
-          required: true
-          type: integer
-          format: int64
-        - name: window.relative
-          description: The Dynizer keeps track of the last read position, this flag indicates wether the offset is relative to the current read position or absolute.
-          in: query
-          required: false
-          type: boolean
       tags:
         - Query
   /api/v2/query/bind:
@@ -3492,6 +3166,93 @@ paths:
             $ref: '#/definitions/QueryDescribeStatementReq'
       tags:
         - Query
+  /api/v2/query/{result_handle}/close:
+    get:
+      summary: QueryResultClose
+      description: Close a `result_handle` and free its server-side resources.
+      operationId: QueryResultClose
+      responses:
+        "200":
+          description: A successful response.
+          schema:
+            $ref: '#/definitions/EmptyRes'
+        "401":
+          description: Unauthorized call
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        "500":
+          description: Unexpected internal error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        default:
+          description: An unexpected error response.
+          schema:
+            $ref: '#/definitions/rpcStatus'
+      parameters:
+        - name: result_handle
+          description: The unique identifier for the DQL Result to close. Legacy compatibility field, use close_for instead.
+          in: path
+          required: true
+          type: string
+        - name: statement
+          description: The name of the statement.
+          in: query
+          required: false
+          type: string
+        - name: portal
+          description: The name of the portal.
+          in: query
+          required: false
+          type: string
+      tags:
+        - Query
+  /api/v2/query/{result_handle}/next:
+    get:
+      summary: Query Result Next
+      description: Fetch result rows from a `result_handle` using an optional window for pagination.
+      operationId: QueryResultNext
+      responses:
+        "200":
+          description: A successful response.
+          schema:
+            $ref: '#/definitions/QueryResultRes'
+        "401":
+          description: Unauthorized call
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        "500":
+          description: Unexpected internal error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        default:
+          description: An unexpected error response.
+          schema:
+            $ref: '#/definitions/rpcStatus'
+      parameters:
+        - name: result_handle
+          description: The unique identifier for the DQL Result to read from.
+          in: path
+          required: true
+          type: string
+        - name: window.limit
+          description: Defines how many records at max are returned.<br>If fewer records are available, all will be returned.<br>Setting this to -1 will be interpreted as no limit
+          in: query
+          required: true
+          type: integer
+          format: int64
+        - name: window.offset
+          description: Defines the offset at which to start reading.<br>An offset of 0 will bean to start from the first possible record.
+          in: query
+          required: true
+          type: integer
+          format: int64
+        - name: window.relative
+          description: The Dynizer keeps track of the last read position, this flag indicates wether the offset is relative to the current read position or absolute.
+          in: query
+          required: false
+          type: boolean
+      tags:
+        - Query
   /api/v2/roles:
     get:
       summary: List Roles
@@ -3638,18 +3399,7 @@ paths:
           in: body
           required: true
           schema:
-            type: object
-            properties:
-              current_value:
-                type: string
-                description: Value for the share
-              data_type:
-                $ref: '#/definitions/DataType'
-                description: DataType of the share value
-            description: Deletes a Value for a **ShareName**
-            required:
-              - current_value
-              - data_type
+            $ref: '#/definitions/DynizerDeleteShareNameValueBody'
       tags:
         - ShareName
   /api/v2/sharename/{share_name}/value:
@@ -3684,22 +3434,7 @@ paths:
           in: body
           required: true
           schema:
-            type: object
-            properties:
-              old_value:
-                type: string
-                description: old value for the share
-              new_value:
-                type: string
-                description: Value for the share
-              data_type:
-                $ref: '#/definitions/DataType'
-                description: DataType of the share value
-            description: Updates a Value for a **ShareName**
-            required:
-              - old_value
-              - new_value
-              - data_type
+            $ref: '#/definitions/DynizerUpdateShareNameValueBody'
       tags:
         - ShareName
   /api/v2/system/data:
@@ -3881,6 +3616,30 @@ paths:
             $ref: '#/definitions/AddUserReq'
       tags:
         - Users
+  /api/v2/users/all/count:
+    get:
+      summary: Get User Count
+      description: Return total user count plus counts broken down by enabled vs disabled.
+      operationId: GetUserCount
+      responses:
+        "200":
+          description: A successful response.
+          schema:
+            $ref: '#/definitions/UserCountRes'
+        "401":
+          description: Unauthorized call
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        "500":
+          description: Unexpected internal error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        default:
+          description: An unexpected error response.
+          schema:
+            $ref: '#/definitions/rpcStatus'
+      tags:
+        - Users
   /api/v2/users/{user}:
     get:
       summary: Get User
@@ -4032,15 +3791,7 @@ paths:
           in: body
           required: true
           schema:
-            type: object
-            properties:
-              new_password:
-                type: string
-                description: The new password string which will be security hashed and stored.
-            description: Set a users password as an admin
-            title: SetUserPasswordRequest
-            required:
-              - new_password
+            $ref: '#/definitions/DynizerSetUserPasswordBody'
       tags:
         - Users
   /api/v2/users/{user}/roles:
@@ -4104,15 +3855,7 @@ paths:
           in: body
           required: true
           schema:
-            type: object
-            properties:
-              role:
-                $ref: '#/definitions/DynizerRole'
-                description: Name of the role which is to be added or removed.
-            description: Request for adding or removing a role for the user specified
-            title: UserRoleRequest
-            required:
-              - role
+            $ref: '#/definitions/DynizerAssignUserRoleBody'
       tags:
         - Users
   /api/v2/users/{user}/roles/{role.name}:
@@ -4148,30 +3891,6 @@ paths:
           in: path
           required: true
           type: string
-      tags:
-        - Users
-  /api/v2/users/all/count:
-    get:
-      summary: Get User Count
-      description: Return total user count plus counts broken down by enabled vs disabled.
-      operationId: GetUserCount
-      responses:
-        "200":
-          description: A successful response.
-          schema:
-            $ref: '#/definitions/UserCountRes'
-        "401":
-          description: Unauthorized call
-          schema:
-            $ref: '#/definitions/ErrorResponse'
-        "500":
-          description: Unexpected internal error
-          schema:
-            $ref: '#/definitions/ErrorResponse'
-        default:
-          description: An unexpected error response.
-          schema:
-            $ref: '#/definitions/rpcStatus'
       tags:
         - Users
   /api/v2/objects/download/{type}/{uuid}:
@@ -4460,6 +4179,7 @@ definitions:
       action_labels:
         type: array
         items:
+          type: object
           $ref: '#/definitions/ActionLabel'
         description: The **ActionLabels** of the **Action**.
     description: Message to hold a **Action**
@@ -4653,6 +4373,7 @@ definitions:
       roles:
         type: array
         items:
+          type: object
           $ref: '#/definitions/DynizerRole'
         description: All the roles for the new user.
       disabled:
@@ -4781,6 +4502,7 @@ definitions:
       action_labels:
         type: array
         items:
+          type: object
           $ref: '#/definitions/ActionLabel'
         description: This allows to create the **ActionLabels** for the newly created **Action** in one go.
     description: This is used to create an **Action**.<br>If supplied **ActionLabels** can be addes as well.<br>The *if_not_exists* flag allows if set not to raise an error if the **Action** already exists.
@@ -4821,11 +4543,13 @@ definitions:
       instance_elements:
         type: array
         items:
+          type: object
           $ref: '#/definitions/InstanceElement'
         description: Provide all ActionLabel and the associated values.
       instance_metadata:
         type: array
         items:
+          type: object
           $ref: '#/definitions/MetaDataKeyValue'
         description: MetaData can also be added in one go
     description: This will create an Instance, for each ActionLabel defined in the Action and element can be defined.<br>Each element can have multiple values.
@@ -4923,6 +4647,7 @@ definitions:
       parameters:
         type: array
         items:
+          type: object
           $ref: '#/definitions/DQLParam'
         description: The DQL parameters.
       statement:
@@ -5013,6 +4738,7 @@ definitions:
       by_component_type:
         type: array
         items:
+          type: object
           $ref: '#/definitions/ComponentTypeUsage'
         description: Indicates in how many different **Instances** the **DataElement** was found.
       contains:
@@ -5093,6 +4819,196 @@ definitions:
     title: DownloadObjectDataResponse
     required:
       - url
+  DynizerAddActionLabelBody:
+    type: object
+    properties:
+      if_not_exists:
+        type: boolean
+        description: if set to true -> NO ERROR is returned if a **Action** already has an **ActionLabel** by the provided name.<br>No changes to the ActionLabel will be performed when if_not_exists == true and the **ActionLabel** already exists.
+      action_label_name:
+        type: string
+        description: The unique name of the **ActionLabel** within the **Action.<br>Use the CheckActionLabelName, call to verify the name, without creating it.
+      component:
+        $ref: '#/definitions/ComponentType'
+        description: The **ComponentType** for this **ActionLabel**.
+      default_data_type:
+        $ref: '#/definitions/DataType'
+        description: The **DataType** for this **ActionLabel**.<br>This **DataType** will be used when creating **Instances** with this **ActionLabel**.
+      min_occurrence:
+        type: integer
+        format: int64
+        description: Allows to set minimum number of values that need to be provided when using this **ActionLabel*** in an **Instance**.
+      max_occurrence:
+        type: integer
+        format: int64
+        description: Allows to set maximum number of values that can be provided when using this **ActionLabel*** in an **Instance**.<br>This value needs to be either zero or it can be equal or greater then *min_occurrence*.<br>Setting it to 0 will be interpreted as open-ended.
+      alternative_data_types:
+        type: array
+        items:
+          $ref: '#/definitions/DataType'
+        description: List of additional allowed **DataTypes** for this **ActionLabel**.<br>If left empty only the *default_data_type* is allowed for the values of this **ActionLabel**.<br>Provide **DT_Any** as the only element to allow all **DataTypes**.
+      share_name:
+        type: string
+        description: The **ShareName** to use by default when an new instance is created and a value is set for this **ActionLabel**
+    description: Use this to add a new **ActionLabel** to an **Action**
+    title: AddActionLabelRequest
+    required:
+      - action_label_name
+      - component
+      - default_data_type
+  DynizerAddInstanceActionLabelMetaDataBody:
+    type: object
+    properties:
+      key_name:
+        type: string
+        description: Unique name of the **MetaDataKey**.
+      values:
+        type: array
+        items:
+          type: string
+        description: String representation of the value for the **MetaDataKey**.<br>To parse non standard string represetations set a proper parse-format string in *format*
+      specs:
+        type: array
+        items:
+          type: object
+          $ref: '#/definitions/ValueSpec'
+        description: allows to add special handling for a value
+    description: Holds the properties to set MetaData for all cells under the **ActionLabel**.
+    title: AddInstanceActionLabelMetaDataRequest
+    required:
+      - key_name
+      - values
+  DynizerAddInstanceActionLabelMetaDataValueBody:
+    type: object
+    properties:
+      value:
+        type: string
+        description: String representation of the value for the **MetaDataKey**.<br>To parse non standard string represetations set a proper parse-format string in *format*
+      spec:
+        $ref: '#/definitions/DataTypeFormat'
+        description: Set this value if you want to use a different **DataType** from the default **DataType** for the values of the **MetaDataKey**.
+    description: Holds the properties to add a value to the MetaData to ActionLabel grouped cells.
+    title: AddInstanceActionLabelMetaDataValueRequest
+    required:
+      - value
+  DynizerAddInstanceCellMetaDataBody:
+    type: object
+    properties:
+      key_name:
+        type: string
+        description: Unique name of the **MetaDataKey**.
+      values:
+        type: array
+        items:
+          type: string
+        description: String representation of the value for the **MetaDataKey**.<br>To parse non standard string represetations set a proper parse-format string in *format*
+      specs:
+        type: array
+        items:
+          type: object
+          $ref: '#/definitions/ValueSpec'
+        description: allows to add special handling for a value, based on its position in the array (1-based)
+    description: Holds the properties to identify MetaData assciated to an **InstanceCell**.
+    title: AddInstanceCellMetaDataRequest
+    required:
+      - key_name
+      - values
+  DynizerAddInstanceCellMetaDataValueBody:
+    type: object
+    properties:
+      value:
+        type: string
+        description: String representation of the value of the **MetaDataKey**.
+      spec:
+        $ref: '#/definitions/DataTypeFormat'
+        description: Use this to specify on how to parse the input value from string to the internal **DataType**
+    description: Identifies a single value of a MetaData from an **InstanceCell**
+    title: AddInstanceCellMetaDataValueRequest
+    required:
+      - value
+  DynizerAddInstanceMetaDataBody:
+    type: object
+    properties:
+      key_name:
+        type: string
+        description: Unique name of the **MetaDataKey**.
+      values:
+        type: array
+        items:
+          type: string
+        description: String representation of the value for the **MetaDataKey**.<br>To parse non standard string represetations set a proper parse-format string in *format*
+      specs:
+        type: array
+        items:
+          type: object
+          $ref: '#/definitions/ValueSpec'
+        description: allows to add special handling for a value, based on its position in the array (1-based)
+    description: Used for adding a **MetaDataKey** with its values to an **Instance**.
+    title: AddInstanceMetaDataRequest
+    required:
+      - key_name
+      - values
+  DynizerAddInstanceMetaDataValueBody:
+    type: object
+    properties:
+      value:
+        type: string
+        description: String representation of the value for the **MetaDataKey**.<br>To parse non standard string represetations set a proper parse-format string in *format*
+      spec:
+        $ref: '#/definitions/DataTypeFormat'
+        description: Use this to specify on how to parse the input value from string to the internal **DataType**
+    description: Adds a new value to an already linked **MetaDataKey**
+    title: AddInstanceMetaDataValueRequest
+    required:
+      - value
+  DynizerAssignUserRoleBody:
+    type: object
+    properties:
+      role:
+        $ref: '#/definitions/DynizerRole'
+        description: Name of the role which is to be added or removed.
+    description: Request for adding or removing a role for the user specified
+    title: UserRoleRequest
+    required:
+      - role
+  DynizerDeleteShareNameValueBody:
+    type: object
+    properties:
+      current_value:
+        type: string
+        description: Value for the share
+      data_type:
+        $ref: '#/definitions/DataType'
+        description: DataType of the share value
+    description: Deletes a Value for a **ShareName**
+    required:
+      - current_value
+      - data_type
+  DynizerDynizerFilteredPlotBody:
+    type: object
+    properties:
+      actions:
+        type: array
+        items:
+          type: string
+        description: List of allowed **Actions** for the returned **Instances**.<br>If left empty the search scope will include all **Actions**.
+      data_types:
+        type: array
+        items:
+          $ref: '#/definitions/DataType'
+        description: List of allowed **DataTypes** for the returned **DataElement**.<br>If left empty all **DataTypes** will be returned.
+      component_types:
+        type: array
+        items:
+          $ref: '#/definitions/ComponentType'
+        description: List of allowed **ComponentTypes** for the returned **DataElement**.<br>If left empty all **ComponentTypes** will be returned.
+      filters:
+        type: array
+        items:
+          type: object
+          $ref: '#/definitions/InstanceFilter'
+        description: The filter for the **Instance** requested
+    description: Returns plot data based on the fliter and plot name
   DynizerRole:
     type: object
     properties:
@@ -5103,6 +5019,134 @@ definitions:
     title: DynizerRole
     required:
       - name
+  DynizerSetUserPasswordBody:
+    type: object
+    properties:
+      new_password:
+        type: string
+        description: The new password string which will be security hashed and stored.
+    description: Set a users password as an admin
+    title: SetUserPasswordRequest
+    required:
+      - new_password
+  DynizerUpdateActionLabelBody:
+    type: object
+    properties:
+      new_action_label_name:
+        type: string
+        description: The new unique name of the **ActionLabel** within the **Action**.<br>Use the CheckActionLabelName call to verify the name, without creating it.
+      default_data_type:
+        $ref: '#/definitions/DataType'
+        description: The **DataType** for this **ActionLabel**.<br>This **DataType** will be used when creating **Instances** with this **ActionLabel**.
+      min_occurrence:
+        type: integer
+        format: int64
+        description: Allows to set the minimum number of values that need to be provided when using this **ActionLabel*** in an **Instance**. Not providing a value will be interpreted as 0.
+      max_occurrence:
+        type: integer
+        format: int64
+        description: Allows to set the maximum number of values that can be provided when using this **ActionLabel*** in an **Instance**.<br>This value needs to be either zero or it can be equal or greater then *min_occurrence*.<br>Setting it to 0 will be interpreted as open-ended. Not providing a value will be interpreted as 0.
+      alternative_data_types:
+        type: array
+        items:
+          $ref: '#/definitions/DataType'
+        description: List of additional allowed **DataTypes** for this **ActionLabel**.<br>If left empty only the *default_data_type* is allowed for the values of this **ActionLabel**.
+      cascade:
+        type: boolean
+        description: Flag to define the behaviour if the update will cause a violation of existing **Instances**.<br>If set to <span style="color:blue">true</span> the **Instances** in violation will be marked as deleted.
+    description: Use this to modify an **ActionLabel** associated to an **Action**. To ensure data integrity, please provide values for the fields alternative_data_types, min_occurrence, and max_occurrence. If these fields are omitted, they will be reset. Other fields can be safely omitted to retain their current values.
+    title: UpdateActionLabelReq
+    required:
+      - default_data_type
+      - min_occurrence
+      - max_occurrence
+      - alternative_data_types
+  DynizerUpdateActionSchemaBody:
+    type: object
+    properties:
+      new_action_schema_name:
+        type: string
+        description: The new name of the **ActionSchema**.<br>The name needs to be unique.
+    description: Use to rename an **ActionSchema**.
+    title: UpdateActionSchemaRequest
+    required:
+      - new_action_schema_name
+  DynizerUpdateInstanceBody:
+    type: object
+    properties:
+      instance_cell_elements:
+        type: array
+        items:
+          type: object
+          $ref: '#/definitions/InstanceUpdateElementCell'
+        description: Qualify a cell which is to be updated.<br>Using the virtual **DataType** DT_Delete
+    description: Used to update an Instance.<br>
+    title: UpdateInstanceRequest
+    required:
+      - instance_elements
+  DynizerUpdateMetaDataKeyBody:
+    type: object
+    properties:
+      new_key_name:
+        type: string
+        description: New unique name of the **MetaDataKey**.<br>The CheckMetaDataKeyName call can be used to check if the name can be used.
+      default_data_type:
+        $ref: '#/definitions/DataType'
+        description: The **DataType** for this **MetaDataKey** value.<br>This **DataType** will be used when creating values for the MetaData with this **MetaDataKey**.
+      max_occurrence:
+        type: integer
+        format: int64
+        description: How many values at most can be stored in the **MetaDataKey** value array for one use.<br>Not setting this property or setting it to 0, will mean to the maximum based on system settings.
+      alternative_data_types:
+        type: array
+        items:
+          $ref: '#/definitions/DataType'
+        description: List of additional allowed **DataTypes** for this **MetaDataKey**.<br>If left empty only the *default_data_type* is allowed for the values of this **MetaDataKey**.
+    description: Used to update a **MetaDataKey**.
+    title: UpdateMetaDataKeyRequest
+  DynizerUpdateShareNameValueBody:
+    type: object
+    properties:
+      old_value:
+        type: string
+        description: old value for the share
+      new_value:
+        type: string
+        description: Value for the share
+      data_type:
+        $ref: '#/definitions/DataType'
+        description: DataType of the share value
+    description: Updates a Value for a **ShareName**
+    required:
+      - old_value
+      - new_value
+      - data_type
+  DynizerUploadObjectDataBody:
+    type: object
+    properties:
+      type:
+        type: string
+        description: The type of the **Object**. This field is used to support an old version that required a string. Use 'object_ref' instead.
+      ref_uuid:
+        type: string
+        description: The **ObjectReference** UUID which the data will be stored. This field is used to support an old version that required a string. Use 'object_ref' instead.
+      data:
+        type: string
+        format: byte
+        description: The **Object** data as base64 encoded string.
+      object_ref:
+        type: object
+        properties:
+          ref_uri:
+            type: string
+            description: The URI referencing the **Object**. This field is used to support an old version that returns <object_type>/<uuid>. Use 'ref_uuid' instead.
+        description: Message to hold a **ObjectReference*
+        title: ObjectReference
+      content_type:
+        type: string
+        description: The content type of the data (optional).
+    description: URL for an **Object**
+    title: UploadObjectDataRequest
   EmptyRes:
     type: object
     description: Response with no data.<br>Used whenever there is no payload to be returned
@@ -5151,6 +5195,7 @@ definitions:
       args:
         type: array
         items:
+          type: object
           $ref: '#/definitions/ErrorArg'
         description: The arguments of the error.<br>The arguments can be used to reconstruct the DynaStatus based on the code.
         title: Custom field containing the arguments passed to the error
@@ -5172,6 +5217,7 @@ definitions:
       actions:
         type: array
         items:
+          type: object
           $ref: '#/definitions/Action'
         description: The **Actions** with all **ActionLabels**
     description: Returns all the exported **UserActions**
@@ -5189,6 +5235,7 @@ definitions:
       filters:
         type: array
         items:
+          type: object
           $ref: '#/definitions/InstanceFilter'
         description: The filter for the **Instance** requested
     description: Returns **DataElements** with their count in the Instances slected by the filter or overall if no filter has been set
@@ -5212,6 +5259,7 @@ definitions:
       links:
         type: array
         items:
+          type: object
           $ref: '#/definitions/ActionLabelLink'
         description: The linked **ActionLabels** of the **Actions**.
     description: The **ActionLabel** links of the request **Actions**.
@@ -5224,6 +5272,7 @@ definitions:
       config_key_values:
         type: array
         items:
+          type: object
           $ref: '#/definitions/ConfigKV'
         description: The Dynizer configuration parameters
     description: Holds Dynizer system configuration
@@ -5292,6 +5341,7 @@ definitions:
       filters:
         type: array
         items:
+          type: object
           $ref: '#/definitions/InstanceFilter'
         description: |-
           List of **Instance** - filters for the returned **DataElement**.<br>If left empty no additional filter will by applied.
@@ -5305,21 +5355,25 @@ definitions:
       who:
         type: array
         items:
+          type: object
           $ref: '#/definitions/TopNDataElement'
         description: List of allowed **Actions** for the returned **DataElement**.<br>If left empty the search socpe will include all **Actions**.
       what:
         type: array
         items:
+          type: object
           $ref: '#/definitions/TopNDataElement'
         description: List of allowed **Actions** for the returned **DataElement**.<br>If left empty the search socpe will include all **Actions**.
       where:
         type: array
         items:
+          type: object
           $ref: '#/definitions/TopNDataElement'
         description: List of allowed **Actions** for the returned **DataElement**.<br>If left empty the search socpe will include all **Actions**.
       when:
         type: array
         items:
+          type: object
           $ref: '#/definitions/TopNDataElement'
         description: List of allowed **Actions** for the returned **DataElement**.<br>If left empty the search socpe will include all **Actions**.
     description: Returns **DataElements** which match a contains value
@@ -5329,6 +5383,7 @@ definitions:
       actions:
         type: array
         items:
+          type: object
           $ref: '#/definitions/Action'
         description: The **Action** which will be imported.
       if_not_exists:
@@ -5352,11 +5407,13 @@ definitions:
       specs:
         type: array
         items:
+          type: object
           $ref: '#/definitions/ValueSpec'
         description: allows to add special handling for a value, based on its position in the array (1-based)
       meta_data:
         type: array
         items:
+          type: object
           $ref: '#/definitions/InstanceElementMetaData'
         description: We can have more entries in here than we have Element values, as it is allowed to attach more than one MetaDataKey per value.<br>Each MetaDataKey allows multiple values, up to the amount configured.
     description: each Element represents one ActionLabel and multiple values.<br>The specs allow for DataType override and pars format definition.<br>Additionaly can you also add MetaData for each value.
@@ -5419,6 +5476,7 @@ definitions:
       action_labels:
         type: array
         items:
+          type: object
           $ref: '#/definitions/ResultLabel'
         description: All the **ActionsLabels** used in this the **Instance** row.
       instance_cell_values:
@@ -5429,6 +5487,7 @@ definitions:
       alternative_data_types:
         type: array
         items:
+          type: object
           $ref: '#/definitions/ResultValueAlternativeMetaDataPosition'
         description: This is propergated if any cell would have a dataype override from the default.
     description: This holds an **Instance** row
@@ -5494,6 +5553,7 @@ definitions:
       meta_data:
         type: array
         items:
+          type: object
           $ref: '#/definitions/MetaDataOut'
         description: All the MetaData records linked to this **Instance** for the requested **MetaDataKey**.
     description: Holds all the MetaData information for an **Instance**.
@@ -5517,6 +5577,7 @@ definitions:
       meta_data:
         type: array
         items:
+          type: object
           $ref: '#/definitions/MetaDataOut'
         description: All the MetaData records linked to this **Instance**.
     description: Holds all the MetaData information for an **Instance**.
@@ -5535,6 +5596,7 @@ definitions:
       roles:
         type: array
         items:
+          type: object
           $ref: '#/definitions/DynizerRole'
         description: The roles for the window.
     description: Roles selected by the window
@@ -5552,6 +5614,7 @@ definitions:
       roles:
         type: array
         items:
+          type: object
           $ref: '#/definitions/DynizerRole'
         description: All the roles which have been assigned to the user.
     description: Response with all roles for a user
@@ -5569,6 +5632,7 @@ definitions:
       users:
         type: array
         items:
+          type: object
           $ref: '#/definitions/User'
         description: The users known to the Dynizer
     description: Response which holds all users.
@@ -5599,6 +5663,7 @@ definitions:
       roles:
         type: array
         items:
+          type: object
           $ref: '#/definitions/DynizerRole'
         description: All the roles which have been granted.
     description: JsonWebToken response for a successful login with including the users roles
@@ -5641,6 +5706,7 @@ definitions:
       meta_data_keys:
         type: array
         items:
+          type: object
           $ref: '#/definitions/MetaDataKey'
         description: The **MetaDataKeys** within the requested window
     description: Response that holds **MetaDataKeys**
@@ -5671,6 +5737,7 @@ definitions:
       specs:
         type: array
         items:
+          type: object
           $ref: '#/definitions/ValueSpec'
         description: allows to add special handling for a value, based on its position in the array (1-based)
         title: |-
@@ -5799,6 +5866,7 @@ definitions:
       parameters:
         type: array
         items:
+          type: object
           $ref: '#/definitions/DQLParam'
         description: The DQL parameter.
     description: Performs the Bind of Parameter values
@@ -5840,6 +5908,7 @@ definitions:
       filters:
         type: array
         items:
+          type: object
           $ref: '#/definitions/InstanceFilter'
         description: |-
           List of **Instance** - filters for the returned **DataElement**.<br>If left empty no additional filter will by applied.
@@ -5875,6 +5944,7 @@ definitions:
       dataelements:
         type: array
         items:
+          type: object
           $ref: '#/definitions/DataElement'
         description: List of allowed **Actions** for the returned **DataElement**.<br>If left empty the search socpe will include all **Actions**.
     description: Returns **DataElements** which match a contains value
@@ -5899,11 +5969,13 @@ definitions:
       result_labels:
         type: array
         items:
+          type: object
           $ref: '#/definitions/ResultLabelWithOverride'
         description: The **ActionLabels** of the result
       parameters:
         type: array
         items:
+          type: object
           $ref: '#/definitions/DQLParam'
         description: The DQL parameter.
       type:
@@ -5930,11 +6002,13 @@ definitions:
       result_labels:
         type: array
         items:
+          type: object
           $ref: '#/definitions/ResultLabelWithOverride'
         description: The **ActionLabels** of the statement
       parameter_descriptions:
         type: array
         items:
+          type: object
           $ref: '#/definitions/DQLParamDescription'
         description: The Parameter descriptions of the statement
       type:
@@ -5962,11 +6036,13 @@ definitions:
       rows:
         type: array
         items:
+          type: object
           $ref: '#/definitions/ResultRow'
         description: '**Instance** rows'
       alternative_data_types:
         type: array
         items:
+          type: object
           $ref: '#/definitions/ResultValueAlternativeMetaDataPosition'
         description: This is propegated if any cell would have a dataype override from the default.
       completed:
@@ -5999,6 +6075,7 @@ definitions:
       parameter_descriptions:
         type: array
         items:
+          type: object
           $ref: '#/definitions/DQLParamDescription'
         description: The Parameter descriptions of the statement
     description: DQL statement to be parsed
@@ -6010,11 +6087,13 @@ definitions:
       rows:
         type: array
         items:
+          type: object
           $ref: '#/definitions/ResultRow'
         description: '**Instance** rows'
       alternative_data_types:
         type: array
         items:
+          type: object
           $ref: '#/definitions/ResultValueAlternativeMetaDataPosition'
         description: This is propegated if any cell would have a dataype override from the default.
     description: an array of ResultRow messages for the list request
@@ -6111,6 +6190,7 @@ definitions:
       result_labels:
         type: array
         items:
+          type: object
           $ref: '#/definitions/ResultLabel'
         description: The **ActionLabels** of the result
     description: Message to hold a DQL SELECT result cursor handle with count and metadata
@@ -6151,6 +6231,7 @@ definitions:
       result:
         type: array
         items:
+          type: object
           $ref: '#/definitions/SimpleQueryResItem'
         description: The list of results to the simple query
     description: The answers to the simple query, one for each query in the full string
@@ -6182,16 +6263,19 @@ definitions:
       result_labels:
         type: array
         items:
+          type: object
           $ref: '#/definitions/ResultLabelWithOverride'
         description: The **ActionLabels** of the result
       rows:
         type: array
         items:
+          type: object
           $ref: '#/definitions/ResultRow'
         description: '**Instance** rows'
       alternative_data_types:
         type: array
         items:
+          type: object
           $ref: '#/definitions/ResultValueAlternativeMetaDataPosition'
         description: This is propagated if any cell would have a datatype override from the default.
     description: LabelDescription and rows for SELECT
@@ -6259,6 +6343,7 @@ definitions:
       roles:
         type: array
         items:
+          type: object
           $ref: '#/definitions/DynizerRole'
         description: All roles assigned to the user.
       enabled:
@@ -6371,6 +6456,7 @@ definitions:
       details:
         type: array
         items:
+          type: object
           $ref: '#/definitions/protobufAny'
 securityDefinitions:
   JWT:
