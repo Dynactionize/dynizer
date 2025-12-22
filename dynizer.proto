@@ -17,7 +17,7 @@ option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
             url: "https://www.consono.ai";
             email: "support@consono.ai";
         };
-        description: "This is the [Dynizer API](https://www.consono.ai/technology)";
+        description: "Public API for the Dynizer knowledge engine.<br>All endpoints are under `/api/v2`, secured with JWT unless stated otherwise.<br>See the [Dynizer overview](https://www.consono.ai/technology) for architecture details.";
         extensions: {
             key: "x-logo"
             value: {
@@ -659,12 +659,12 @@ message ServiceLoginReq {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
           required: ["token"]
-          description: "Service Login holds a service token for the server to check and inpersonate."
+          description: "Service Login carries a service token that the server validates to authenticate and impersonate the service account."
         }
     };
     string token = 1 [
         (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-            description: "Is the service token which will be checked."
+            description: "Service token presented for validation."
         }
     ];
 }
@@ -674,12 +674,12 @@ message TokenReq {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
           required: ["token"]
-          description: "Token Request holds a security token to the server to check."
+          description: "Wrapper carrying a JWT that should be validated."
         }
     };
     string token = 1 [
         (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-            description: "Is the [JSON Web Token (JWT)](https://jwt.io), which will be verified."
+            description: "The [JSON Web Token (JWT)](https://jwt.io) to verify."
         }
     ];
 }
@@ -776,7 +776,7 @@ message CheckPasswordReq {
 message WindowReq {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
         json_schema: {
-          description: "Request for calls which need a windows as input."
+          description: "Request wrapper for calls that accept a paging window."
         }
     };
 
@@ -3438,7 +3438,7 @@ message ResultLabel {
 
     string action_name = 1 [
         (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-            description: "This is the name of the **Action** of **ActionLabel**"
+            description: "This is the name of the **Action** of the **ActionLabel**"
         }
     ];
 
@@ -4676,7 +4676,7 @@ message QueryDescribeStatementReq {
   option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: {
       required: ["statement"]
-      description: "Performs the Describe for wither a statement or a portal.\nA statement description will return the definition for both the Parameters as well as the ActionLabels.\nA portal description will just return the ActionLabels."
+      description: "Performs the Describe for either a statement or a portal.\nA statement description will return the definition for both the Parameters as well as the ActionLabels.\nA portal description will just return the ActionLabels."
     }
   };
 
@@ -4691,7 +4691,7 @@ message QueryDescribePortalReq{
   option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: {
       required: ["portal"]
-      description: "Performs the Describe for wither a statement or a portal.\nA statement description will return the definition for both the Parameters as well as the ActionLabels.\nA portal description will just return the ActionLabels."
+      description: "Performs the Describe for either a statement or a portal.\nA statement description will return the definition for both the Parameters as well as the ActionLabels.\nA portal description will just return the ActionLabels."
     }
   };
 
@@ -4917,7 +4917,7 @@ message ActionLabelLink {
 
     ActionNameActionLabelName right_action_label = 2 [
         (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-            description: "The left **ActionLabels** of the link"
+            description: "The right **ActionLabels** of the link"
         }
     ];
 
@@ -4953,7 +4953,7 @@ service Dynizer {
             operation_id: "Login";
             tags: ["Auth"]
             security: {}
-            description: "To Login to the Dynizer using a password.<br>If the user has access, a [Json Web Token](https://jwt.io/) [(RFC 7519)](https://tools.ietf.org/html/rfc7519) will be returned."
+            description: "Authenticate with username and password.<br>On success returns a [JSON Web Token](https://jwt.io/) [(RFC 7519)](https://tools.ietf.org/html/rfc7519) to authorize subsequent calls."
         };
     }
 
@@ -4967,7 +4967,7 @@ service Dynizer {
             operation_id: "ServiceLogin";
             tags: ["Auth", "Service"]
             security: {}
-            description: "To Login to the Dynizer using a service token.<br>If the service-token is valid and the associated user has access, a [Json Web Token](https://jwt.io/) [(RFC 7519)](https://tools.ietf.org/html/rfc7519) will be returned."
+            description: "Authenticate using a service token tied to a service account.<br>Returns a [JSON Web Token](https://jwt.io/) [(RFC 7519)](https://tools.ietf.org/html/rfc7519) if the token is valid and the associated user is authorized."
         };
     }
 
@@ -4979,7 +4979,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "Logout";
             tags: ["Auth"]
-            description: "Logout will clean server side resources.<br>This invalidates the security token as well."
+            description: "Ends the current session and clears server-side state.<br>Use when a client is finished with the issued token."
         };
     }
 
@@ -4991,7 +4991,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "ValidateToken";
             tags: ["Auth"]
-            description: "Validates the security token"
+            description: "Validates a JWT and returns the associated session identifier when valid."
             security: {}
         };
     }
@@ -5004,7 +5004,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "IssueServiceToken";
             tags: ["Auth", "Service"]
-            description: "Issues a service token for the currently authenticated and authorized user."
+            description: "Issues a new service token for the current user.<br>Use this to allow headless/service processes to authenticate later without sharing a password."
             security: {}
         };
     }
@@ -5017,7 +5017,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "ListRoles";
             tags: ["Roles"]
-            description: "Returns all roles defined in the Dynizer"
+            description: "List every role configured in the Dynizer."
         };
     }
 
@@ -5030,7 +5030,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "AddUser";
             tags: ["Users"]
-            description: "Adds a user to the Dynizer.<br>Requires the admin role to perform this."
+            description: "Create a new user with optional roles.<br>Requires admin privileges."
         };
     }
 
@@ -5043,7 +5043,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "AssignUserRole";
             tags: ["Users"]
-            description: "Assigns a specific role to a user.<br>Requires the admin role to perform this."
+            description: "Attach a role to the specified user.<br>Requires admin privileges."
         };
     }
 
@@ -5055,7 +5055,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "RevokeUserRole";
             tags: ["Users"]
-            description: "Revokes a specific role from a user.<br>Requires the admin role to perform this."
+            description: "Remove a role from the specified user.<br>Requires admin privileges."
         };
     }
 
@@ -5067,7 +5067,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "EnableUser";
             tags: ["Users"]
-            description: "Enables a user.<br>Only enabled users can log onto the Dynizer.<br>Requires the admin role to perform this."
+            description: "Enable a user account so it can log in.<br>Requires admin privileges."
         };
     }
 
@@ -5079,7 +5079,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "DisableUser";
             tags: ["Users"]
-            description: "Disables a user.<br>This will inhibit the user to log on to the Dynizer.<br>Requires the admin role to perform this."
+            description: "Disable a user account to block logins without deleting it.<br>Requires admin privileges."
         };
     }
 
@@ -5092,7 +5092,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "SetUserPassword";
             tags: ["Users"]
-            description: "Sets a new password for a user.<br>Requires the admin role to perform this."
+            description: "Set a new password for another user (does not require their current password).<br>Requires admin privileges."
         };
     }
 
@@ -5105,7 +5105,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "ChangeMyPassword";
             tags: ["Users"]
-            description: "Can be used by any user to change ones own password.<br>It requires the current password for added security."
+            description: "Change the logged-in user's password using the current password for verification."
         };
     }
 
@@ -5117,7 +5117,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "GetUser";
             tags: ["Users"]
-            description: "Get the user information.<br>All assigned roles and the current state are returned."
+            description: "Fetch a user's profile including roles and enabled/disabled status."
         };
     }
 
@@ -5129,7 +5129,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "GetMyProfile";
             tags: ["Users"]
-            description: "Returns the current users information.<br>This includes all roles."
+            description: "Retrieve the current user's profile, including assigned roles."
         };
     }
 
@@ -5141,7 +5141,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "DeleteUser";
             tags: ["Users"]
-            description: "Removes a user from the Dynizer.<br>This can not be undone."
+            description: "Permanently delete a user and revoke access.<br>This operation cannot be undone."
         };
     }
 
@@ -5153,7 +5153,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "GetUserCount";
             tags: ["Users"]
-            description: "Returns the total number of users.<br>Additional an individual count for enabled and disabled users will be returned as well."
+            description: "Return total user count plus counts broken down by enabled vs disabled."
         };
     }
 
@@ -5165,7 +5165,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "ListUsers";
             tags: ["Users"]
-            description: "Returns all users from the Dynizer.<br>By default all rows are returned. Optionally a window can be provided to fetch just a specific sub-set of rows to support pagination."
+            description: "List users with optional pagination window.<br>Defaults to returning all users."
         };
     }
 
@@ -5177,7 +5177,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "ListUserRoles";
             tags: ["Users"]
-            description: "Returnes all roles which are assigned to a user."
+            description: "List all roles assigned to the specified user."
         };
     }
 
@@ -5189,7 +5189,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "GetMyRoles";
             tags: ["Users"]
-            description: "Returns the current logged on user's roles."
+            description: "List roles assigned to the current authenticated user."
         };
     }
 
@@ -5201,7 +5201,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "CheckUserName";
             tags: ["Users"]
-            description: "Checks if the user name can be used."
+            description: "Validate whether a user name is available and conforms to naming rules."
         };
     }
 
@@ -5214,7 +5214,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "CheckPassword";
             tags: ["Users"]
-            description: "Checks if the password can be used, and returns a score of it's strength."
+            description: "Validate password strength and policy compliance, returning a score."
         };
     }
 
@@ -5229,7 +5229,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "CreateActionType";
             tags: ["ActionTypes"]
-            description: "Creates a new **ActionType**."
+            description: "Create a new **ActionType** (deprecated in favor of **ActionSchema**)."
         };
     }
 
@@ -5244,7 +5244,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "UpdateActionType";
             tags: ["ActionTypes"]
-            description: "Updates a **ActionType**, at the moment this is only the name.<br>The new_name needs to be unique.<br>The *new_name* can not start or end with a whitespace character.<br>The *new_name* can not contain any control characters at any position"
+            description: "Rename an **ActionType** (deprecated).<br>Names must be unique, trimmed, and free of control characters."
         };
     }
 
@@ -5258,7 +5258,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "ReadActionType";
             tags: ["ActionTypes"]
-            description: "Reads an **ActionType** definition with all **ActionLabels**."
+            description: "Fetch an **ActionType** definition with its **ActionLabels** (deprecated)."
         };
     }
 
@@ -5272,7 +5272,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "ListActionTypes";
             tags: ["ActionTypes"]
-            description:"Returns a list of **ActionTypes**.<br>By default all rows are returned. Optionally a window can be provided to fetch just a specific sub-set of rows to support pagination."
+            description:"List **ActionTypes** with optional pagination (deprecated; use `ListActionSchemas`)."
         };
     }
 
@@ -5285,7 +5285,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "CreateActionSchema";
             tags: ["ActionSchemas"]
-            description: "Creates a new **ActionSchema**."
+            description: "Create a new **ActionSchema** including its labels and data types."
         };
     }
 
@@ -5298,7 +5298,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "UpdateActionSchema";
             tags: ["ActionSchemas"]
-            description: "Updates a **ActionSchema**, at the moment this is only the name.<br>The new_name needs to be unique.<br>The *new_name* can not start or end with a whitespace character.<br>The *new_name* can not contain any control characters at any position"
+            description: "Rename an **ActionSchema**.<br>Names must be unique, trimmed, and free of control characters."
         };
     }
 
@@ -5310,7 +5310,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "DeleteActionSchema";
             tags: ["ActionSchemas"]
-            description: "A **ActionSchema** can only be deleted if no **Actions** are defined.<br>If the **ActionSchema** has **Actions** and *cascade* is not set to *true* and Error will be returned.<br>The *cascade* flag can be used to mark the **Actions** and all its **Instances** as deleted."
+            description: "Delete an **ActionSchema**.<br>Fails if **Actions** exist unless `cascade=true`, which marks those actions and instances as deleted."
         };
     }
 
@@ -5334,7 +5334,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "ListActionSchemas";
             tags: ["ActionSchemas"]
-            description:"Returns a list of **ActionSchemas**.<br>By default all rows are returned. Optionally a window can be provided to fetch just a specific sub-set of rows to support pagination."
+            description:"List **ActionSchemas** with optional pagination window."
         };
     }
 
@@ -5346,7 +5346,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "CheckActionName";
             tags: ["Actions"]
-            description: "Verifies if the **Action** name is unique and only uses supported characters."
+            description: "Validate whether an **Action** name is unique and uses only supported characters."
             responses: {
                 key: "409";
                 value: {
@@ -5381,7 +5381,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "CreateAction";
             tags: ["Actions"]
-            description: "Creates an **Action** with the provided name.<br>The name needs to be unique, the CheckActionName call can be used to verify this.<br>The name can not start or end with a whitespace character.<br>The name can not contain any control characters at any position."
+            description: "Create an **Action** with the provided name.<br>Names must be unique, trimmed, and free of control characters. Use `CheckActionName` to validate availability."
             responses: {
                 key: "409";
                 value: {
@@ -5416,7 +5416,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "UpdateAction";
             tags: ["Actions"]
-            description: "Updates an **Action**, at the moment this is only the name.<br>The new_name needs to be unique.<br>The *new_name* can not start or end with a whitespace character.<br>The *new_name* can not contain any control characters at any position"
+            description: "Rename an **Action**.<br>Names must be unique, trimmed, and free of control characters."
         };
     }
 
@@ -5428,7 +5428,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "DeleteAction";
             tags: ["Actions"]
-            description: "An **Action** can only be deleted if no **Instances** are attached.<br>If the **Action** has **Instances** attached and *cascade* is not set to *true* an error is returned.<br>The *cascade* flag can be used to mark the **Action** and all its **Instances** as deleted."
+            description: "Delete an **Action**.<br>Fails if **Instances** exist unless `cascade=true`, which marks the action and its instances as deleted."
         };
     }
 
@@ -5440,7 +5440,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "ReadAction";
             tags: ["Actions"]
-            description: "Reads an **Action** definition with all **ActionLabels**."
+            description: "Fetch an **Action** definition including its **ActionLabels**."
         };
     }
 
@@ -5452,7 +5452,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "CountActions";
             tags: ["Actions"]
-            description: "Returns the total number of **Actions**."
+            description: "Return the total number of **Actions** for a given **ActionType**."
         };
     }
 
@@ -5464,7 +5464,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "ListActionNames";
             tags: ["Actions"]
-            description:"Returns a list of **Action** names.<br>By default all rows are returned. Optionally a window can be provided to fetch just a specific sub-set of rows to support pagination."
+            description:"List **Action** names for a given **ActionType** with optional pagination window."
         };
     }
 
@@ -5476,7 +5476,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "CheckActionLabelName";
             tags: ["Actions"]
-            description: "Checks if a string can be used as an **ActionLabel** name."
+            description: "Validate whether a string is an allowed, available **ActionLabel** name for the **Action**."
         };
     }
 
@@ -5489,7 +5489,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "AddActionLabel";
             tags: ["Actions"]
-            description: "Adds an **ActionLabel** to an existing **Action**.<br>Use the CheckActionLabelName call to verify that the ActionLabel name can be added."
+            description: "Add an **ActionLabel** to an existing **Action**.<br>Use `CheckActionLabelName` first to validate the name."
         };
     }
 
@@ -5502,7 +5502,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "UpdateActionLabel";
             tags: ["Actions"]
-            description: "Updates an **ActionLabel** for an **Action**.<br>If the *cascade* flag is set to true, all **Instances** for the **Action** which would violate the **ActionLabel** definition will get marked as deleted."
+            description: "Update an **ActionLabel** definition.<br>If `cascade=true`, **Instances** violating the new definition are marked as deleted."
         };
     }
 
@@ -5514,7 +5514,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "DeleteActionLabel";
             tags: ["Actions"]
-            description: "Delete an **ActionLabel**. This will prevent any new **Instances** with the **ActionLabel** to be created.<br>Existing values from already created **Instances** will be removed."
+            description: "Delete an **ActionLabel**: prevents future use and removes existing values from **Instances**."
         };
     }
 
@@ -5526,7 +5526,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "ReadActionLabel";
             tags: ["Actions"]
-            description: "Reads an **ActionLabel** definition."
+            description: "Fetch an **ActionLabel** definition for an **Action**."
         };
     }
 
@@ -5539,7 +5539,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "CreateObject";
             tags: ["Objects"]
-            description: "Creates a reference URI value in the Dynizer which is needed to upload a large value of type *TEXT*, *CLOB*, *BLOB* or *DOCUMENT*.<br>*TEXT* is the DataType which will get indexed by the **FullTextIndex** if enabled.<br>*CLOB* is a charatecr LOB, unindexed large string<br>*BLOB* is a binary LOB, unindexed bytes<br>*DOCUMENT* is the JSON structured output of document analysis."
+            description: "Create an object reference used to store large values of type *TEXT*, *CLOB*, *BLOB*, or *DOCUMENT*.<br>*TEXT* is indexed by **FullTextIndex** if enabled; *CLOB* is an unindexed character LOB; *BLOB* is an unindexed binary LOB; *DOCUMENT* holds JSON document analysis output."
         };
     }
 
@@ -5551,7 +5551,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "ClearObjectData";
             tags: ["Objects"];
-            description: "This clears the content of the referenced large object block."
+            description: "Clear the content of a referenced large-object block while keeping the reference."
         };
     }
 
@@ -5563,7 +5563,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "DeleteObject";
             tags: ["Objects"]
-            description: "This deletes the referenced large object block."
+            description: "Delete the referenced large-object block and its stored data."
         };
     }
 
@@ -5585,7 +5585,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "UploadObjectData";
             tags: ["Objects"]
-            description: "Uploads data to a large object block."
+            description: "Upload data to a large-object block referenced by `object_ref`."
         };
     }
 
@@ -5597,7 +5597,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "DownloadObjectData";
             tags: ["Objects"]
-            description: "Downloads data from a large object block.";
+            description: "Download data from a large-object block referenced by `object_ref`.";
         };
     }
 
@@ -5609,7 +5609,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "ListObjectUUIDS";
             tags: ["Objects"]
-            description:"Returns a list of all **Object** UUIDs."
+            description:"List all **Object** reference UUIDs."
         };
     }
 
@@ -5621,7 +5621,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "DeleteAllObjects";
             tags: ["Objects"]
-            description: "Deletes all large object blocks."
+            description: "Delete all large-object blocks and their data."
         };
     }
 
@@ -5634,7 +5634,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "CreateInstance";
             tags: ["Instances"]
-            description: "Creates a new **Instance** with values.<br>Each used **ActionLabel** can support as many values as supported in the definition.<br>For each value the **DataType** can be overwritten from the **ActionLabel** default.<br>In addition is it also possible to add MetaData on all levels (experimental).",
+            description: "Create a new **Instance** with values.<br>Each **ActionLabel** can hold multiple values (per its definition), and each value can override the label's default **DataType**. Optional metadata can be attached at all levels (experimental).",
         };
     }
 
@@ -5649,7 +5649,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "UpdateInstance";
             tags: ["Instances"]
-            description: "Updates an existing **Instance** with values.<br>Only the changed values need to be provided.<br>To remove a value, set the **ActionLabel** datatype to *DT_Delete*.<br>Each used **ActionLabel** can support as many values as supported in the definition.<br>For each value the **DataType** can be overwritten from the **ActionLabel** default.<br>In addition is it also possible to add MetaData on all levels (experimental).",
+            description: "Update an existing **Instance**.<br>Send only changed values; to remove a value, set the **ActionLabel** datatype to *DT_Delete*. Each label supports multiple values (per its definition) and values can override the label's default **DataType**. Metadata can be updated at all levels (experimental).",
         };
     }
 
@@ -5661,7 +5661,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "DeleteInstance";
             tags: ["Instances"]
-            description: "Delete an existing **Instance**. It will only be marked as deleted, but not removed from the persistance layer.",
+            description: "Delete an **Instance** (soft delete marks it as deleted without removing persisted data).",
         };
     }
 
@@ -5673,7 +5673,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "ReadInstance";
             tags: ["Instances"]
-            description: "Reads an **Instance** directly."
+            description: "Fetch an **Instance** by ID."
         };
     }
 
@@ -5686,7 +5686,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "DynizerQuery";
             tags: ["Query"]
-            description: "Sends in a DQL statement.<br>*SELECT* to retrieve instances.<br>INSERT, UPDATE, DELETE, CREATE, DROP, ... are not supported at this point in time."
+            description: "Execute a DQL statement and return the result."
         };
     }
 
@@ -5698,7 +5698,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "QueryResultNext";
             tags: ["Query"]
-            description: "Reads ResultRows from a ResultHandle.<br>By default no rows are returned. A window must be provided to fetch just a specific sub-set of rows."
+            description: "Fetch result rows from a `result_handle` using an optional window for pagination."
         };
     }
 
@@ -5710,7 +5710,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "QueryResultClose";
             tags: ["Query"]
-            description: "Close a ResultHandle.<br>This will free all result cache resources."
+            description: "Close a `result_handle` and free its server-side resources."
         };
     }
 
@@ -5722,7 +5722,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "CheckMetaDataKeyName";
             tags: ["MetaData", "MetaDataKey"]
-            description: "Checks a string if it can be used as a **MetaDataKey** name."
+            description: "Validate whether a string can be used as a **MetaDataKey** name."
         };
     }
 
@@ -5735,7 +5735,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "CreateMetaDataKey";
             tags: ["MetaData", "MetaDataKey"]
-            description: "Create a **MetaDataKey** definition.<br>This is an **experimental** feature and it's implementation and API might change in a minor update."
+            description: "Create a **MetaDataKey** definition.<br>Experimental: interface may change in a minor update."
         };
     }
 
@@ -5747,7 +5747,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "ReadMetaDataKey";
             tags: ["MetaData", "MetaDataKey"]
-            description: "Reads the **MetaDataKey** definition<br>This is an **experimental** feature and it's implementation and API might change in a minor update."
+            description: "Read a **MetaDataKey** definition.<br>Experimental: interface may change in a minor update."
         };
     }
 
@@ -5760,7 +5760,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "UpdateMetaDataKey";
             tags: ["MetaData", "MetaDataKey"]
-            description: "Updates the **MetaDataKey**. The *name* of the **MetaDataKey** can be changed.<br>The default DataType can be changed.<br>The max occurrence can be changed.<br>The list of alternative DataTypes can be adapted as well.<br>If an update to the **MetaDataKey** should lead to a violation of any MetaDataKey - value, and error is raised.<br>This is an **experimental** feature and it's implementation and API might change in a minor update."
+            description: "Update a **MetaDataKey** (name, default DataType, max occurrence, alternative DataTypes).<br>Raises an error if existing metadata would violate the new definition.<br>Experimental: interface may change in a minor update."
         };
     }
 
@@ -5772,7 +5772,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "DeleteMetaDataKey";
             tags: ["MetaData", "MetaDataKey"]
-            description: "Deletes a **MetaDataKey**.<br>If *cascade* is set to true, all usages of the **MetaDataKey** are deleted as well.<br>This is an **experimental** feature and it's implementation and API might change in a minor update."
+            description: "Delete a **MetaDataKey**.<br>If `cascade=true`, all usages of the key are removed as well.<br>Experimental: interface may change in a minor update."
         };
     }
 
@@ -5784,7 +5784,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "CountMetaDataKeys";
             tags: ["MetaData", "MetaDataKey"]
-            description: "Returns the number of MetaDataKeys in the Dynizer.<br>This is an **experimental** feature and it's implementation and API might change in a minor update."
+            description: "Count **MetaDataKeys** in the Dynizer.<br>Experimental: interface may change in a minor update."
         };
     }
 
@@ -5796,7 +5796,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "ListMetaDataKeys";
             tags: ["MetaData", "MetaDataKey"]
-            description: "Lists all MetaDataKeys in the Dynizer.<br>By default all rows are returned. Optionally a window can be provided to fetch just a specific sub-set of rows to support pagination.<br>This is an **experimental** feature and it's implementation and API might change in a minor update."
+            description: "List **MetaDataKeys** with optional pagination window.<br>Experimental: interface may change in a minor update."
         };
     }
 
@@ -5809,7 +5809,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "AddInstanceMetaData";
             tags: ["MetaData", "Instances MetaData"]
-            description: "Adds a **MetaDataKey** and its values to an **Instance**.<br>This is an **experimental** feature and it's implementation and API might change in a minor update."
+            description: "Add a **MetaDataKey** and values to an **Instance**.<br>Experimental: interface may change in a minor update."
         };
     }
 
@@ -5821,7 +5821,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "RemoveInstanceMetaData";
             tags: ["MetaData", "Instances MetaData"]
-            description: "Removes a **MetaDataKey** and *all* its values from an **Instance**.<br>This is an **experimental** feature and it's implementation and API might change in a minor update."
+            description: "Remove a **MetaDataKey** and all its values from an **Instance**.<br>Experimental: interface may change in a minor update."
         };
     }
 
@@ -5834,7 +5834,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "AddInstanceMetaDataValue";
             tags: ["MetaData", "Instances MetaData"]
-            description: "Adds an additional value to the values of a particular **MetaDataKey** linked to an **Instance*.<br>If the value should already be in the array of values, an error is returned.<br>This is an **experimental** feature and it's implementation and API might change in a minor update."
+            description: "Add another value to a **MetaDataKey** on an **Instance**.<br>Fails if the value already exists. Experimental: interface may change in a minor update."
         };
     }
 
@@ -5846,7 +5846,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "RemoveInstanceMetaDataValue";
             tags: ["MetaData", "Instances MetaData"]
-            description: "Removes an existing value from the values of a particular **MetaDataKey** linked to an **Instance*.<br>If the value is not in the array of values, an error is returned.<br>This is an **experimental** feature and it's implementation and API might change in a minor update."
+            description: "Remove a value from a **MetaDataKey** on an **Instance**.<br>Fails if the value is not present. Experimental: interface may change in a minor update."
         };
     }
 
@@ -5858,7 +5858,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "GetInstanceMetaDataValues";
             tags: ["MetaData", "Instances MetaData"]
-            description: "Returns all the values for the given **MetaDataKey** linked to the give **Instance**.<br>This is an **experimental** feature and it's implementation and API might change in a minor update."
+            description: "Return all values for a given **MetaDataKey** on an **Instance**.<br>Experimental: interface may change in a minor update."
         };
     }
 
@@ -5870,7 +5870,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "CountInstanceMetaDataKeys";
             tags: ["MetaData", "Instances MetaData"]
-            description: "Returns the number of **MetaDataKeys** which are associated with the **Instance**.<br>This is an **experimental** feature and it's implementation and API might change in a minor update."
+            description: "Count **MetaDataKeys** attached to an **Instance**.<br>Experimental: interface may change in a minor update."
         };
     }
 
@@ -5882,7 +5882,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "CountInstanceMetaDataKeyValues";
             tags: ["MetaData", "Instances MetaData"]
-            description: "Returns the number of values set for a given **MetaDataKey** of the **Instance**.<br>This is an **experimental** feature and it's implementation and API might change in a minor update."
+            description: "Count values set for a **MetaDataKey** on an **Instance**.<br>Experimental: interface may change in a minor update."
         };
     }
 
@@ -5894,7 +5894,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "ListInstanceMetaData";
             tags: ["MetaData", "Instances MetaData"]
-            description: "Returns all **MetaDataKeys** linked to an **Instance** with all set values.<br>This is an **experimental** feature and it's implementation and API might change in a minor update."
+            description: "List **MetaDataKeys** linked to an **Instance** with their values.<br>Experimental: interface may change in a minor update."
         };
     }
 
@@ -5907,7 +5907,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "AddInstanceActionLabelMetaData";
             tags: ["MetaData", "Instances ActionLabels MetaData"]
-            description: "Adds a **MetaDataKey** and its values to all **InstanceCells** under the **ActionLabel**.<br>This is an **experimental** feature and it's implementation and API might change in a minor update."
+            description: "Add a **MetaDataKey** and values to all **InstanceCells** under an **ActionLabel**.<br>Experimental: interface may change in a minor update."
         };
     }
 
@@ -5919,7 +5919,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "RemoveInstanceActionLabelMetaData";
             tags: ["MetaData", "Instances ActionLabels MetaData"]
-            description: "Removes a **MetaDataKey** and *all* its values from all the **InstanceCells** under the **ActionLabel**.<br>This is an **experimental** feature and it's implementation and API might change in a minor update."
+            description: "Remove a **MetaDataKey** and all its values from all **InstanceCells** under an **ActionLabel**.<br>Experimental: interface may change in a minor update."
         };
     }
 
@@ -5932,7 +5932,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "AddInstanceActionLabelMetaDataValue";
             tags: ["MetaData", "Instances ActionLabels MetaData"]
-            description: "Adds an additional value to the values of a particular **MetaDataKey** linked to all **InstanceCells* under the **ActionLabel**.<br>If the value should already be in the array of values, an error is returned.<br>This is an **experimental** feature and it's implementation and API might change in a minor update."
+            description: "Add another value to a **MetaDataKey** across all **InstanceCells** under an **ActionLabel**.<br>Fails if the value already exists. Experimental: interface may change in a minor update."
         };
     }
 
@@ -5944,7 +5944,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "RemoveInstanceActionLabelMetaDataValue";
             tags: ["MetaData", "Instances ActionLabels MetaData"]
-            description: "Removes an existing value from the values of a particular **MetaDataKey** linked to all **InstanceCells* under the **ActionLabel**.<br>If the value is not in the array of values, an error is returned.<br>This is an **experimental** feature and it's implementation and API might change in a minor update."
+            description: "Remove a value from a **MetaDataKey** across all **InstanceCells** under an **ActionLabel**.<br>Fails if the value is not present. Experimental: interface may change in a minor update."
         };
     }
 
@@ -5957,7 +5957,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "AddInstanceCellMetaData";
             tags: ["MetaData", "Instances Cells MetaData"]
-            description: "Adds a **MetaDataKey** and its values to an **InstanceCell**.<br>This is an **experimental** feature and it's implementation and API might change in a minor update."
+            description: "Add a **MetaDataKey** and values to a specific **InstanceCell**.<br>Experimental: interface may change in a minor update."
         };
     }
 
@@ -5969,7 +5969,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "RemoveInstanceCellMetaData";
             tags: ["MetaData", "Instances Cells MetaData"]
-            description: "Removes a **MetaDataKey** and *all* its values from an **InstanceCell**.<br>This is an **experimental** feature and it's implementation and API might change in a minor update."
+            description: "Remove a **MetaDataKey** and all its values from a specific **InstanceCell**.<br>Experimental: interface may change in a minor update."
         };
     }
 
@@ -5982,7 +5982,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "AddInstanceCellMetaDataValue";
             tags: ["MetaData", "Instances Cells MetaData"]
-            description: "Adds an additional value to the values of a particular **MetaDataKey** linked to an **InstanceCell*.<br>If the value should already be in the array of values, an error is returned.<br>This is an **experimental** feature and it's implementation and API might change in a minor update."
+            description: "Add another value to a **MetaDataKey** on a specific **InstanceCell**.<br>Fails if the value already exists. Experimental: interface may change in a minor update."
         };
     }
 
@@ -5994,7 +5994,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "RemoveInstanceCellMetaDataValue";
             tags: ["MetaData", "Instances Cells MetaData"]
-            description: "Removes an existing value from the values of a particular **MetaDataKey** linked to an **InstanceCell*.<br>If the value is not in the array of values, an error is returned. The value is case sensitive."
+            description: "Remove a value from a **MetaDataKey** on a specific **InstanceCell**.<br>Fails if the value is not present (case sensitive). Experimental: interface may change in a minor update."
         };
     }
 
@@ -6006,7 +6006,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "GetInstanceCellMetaDataValues";
             tags: ["MetaData", "Instances Cells MetaData"]
-            description: "Returns all the values for the given **MetaDataKey** linked to the given **InstanceCell**.<br>This is an **experimental** feature and it's implementation and API might change in a minor update."
+            description: "Return all values for a **MetaDataKey** on a specific **InstanceCell**.<br>Experimental: interface may change in a minor update."
         };
     }
 
@@ -6018,7 +6018,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "CountInstanceCellMetaDataKeys";
             tags: ["MetaData", "Instances Cells MetaData"]
-            description: "Returns the number of **MetaDataKeys** which are associated with the **InstanceCell**.<br>This is an **experimental** feature and it's implementation and API might change in a minor update."
+            description: "Count **MetaDataKeys** associated with a specific **InstanceCell**.<br>Experimental: interface may change in a minor update."
         };
     }
 
@@ -6030,7 +6030,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "CountInstanceCellMetaDataKeyValues";
             tags: ["MetaData", "Instances Cells MetaData"]
-            description: "Returns the number of values set for a given **MetaDataKey** of the **InstanceCell**.<br>This is an **experimental** feature and it's implementation and API might change in a minor update."
+            description: "Count values set for a **MetaDataKey** on a specific **InstanceCell**.<br>Experimental: interface may change in a minor update."
         };
     }
 
@@ -6042,7 +6042,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "ListInstanceCellMetaData";
             tags: ["MetaData", "Instances Cells MetaData"]
-            description: "Returns all **MetaDataKeys** linked to an **Instance** with all set values.<br>This is an **experimental** feature and it's implementation and API might change in a minor update."
+            description: "List **MetaDataKeys** and values attached to a specific **InstanceCell**.<br>Experimental: interface may change in a minor update."
         };
     }
 
@@ -6053,7 +6053,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "GetDynizerConfiguration";
             tags: ["Config"]
-            description: "Returns all **Dynizer** configuration values as key::value pairs.<br>All security related configurations will be omitted from the config."
+            description: "Return **Dynizer** configuration as key/value pairs.<br>Security-sensitive settings are omitted."
         };
     }
 
@@ -6065,7 +6065,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "ExportUserActions";
             tags: ["SystemMntg"]
-            description: "Exports all **Actions**."
+            description: "Export all **Actions**."
         };
     }
 
@@ -6077,7 +6077,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "ImportUserActions";
             tags: ["SystemMntg"]
-            description: "Imports **Actions**."
+            description: "Import **Actions**."
         };
     }
 
@@ -6088,7 +6088,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "DropData";
             tags: ["SystemMntg"]
-            description: "Drops **all data**. **Attention:** This is an **irreversible** operation!"
+            description: "Drop **all data**. **Irreversible** operation; use with extreme caution."
         };
     }
 
@@ -6100,7 +6100,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "GetDynizerVersion";
             tags: ["SystemMntg"]
-            description: "Get the version of the **Dynizer**."
+            description: "Get the current **Dynizer** version."
         };
     }
 
@@ -6113,7 +6113,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "QueryDataElements";
             tags: ["DataElements"]
-            description: "This can be used to query **DataElements** by with contains and **DataType**.<br>Optional filter possibilities.<br>This is an **experimental** feature and it's implementation and API might change in a minor update.",
+            description: "Query **DataElements** by partial match and **DataType** with optional filters.<br>Experimental: interface may change in a minor update.",
         };
     }
 
@@ -6126,7 +6126,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "GetTopNDataElements";
             tags: ["DataElements"]
-            description: "This can be used to fetch the top N **DataElements** used in **Instances**<br>Optional filter possibilities.<br>This is an **experimental** feature and it's implementation and API might change in a minor update.",
+            description: "Fetch the top N **DataElements** used in **Instances**, with optional filters.<br>Experimental: interface may change in a minor update.",
         };
     }
 
@@ -6139,7 +6139,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "DynizerFilteredQuery";
             tags: ["Query"]
-            description: "Sends in a filtered statement to retrieve **Instances**.<br>This is an **experimental** feature and it's implementation and API might change in a minor update."
+            description: "Execute a filtered statement to retrieve **Instances**.<br>Experimental: interface may change in a minor update."
         };
     }
 
@@ -6151,7 +6151,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "ReIndex";
             tags: ["Maintenance"]
-            description: "Starts the rebuild of an index."
+            description: "Trigger a rebuild of the specified index."
         };
     }
 
@@ -6164,7 +6164,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "DynizerFilteredPlot";
             tags: ["Plots"]
-            description: "Sends in a filtered statement to retrieve plot data json.<br>This is an **experimental** feature and it's implementation and API might change in a minor update."
+            description: "Execute a filtered statement to retrieve plot data JSON.<br>Experimental: interface may change in a minor update."
         };
     }
 
@@ -6177,7 +6177,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "CreateShareName";
             tags: ["ShareName"]
-            description: "Creates a new **ShareName**."
+            description: "Create a new **ShareName**."
         };
     }
 
@@ -6190,7 +6190,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "UpdateShareNameValue";
             tags: ["ShareName"]
-            description: "Updates a new Value for an existing **ShareName**."
+            description: "Update the value stored under an existing **ShareName**."
         };
     }
 
@@ -6203,7 +6203,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "DeleteShareNameValue";
             tags: ["ShareName"]
-            description: "Deletes a Value for an existing **ShareName**."
+            description: "Delete the value stored under an existing **ShareName**."
         };
     }
 
@@ -6216,7 +6216,7 @@ service Dynizer {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             operation_id: "SimpleQuery";
             tags: ["Query"]
-            description: "Sends in a DQL statement, executes it and returns the result.<br>This is part of the new experimental query engine in development but can be used for the current engine as well.<br>To change the query engine, set the session variable 'query_v3_session to *true*."
+            description: "Execute a DQL statement and return results immediately.<br>Part of the experimental query engine, but also compatible with the current engine. To enable the experimental engine, set session variable `query_v3_session=true`."
         };
   }
 
@@ -6229,7 +6229,7 @@ service Dynizer {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       operation_id: "QueryParse";
       tags: ["Query"]
-      description: "Parses a DQL statement.<br>This is part of the new experimental query engine in development but can be used for the current engine as well.<br>To change the query engine, set the session variable 'query_v3_session to *true*."
+      description: "Parse a DQL statement in the session.<br>Part of the experimental query engine; enable it with session variable `query_v3_session=true`."
     };
   }
 
@@ -6242,7 +6242,7 @@ service Dynizer {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       operation_id: "QueryBind";
       tags: ["Query"]
-      description: "Binds parameters to a parsed DQL statement.<br>This is part of the new experimental query engine in development but can be used for the current engine as well.<br>To change the query engine, set the session variable 'query_v3_session to *true*."
+      description: "Bind parameters to a parsed DQL statement.<br>Part of the experimental query engine; enable it with session variable `query_v3_session=true`."
     };
   }
 
@@ -6255,7 +6255,7 @@ service Dynizer {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       operation_id: "QueryDescribeStatement";
       tags: ["Query"]
-      description: "Fetches the ResultLabels for the parsed DQL statement.<br>This is part of the new experimental query engine in development but can be used for the current engine as well.<br>To change the query engine, set the session variable 'query_v3_session to *true*."
+      description: "Return ResultLabels for a parsed DQL statement.<br>Part of the experimental query engine; enable it with session variable `query_v3_session=true`."
     };
   }
 
@@ -6268,7 +6268,7 @@ service Dynizer {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       operation_id: "QueryDescribePortal";
       tags: ["Query"]
-      description: "Fetches the ResultLabels for the parsed DQL statement and bound parameters.<br>This is part of the new experimental query engine in development but can be used for the current engine as well.<br>To change the query engine, set the session variable 'query_v3_session to *true*."
+      description: "Return ResultLabels for a parsed DQL statement and its bound parameters.<br>Part of the experimental query engine; enable it with session variable `query_v3_session=true`."
     };
   }
 
@@ -6281,7 +6281,7 @@ service Dynizer {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       operation_id: "QueryExecute";
       tags: ["Query"]
-      description: "Executes and fetches the ResultRows for the parsed and bound DQL statement for given window or offset.<br>This is part of the new experimental query engine in development but can be used for the current engine as well.<br>To change the query engine, set the session variable 'query_v3_session to *true*."
+      description: "Execute a parsed and bound DQL statement, returning ResultRows with optional window/offset.<br>Part of the experimental query engine; enable it with session variable `query_v3_session=true`."
     };
   }
 
@@ -6294,7 +6294,7 @@ service Dynizer {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       operation_id: "QueryClose";
       tags: ["Query"]
-      description: "Closes a DQL statement.<br>This is part of the new experimental query engine in development but can be used for the current engine as well.<br>To change the query engine, set the session variable 'query_v3_session to *true*."
+      description: "Close and clean up parsed/bound DQL statements.<br>Part of the experimental query engine; enable it with session variable `query_v3_session=true`."
     };
   }
 
@@ -6304,10 +6304,10 @@ service Dynizer {
       post: "/api/v2/find_actionlabel_links"
       body: "*"
     };
-    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      operation_id: "FindActionLabelLinks";
-      tags: ["Actions"]
-      description: "Finds the **ActionLabels** with shared dataelements within a set of **Actions**."
-    };
-  }
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            operation_id: "FindActionLabelLinks";
+            tags: ["Actions"]
+            description: "Find **ActionLabels** that share data elements across a set of **Actions**."
+        };
+      }
 }

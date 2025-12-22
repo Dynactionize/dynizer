@@ -1,7 +1,7 @@
 swagger: "2.0"
 info:
   title: Dynizer API
-  description: This is the [Dynizer API](https://www.consono.ai/technology)
+  description: Public API for the Dynizer knowledge engine.<br>All endpoints are under `/api/v2`, secured with JWT unless stated otherwise.<br>See the [Dynizer overview](https://www.consono.ai/technology) for architecture details.
   version: "2.2"
   contact:
     name: Consono
@@ -26,7 +26,7 @@ paths:
   /api/v2/actions:
     post:
       summary: Create Action
-      description: Creates an **Action** with the provided name.<br>The name needs to be unique, the CheckActionName call can be used to verify this.<br>The name can not start or end with a whitespace character.<br>The name can not contain any control characters at any position.
+      description: Create an **Action** with the provided name.<br>Names must be unique, trimmed, and free of control characters. Use `CheckActionName` to validate availability.
       operationId: CreateAction
       responses:
         "200":
@@ -65,7 +65,7 @@ paths:
   /api/v2/actions/{action_name}:
     get:
       summary: Read Action
-      description: Reads an **Action** definition with all **ActionLabels**.
+      description: Fetch an **Action** definition including its **ActionLabels**.
       operationId: ReadAction
       responses:
         "200":
@@ -94,7 +94,7 @@ paths:
         - Actions
     delete:
       summary: Delete Action
-      description: An **Action** can only be deleted if no **Instances** are attached.<br>If the **Action** has **Instances** attached and *cascade* is not set to *true* an error is returned.<br>The *cascade* flag can be used to mark the **Action** and all its **Instances** as deleted.
+      description: Delete an **Action**.<br>Fails if **Instances** exist unless `cascade=true`, which marks the action and its instances as deleted.
       operationId: DeleteAction
       responses:
         "200":
@@ -128,7 +128,7 @@ paths:
         - Actions
     patch:
       summary: Update Action
-      description: Updates an **Action**, at the moment this is only the name.<br>The new_name needs to be unique.<br>The *new_name* can not start or end with a whitespace character.<br>The *new_name* can not contain any control characters at any position
+      description: Rename an **Action**.<br>Names must be unique, trimmed, and free of control characters.
       operationId: UpdateAction
       responses:
         "200":
@@ -164,7 +164,7 @@ paths:
   /api/v2/actions/{action_name}/actionlabels:
     post:
       summary: Add ActionLabel
-      description: Adds an **ActionLabel** to an existing **Action**.<br>Use the CheckActionLabelName call to verify that the ActionLabel name can be added.
+      description: Add an **ActionLabel** to an existing **Action**.<br>Use `CheckActionLabelName` first to validate the name.
       operationId: AddActionLabel
       responses:
         "200":
@@ -234,7 +234,7 @@ paths:
   /api/v2/actions/{action_name}/actionlabels/{action_label}:
     get:
       summary: Read ActionLabel
-      description: Reads an **ActionLabel** definition.
+      description: Fetch an **ActionLabel** definition for an **Action**.
       operationId: ReadActionLabel
       responses:
         "200":
@@ -268,7 +268,7 @@ paths:
         - Actions
     delete:
       summary: Delete ActionLabel
-      description: Delete an **ActionLabel**. This will prevent any new **Instances** with the **ActionLabel** to be created.<br>Existing values from already created **Instances** will be removed.
+      description: 'Delete an **ActionLabel**: prevents future use and removes existing values from **Instances**.'
       operationId: DeleteActionLabel
       responses:
         "200":
@@ -302,7 +302,7 @@ paths:
         - Actions
     put:
       summary: Update ActionLabel
-      description: Updates an **ActionLabel** for an **Action**.<br>If the *cascade* flag is set to true, all **Instances** for the **Action** which would violate the **ActionLabel** definition will get marked as deleted.
+      description: Update an **ActionLabel** definition.<br>If `cascade=true`, **Instances** violating the new definition are marked as deleted.
       operationId: UpdateActionLabel
       responses:
         "200":
@@ -372,7 +372,7 @@ paths:
   /api/v2/actions/types/{action_type_label}/count:
     get:
       summary: Count Actions
-      description: Returns the total number of **Actions**.
+      description: Return the total number of **Actions** for a given **ActionType**.
       operationId: CountActions
       responses:
         "200":
@@ -402,7 +402,7 @@ paths:
   /api/v2/actions/types/{action_type_label}/names/all:
     get:
       summary: List Action Names
-      description: Returns a list of **Action** names.<br>By default all rows are returned. Optionally a window can be provided to fetch just a specific sub-set of rows to support pagination.
+      description: List **Action** names for a given **ActionType** with optional pagination window.
       operationId: ListActionNames
       responses:
         "200":
@@ -475,7 +475,7 @@ paths:
   /api/v2/actionschemas:
     get:
       summary: List ActionSchemas
-      description: Returns a list of **ActionSchemas**.<br>By default all rows are returned. Optionally a window can be provided to fetch just a specific sub-set of rows to support pagination.
+      description: List **ActionSchemas** with optional pagination window.
       operationId: ListActionSchemas
       responses:
         "200":
@@ -516,7 +516,7 @@ paths:
         - ActionSchemas
     post:
       summary: Create ActionSchema
-      description: Creates a new **ActionSchema**.
+      description: Create a new **ActionSchema** including its labels and data types.
       operationId: CreateActionSchema
       responses:
         "200":
@@ -576,7 +576,7 @@ paths:
         - ActionSchemas
     delete:
       summary: Delete ActionSchema
-      description: A **ActionSchema** can only be deleted if no **Actions** are defined.<br>If the **ActionSchema** has **Actions** and *cascade* is not set to *true* and Error will be returned.<br>The *cascade* flag can be used to mark the **Actions** and all its **Instances** as deleted.
+      description: Delete an **ActionSchema**.<br>Fails if **Actions** exist unless `cascade=true`, which marks those actions and instances as deleted.
       operationId: DeleteActionSchema
       responses:
         "200":
@@ -610,7 +610,7 @@ paths:
         - ActionSchemas
     patch:
       summary: Update ActionSchema
-      description: Updates a **ActionSchema**, at the moment this is only the name.<br>The new_name needs to be unique.<br>The *new_name* can not start or end with a whitespace character.<br>The *new_name* can not contain any control characters at any position
+      description: Rename an **ActionSchema**.<br>Names must be unique, trimmed, and free of control characters.
       operationId: UpdateActionSchema
       responses:
         "200":
@@ -655,7 +655,7 @@ paths:
       summary: |-
         List Action Types
         Deprecated: Use `ListActionSchemas` instead.
-      description: Returns a list of **ActionTypes**.<br>By default all rows are returned. Optionally a window can be provided to fetch just a specific sub-set of rows to support pagination.
+      description: List **ActionTypes** with optional pagination (deprecated; use `ListActionSchemas`).
       operationId: ListActionTypes
       responses:
         "200":
@@ -698,7 +698,7 @@ paths:
       summary: |-
         Create ActionType
         Deprecated: Use `CreateActionSchema` instead.
-      description: Creates a new **ActionType**.
+      description: Create a new **ActionType** (deprecated in favor of **ActionSchema**).
       operationId: CreateActionType
       responses:
         "200":
@@ -731,7 +731,7 @@ paths:
       summary: |-
         Read ActionType
         Deprecated: Use `ReadActionSchema` instead.
-      description: Reads an **ActionType** definition with all **ActionLabels**.
+      description: Fetch an **ActionType** definition with its **ActionLabels** (deprecated).
       operationId: ReadActionType
       responses:
         "200":
@@ -762,7 +762,7 @@ paths:
       summary: |-
         Update ActionType
         Deprecated: Use `UpdateActionSchema` instead.
-      description: Updates a **ActionType**, at the moment this is only the name.<br>The new_name needs to be unique.<br>The *new_name* can not start or end with a whitespace character.<br>The *new_name* can not contain any control characters at any position
+      description: Rename an **ActionType** (deprecated).<br>Names must be unique, trimmed, and free of control characters.
       operationId: UpdateActionType
       responses:
         "200":
@@ -798,7 +798,7 @@ paths:
   /api/v2/check/actions/{action_name}:
     get:
       summary: Check Action Name
-      description: Verifies if the **Action** name is unique and only uses supported characters.
+      description: Validate whether an **Action** name is unique and uses only supported characters.
       operationId: CheckActionName
       responses:
         "200":
@@ -836,7 +836,7 @@ paths:
   /api/v2/check/actions/{action_name}/actionlabels/{action_label}:
     get:
       summary: Check ActionLabel Name
-      description: Checks if a string can be used as an **ActionLabel** name.
+      description: Validate whether a string is an allowed, available **ActionLabel** name for the **Action**.
       operationId: CheckActionLabelName
       responses:
         "200":
@@ -871,7 +871,7 @@ paths:
   /api/v2/check/metadata/keys/{key_name}:
     get:
       summary: Check MetaDataKey Name
-      description: Checks a string if it can be used as a **MetaDataKey** name.
+      description: Validate whether a string can be used as a **MetaDataKey** name.
       operationId: CheckMetaDataKeyName
       responses:
         "200":
@@ -902,7 +902,7 @@ paths:
   /api/v2/check/password:
     post:
       summary: Check Password
-      description: Checks if the password can be used, and returns a score of it's strength.
+      description: Validate password strength and policy compliance, returning a score.
       operationId: CheckPassword
       responses:
         "200":
@@ -933,7 +933,7 @@ paths:
   /api/v2/check/user/{user}:
     get:
       summary: Check User Name
-      description: Checks if the user name can be used.
+      description: Validate whether a user name is available and conforms to naming rules.
       operationId: CheckUserName
       responses:
         "200":
@@ -962,7 +962,7 @@ paths:
         - Users
   /api/v2/config:
     get:
-      description: Returns all **Dynizer** configuration values as key::value pairs.<br>All security related configurations will be omitted from the config.
+      description: Return **Dynizer** configuration as key/value pairs.<br>Security-sensitive settings are omitted.
       operationId: GetDynizerConfiguration
       responses:
         "200":
@@ -986,7 +986,7 @@ paths:
   /api/v2/dataelements/query/contains:
     post:
       summary: Query DataElements Contains
-      description: This can be used to query **DataElements** by with contains and **DataType**.<br>Optional filter possibilities.<br>This is an **experimental** feature and it's implementation and API might change in a minor update.
+      description: 'Query **DataElements** by partial match and **DataType** with optional filters.<br>Experimental: interface may change in a minor update.'
       operationId: QueryDataElements
       responses:
         "200":
@@ -1017,7 +1017,7 @@ paths:
   /api/v2/dataelements/top:
     post:
       summary: Query DataElements TopN
-      description: This can be used to fetch the top N **DataElements** used in **Instances**<br>Optional filter possibilities.<br>This is an **experimental** feature and it's implementation and API might change in a minor update.
+      description: 'Fetch the top N **DataElements** used in **Instances**, with optional filters.<br>Experimental: interface may change in a minor update.'
       operationId: GetTopNDataElements
       responses:
         "200":
@@ -1048,7 +1048,7 @@ paths:
   /api/v2/find_actionlabel_links:
     post:
       summary: Finds the actionlabels with shared dataelements within a set of actions
-      description: Finds the **ActionLabels** with shared dataelements within a set of **Actions**.
+      description: Find **ActionLabels** that share data elements across a set of **Actions**.
       operationId: FindActionLabelLinks
       responses:
         "200":
@@ -1079,7 +1079,7 @@ paths:
   /api/v2/instances:
     post:
       summary: Create Instance
-      description: Creates a new **Instance** with values.<br>Each used **ActionLabel** can support as many values as supported in the definition.<br>For each value the **DataType** can be overwritten from the **ActionLabel** default.<br>In addition is it also possible to add MetaData on all levels (experimental).
+      description: Create a new **Instance** with values.<br>Each **ActionLabel** can hold multiple values (per its definition), and each value can override the label's default **DataType**. Optional metadata can be attached at all levels (experimental).
       operationId: CreateInstance
       responses:
         "200":
@@ -1110,7 +1110,7 @@ paths:
   /api/v2/instances/{instance_id}:
     get:
       summary: Read Instance
-      description: Reads an **Instance** directly.
+      description: Fetch an **Instance** by ID.
       operationId: ReadInstance
       responses:
         "200":
@@ -1139,7 +1139,7 @@ paths:
         - Instances
     delete:
       summary: Delete Instance
-      description: Delete an existing **Instance**. It will only be marked as deleted, but not removed from the persistance layer.
+      description: Delete an **Instance** (soft delete marks it as deleted without removing persisted data).
       operationId: DeleteInstance
       responses:
         "200":
@@ -1168,7 +1168,7 @@ paths:
         - Instances
     patch:
       summary: Update Instance
-      description: Updates an existing **Instance** with values.<br>Only the changed values need to be provided.<br>To remove a value, set the **ActionLabel** datatype to *DT_Delete*.<br>Each used **ActionLabel** can support as many values as supported in the definition.<br>For each value the **DataType** can be overwritten from the **ActionLabel** default.<br>In addition is it also possible to add MetaData on all levels (experimental).
+      description: Update an existing **Instance**.<br>Send only changed values; to remove a value, set the **ActionLabel** datatype to *DT_Delete*. Each label supports multiple values (per its definition) and values can override the label's default **DataType**. Metadata can be updated at all levels (experimental).
       operationId: UpdateInstance
       responses:
         "200":
@@ -1213,7 +1213,7 @@ paths:
   /api/v2/jwt/{token}/validate:
     get:
       summary: Validate Token
-      description: Validates the security token
+      description: Validates a JWT and returns the associated session identifier when valid.
       operationId: ValidateToken
       responses:
         "200":
@@ -1234,7 +1234,7 @@ paths:
             $ref: '#/definitions/rpcStatus'
       parameters:
         - name: token
-          description: Is the [JSON Web Token (JWT)](https://jwt.io), which will be verified.
+          description: The [JSON Web Token (JWT)](https://jwt.io) to verify.
           in: path
           required: true
           type: string
@@ -1244,7 +1244,7 @@ paths:
   /api/v2/login:
     post:
       summary: Login
-      description: To Login to the Dynizer using a password.<br>If the user has access, a [Json Web Token](https://jwt.io/) [(RFC 7519)](https://tools.ietf.org/html/rfc7519) will be returned.
+      description: Authenticate with username and password.<br>On success returns a [JSON Web Token](https://jwt.io/) [(RFC 7519)](https://tools.ietf.org/html/rfc7519) to authorize subsequent calls.
       operationId: Login
       responses:
         "200":
@@ -1276,7 +1276,7 @@ paths:
   /api/v2/logout:
     get:
       summary: Logout
-      description: Logout will clean server side resources.<br>This invalidates the security token as well.
+      description: Ends the current session and clears server-side state.<br>Use when a client is finished with the issued token.
       operationId: Logout
       responses:
         "200":
@@ -1300,7 +1300,7 @@ paths:
   /api/v2/maintenance/index/{index_name}:
     get:
       summary: Dynizer Index rebuild
-      description: Starts the rebuild of an index.
+      description: Trigger a rebuild of the specified index.
       operationId: ReIndex
       responses:
         "200":
@@ -1338,7 +1338,7 @@ paths:
   /api/v2/metadata/instances/{instance_id}:
     post:
       summary: Add Instance MetaData
-      description: Adds a **MetaDataKey** and its values to an **Instance**.<br>This is an **experimental** feature and it's implementation and API might change in a minor update.
+      description: 'Add a **MetaDataKey** and values to an **Instance**.<br>Experimental: interface may change in a minor update.'
       operationId: AddInstanceMetaData
       responses:
         "200":
@@ -1393,7 +1393,7 @@ paths:
   /api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}:
     post:
       summary: Add Instance ActionLabel MetaData
-      description: Adds a **MetaDataKey** and its values to all **InstanceCells** under the **ActionLabel**.<br>This is an **experimental** feature and it's implementation and API might change in a minor update.
+      description: 'Add a **MetaDataKey** and values to all **InstanceCells** under an **ActionLabel**.<br>Experimental: interface may change in a minor update.'
       operationId: AddInstanceActionLabelMetaData
       responses:
         "200":
@@ -1453,7 +1453,7 @@ paths:
   /api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/keys/{key_name}:
     delete:
       summary: Remove Instance ActionLabel MetaData
-      description: Removes a **MetaDataKey** and *all* its values from all the **InstanceCells** under the **ActionLabel**.<br>This is an **experimental** feature and it's implementation and API might change in a minor update.
+      description: 'Remove a **MetaDataKey** and all its values from all **InstanceCells** under an **ActionLabel**.<br>Experimental: interface may change in a minor update.'
       operationId: RemoveInstanceActionLabelMetaData
       responses:
         "200":
@@ -1494,7 +1494,7 @@ paths:
   /api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/keys/{key_name}/values:
     post:
       summary: Add Instance ActionLabel MetaData Value
-      description: Adds an additional value to the values of a particular **MetaDataKey** linked to all **InstanceCells* under the **ActionLabel**.<br>If the value should already be in the array of values, an error is returned.<br>This is an **experimental** feature and it's implementation and API might change in a minor update.
+      description: 'Add another value to a **MetaDataKey** across all **InstanceCells** under an **ActionLabel**.<br>Fails if the value already exists. Experimental: interface may change in a minor update.'
       operationId: AddInstanceActionLabelMetaDataValue
       responses:
         "200":
@@ -1551,7 +1551,7 @@ paths:
   /api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/keys/{key_name}/values/{value}:
     delete:
       summary: Remove Instance ActionLabel MetaData Value
-      description: Removes an existing value from the values of a particular **MetaDataKey** linked to all **InstanceCells* under the **ActionLabel**.<br>If the value is not in the array of values, an error is returned.<br>This is an **experimental** feature and it's implementation and API might change in a minor update.
+      description: 'Remove a value from a **MetaDataKey** across all **InstanceCells** under an **ActionLabel**.<br>Fails if the value is not present. Experimental: interface may change in a minor update.'
       operationId: RemoveInstanceActionLabelMetaDataValue
       responses:
         "200":
@@ -1648,7 +1648,7 @@ paths:
   /api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/position/{value_position}:
     post:
       summary: Add InstanceCell MetaData
-      description: Adds a **MetaDataKey** and its values to an **InstanceCell**.<br>This is an **experimental** feature and it's implementation and API might change in a minor update.
+      description: 'Add a **MetaDataKey** and values to a specific **InstanceCell**.<br>Experimental: interface may change in a minor update.'
       operationId: AddInstanceCellMetaData
       responses:
         "200":
@@ -1714,7 +1714,7 @@ paths:
   /api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/position/{value_position}/keys:
     get:
       summary: List InstanceCell MetaData
-      description: Returns all **MetaDataKeys** linked to an **Instance** with all set values.<br>This is an **experimental** feature and it's implementation and API might change in a minor update.
+      description: 'List **MetaDataKeys** and values attached to a specific **InstanceCell**.<br>Experimental: interface may change in a minor update.'
       operationId: ListInstanceCellMetaData
       responses:
         "200":
@@ -1756,7 +1756,7 @@ paths:
   /api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/position/{value_position}/keys/{key_name}:
     get:
       summary: Get InstanceCell MetaData
-      description: Returns all the values for the given **MetaDataKey** linked to the given **InstanceCell**.<br>This is an **experimental** feature and it's implementation and API might change in a minor update.
+      description: 'Return all values for a **MetaDataKey** on a specific **InstanceCell**.<br>Experimental: interface may change in a minor update.'
       operationId: GetInstanceCellMetaDataValues
       responses:
         "200":
@@ -1802,7 +1802,7 @@ paths:
         - Instances Cells MetaData
     delete:
       summary: Remove InstanceCell MetaData
-      description: Removes a **MetaDataKey** and *all* its values from an **InstanceCell**.<br>This is an **experimental** feature and it's implementation and API might change in a minor update.
+      description: 'Remove a **MetaDataKey** and all its values from a specific **InstanceCell**.<br>Experimental: interface may change in a minor update.'
       operationId: RemoveInstanceCellMetaData
       responses:
         "200":
@@ -1849,7 +1849,7 @@ paths:
   /api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/position/{value_position}/keys/{key_name}/values:
     post:
       summary: Add InstanceCell MetaData Value
-      description: Adds an additional value to the values of a particular **MetaDataKey** linked to an **InstanceCell*.<br>If the value should already be in the array of values, an error is returned.<br>This is an **experimental** feature and it's implementation and API might change in a minor update.
+      description: 'Add another value to a **MetaDataKey** on a specific **InstanceCell**.<br>Fails if the value already exists. Experimental: interface may change in a minor update.'
       operationId: AddInstanceCellMetaDataValue
       responses:
         "200":
@@ -1912,7 +1912,7 @@ paths:
   /api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/position/{value_position}/keys/{key_name}/values/{value}:
     delete:
       summary: Remove InstanceCell MetaData Value
-      description: Removes an existing value from the values of a particular **MetaDataKey** linked to an **InstanceCell*.<br>If the value is not in the array of values, an error is returned. The value is case sensitive.
+      description: 'Remove a value from a **MetaDataKey** on a specific **InstanceCell**.<br>Fails if the value is not present (case sensitive). Experimental: interface may change in a minor update.'
       operationId: RemoveInstanceCellMetaDataValue
       responses:
         "200":
@@ -2015,7 +2015,7 @@ paths:
   /api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/position/{value_position}/keys/{key_name}/values/all/count:
     get:
       summary: Count InstanceCell MetaDataKey Values
-      description: Returns the number of values set for a given **MetaDataKey** of the **InstanceCell**.<br>This is an **experimental** feature and it's implementation and API might change in a minor update.
+      description: 'Count values set for a **MetaDataKey** on a specific **InstanceCell**.<br>Experimental: interface may change in a minor update.'
       operationId: CountInstanceCellMetaDataKeyValues
       responses:
         "200":
@@ -2062,7 +2062,7 @@ paths:
   /api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/position/{value_position}/keys/all/count:
     get:
       summary: Count InstanceCell MetaDataKeys
-      description: Returns the number of **MetaDataKeys** which are associated with the **InstanceCell**.<br>This is an **experimental** feature and it's implementation and API might change in a minor update.
+      description: 'Count **MetaDataKeys** associated with a specific **InstanceCell**.<br>Experimental: interface may change in a minor update.'
       operationId: CountInstanceCellMetaDataKeys
       responses:
         "200":
@@ -2104,7 +2104,7 @@ paths:
   /api/v2/metadata/instances/{instance_id}/keys:
     get:
       summary: List Instance MetaData
-      description: Returns all **MetaDataKeys** linked to an **Instance** with all set values.<br>This is an **experimental** feature and it's implementation and API might change in a minor update.
+      description: 'List **MetaDataKeys** linked to an **Instance** with their values.<br>Experimental: interface may change in a minor update.'
       operationId: ListInstanceMetaData
       responses:
         "200":
@@ -2135,7 +2135,7 @@ paths:
   /api/v2/metadata/instances/{instance_id}/keys/{key_name}:
     get:
       summary: Get Instance MetaData Values
-      description: Returns all the values for the given **MetaDataKey** linked to the give **Instance**.<br>This is an **experimental** feature and it's implementation and API might change in a minor update.
+      description: 'Return all values for a given **MetaDataKey** on an **Instance**.<br>Experimental: interface may change in a minor update.'
       operationId: GetInstanceMetaDataValues
       responses:
         "200":
@@ -2170,7 +2170,7 @@ paths:
         - Instances MetaData
     delete:
       summary: Remove Instance MetaData
-      description: Removes a **MetaDataKey** and *all* its values from an **Instance**.<br>This is an **experimental** feature and it's implementation and API might change in a minor update.
+      description: 'Remove a **MetaDataKey** and all its values from an **Instance**.<br>Experimental: interface may change in a minor update.'
       operationId: RemoveInstanceMetaData
       responses:
         "200":
@@ -2206,7 +2206,7 @@ paths:
   /api/v2/metadata/instances/{instance_id}/keys/{key_name}/values:
     post:
       summary: Add Instance MetaData Value
-      description: Adds an additional value to the values of a particular **MetaDataKey** linked to an **Instance*.<br>If the value should already be in the array of values, an error is returned.<br>This is an **experimental** feature and it's implementation and API might change in a minor update.
+      description: 'Add another value to a **MetaDataKey** on an **Instance**.<br>Fails if the value already exists. Experimental: interface may change in a minor update.'
       operationId: AddInstanceMetaDataValue
       responses:
         "200":
@@ -2258,7 +2258,7 @@ paths:
   /api/v2/metadata/instances/{instance_id}/keys/{key_name}/values/{value}:
     delete:
       summary: Remove Instance MetaData Value
-      description: Removes an existing value from the values of a particular **MetaDataKey** linked to an **Instance*.<br>If the value is not in the array of values, an error is returned.<br>This is an **experimental** feature and it's implementation and API might change in a minor update.
+      description: 'Remove a value from a **MetaDataKey** on an **Instance**.<br>Fails if the value is not present. Experimental: interface may change in a minor update.'
       operationId: RemoveInstanceMetaDataValue
       responses:
         "200":
@@ -2350,7 +2350,7 @@ paths:
   /api/v2/metadata/instances/{instance_id}/keys/{key_name}/values/all/count:
     get:
       summary: Count Instance MetaDataKey Values
-      description: Returns the number of values set for a given **MetaDataKey** of the **Instance**.<br>This is an **experimental** feature and it's implementation and API might change in a minor update.
+      description: 'Count values set for a **MetaDataKey** on an **Instance**.<br>Experimental: interface may change in a minor update.'
       operationId: CountInstanceMetaDataKeyValues
       responses:
         "200":
@@ -2386,7 +2386,7 @@ paths:
   /api/v2/metadata/instances/{instance_id}/keys/all/count:
     get:
       summary: Count Instance MetaDataKeys
-      description: Returns the number of **MetaDataKeys** which are associated with the **Instance**.<br>This is an **experimental** feature and it's implementation and API might change in a minor update.
+      description: 'Count **MetaDataKeys** attached to an **Instance**.<br>Experimental: interface may change in a minor update.'
       operationId: CountInstanceMetaDataKeys
       responses:
         "200":
@@ -2417,7 +2417,7 @@ paths:
   /api/v2/metadata/keys:
     get:
       summary: List MetaDataKeys
-      description: Lists all MetaDataKeys in the Dynizer.<br>By default all rows are returned. Optionally a window can be provided to fetch just a specific sub-set of rows to support pagination.<br>This is an **experimental** feature and it's implementation and API might change in a minor update.
+      description: 'List **MetaDataKeys** with optional pagination window.<br>Experimental: interface may change in a minor update.'
       operationId: ListMetaDataKeys
       responses:
         "200":
@@ -2459,7 +2459,7 @@ paths:
         - MetaDataKey
     post:
       summary: Create MetaDataKey
-      description: Create a **MetaDataKey** definition.<br>This is an **experimental** feature and it's implementation and API might change in a minor update.
+      description: 'Create a **MetaDataKey** definition.<br>Experimental: interface may change in a minor update.'
       operationId: CreateMetaDataKey
       responses:
         "200":
@@ -2491,7 +2491,7 @@ paths:
   /api/v2/metadata/keys/{key_name}:
     get:
       summary: Read MetaDataKey
-      description: Reads the **MetaDataKey** definition<br>This is an **experimental** feature and it's implementation and API might change in a minor update.
+      description: 'Read a **MetaDataKey** definition.<br>Experimental: interface may change in a minor update.'
       operationId: ReadMetaDataKey
       responses:
         "200":
@@ -2521,7 +2521,7 @@ paths:
         - MetaDataKey
     delete:
       summary: Delete MetaDataKey
-      description: Deletes a **MetaDataKey**.<br>If *cascade* is set to true, all usages of the **MetaDataKey** are deleted as well.<br>This is an **experimental** feature and it's implementation and API might change in a minor update.
+      description: 'Delete a **MetaDataKey**.<br>If `cascade=true`, all usages of the key are removed as well.<br>Experimental: interface may change in a minor update.'
       operationId: DeleteMetaDataKey
       responses:
         "200":
@@ -2556,7 +2556,7 @@ paths:
         - MetaDataKey
     patch:
       summary: Update MetaDataKey
-      description: Updates the **MetaDataKey**. The *name* of the **MetaDataKey** can be changed.<br>The default DataType can be changed.<br>The max occurrence can be changed.<br>The list of alternative DataTypes can be adapted as well.<br>If an update to the **MetaDataKey** should lead to a violation of any MetaDataKey - value, and error is raised.<br>This is an **experimental** feature and it's implementation and API might change in a minor update.
+      description: 'Update a **MetaDataKey** (name, default DataType, max occurrence, alternative DataTypes).<br>Raises an error if existing metadata would violate the new definition.<br>Experimental: interface may change in a minor update.'
       operationId: UpdateMetaDataKey
       responses:
         "200":
@@ -2610,7 +2610,7 @@ paths:
   /api/v2/metadata/keys/all/count:
     get:
       summary: Count MetaDataKeys
-      description: Returns the number of MetaDataKeys in the Dynizer.<br>This is an **experimental** feature and it's implementation and API might change in a minor update.
+      description: 'Count **MetaDataKeys** in the Dynizer.<br>Experimental: interface may change in a minor update.'
       operationId: CountMetaDataKeys
       responses:
         "200":
@@ -2635,7 +2635,7 @@ paths:
   /api/v2/my/password:
     put:
       summary: Change My Password
-      description: Can be used by any user to change ones own password.<br>It requires the current password for added security.
+      description: Change the logged-in user's password using the current password for verification.
       operationId: ChangeMyPassword
       responses:
         "200":
@@ -2666,7 +2666,7 @@ paths:
   /api/v2/my/profile:
     get:
       summary: Get My Profile
-      description: Returns the current users information.<br>This includes all roles.
+      description: Retrieve the current user's profile, including assigned roles.
       operationId: GetMyProfile
       responses:
         "200":
@@ -2690,7 +2690,7 @@ paths:
   /api/v2/my/roles:
     get:
       summary: Get My Roles
-      description: Returns the current logged on user's roles.
+      description: List roles assigned to the current authenticated user.
       operationId: GetMyRoles
       responses:
         "200":
@@ -2714,7 +2714,7 @@ paths:
   /api/v2/objects:
     get:
       summary: List Object UUIDs
-      description: Returns a list of all **Object** UUIDs.
+      description: List all **Object** reference UUIDs.
       operationId: ListObjectUUIDS
       responses:
         "200":
@@ -2737,7 +2737,7 @@ paths:
         - Objects
     delete:
       summary: Delete all Objects
-      description: Deletes all large object blocks.
+      description: Delete all large-object blocks and their data.
       operationId: DeleteAllObjects
       responses:
         "200":
@@ -2760,7 +2760,7 @@ paths:
         - Objects
     post:
       summary: Create Object
-      description: Creates a reference URI value in the Dynizer which is needed to upload a large value of type *TEXT*, *CLOB*, *BLOB* or *DOCUMENT*.<br>*TEXT* is the DataType which will get indexed by the **FullTextIndex** if enabled.<br>*CLOB* is a charatecr LOB, unindexed large string<br>*BLOB* is a binary LOB, unindexed bytes<br>*DOCUMENT* is the JSON structured output of document analysis.
+      description: Create an object reference used to store large values of type *TEXT*, *CLOB*, *BLOB*, or *DOCUMENT*.<br>*TEXT* is indexed by **FullTextIndex** if enabled; *CLOB* is an unindexed character LOB; *BLOB* is an unindexed binary LOB; *DOCUMENT* holds JSON document analysis output.
       operationId: CreateObject
       responses:
         "200":
@@ -2790,7 +2790,7 @@ paths:
   /api/v2/objects/{object_ref.type}/{object_ref.ref_uuid}:
     get:
       summary: Download Object Data
-      description: Downloads data from a large object block.
+      description: Download data from a large-object block referenced by `object_ref`.
       operationId: DownloadObjectData
       responses:
         "200":
@@ -2849,7 +2849,7 @@ paths:
         - Objects
     delete:
       summary: Delete Object
-      description: This deletes the referenced large object block.
+      description: Delete the referenced large-object block and its stored data.
       operationId: DeleteObject
       responses:
         "200":
@@ -2908,7 +2908,7 @@ paths:
         - Objects
     post:
       summary: Upload Object Data
-      description: Uploads data to a large object block.
+      description: Upload data to a large-object block referenced by `object_ref`.
       operationId: UploadObjectData
       responses:
         "200":
@@ -2981,7 +2981,7 @@ paths:
         - Objects
     patch:
       summary: Clear Object Data
-      description: This clears the content of the referenced large object block.
+      description: Clear the content of a referenced large-object block while keeping the reference.
       operationId: ClearObjectData
       responses:
         "200":
@@ -3058,7 +3058,7 @@ paths:
   /api/v2/plots/filtered/{top}/{plot_name}:
     post:
       summary: Dynizer Filtered Plot
-      description: Sends in a filtered statement to retrieve plot data json.<br>This is an **experimental** feature and it's implementation and API might change in a minor update.
+      description: 'Execute a filtered statement to retrieve plot data JSON.<br>Experimental: interface may change in a minor update.'
       operationId: DynizerFilteredPlot
       responses:
         "200":
@@ -3121,7 +3121,7 @@ paths:
   /api/v2/query:
     post:
       summary: Dynizer Query
-      description: Sends in a DQL statement.<br>*SELECT* to retrieve instances.<br>INSERT, UPDATE, DELETE, CREATE, DROP, ... are not supported at this point in time.
+      description: Execute a DQL statement and return the result.
       operationId: DynizerQuery
       responses:
         "200":
@@ -3152,7 +3152,7 @@ paths:
   /api/v2/query/{result_handle}/close:
     get:
       summary: QueryResultClose
-      description: Close a ResultHandle.<br>This will free all result cache resources.
+      description: Close a `result_handle` and free its server-side resources.
       operationId: QueryResultClose
       responses:
         "200":
@@ -3192,7 +3192,7 @@ paths:
   /api/v2/query/{result_handle}/next:
     get:
       summary: Query Result Next
-      description: Reads ResultRows from a ResultHandle.<br>By default no rows are returned. A window must be provided to fetch just a specific sub-set of rows.
+      description: Fetch result rows from a `result_handle` using an optional window for pagination.
       operationId: QueryResultNext
       responses:
         "200":
@@ -3239,7 +3239,7 @@ paths:
   /api/v2/query/bind:
     post:
       summary: Binds the parameter to a parsed query
-      description: Binds parameters to a parsed DQL statement.<br>This is part of the new experimental query engine in development but can be used for the current engine as well.<br>To change the query engine, set the session variable 'query_v3_session to *true*.
+      description: Bind parameters to a parsed DQL statement.<br>Part of the experimental query engine; enable it with session variable `query_v3_session=true`.
       operationId: QueryBind
       responses:
         "200":
@@ -3270,7 +3270,7 @@ paths:
   /api/v2/query/close:
     post:
       summary: Closes and cleans parsed and/or bind queries
-      description: Closes a DQL statement.<br>This is part of the new experimental query engine in development but can be used for the current engine as well.<br>To change the query engine, set the session variable 'query_v3_session to *true*.
+      description: Close and clean up parsed/bound DQL statements.<br>Part of the experimental query engine; enable it with session variable `query_v3_session=true`.
       operationId: QueryClose
       responses:
         "200":
@@ -3303,7 +3303,7 @@ paths:
   /api/v2/query/execute:
     post:
       summary: Executes a parsed and bound query
-      description: Executes and fetches the ResultRows for the parsed and bound DQL statement for given window or offset.<br>This is part of the new experimental query engine in development but can be used for the current engine as well.<br>To change the query engine, set the session variable 'query_v3_session to *true*.
+      description: Execute a parsed and bound DQL statement, returning ResultRows with optional window/offset.<br>Part of the experimental query engine; enable it with session variable `query_v3_session=true`.
       operationId: QueryExecute
       responses:
         "200":
@@ -3334,7 +3334,7 @@ paths:
   /api/v2/query/filtered:
     post:
       summary: Dynizer Filtered Query
-      description: Sends in a filtered statement to retrieve **Instances**.<br>This is an **experimental** feature and it's implementation and API might change in a minor update.
+      description: 'Execute a filtered statement to retrieve **Instances**.<br>Experimental: interface may change in a minor update.'
       operationId: DynizerFilteredQuery
       responses:
         "200":
@@ -3365,7 +3365,7 @@ paths:
   /api/v2/query/parse:
     post:
       summary: Parses a dql and stores the result in the session
-      description: Parses a DQL statement.<br>This is part of the new experimental query engine in development but can be used for the current engine as well.<br>To change the query engine, set the session variable 'query_v3_session to *true*.
+      description: Parse a DQL statement in the session.<br>Part of the experimental query engine; enable it with session variable `query_v3_session=true`.
       operationId: QueryParse
       responses:
         "200":
@@ -3396,7 +3396,7 @@ paths:
   /api/v2/query/portal/describe:
     post:
       summary: Returns the description for the result labels and optionally for the bound parameters
-      description: Fetches the ResultLabels for the parsed DQL statement and bound parameters.<br>This is part of the new experimental query engine in development but can be used for the current engine as well.<br>To change the query engine, set the session variable 'query_v3_session to *true*.
+      description: Return ResultLabels for a parsed DQL statement and its bound parameters.<br>Part of the experimental query engine; enable it with session variable `query_v3_session=true`.
       operationId: QueryDescribePortal
       responses:
         "200":
@@ -3418,7 +3418,7 @@ paths:
       parameters:
         - name: body
           description: |-
-            Performs the Describe for wither a statement or a portal.
+            Performs the Describe for either a statement or a portal.
             A statement description will return the definition for both the Parameters as well as the ActionLabels.
             A portal description will just return the ActionLabels.
           in: body
@@ -3430,7 +3430,7 @@ paths:
   /api/v2/query/simple:
     post:
       summary: Simple Query with immediate results
-      description: Sends in a DQL statement, executes it and returns the result.<br>This is part of the new experimental query engine in development but can be used for the current engine as well.<br>To change the query engine, set the session variable 'query_v3_session to *true*.
+      description: Execute a DQL statement and return results immediately.<br>Part of the experimental query engine, but also compatible with the current engine. To enable the experimental engine, set session variable `query_v3_session=true`.
       operationId: SimpleQuery
       responses:
         "200":
@@ -3461,7 +3461,7 @@ paths:
   /api/v2/query/statement/describe:
     post:
       summary: Returns the description for the result labels and optionally for the bound parameters
-      description: Fetches the ResultLabels for the parsed DQL statement.<br>This is part of the new experimental query engine in development but can be used for the current engine as well.<br>To change the query engine, set the session variable 'query_v3_session to *true*.
+      description: Return ResultLabels for a parsed DQL statement.<br>Part of the experimental query engine; enable it with session variable `query_v3_session=true`.
       operationId: QueryDescribeStatement
       responses:
         "200":
@@ -3483,7 +3483,7 @@ paths:
       parameters:
         - name: body
           description: |-
-            Performs the Describe for wither a statement or a portal.
+            Performs the Describe for either a statement or a portal.
             A statement description will return the definition for both the Parameters as well as the ActionLabels.
             A portal description will just return the ActionLabels.
           in: body
@@ -3495,7 +3495,7 @@ paths:
   /api/v2/roles:
     get:
       summary: List Roles
-      description: Returns all roles defined in the Dynizer
+      description: List every role configured in the Dynizer.
       operationId: ListRoles
       responses:
         "200":
@@ -3519,7 +3519,7 @@ paths:
   /api/v2/servicelogin:
     post:
       summary: Service Login
-      description: To Login to the Dynizer using a service token.<br>If the service-token is valid and the associated user has access, a [Json Web Token](https://jwt.io/) [(RFC 7519)](https://tools.ietf.org/html/rfc7519) will be returned.
+      description: Authenticate using a service token tied to a service account.<br>Returns a [JSON Web Token](https://jwt.io/) [(RFC 7519)](https://tools.ietf.org/html/rfc7519) if the token is valid and the associated user is authorized.
       operationId: ServiceLogin
       responses:
         "200":
@@ -3540,7 +3540,7 @@ paths:
             $ref: '#/definitions/rpcStatus'
       parameters:
         - name: body
-          description: Service Login holds a service token for the server to check and inpersonate.
+          description: Service Login carries a service token that the server validates to authenticate and impersonate the service account.
           in: body
           required: true
           schema:
@@ -3552,7 +3552,7 @@ paths:
   /api/v2/servicetoken/issue:
     get:
       summary: Issue ServiceToken
-      description: Issues a service token for the currently authenticated and authorized user.
+      description: Issues a new service token for the current user.<br>Use this to allow headless/service processes to authenticate later without sharing a password.
       operationId: IssueServiceToken
       responses:
         "200":
@@ -3578,7 +3578,7 @@ paths:
   /api/v2/sharename:
     post:
       summary: Create ShareName
-      description: Creates a new **ShareName**.
+      description: Create a new **ShareName**.
       operationId: CreateShareName
       responses:
         "200":
@@ -3609,7 +3609,7 @@ paths:
   /api/v2/sharename/{share_name}/delete/value:
     post:
       summary: Delete ShareNameValue
-      description: Deletes a Value for an existing **ShareName**.
+      description: Delete the value stored under an existing **ShareName**.
       operationId: DeleteShareNameValue
       responses:
         "200":
@@ -3655,7 +3655,7 @@ paths:
   /api/v2/sharename/{share_name}/value:
     patch:
       summary: Update ShareNameValue
-      description: Updates a new Value for an existing **ShareName**.
+      description: Update the value stored under an existing **ShareName**.
       operationId: UpdateShareNameValue
       responses:
         "200":
@@ -3704,7 +3704,7 @@ paths:
         - ShareName
   /api/v2/system/data:
     delete:
-      description: Drops **all data**. **Attention:** This is an **irreversible** operation!
+      description: Drop **all data**. **Irreversible** operation; use with extreme caution.
       operationId: DropData
       responses:
         "200":
@@ -3727,7 +3727,7 @@ paths:
         - SystemMntg
   /api/v2/system/export/useractions:
     post:
-      description: Exports all **Actions**.
+      description: Export all **Actions**.
       operationId: ExportUserActions
       responses:
         "200":
@@ -3757,7 +3757,7 @@ paths:
         - SystemMntg
   /api/v2/system/import/useractions:
     post:
-      description: Imports **Actions**.
+      description: Import **Actions**.
       operationId: ImportUserActions
       responses:
         "200":
@@ -3788,7 +3788,7 @@ paths:
   /api/v2/system/version:
     get:
       summary: Get Dynizer Version
-      description: Get the version of the **Dynizer**.
+      description: Get the current **Dynizer** version.
       operationId: GetDynizerVersion
       responses:
         "200":
@@ -3812,7 +3812,7 @@ paths:
   /api/v2/users:
     get:
       summary: List Users
-      description: Returns all users from the Dynizer.<br>By default all rows are returned. Optionally a window can be provided to fetch just a specific sub-set of rows to support pagination.
+      description: List users with optional pagination window.<br>Defaults to returning all users.
       operationId: ListUsers
       responses:
         "200":
@@ -3853,7 +3853,7 @@ paths:
         - Users
     post:
       summary: Add User
-      description: Adds a user to the Dynizer.<br>Requires the admin role to perform this.
+      description: Create a new user with optional roles.<br>Requires admin privileges.
       operationId: AddUser
       responses:
         "200":
@@ -3884,7 +3884,7 @@ paths:
   /api/v2/users/{user}:
     get:
       summary: Get User
-      description: Get the user information.<br>All assigned roles and the current state are returned.
+      description: Fetch a user's profile including roles and enabled/disabled status.
       operationId: GetUser
       responses:
         "200":
@@ -3913,7 +3913,7 @@ paths:
         - Users
     delete:
       summary: Delete User
-      description: Removes a user from the Dynizer.<br>This can not be undone.
+      description: Permanently delete a user and revoke access.<br>This operation cannot be undone.
       operationId: DeleteUser
       responses:
         "200":
@@ -3943,7 +3943,7 @@ paths:
   /api/v2/users/{user}/disable:
     patch:
       summary: Disable User
-      description: Disables a user.<br>This will inhibit the user to log on to the Dynizer.<br>Requires the admin role to perform this.
+      description: Disable a user account to block logins without deleting it.<br>Requires admin privileges.
       operationId: DisableUser
       responses:
         "200":
@@ -3973,7 +3973,7 @@ paths:
   /api/v2/users/{user}/enable:
     patch:
       summary: Enable User
-      description: Enables a user.<br>Only enabled users can log onto the Dynizer.<br>Requires the admin role to perform this.
+      description: Enable a user account so it can log in.<br>Requires admin privileges.
       operationId: EnableUser
       responses:
         "200":
@@ -4003,7 +4003,7 @@ paths:
   /api/v2/users/{user}/password:
     put:
       summary: Set User Password
-      description: Sets a new password for a user.<br>Requires the admin role to perform this.
+      description: Set a new password for another user (does not require their current password).<br>Requires admin privileges.
       operationId: SetUserPassword
       responses:
         "200":
@@ -4046,7 +4046,7 @@ paths:
   /api/v2/users/{user}/roles:
     get:
       summary: List User Roles
-      description: Returnes all roles which are assigned to a user.
+      description: List all roles assigned to the specified user.
       operationId: ListUserRoles
       responses:
         "200":
@@ -4075,7 +4075,7 @@ paths:
         - Users
     post:
       summary: Assign User Role
-      description: Assigns a specific role to a user.<br>Requires the admin role to perform this.
+      description: Attach a role to the specified user.<br>Requires admin privileges.
       operationId: AssignUserRole
       responses:
         "200":
@@ -4118,7 +4118,7 @@ paths:
   /api/v2/users/{user}/roles/{role.name}:
     delete:
       summary: Revoke User Role
-      description: Revokes a specific role from a user.<br>Requires the admin role to perform this.
+      description: Remove a role from the specified user.<br>Requires admin privileges.
       operationId: RevokeUserRole
       responses:
         "200":
@@ -4153,7 +4153,7 @@ paths:
   /api/v2/users/all/count:
     get:
       summary: Get User Count
-      description: Returns the total number of users.<br>Additional an individual count for enabled and disabled users will be returned as well.
+      description: Return total user count plus counts broken down by enabled vs disabled.
       operationId: GetUserCount
       responses:
         "200":
@@ -4510,7 +4510,7 @@ definitions:
         description: The left **ActionLabels** of the link
       right_action_label:
         $ref: '#/definitions/ActionNameActionLabelName'
-        description: The left **ActionLabels** of the link
+        description: The right **ActionLabels** of the link
       left_total:
         type: string
         format: int64
@@ -5888,7 +5888,7 @@ definitions:
         type: string
         description: The name of the portal.
     description: |-
-      Performs the Describe for wither a statement or a portal.
+      Performs the Describe for either a statement or a portal.
       A statement description will return the definition for both the Parameters as well as the ActionLabels.
       A portal description will just return the ActionLabels.
     required:
@@ -5919,7 +5919,7 @@ definitions:
         type: string
         description: The name of the statement.
     description: |-
-      Performs the Describe for wither a statement or a portal.
+      Performs the Describe for either a statement or a portal.
       A statement description will return the definition for both the Parameters as well as the ActionLabels.
       A portal description will just return the ActionLabels.
     required:
@@ -6026,7 +6026,7 @@ definitions:
     properties:
       action_name:
         type: string
-        description: This is the name of the **Action** of **ActionLabel**
+        description: This is the name of the **Action** of the **ActionLabel**
       result_label_name:
         type: string
         description: The unique name of the **ActionLabel**.
@@ -6120,8 +6120,8 @@ definitions:
     properties:
       token:
         type: string
-        description: Is the service token which will be checked.
-    description: Service Login holds a service token for the server to check and inpersonate.
+        description: Service token presented for validation.
+    description: Service Login carries a service token that the server validates to authenticate and impersonate the service account.
     title: ServiceLoginReq
     required:
       - token
