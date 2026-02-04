@@ -26,3 +26,6 @@ package-lock.json
 custom
 google
 protoc-gen-openapiv2
+
+# .DS_Store
+.DS_Store
