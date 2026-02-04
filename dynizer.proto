@@ -1642,6 +1642,24 @@ message DownloadObjectDataRes {
     ];
 }
 
+// GetObjectSizeResponse
+message GetObjectSizeRes {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            required: ["size"]
+            description: "Size of an **Object** in bytes"
+        }
+    };
+
+    int64 size = 1 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+            description: "The size of the **Object** data in bytes."
+            type: INTEGER
+            minimum: 0
+        }
+    ];
+}
+
 // UploadObjectDataRequest
 message UploadObjectDataReq {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
@@ -5598,6 +5616,18 @@ service Dynizer {
             operation_id: "DownloadObjectData";
             tags: ["Objects"]
             description: "Download data from a large-object block referenced by `object_ref`.";
+        };
+    }
+
+    // Get Object Size
+    rpc GetObjectSize(DownloadObjectDataReq) returns(GetObjectSizeRes) {
+        option (google.api.http) = {
+            get: "/api/v2/objects/{object_ref.type}/{object_ref.ref_uuid}/size"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            operation_id: "GetObjectSize";
+            tags: ["Objects"]
+            description: "Get the size in bytes of data stored in a large-object block referenced by `object_ref`.";
         };
     }
 

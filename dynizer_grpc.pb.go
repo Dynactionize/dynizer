@@ -69,6 +69,7 @@ const (
 	Dynizer_StreamObjectDataOut_FullMethodName                    = "/Dynizer/StreamObjectDataOut"
 	Dynizer_UploadObjectData_FullMethodName                       = "/Dynizer/UploadObjectData"
 	Dynizer_DownloadObjectData_FullMethodName                     = "/Dynizer/DownloadObjectData"
+	Dynizer_GetObjectSize_FullMethodName                          = "/Dynizer/GetObjectSize"
 	Dynizer_ListObjectUUIDS_FullMethodName                        = "/Dynizer/ListObjectUUIDS"
 	Dynizer_DeleteAllObjects_FullMethodName                       = "/Dynizer/DeleteAllObjects"
 	Dynizer_CreateInstance_FullMethodName                         = "/Dynizer/CreateInstance"
@@ -243,6 +244,8 @@ type DynizerClient interface {
 	UploadObjectData(ctx context.Context, in *UploadObjectDataReq, opts ...grpc.CallOption) (*EmptyRes, error)
 	// Download Object Data
 	DownloadObjectData(ctx context.Context, in *DownloadObjectDataReq, opts ...grpc.CallOption) (*DownloadObjectDataRes, error)
+	// Get Object Size
+	GetObjectSize(ctx context.Context, in *DownloadObjectDataReq, opts ...grpc.CallOption) (*GetObjectSizeRes, error)
 	// List Object UUIDs
 	ListObjectUUIDS(ctx context.Context, in *EmptyReq, opts ...grpc.CallOption) (*ObjectUUIDArrayRes, error)
 	// Delete all Objects
@@ -874,6 +877,16 @@ func (c *dynizerClient) DownloadObjectData(ctx context.Context, in *DownloadObje
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(DownloadObjectDataRes)
 	err := c.cc.Invoke(ctx, Dynizer_DownloadObjectData_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *dynizerClient) GetObjectSize(ctx context.Context, in *DownloadObjectDataReq, opts ...grpc.CallOption) (*GetObjectSizeRes, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetObjectSizeRes)
+	err := c.cc.Invoke(ctx, Dynizer_GetObjectSize_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -1577,6 +1590,8 @@ type DynizerServer interface {
 	UploadObjectData(context.Context, *UploadObjectDataReq) (*EmptyRes, error)
 	// Download Object Data
 	DownloadObjectData(context.Context, *DownloadObjectDataReq) (*DownloadObjectDataRes, error)
+	// Get Object Size
+	GetObjectSize(context.Context, *DownloadObjectDataReq) (*GetObjectSizeRes, error)
 	// List Object UUIDs
 	ListObjectUUIDS(context.Context, *EmptyReq) (*ObjectUUIDArrayRes, error)
 	// Delete all Objects
@@ -1847,6 +1862,9 @@ func (UnimplementedDynizerServer) UploadObjectData(context.Context, *UploadObjec
 }
 func (UnimplementedDynizerServer) DownloadObjectData(context.Context, *DownloadObjectDataReq) (*DownloadObjectDataRes, error) {
 	return nil, status.Error(codes.Unimplemented, "method DownloadObjectData not implemented")
+}
+func (UnimplementedDynizerServer) GetObjectSize(context.Context, *DownloadObjectDataReq) (*GetObjectSizeRes, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetObjectSize not implemented")
 }
 func (UnimplementedDynizerServer) ListObjectUUIDS(context.Context, *EmptyReq) (*ObjectUUIDArrayRes, error) {
 	return nil, status.Error(codes.Unimplemented, "method ListObjectUUIDS not implemented")
@@ -2921,6 +2939,24 @@ func _Dynizer_DownloadObjectData_Handler(srv interface{}, ctx context.Context, d
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(DynizerServer).DownloadObjectData(ctx, req.(*DownloadObjectDataReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Dynizer_GetObjectSize_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DownloadObjectDataReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DynizerServer).GetObjectSize(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Dynizer_GetObjectSize_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DynizerServer).GetObjectSize(ctx, req.(*DownloadObjectDataReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -4156,6 +4192,10 @@ var Dynizer_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DownloadObjectData",
 			Handler:    _Dynizer_DownloadObjectData_Handler,
+		},
+		{
+			MethodName: "GetObjectSize",
+			Handler:    _Dynizer_GetObjectSize_Handler,
 		},
 		{
 			MethodName: "ListObjectUUIDS",

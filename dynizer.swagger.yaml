@@ -2838,6 +2838,66 @@ paths:
           type: string
       tags:
         - Objects
+  /api/v2/objects/{object_ref.type}/{object_ref.ref_uuid}/size:
+    get:
+      summary: Get Object Size
+      description: Get the size in bytes of data stored in a large-object block referenced by `object_ref`.
+      operationId: GetObjectSize
+      responses:
+        "200":
+          description: A successful response.
+          schema:
+            $ref: '#/definitions/GetObjectSizeRes'
+        "401":
+          description: Unauthorized call
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        "500":
+          description: Unexpected internal error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        default:
+          description: An unexpected error response.
+          schema:
+            $ref: '#/definitions/rpcStatus'
+      parameters:
+        - name: object_ref.type
+          description: The type of the **Object**.
+          in: path
+          required: true
+          type: string
+          enum:
+            - InvalidObjectDataType
+            - ODT_Text
+            - text
+            - ODT_Blob
+            - blob
+            - ODT_Clob
+            - clob
+            - ODT_Document
+            - document
+        - name: object_ref.ref_uuid
+          description: The UUID referencing the **Object**.
+          in: path
+          required: true
+          type: string
+        - name: type
+          description: The type of the **Object**.  This field is used to support legacy clients. Use 'object_ref' instead.
+          in: query
+          required: false
+          type: string
+        - name: ref_uuid
+          description: The **ObjectReference** UUID which the data will be returned.  This field is used to support legacy clients. Use 'object_ref' instead.
+          in: query
+          required: false
+          type: string
+        - name: object_ref.ref_uri
+          description: The URI referencing the **Object**. This field is used to support an old version that returns <object_type>/<uuid>. Use 'ref_uuid' instead.
+          in: query
+          required: false
+          type: string
+      tags:
+        - Objects
   /api/v2/plots/filtered/{top}/{plot_name}:
     post:
       summary: Dynizer Filtered Plot
@@ -5316,6 +5376,17 @@ definitions:
     required:
       - instance_id
       - meta_data
+  GetObjectSizeRes:
+    type: object
+    properties:
+      size:
+        type: integer
+        format: int64
+        description: The size of the **Object** data in bytes.
+    description: Size of an **Object** in bytes
+    title: GetObjectSizeResponse
+    required:
+      - size
   GetTopNDataElementsReq:
     type: object
     properties:
