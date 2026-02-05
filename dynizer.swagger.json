@@ -1656,6 +1656,51 @@
         ]
       }
     },
+    "/api/v2/instances/{instance_id}/purge": {
+      "delete": {
+        "summary": "Purge Instance",
+        "description": "Permanently delete an **Instance** (hard delete removes the instance and all persisted data; this action is irreversible).",
+        "operationId": "PurgeInstance",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/EmptyRes"
+            }
+          },
+          "401": {
+            "description": "Unauthorized call",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Unexpected internal error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "instance_id",
+            "description": "The special UUID identifying an **Instance**.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Instances"
+        ]
+      }
+    },
     "/api/v2/jwt/{token}/validate": {
       "get": {
         "summary": "Validate Token",
@@ -8861,39 +8906,6 @@
       "default": "Asc",
       "description": "- Asc: order ascending\n - Desc: order descending",
       "title": "SortOrder"
-    },
-    "StreamInstanceIDRes": {
-      "type": "object",
-      "properties": {
-        "user_reference": {
-          "type": "string"
-        },
-        "instance_id": {
-          "type": "string"
-        },
-        "error": {
-          "$ref": "#/definitions/ErrorResponse"
-        }
-      }
-    },
-    "StreamObjectDataOutRes": {
-      "type": "object",
-      "properties": {
-        "data": {
-          "type": "string",
-          "format": "byte",
-          "description": "The **Object** data as bytes."
-        },
-        "content_type": {
-          "type": "string",
-          "description": "The content type of the data (optional)."
-        }
-      },
-      "description": "Stream data for an **ObjectReference**",
-      "title": "StreamObjectDataOutResponse",
-      "required": [
-        "data"
-      ]
     },
     "TopNDataElement": {
       "type": "object",

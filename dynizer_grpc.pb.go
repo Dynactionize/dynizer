@@ -76,6 +76,7 @@ const (
 	Dynizer_StreamInstances_FullMethodName                        = "/Dynizer/StreamInstances"
 	Dynizer_UpdateInstance_FullMethodName                         = "/Dynizer/UpdateInstance"
 	Dynizer_DeleteInstance_FullMethodName                         = "/Dynizer/DeleteInstance"
+	Dynizer_PurgeInstance_FullMethodName                          = "/Dynizer/PurgeInstance"
 	Dynizer_ReadInstance_FullMethodName                           = "/Dynizer/ReadInstance"
 	Dynizer_DynizerQuery_FullMethodName                           = "/Dynizer/DynizerQuery"
 	Dynizer_QueryResultNext_FullMethodName                        = "/Dynizer/QueryResultNext"
@@ -257,6 +258,8 @@ type DynizerClient interface {
 	UpdateInstance(ctx context.Context, in *UpdateInstanceReq, opts ...grpc.CallOption) (*EmptyRes, error)
 	// Delete Instance
 	DeleteInstance(ctx context.Context, in *InstanceReq, opts ...grpc.CallOption) (*EmptyRes, error)
+	// Purge Instance
+	PurgeInstance(ctx context.Context, in *InstanceReq, opts ...grpc.CallOption) (*EmptyRes, error)
 	// Read Instance
 	ReadInstance(ctx context.Context, in *InstanceReq, opts ...grpc.CallOption) (*InstanceRes, error)
 	// Dynizer Query
@@ -956,6 +959,16 @@ func (c *dynizerClient) DeleteInstance(ctx context.Context, in *InstanceReq, opt
 	return out, nil
 }
 
+func (c *dynizerClient) PurgeInstance(ctx context.Context, in *InstanceReq, opts ...grpc.CallOption) (*EmptyRes, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(EmptyRes)
+	err := c.cc.Invoke(ctx, Dynizer_PurgeInstance_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *dynizerClient) ReadInstance(ctx context.Context, in *InstanceReq, opts ...grpc.CallOption) (*InstanceRes, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(InstanceRes)
@@ -1603,6 +1616,8 @@ type DynizerServer interface {
 	UpdateInstance(context.Context, *UpdateInstanceReq) (*EmptyRes, error)
 	// Delete Instance
 	DeleteInstance(context.Context, *InstanceReq) (*EmptyRes, error)
+	// Purge Instance
+	PurgeInstance(context.Context, *InstanceReq) (*EmptyRes, error)
 	// Read Instance
 	ReadInstance(context.Context, *InstanceReq) (*InstanceRes, error)
 	// Dynizer Query
@@ -1883,6 +1898,9 @@ func (UnimplementedDynizerServer) UpdateInstance(context.Context, *UpdateInstanc
 }
 func (UnimplementedDynizerServer) DeleteInstance(context.Context, *InstanceReq) (*EmptyRes, error) {
 	return nil, status.Error(codes.Unimplemented, "method DeleteInstance not implemented")
+}
+func (UnimplementedDynizerServer) PurgeInstance(context.Context, *InstanceReq) (*EmptyRes, error) {
+	return nil, status.Error(codes.Unimplemented, "method PurgeInstance not implemented")
 }
 func (UnimplementedDynizerServer) ReadInstance(context.Context, *InstanceReq) (*InstanceRes, error) {
 	return nil, status.Error(codes.Unimplemented, "method ReadInstance not implemented")
@@ -3058,6 +3076,24 @@ func _Dynizer_DeleteInstance_Handler(srv interface{}, ctx context.Context, dec f
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Dynizer_PurgeInstance_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(InstanceReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DynizerServer).PurgeInstance(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Dynizer_PurgeInstance_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DynizerServer).PurgeInstance(ctx, req.(*InstanceReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _Dynizer_ReadInstance_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(InstanceReq)
 	if err := dec(in); err != nil {
@@ -4216,6 +4252,10 @@ var Dynizer_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DeleteInstance",
 			Handler:    _Dynizer_DeleteInstance_Handler,
+		},
+		{
+			MethodName: "PurgeInstance",
+			Handler:    _Dynizer_PurgeInstance_Handler,
 		},
 		{
 			MethodName: "ReadInstance",

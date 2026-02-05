@@ -5695,6 +5695,18 @@ service Dynizer {
         };
     }
 
+    // Purge Instance
+    rpc PurgeInstance(InstanceReq) returns(EmptyRes) {
+        option (google.api.http) = {
+            delete: "/api/v2/instances/{instance_id}/purge"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            operation_id: "PurgeInstance";
+            tags: ["Instances"]
+            description: "Permanently delete an **Instance** (hard delete removes the instance and all persisted data; this action is irreversible).",
+        };
+    }
+
     // Read Instance
     rpc ReadInstance(InstanceReq) returns(InstanceRes) {
         option (google.api.http) = {
