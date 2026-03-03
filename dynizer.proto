@@ -5450,6 +5450,18 @@ service Dynizer {
         };
     }
 
+    // Purge Action
+    rpc PurgeAction(DeleteActionReq) returns(EmptyRes) {
+        option (google.api.http) = {
+            delete: "/api/v2/actions/{action_name}/purge"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            operation_id: "PurgeAction";
+            tags: ["Actions"]
+            description: "Permanently delete an **Action** (hard delete removes the action, its action labels, and all persisted data; this action is irreversible).<br>Fails if **Instances** exist unless `cascade=true`, which also permanently deletes all associated instances."
+        };
+    }
+
     // Read Action
     rpc ReadAction(ActionReq) returns(ActionRes) {
         option (google.api.http) = {
