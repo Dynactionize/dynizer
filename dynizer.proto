@@ -5332,6 +5332,18 @@ service Dynizer {
         };
     }
 
+    // Purge ActionSchema
+    rpc PurgeActionSchema(DeleteActionSchemaReq) returns(EmptyRes) {
+        option (google.api.http) = {
+            delete: "/api/v2/actionschemas/{action_schema_name}/purge"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            operation_id: "PurgeActionSchema";
+            tags: ["ActionSchemas"]
+            description: "Permanently delete an **ActionSchema** (hard delete removes the action schema and all persisted data; this action is irreversible).<br>Fails if **Actions** exist unless `cascade=true`, which also permanently deletes all associated actions and their instances."
+        };
+    }
+
     // Read ActionSchema
     rpc ReadActionSchema(ActionSchemaReq) returns(ActionSchemaRes) {
         option (google.api.http) = {
