@@ -48,12 +48,14 @@ const (
 	Dynizer_CreateActionSchema_FullMethodName                     = "/Dynizer/CreateActionSchema"
 	Dynizer_UpdateActionSchema_FullMethodName                     = "/Dynizer/UpdateActionSchema"
 	Dynizer_DeleteActionSchema_FullMethodName                     = "/Dynizer/DeleteActionSchema"
+	Dynizer_PurgeActionSchema_FullMethodName                      = "/Dynizer/PurgeActionSchema"
 	Dynizer_ReadActionSchema_FullMethodName                       = "/Dynizer/ReadActionSchema"
 	Dynizer_ListActionSchemas_FullMethodName                      = "/Dynizer/ListActionSchemas"
 	Dynizer_CheckActionName_FullMethodName                        = "/Dynizer/CheckActionName"
 	Dynizer_CreateAction_FullMethodName                           = "/Dynizer/CreateAction"
 	Dynizer_UpdateAction_FullMethodName                           = "/Dynizer/UpdateAction"
 	Dynizer_DeleteAction_FullMethodName                           = "/Dynizer/DeleteAction"
+	Dynizer_PurgeAction_FullMethodName                            = "/Dynizer/PurgeAction"
 	Dynizer_ReadAction_FullMethodName                             = "/Dynizer/ReadAction"
 	Dynizer_CountActions_FullMethodName                           = "/Dynizer/CountActions"
 	Dynizer_ListActionNames_FullMethodName                        = "/Dynizer/ListActionNames"
@@ -201,6 +203,8 @@ type DynizerClient interface {
 	UpdateActionSchema(ctx context.Context, in *UpdateActionSchemaReq, opts ...grpc.CallOption) (*EmptyRes, error)
 	// Delete ActionSchema
 	DeleteActionSchema(ctx context.Context, in *DeleteActionSchemaReq, opts ...grpc.CallOption) (*EmptyRes, error)
+	// Purge ActionSchema
+	PurgeActionSchema(ctx context.Context, in *DeleteActionSchemaReq, opts ...grpc.CallOption) (*EmptyRes, error)
 	// Read ActionSchema
 	ReadActionSchema(ctx context.Context, in *ActionSchemaReq, opts ...grpc.CallOption) (*ActionSchemaRes, error)
 	// List ActionSchemas
@@ -213,6 +217,8 @@ type DynizerClient interface {
 	UpdateAction(ctx context.Context, in *UpdateActionReq, opts ...grpc.CallOption) (*EmptyRes, error)
 	// Delete Action
 	DeleteAction(ctx context.Context, in *DeleteActionReq, opts ...grpc.CallOption) (*EmptyRes, error)
+	// Purge Action
+	PurgeAction(ctx context.Context, in *DeleteActionReq, opts ...grpc.CallOption) (*EmptyRes, error)
 	// Read Action
 	ReadAction(ctx context.Context, in *ActionReq, opts ...grpc.CallOption) (*ActionRes, error)
 	// Count Actions
@@ -664,6 +670,16 @@ func (c *dynizerClient) DeleteActionSchema(ctx context.Context, in *DeleteAction
 	return out, nil
 }
 
+func (c *dynizerClient) PurgeActionSchema(ctx context.Context, in *DeleteActionSchemaReq, opts ...grpc.CallOption) (*EmptyRes, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(EmptyRes)
+	err := c.cc.Invoke(ctx, Dynizer_PurgeActionSchema_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *dynizerClient) ReadActionSchema(ctx context.Context, in *ActionSchemaReq, opts ...grpc.CallOption) (*ActionSchemaRes, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(ActionSchemaRes)
@@ -718,6 +734,16 @@ func (c *dynizerClient) DeleteAction(ctx context.Context, in *DeleteActionReq, o
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(EmptyRes)
 	err := c.cc.Invoke(ctx, Dynizer_DeleteAction_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *dynizerClient) PurgeAction(ctx context.Context, in *DeleteActionReq, opts ...grpc.CallOption) (*EmptyRes, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(EmptyRes)
+	err := c.cc.Invoke(ctx, Dynizer_PurgeAction_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -1559,6 +1585,8 @@ type DynizerServer interface {
 	UpdateActionSchema(context.Context, *UpdateActionSchemaReq) (*EmptyRes, error)
 	// Delete ActionSchema
 	DeleteActionSchema(context.Context, *DeleteActionSchemaReq) (*EmptyRes, error)
+	// Purge ActionSchema
+	PurgeActionSchema(context.Context, *DeleteActionSchemaReq) (*EmptyRes, error)
 	// Read ActionSchema
 	ReadActionSchema(context.Context, *ActionSchemaReq) (*ActionSchemaRes, error)
 	// List ActionSchemas
@@ -1571,6 +1599,8 @@ type DynizerServer interface {
 	UpdateAction(context.Context, *UpdateActionReq) (*EmptyRes, error)
 	// Delete Action
 	DeleteAction(context.Context, *DeleteActionReq) (*EmptyRes, error)
+	// Purge Action
+	PurgeAction(context.Context, *DeleteActionReq) (*EmptyRes, error)
 	// Read Action
 	ReadAction(context.Context, *ActionReq) (*ActionRes, error)
 	// Count Actions
@@ -1815,6 +1845,9 @@ func (UnimplementedDynizerServer) UpdateActionSchema(context.Context, *UpdateAct
 func (UnimplementedDynizerServer) DeleteActionSchema(context.Context, *DeleteActionSchemaReq) (*EmptyRes, error) {
 	return nil, status.Error(codes.Unimplemented, "method DeleteActionSchema not implemented")
 }
+func (UnimplementedDynizerServer) PurgeActionSchema(context.Context, *DeleteActionSchemaReq) (*EmptyRes, error) {
+	return nil, status.Error(codes.Unimplemented, "method PurgeActionSchema not implemented")
+}
 func (UnimplementedDynizerServer) ReadActionSchema(context.Context, *ActionSchemaReq) (*ActionSchemaRes, error) {
 	return nil, status.Error(codes.Unimplemented, "method ReadActionSchema not implemented")
 }
@@ -1832,6 +1865,9 @@ func (UnimplementedDynizerServer) UpdateAction(context.Context, *UpdateActionReq
 }
 func (UnimplementedDynizerServer) DeleteAction(context.Context, *DeleteActionReq) (*EmptyRes, error) {
 	return nil, status.Error(codes.Unimplemented, "method DeleteAction not implemented")
+}
+func (UnimplementedDynizerServer) PurgeAction(context.Context, *DeleteActionReq) (*EmptyRes, error) {
+	return nil, status.Error(codes.Unimplemented, "method PurgeAction not implemented")
 }
 func (UnimplementedDynizerServer) ReadAction(context.Context, *ActionReq) (*ActionRes, error) {
 	return nil, status.Error(codes.Unimplemented, "method ReadAction not implemented")
@@ -2601,6 +2637,24 @@ func _Dynizer_DeleteActionSchema_Handler(srv interface{}, ctx context.Context, d
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Dynizer_PurgeActionSchema_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteActionSchemaReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DynizerServer).PurgeActionSchema(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Dynizer_PurgeActionSchema_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DynizerServer).PurgeActionSchema(ctx, req.(*DeleteActionSchemaReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _Dynizer_ReadActionSchema_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ActionSchemaReq)
 	if err := dec(in); err != nil {
@@ -2705,6 +2759,24 @@ func _Dynizer_DeleteAction_Handler(srv interface{}, ctx context.Context, dec fun
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(DynizerServer).DeleteAction(ctx, req.(*DeleteActionReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Dynizer_PurgeAction_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteActionReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DynizerServer).PurgeAction(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Dynizer_PurgeAction_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DynizerServer).PurgeAction(ctx, req.(*DeleteActionReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -4154,6 +4226,10 @@ var Dynizer_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _Dynizer_DeleteActionSchema_Handler,
 		},
 		{
+			MethodName: "PurgeActionSchema",
+			Handler:    _Dynizer_PurgeActionSchema_Handler,
+		},
+		{
 			MethodName: "ReadActionSchema",
 			Handler:    _Dynizer_ReadActionSchema_Handler,
 		},
@@ -4176,6 +4252,10 @@ var Dynizer_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DeleteAction",
 			Handler:    _Dynizer_DeleteAction_Handler,
+		},
+		{
+			MethodName: "PurgeAction",
+			Handler:    _Dynizer_PurgeAction_Handler,
 		},
 		{
 			MethodName: "ReadAction",

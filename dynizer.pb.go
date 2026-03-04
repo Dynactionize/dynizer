@@ -11740,7 +11740,7 @@ const file_dynizer_proto_rawDesc = "" +
 	"\vDQL_Prepare\x10\x11\x12\x0f\n" +
 	"\vDQL_Execute\x10\x12\x12\x12\n" +
 	"\x0eDQL_Deallocate\x10\x13\x12\x0f\n" +
-	"\vDQL_Explain\x10\x142\x8e\xd6\x01\n" +
+	"\vDQL_Explain\x10\x142\xa0\xdc\x01\n" +
 	"\aDynizer\x12\x81\x02\n" +
 	"\x05Login\x12\t.LoginReq\x1a\t.LoginRes\"\xe1\x01\x92A\xc5\x01\n" +
 	"\x04Auth\x1a\xb3\x01Authenticate with username and password.<br>On success returns a [JSON Web Token](https://jwt.io/) [(RFC 7519)](https://tools.ietf.org/html/rfc7519) to authorize subsequent calls.*\x05Loginb\x00\x82\xd3\xe4\x93\x02\x12:\x01*\"\r/api/v2/login\x12\xce\x02\n" +
@@ -11810,7 +11810,9 @@ const file_dynizer_proto_rawDesc = "" +
 	"\x12UpdateActionSchema\x12\x16.UpdateActionSchemaReq\x1a\t.EmptyRes\"\xbb\x01\x92A\x82\x01\n" +
 	"\rActionSchemas\x1a]Rename an **ActionSchema**.<br>Names must be unique, trimmed, and free of control characters.*\x12UpdateActionSchema\x82\xd3\xe4\x93\x02/:\x01*2*/api/v2/actionschemas/{action_schema_name}\x12\x9a\x02\n" +
 	"\x12DeleteActionSchema\x12\x16.DeleteActionSchemaReq\x1a\t.EmptyRes\"\xe0\x01\x92A\xaa\x01\n" +
-	"\rActionSchemas\x1a\x84\x01Delete an **ActionSchema**.<br>Fails if **Actions** exist unless `cascade=true`, which marks those actions and instances as deleted.*\x12DeleteActionSchema\x82\xd3\xe4\x93\x02,**/api/v2/actionschemas/{action_schema_name}\x12\xb5\x01\n" +
+	"\rActionSchemas\x1a\x84\x01Delete an **ActionSchema**.<br>Fails if **Actions** exist unless `cascade=true`, which marks those actions and instances as deleted.*\x12DeleteActionSchema\x82\xd3\xe4\x93\x02,**/api/v2/actionschemas/{action_schema_name}\x12\x9d\x03\n" +
+	"\x11PurgeActionSchema\x12\x16.DeleteActionSchemaReq\x1a\t.EmptyRes\"\xe4\x02\x92A\xa8\x02\n" +
+	"\rActionSchemas\x1a\x83\x02Permanently delete an **ActionSchema** (hard delete removes the action schema and all persisted data; this action is irreversible).<br>Fails if **Actions** exist unless `cascade=true`, which also permanently deletes all associated actions and their instances.*\x11PurgeActionSchema\x82\xd3\xe4\x93\x022*0/api/v2/actionschemas/{action_schema_name}/purge\x12\xb5\x01\n" +
 	"\x10ReadActionSchema\x12\x10.ActionSchemaReq\x1a\x10.ActionSchemaRes\"}\x92AH\n" +
 	"\rActionSchemas\x1a%Reads an **ActionSchema** definition.*\x10ReadActionSchema\x82\xd3\xe4\x93\x02,\x12*/api/v2/actionschemas/{action_schema_name}\x12\xb3\x01\n" +
 	"\x11ListActionSchemas\x12\n" +
@@ -11835,7 +11837,9 @@ const file_dynizer_proto_rawDesc = "" +
 	"\fUpdateAction\x12\x10.UpdateActionReq\x1a\t.EmptyRes\"\xa9\x01\x92Ap\n" +
 	"\aActions\x1aWRename an **Action**.<br>Names must be unique, trimmed, and free of control characters.*\fUpdateAction\x82\xd3\xe4\x93\x020:\x0fnew_action_name2\x1d/api/v2/actions/{action_name}\x12\xf2\x01\n" +
 	"\fDeleteAction\x12\x10.DeleteActionReq\x1a\t.EmptyRes\"\xc4\x01\x92A\x9b\x01\n" +
-	"\aActions\x1a\x81\x01Delete an **Action**.<br>Fails if **Instances** exist unless `cascade=true`, which marks the action and its instances as deleted.*\fDeleteAction\x82\xd3\xe4\x93\x02\x1f*\x1d/api/v2/actions/{action_name}\x12\xa3\x01\n" +
+	"\aActions\x1a\x81\x01Delete an **Action**.<br>Fails if **Instances** exist unless `cascade=true`, which marks the action and its instances as deleted.*\fDeleteAction\x82\xd3\xe4\x93\x02\x1f*\x1d/api/v2/actions/{action_name}\x12\xef\x02\n" +
+	"\vPurgeAction\x12\x10.DeleteActionReq\x1a\t.EmptyRes\"\xc2\x02\x92A\x93\x02\n" +
+	"\aActions\x1a\xfa\x01Permanently delete an **Action** (hard delete removes the action, its action labels, and all persisted data; this action is irreversible).<br>Fails if **Instances** exist unless `cascade=true`, which also permanently deletes all associated instances.*\vPurgeAction\x82\xd3\xe4\x93\x02%*#/api/v2/actions/{action_name}/purge\x12\xa3\x01\n" +
 	"\n" +
 	"ReadAction\x12\n" +
 	".ActionReq\x1a\n" +
@@ -12515,199 +12519,203 @@ var file_dynizer_proto_depIdxs = []int32{
 	29,  // 168: Dynizer.CreateActionSchema:input_type -> CreateActionSchemaReq
 	31,  // 169: Dynizer.UpdateActionSchema:input_type -> UpdateActionSchemaReq
 	32,  // 170: Dynizer.DeleteActionSchema:input_type -> DeleteActionSchemaReq
-	34,  // 171: Dynizer.ReadActionSchema:input_type -> ActionSchemaReq
-	16,  // 172: Dynizer.ListActionSchemas:input_type -> WindowReq
-	20,  // 173: Dynizer.CheckActionName:input_type -> CheckActionNameReq
-	21,  // 174: Dynizer.CreateAction:input_type -> CreateActionReq
-	23,  // 175: Dynizer.UpdateAction:input_type -> UpdateActionReq
-	24,  // 176: Dynizer.DeleteAction:input_type -> DeleteActionReq
-	25,  // 177: Dynizer.ReadAction:input_type -> ActionReq
-	61,  // 178: Dynizer.CountActions:input_type -> CountActionReq
-	17,  // 179: Dynizer.ListActionNames:input_type -> ListActionNamesWindowReq
-	40,  // 180: Dynizer.CheckActionLabelName:input_type -> CheckActionLabelNameReq
-	41,  // 181: Dynizer.AddActionLabel:input_type -> AddActionLabelReq
-	42,  // 182: Dynizer.UpdateActionLabel:input_type -> UpdateActionLabelReq
-	43,  // 183: Dynizer.DeleteActionLabel:input_type -> ActionLabelReq
-	43,  // 184: Dynizer.ReadActionLabel:input_type -> ActionLabelReq
-	44,  // 185: Dynizer.CreateObject:input_type -> CreateObjectReq
-	46,  // 186: Dynizer.ClearObjectData:input_type -> ClearObjectDataReq
-	47,  // 187: Dynizer.DeleteObject:input_type -> DeleteObjectReq
-	48,  // 188: Dynizer.StreamObjectDataIn:input_type -> StreamObjectDataInReq
-	49,  // 189: Dynizer.StreamObjectDataOut:input_type -> StreamObjectDataOutReq
-	54,  // 190: Dynizer.UploadObjectData:input_type -> UploadObjectDataReq
-	51,  // 191: Dynizer.DownloadObjectData:input_type -> DownloadObjectDataReq
-	51,  // 192: Dynizer.GetObjectSize:input_type -> DownloadObjectDataReq
-	39,  // 193: Dynizer.ListObjectUUIDS:input_type -> EmptyReq
-	39,  // 194: Dynizer.DeleteAllObjects:input_type -> EmptyReq
-	56,  // 195: Dynizer.CreateInstance:input_type -> CreateInstanceReq
-	57,  // 196: Dynizer.StreamInstances:input_type -> StreamInstanceReq
-	58,  // 197: Dynizer.UpdateInstance:input_type -> UpdateInstanceReq
-	59,  // 198: Dynizer.DeleteInstance:input_type -> InstanceReq
-	59,  // 199: Dynizer.PurgeInstance:input_type -> InstanceReq
-	59,  // 200: Dynizer.ReadInstance:input_type -> InstanceReq
-	62,  // 201: Dynizer.DynizerQuery:input_type -> DQLReq
-	63,  // 202: Dynizer.QueryResultNext:input_type -> QueryResultReq
-	173, // 203: Dynizer.QueryResultClose:input_type -> QueryCloseReq
-	64,  // 204: Dynizer.CheckMetaDataKeyName:input_type -> CheckMetaDataKeyNameReq
-	65,  // 205: Dynizer.CreateMetaDataKey:input_type -> CreateMetaDataKeyReq
-	68,  // 206: Dynizer.ReadMetaDataKey:input_type -> MetaDataKeyReq
-	67,  // 207: Dynizer.UpdateMetaDataKey:input_type -> UpdateMetaDataKeyReq
-	69,  // 208: Dynizer.DeleteMetaDataKey:input_type -> DeleteMetaDataKeyReq
-	39,  // 209: Dynizer.CountMetaDataKeys:input_type -> EmptyReq
-	70,  // 210: Dynizer.ListMetaDataKeys:input_type -> ListMetaDataKeysReq
-	71,  // 211: Dynizer.AddInstanceMetaData:input_type -> AddInstanceMetaDataReq
-	73,  // 212: Dynizer.RemoveInstanceMetaData:input_type -> InstanceMetaDataKeyReq
-	72,  // 213: Dynizer.AddInstanceMetaDataValue:input_type -> AddInstanceMetaDataValueReq
-	74,  // 214: Dynizer.RemoveInstanceMetaDataValue:input_type -> InstanceMetaDataKeyValueReq
-	73,  // 215: Dynizer.GetInstanceMetaDataValues:input_type -> InstanceMetaDataKeyReq
-	59,  // 216: Dynizer.CountInstanceMetaDataKeys:input_type -> InstanceReq
-	73,  // 217: Dynizer.CountInstanceMetaDataKeyValues:input_type -> InstanceMetaDataKeyReq
-	59,  // 218: Dynizer.ListInstanceMetaData:input_type -> InstanceReq
-	75,  // 219: Dynizer.AddInstanceActionLabelMetaData:input_type -> AddInstanceActionLabelMetaDataReq
-	76,  // 220: Dynizer.RemoveInstanceActionLabelMetaData:input_type -> InstanceActionLabelMetaDataKeyReq
-	84,  // 221: Dynizer.AddInstanceActionLabelMetaDataValue:input_type -> AddInstanceActionLabelMetaDataValueReq
-	85,  // 222: Dynizer.RemoveInstanceActionLabelMetaDataValue:input_type -> InstanceActionLabelMetaDataValueReq
-	78,  // 223: Dynizer.AddInstanceCellMetaData:input_type -> AddInstanceCellMetaDataReq
-	79,  // 224: Dynizer.RemoveInstanceCellMetaData:input_type -> InstanceCellMetaDataKeyReq
-	87,  // 225: Dynizer.AddInstanceCellMetaDataValue:input_type -> AddInstanceCellMetaDataValueReq
-	86,  // 226: Dynizer.RemoveInstanceCellMetaDataValue:input_type -> InstanceCellMetaDataKeyValueReq
-	79,  // 227: Dynizer.GetInstanceCellMetaDataValues:input_type -> InstanceCellMetaDataKeyReq
-	80,  // 228: Dynizer.CountInstanceCellMetaDataKeys:input_type -> InstanceCellMetaDataReq
-	79,  // 229: Dynizer.CountInstanceCellMetaDataKeyValues:input_type -> InstanceCellMetaDataKeyReq
-	80,  // 230: Dynizer.ListInstanceCellMetaData:input_type -> InstanceCellMetaDataReq
-	39,  // 231: Dynizer.GetDynizerConfiguration:input_type -> EmptyReq
-	137, // 232: Dynizer.ExportUserActions:input_type -> ExportUserActionsReq
-	139, // 233: Dynizer.ImportUserActions:input_type -> ImportUserActionsReq
-	39,  // 234: Dynizer.DropData:input_type -> EmptyReq
-	39,  // 235: Dynizer.GetDynizerVersion:input_type -> EmptyReq
-	143, // 236: Dynizer.QueryDataElements:input_type -> QueryDataElementsReq
-	144, // 237: Dynizer.GetTopNDataElements:input_type -> GetTopNDataElementsReq
-	147, // 238: Dynizer.DynizerFilteredQuery:input_type -> FilterQueryReq
-	153, // 239: Dynizer.ReIndex:input_type -> ReIndexReq
-	148, // 240: Dynizer.DynizerFilteredPlot:input_type -> FilteredPlotReq
-	154, // 241: Dynizer.CreateShareName:input_type -> CreateShareNameReq
-	155, // 242: Dynizer.UpdateShareNameValue:input_type -> UpdateShareNameValueReq
-	156, // 243: Dynizer.DeleteShareNameValue:input_type -> DeleteShareNameValueReq
-	62,  // 244: Dynizer.SimpleQuery:input_type -> DQLReq
-	166, // 245: Dynizer.QueryParse:input_type -> QueryParseReq
-	167, // 246: Dynizer.QueryBind:input_type -> QueryBindReq
-	168, // 247: Dynizer.QueryDescribeStatement:input_type -> QueryDescribeStatementReq
-	169, // 248: Dynizer.QueryDescribePortal:input_type -> QueryDescribePortalReq
-	172, // 249: Dynizer.QueryExecute:input_type -> QueryExecuteReq
-	173, // 250: Dynizer.QueryClose:input_type -> QueryCloseReq
-	176, // 251: Dynizer.FindActionLabelLinks:input_type -> FindActionLabelLinksReq
-	96,  // 252: Dynizer.Login:output_type -> LoginRes
-	96,  // 253: Dynizer.ServiceLogin:output_type -> LoginRes
-	95,  // 254: Dynizer.Logout:output_type -> EmptyRes
-	134, // 255: Dynizer.ValidateToken:output_type -> SessionID
-	97,  // 256: Dynizer.IssueServiceToken:output_type -> ServiceTokenRes
-	108, // 257: Dynizer.ListRoles:output_type -> ListRolesRes
-	95,  // 258: Dynizer.AddUser:output_type -> EmptyRes
-	95,  // 259: Dynizer.AssignUserRole:output_type -> EmptyRes
-	95,  // 260: Dynizer.RevokeUserRole:output_type -> EmptyRes
-	95,  // 261: Dynizer.EnableUser:output_type -> EmptyRes
-	95,  // 262: Dynizer.DisableUser:output_type -> EmptyRes
-	95,  // 263: Dynizer.SetUserPassword:output_type -> EmptyRes
-	95,  // 264: Dynizer.ChangeMyPassword:output_type -> EmptyRes
-	98,  // 265: Dynizer.GetUser:output_type -> UserRes
-	98,  // 266: Dynizer.GetMyProfile:output_type -> UserRes
-	95,  // 267: Dynizer.DeleteUser:output_type -> EmptyRes
-	106, // 268: Dynizer.GetUserCount:output_type -> UserCountRes
-	99,  // 269: Dynizer.ListUsers:output_type -> ListUsersRes
-	109, // 270: Dynizer.ListUserRoles:output_type -> ListUserRolesRes
-	109, // 271: Dynizer.GetMyRoles:output_type -> ListUserRolesRes
-	95,  // 272: Dynizer.CheckUserName:output_type -> EmptyRes
-	117, // 273: Dynizer.CheckPassword:output_type -> CheckPasswordRes
-	95,  // 274: Dynizer.CreateActionType:output_type -> EmptyRes
-	95,  // 275: Dynizer.UpdateActionType:output_type -> EmptyRes
-	35,  // 276: Dynizer.ReadActionType:output_type -> ActionTypeRes
-	37,  // 277: Dynizer.ListActionTypes:output_type -> ActionTypeArrayRes
-	95,  // 278: Dynizer.CreateActionSchema:output_type -> EmptyRes
-	95,  // 279: Dynizer.UpdateActionSchema:output_type -> EmptyRes
-	95,  // 280: Dynizer.DeleteActionSchema:output_type -> EmptyRes
-	36,  // 281: Dynizer.ReadActionSchema:output_type -> ActionSchemaRes
-	38,  // 282: Dynizer.ListActionSchemas:output_type -> ActionSchemaArrayRes
-	95,  // 283: Dynizer.CheckActionName:output_type -> EmptyRes
-	95,  // 284: Dynizer.CreateAction:output_type -> EmptyRes
-	95,  // 285: Dynizer.UpdateAction:output_type -> EmptyRes
-	95,  // 286: Dynizer.DeleteAction:output_type -> EmptyRes
-	26,  // 287: Dynizer.ReadAction:output_type -> ActionRes
-	105, // 288: Dynizer.CountActions:output_type -> CountRes
-	100, // 289: Dynizer.ListActionNames:output_type -> ActionNameArrayRes
-	95,  // 290: Dynizer.CheckActionLabelName:output_type -> EmptyRes
-	95,  // 291: Dynizer.AddActionLabel:output_type -> EmptyRes
-	95,  // 292: Dynizer.UpdateActionLabel:output_type -> EmptyRes
-	95,  // 293: Dynizer.DeleteActionLabel:output_type -> EmptyRes
-	101, // 294: Dynizer.ReadActionLabel:output_type -> LabelRes
-	45,  // 295: Dynizer.CreateObject:output_type -> ObjectRes
-	95,  // 296: Dynizer.ClearObjectData:output_type -> EmptyRes
-	95,  // 297: Dynizer.DeleteObject:output_type -> EmptyRes
-	95,  // 298: Dynizer.StreamObjectDataIn:output_type -> EmptyRes
-	50,  // 299: Dynizer.StreamObjectDataOut:output_type -> StreamObjectDataOutRes
-	95,  // 300: Dynizer.UploadObjectData:output_type -> EmptyRes
-	52,  // 301: Dynizer.DownloadObjectData:output_type -> DownloadObjectDataRes
-	53,  // 302: Dynizer.GetObjectSize:output_type -> GetObjectSizeRes
-	55,  // 303: Dynizer.ListObjectUUIDS:output_type -> ObjectUUIDArrayRes
-	95,  // 304: Dynizer.DeleteAllObjects:output_type -> EmptyRes
-	102, // 305: Dynizer.CreateInstance:output_type -> InstanceIDRes
-	103, // 306: Dynizer.StreamInstances:output_type -> StreamInstanceIDRes
-	95,  // 307: Dynizer.UpdateInstance:output_type -> EmptyRes
-	95,  // 308: Dynizer.DeleteInstance:output_type -> EmptyRes
-	95,  // 309: Dynizer.PurgeInstance:output_type -> EmptyRes
-	104, // 310: Dynizer.ReadInstance:output_type -> InstanceRes
-	107, // 311: Dynizer.DynizerQuery:output_type -> DQLRes
-	161, // 312: Dynizer.QueryResultNext:output_type -> QueryResultRes
-	95,  // 313: Dynizer.QueryResultClose:output_type -> EmptyRes
-	95,  // 314: Dynizer.CheckMetaDataKeyName:output_type -> EmptyRes
-	95,  // 315: Dynizer.CreateMetaDataKey:output_type -> EmptyRes
-	110, // 316: Dynizer.ReadMetaDataKey:output_type -> MetaDataKeyRes
-	95,  // 317: Dynizer.UpdateMetaDataKey:output_type -> EmptyRes
-	95,  // 318: Dynizer.DeleteMetaDataKey:output_type -> EmptyRes
-	105, // 319: Dynizer.CountMetaDataKeys:output_type -> CountRes
-	111, // 320: Dynizer.ListMetaDataKeys:output_type -> MetaDataKeyArrayRes
-	95,  // 321: Dynizer.AddInstanceMetaData:output_type -> EmptyRes
-	95,  // 322: Dynizer.RemoveInstanceMetaData:output_type -> EmptyRes
-	95,  // 323: Dynizer.AddInstanceMetaDataValue:output_type -> EmptyRes
-	95,  // 324: Dynizer.RemoveInstanceMetaDataValue:output_type -> EmptyRes
-	113, // 325: Dynizer.GetInstanceMetaDataValues:output_type -> GetInstanceMetaDataKeyRes
-	105, // 326: Dynizer.CountInstanceMetaDataKeys:output_type -> CountRes
-	105, // 327: Dynizer.CountInstanceMetaDataKeyValues:output_type -> CountRes
-	112, // 328: Dynizer.ListInstanceMetaData:output_type -> ListInstanceMetaDataRes
-	95,  // 329: Dynizer.AddInstanceActionLabelMetaData:output_type -> EmptyRes
-	95,  // 330: Dynizer.RemoveInstanceActionLabelMetaData:output_type -> EmptyRes
-	95,  // 331: Dynizer.AddInstanceActionLabelMetaDataValue:output_type -> EmptyRes
-	95,  // 332: Dynizer.RemoveInstanceActionLabelMetaDataValue:output_type -> EmptyRes
-	95,  // 333: Dynizer.AddInstanceCellMetaData:output_type -> EmptyRes
-	95,  // 334: Dynizer.RemoveInstanceCellMetaData:output_type -> EmptyRes
-	95,  // 335: Dynizer.AddInstanceCellMetaDataValue:output_type -> EmptyRes
-	95,  // 336: Dynizer.RemoveInstanceCellMetaDataValue:output_type -> EmptyRes
-	115, // 337: Dynizer.GetInstanceCellMetaDataValues:output_type -> GetInstanceCellMetaDataKeyRes
-	105, // 338: Dynizer.CountInstanceCellMetaDataKeys:output_type -> CountRes
-	105, // 339: Dynizer.CountInstanceCellMetaDataKeyValues:output_type -> CountRes
-	114, // 340: Dynizer.ListInstanceCellMetaData:output_type -> ListInstanceCellMetaDataRes
-	136, // 341: Dynizer.GetDynizerConfiguration:output_type -> GetDynizerConfigurationRes
-	138, // 342: Dynizer.ExportUserActions:output_type -> ExportUserActionsRes
-	95,  // 343: Dynizer.ImportUserActions:output_type -> EmptyRes
-	95,  // 344: Dynizer.DropData:output_type -> EmptyRes
-	141, // 345: Dynizer.GetDynizerVersion:output_type -> VersionRes
-	152, // 346: Dynizer.QueryDataElements:output_type -> QueryDataElementsRes
-	145, // 347: Dynizer.GetTopNDataElements:output_type -> GetTopNDataElementsRes
-	107, // 348: Dynizer.DynizerFilteredQuery:output_type -> DQLRes
-	95,  // 349: Dynizer.ReIndex:output_type -> EmptyRes
-	146, // 350: Dynizer.DynizerFilteredPlot:output_type -> PlotRes
-	95,  // 351: Dynizer.CreateShareName:output_type -> EmptyRes
-	95,  // 352: Dynizer.UpdateShareNameValue:output_type -> EmptyRes
-	95,  // 353: Dynizer.DeleteShareNameValue:output_type -> EmptyRes
-	165, // 354: Dynizer.SimpleQuery:output_type -> SimpleQueryRes
-	95,  // 355: Dynizer.QueryParse:output_type -> EmptyRes
-	95,  // 356: Dynizer.QueryBind:output_type -> EmptyRes
-	170, // 357: Dynizer.QueryDescribeStatement:output_type -> QueryDescribeStatementRes
-	171, // 358: Dynizer.QueryDescribePortal:output_type -> QueryDescribePortalRes
-	162, // 359: Dynizer.QueryExecute:output_type -> QueryExecuteRes
-	95,  // 360: Dynizer.QueryClose:output_type -> EmptyRes
-	177, // 361: Dynizer.FindActionLabelLinks:output_type -> FindActionLabelLinksRes
-	252, // [252:362] is the sub-list for method output_type
-	142, // [142:252] is the sub-list for method input_type
+	32,  // 171: Dynizer.PurgeActionSchema:input_type -> DeleteActionSchemaReq
+	34,  // 172: Dynizer.ReadActionSchema:input_type -> ActionSchemaReq
+	16,  // 173: Dynizer.ListActionSchemas:input_type -> WindowReq
+	20,  // 174: Dynizer.CheckActionName:input_type -> CheckActionNameReq
+	21,  // 175: Dynizer.CreateAction:input_type -> CreateActionReq
+	23,  // 176: Dynizer.UpdateAction:input_type -> UpdateActionReq
+	24,  // 177: Dynizer.DeleteAction:input_type -> DeleteActionReq
+	24,  // 178: Dynizer.PurgeAction:input_type -> DeleteActionReq
+	25,  // 179: Dynizer.ReadAction:input_type -> ActionReq
+	61,  // 180: Dynizer.CountActions:input_type -> CountActionReq
+	17,  // 181: Dynizer.ListActionNames:input_type -> ListActionNamesWindowReq
+	40,  // 182: Dynizer.CheckActionLabelName:input_type -> CheckActionLabelNameReq
+	41,  // 183: Dynizer.AddActionLabel:input_type -> AddActionLabelReq
+	42,  // 184: Dynizer.UpdateActionLabel:input_type -> UpdateActionLabelReq
+	43,  // 185: Dynizer.DeleteActionLabel:input_type -> ActionLabelReq
+	43,  // 186: Dynizer.ReadActionLabel:input_type -> ActionLabelReq
+	44,  // 187: Dynizer.CreateObject:input_type -> CreateObjectReq
+	46,  // 188: Dynizer.ClearObjectData:input_type -> ClearObjectDataReq
+	47,  // 189: Dynizer.DeleteObject:input_type -> DeleteObjectReq
+	48,  // 190: Dynizer.StreamObjectDataIn:input_type -> StreamObjectDataInReq
+	49,  // 191: Dynizer.StreamObjectDataOut:input_type -> StreamObjectDataOutReq
+	54,  // 192: Dynizer.UploadObjectData:input_type -> UploadObjectDataReq
+	51,  // 193: Dynizer.DownloadObjectData:input_type -> DownloadObjectDataReq
+	51,  // 194: Dynizer.GetObjectSize:input_type -> DownloadObjectDataReq
+	39,  // 195: Dynizer.ListObjectUUIDS:input_type -> EmptyReq
+	39,  // 196: Dynizer.DeleteAllObjects:input_type -> EmptyReq
+	56,  // 197: Dynizer.CreateInstance:input_type -> CreateInstanceReq
+	57,  // 198: Dynizer.StreamInstances:input_type -> StreamInstanceReq
+	58,  // 199: Dynizer.UpdateInstance:input_type -> UpdateInstanceReq
+	59,  // 200: Dynizer.DeleteInstance:input_type -> InstanceReq
+	59,  // 201: Dynizer.PurgeInstance:input_type -> InstanceReq
+	59,  // 202: Dynizer.ReadInstance:input_type -> InstanceReq
+	62,  // 203: Dynizer.DynizerQuery:input_type -> DQLReq
+	63,  // 204: Dynizer.QueryResultNext:input_type -> QueryResultReq
+	173, // 205: Dynizer.QueryResultClose:input_type -> QueryCloseReq
+	64,  // 206: Dynizer.CheckMetaDataKeyName:input_type -> CheckMetaDataKeyNameReq
+	65,  // 207: Dynizer.CreateMetaDataKey:input_type -> CreateMetaDataKeyReq
+	68,  // 208: Dynizer.ReadMetaDataKey:input_type -> MetaDataKeyReq
+	67,  // 209: Dynizer.UpdateMetaDataKey:input_type -> UpdateMetaDataKeyReq
+	69,  // 210: Dynizer.DeleteMetaDataKey:input_type -> DeleteMetaDataKeyReq
+	39,  // 211: Dynizer.CountMetaDataKeys:input_type -> EmptyReq
+	70,  // 212: Dynizer.ListMetaDataKeys:input_type -> ListMetaDataKeysReq
+	71,  // 213: Dynizer.AddInstanceMetaData:input_type -> AddInstanceMetaDataReq
+	73,  // 214: Dynizer.RemoveInstanceMetaData:input_type -> InstanceMetaDataKeyReq
+	72,  // 215: Dynizer.AddInstanceMetaDataValue:input_type -> AddInstanceMetaDataValueReq
+	74,  // 216: Dynizer.RemoveInstanceMetaDataValue:input_type -> InstanceMetaDataKeyValueReq
+	73,  // 217: Dynizer.GetInstanceMetaDataValues:input_type -> InstanceMetaDataKeyReq
+	59,  // 218: Dynizer.CountInstanceMetaDataKeys:input_type -> InstanceReq
+	73,  // 219: Dynizer.CountInstanceMetaDataKeyValues:input_type -> InstanceMetaDataKeyReq
+	59,  // 220: Dynizer.ListInstanceMetaData:input_type -> InstanceReq
+	75,  // 221: Dynizer.AddInstanceActionLabelMetaData:input_type -> AddInstanceActionLabelMetaDataReq
+	76,  // 222: Dynizer.RemoveInstanceActionLabelMetaData:input_type -> InstanceActionLabelMetaDataKeyReq
+	84,  // 223: Dynizer.AddInstanceActionLabelMetaDataValue:input_type -> AddInstanceActionLabelMetaDataValueReq
+	85,  // 224: Dynizer.RemoveInstanceActionLabelMetaDataValue:input_type -> InstanceActionLabelMetaDataValueReq
+	78,  // 225: Dynizer.AddInstanceCellMetaData:input_type -> AddInstanceCellMetaDataReq
+	79,  // 226: Dynizer.RemoveInstanceCellMetaData:input_type -> InstanceCellMetaDataKeyReq
+	87,  // 227: Dynizer.AddInstanceCellMetaDataValue:input_type -> AddInstanceCellMetaDataValueReq
+	86,  // 228: Dynizer.RemoveInstanceCellMetaDataValue:input_type -> InstanceCellMetaDataKeyValueReq
+	79,  // 229: Dynizer.GetInstanceCellMetaDataValues:input_type -> InstanceCellMetaDataKeyReq
+	80,  // 230: Dynizer.CountInstanceCellMetaDataKeys:input_type -> InstanceCellMetaDataReq
+	79,  // 231: Dynizer.CountInstanceCellMetaDataKeyValues:input_type -> InstanceCellMetaDataKeyReq
+	80,  // 232: Dynizer.ListInstanceCellMetaData:input_type -> InstanceCellMetaDataReq
+	39,  // 233: Dynizer.GetDynizerConfiguration:input_type -> EmptyReq
+	137, // 234: Dynizer.ExportUserActions:input_type -> ExportUserActionsReq
+	139, // 235: Dynizer.ImportUserActions:input_type -> ImportUserActionsReq
+	39,  // 236: Dynizer.DropData:input_type -> EmptyReq
+	39,  // 237: Dynizer.GetDynizerVersion:input_type -> EmptyReq
+	143, // 238: Dynizer.QueryDataElements:input_type -> QueryDataElementsReq
+	144, // 239: Dynizer.GetTopNDataElements:input_type -> GetTopNDataElementsReq
+	147, // 240: Dynizer.DynizerFilteredQuery:input_type -> FilterQueryReq
+	153, // 241: Dynizer.ReIndex:input_type -> ReIndexReq
+	148, // 242: Dynizer.DynizerFilteredPlot:input_type -> FilteredPlotReq
+	154, // 243: Dynizer.CreateShareName:input_type -> CreateShareNameReq
+	155, // 244: Dynizer.UpdateShareNameValue:input_type -> UpdateShareNameValueReq
+	156, // 245: Dynizer.DeleteShareNameValue:input_type -> DeleteShareNameValueReq
+	62,  // 246: Dynizer.SimpleQuery:input_type -> DQLReq
+	166, // 247: Dynizer.QueryParse:input_type -> QueryParseReq
+	167, // 248: Dynizer.QueryBind:input_type -> QueryBindReq
+	168, // 249: Dynizer.QueryDescribeStatement:input_type -> QueryDescribeStatementReq
+	169, // 250: Dynizer.QueryDescribePortal:input_type -> QueryDescribePortalReq
+	172, // 251: Dynizer.QueryExecute:input_type -> QueryExecuteReq
+	173, // 252: Dynizer.QueryClose:input_type -> QueryCloseReq
+	176, // 253: Dynizer.FindActionLabelLinks:input_type -> FindActionLabelLinksReq
+	96,  // 254: Dynizer.Login:output_type -> LoginRes
+	96,  // 255: Dynizer.ServiceLogin:output_type -> LoginRes
+	95,  // 256: Dynizer.Logout:output_type -> EmptyRes
+	134, // 257: Dynizer.ValidateToken:output_type -> SessionID
+	97,  // 258: Dynizer.IssueServiceToken:output_type -> ServiceTokenRes
+	108, // 259: Dynizer.ListRoles:output_type -> ListRolesRes
+	95,  // 260: Dynizer.AddUser:output_type -> EmptyRes
+	95,  // 261: Dynizer.AssignUserRole:output_type -> EmptyRes
+	95,  // 262: Dynizer.RevokeUserRole:output_type -> EmptyRes
+	95,  // 263: Dynizer.EnableUser:output_type -> EmptyRes
+	95,  // 264: Dynizer.DisableUser:output_type -> EmptyRes
+	95,  // 265: Dynizer.SetUserPassword:output_type -> EmptyRes
+	95,  // 266: Dynizer.ChangeMyPassword:output_type -> EmptyRes
+	98,  // 267: Dynizer.GetUser:output_type -> UserRes
+	98,  // 268: Dynizer.GetMyProfile:output_type -> UserRes
+	95,  // 269: Dynizer.DeleteUser:output_type -> EmptyRes
+	106, // 270: Dynizer.GetUserCount:output_type -> UserCountRes
+	99,  // 271: Dynizer.ListUsers:output_type -> ListUsersRes
+	109, // 272: Dynizer.ListUserRoles:output_type -> ListUserRolesRes
+	109, // 273: Dynizer.GetMyRoles:output_type -> ListUserRolesRes
+	95,  // 274: Dynizer.CheckUserName:output_type -> EmptyRes
+	117, // 275: Dynizer.CheckPassword:output_type -> CheckPasswordRes
+	95,  // 276: Dynizer.CreateActionType:output_type -> EmptyRes
+	95,  // 277: Dynizer.UpdateActionType:output_type -> EmptyRes
+	35,  // 278: Dynizer.ReadActionType:output_type -> ActionTypeRes
+	37,  // 279: Dynizer.ListActionTypes:output_type -> ActionTypeArrayRes
+	95,  // 280: Dynizer.CreateActionSchema:output_type -> EmptyRes
+	95,  // 281: Dynizer.UpdateActionSchema:output_type -> EmptyRes
+	95,  // 282: Dynizer.DeleteActionSchema:output_type -> EmptyRes
+	95,  // 283: Dynizer.PurgeActionSchema:output_type -> EmptyRes
+	36,  // 284: Dynizer.ReadActionSchema:output_type -> ActionSchemaRes
+	38,  // 285: Dynizer.ListActionSchemas:output_type -> ActionSchemaArrayRes
+	95,  // 286: Dynizer.CheckActionName:output_type -> EmptyRes
+	95,  // 287: Dynizer.CreateAction:output_type -> EmptyRes
+	95,  // 288: Dynizer.UpdateAction:output_type -> EmptyRes
+	95,  // 289: Dynizer.DeleteAction:output_type -> EmptyRes
+	95,  // 290: Dynizer.PurgeAction:output_type -> EmptyRes
+	26,  // 291: Dynizer.ReadAction:output_type -> ActionRes
+	105, // 292: Dynizer.CountActions:output_type -> CountRes
+	100, // 293: Dynizer.ListActionNames:output_type -> ActionNameArrayRes
+	95,  // 294: Dynizer.CheckActionLabelName:output_type -> EmptyRes
+	95,  // 295: Dynizer.AddActionLabel:output_type -> EmptyRes
+	95,  // 296: Dynizer.UpdateActionLabel:output_type -> EmptyRes
+	95,  // 297: Dynizer.DeleteActionLabel:output_type -> EmptyRes
+	101, // 298: Dynizer.ReadActionLabel:output_type -> LabelRes
+	45,  // 299: Dynizer.CreateObject:output_type -> ObjectRes
+	95,  // 300: Dynizer.ClearObjectData:output_type -> EmptyRes
+	95,  // 301: Dynizer.DeleteObject:output_type -> EmptyRes
+	95,  // 302: Dynizer.StreamObjectDataIn:output_type -> EmptyRes
+	50,  // 303: Dynizer.StreamObjectDataOut:output_type -> StreamObjectDataOutRes
+	95,  // 304: Dynizer.UploadObjectData:output_type -> EmptyRes
+	52,  // 305: Dynizer.DownloadObjectData:output_type -> DownloadObjectDataRes
+	53,  // 306: Dynizer.GetObjectSize:output_type -> GetObjectSizeRes
+	55,  // 307: Dynizer.ListObjectUUIDS:output_type -> ObjectUUIDArrayRes
+	95,  // 308: Dynizer.DeleteAllObjects:output_type -> EmptyRes
+	102, // 309: Dynizer.CreateInstance:output_type -> InstanceIDRes
+	103, // 310: Dynizer.StreamInstances:output_type -> StreamInstanceIDRes
+	95,  // 311: Dynizer.UpdateInstance:output_type -> EmptyRes
+	95,  // 312: Dynizer.DeleteInstance:output_type -> EmptyRes
+	95,  // 313: Dynizer.PurgeInstance:output_type -> EmptyRes
+	104, // 314: Dynizer.ReadInstance:output_type -> InstanceRes
+	107, // 315: Dynizer.DynizerQuery:output_type -> DQLRes
+	161, // 316: Dynizer.QueryResultNext:output_type -> QueryResultRes
+	95,  // 317: Dynizer.QueryResultClose:output_type -> EmptyRes
+	95,  // 318: Dynizer.CheckMetaDataKeyName:output_type -> EmptyRes
+	95,  // 319: Dynizer.CreateMetaDataKey:output_type -> EmptyRes
+	110, // 320: Dynizer.ReadMetaDataKey:output_type -> MetaDataKeyRes
+	95,  // 321: Dynizer.UpdateMetaDataKey:output_type -> EmptyRes
+	95,  // 322: Dynizer.DeleteMetaDataKey:output_type -> EmptyRes
+	105, // 323: Dynizer.CountMetaDataKeys:output_type -> CountRes
+	111, // 324: Dynizer.ListMetaDataKeys:output_type -> MetaDataKeyArrayRes
+	95,  // 325: Dynizer.AddInstanceMetaData:output_type -> EmptyRes
+	95,  // 326: Dynizer.RemoveInstanceMetaData:output_type -> EmptyRes
+	95,  // 327: Dynizer.AddInstanceMetaDataValue:output_type -> EmptyRes
+	95,  // 328: Dynizer.RemoveInstanceMetaDataValue:output_type -> EmptyRes
+	113, // 329: Dynizer.GetInstanceMetaDataValues:output_type -> GetInstanceMetaDataKeyRes
+	105, // 330: Dynizer.CountInstanceMetaDataKeys:output_type -> CountRes
+	105, // 331: Dynizer.CountInstanceMetaDataKeyValues:output_type -> CountRes
+	112, // 332: Dynizer.ListInstanceMetaData:output_type -> ListInstanceMetaDataRes
+	95,  // 333: Dynizer.AddInstanceActionLabelMetaData:output_type -> EmptyRes
+	95,  // 334: Dynizer.RemoveInstanceActionLabelMetaData:output_type -> EmptyRes
+	95,  // 335: Dynizer.AddInstanceActionLabelMetaDataValue:output_type -> EmptyRes
+	95,  // 336: Dynizer.RemoveInstanceActionLabelMetaDataValue:output_type -> EmptyRes
+	95,  // 337: Dynizer.AddInstanceCellMetaData:output_type -> EmptyRes
+	95,  // 338: Dynizer.RemoveInstanceCellMetaData:output_type -> EmptyRes
+	95,  // 339: Dynizer.AddInstanceCellMetaDataValue:output_type -> EmptyRes
+	95,  // 340: Dynizer.RemoveInstanceCellMetaDataValue:output_type -> EmptyRes
+	115, // 341: Dynizer.GetInstanceCellMetaDataValues:output_type -> GetInstanceCellMetaDataKeyRes
+	105, // 342: Dynizer.CountInstanceCellMetaDataKeys:output_type -> CountRes
+	105, // 343: Dynizer.CountInstanceCellMetaDataKeyValues:output_type -> CountRes
+	114, // 344: Dynizer.ListInstanceCellMetaData:output_type -> ListInstanceCellMetaDataRes
+	136, // 345: Dynizer.GetDynizerConfiguration:output_type -> GetDynizerConfigurationRes
+	138, // 346: Dynizer.ExportUserActions:output_type -> ExportUserActionsRes
+	95,  // 347: Dynizer.ImportUserActions:output_type -> EmptyRes
+	95,  // 348: Dynizer.DropData:output_type -> EmptyRes
+	141, // 349: Dynizer.GetDynizerVersion:output_type -> VersionRes
+	152, // 350: Dynizer.QueryDataElements:output_type -> QueryDataElementsRes
+	145, // 351: Dynizer.GetTopNDataElements:output_type -> GetTopNDataElementsRes
+	107, // 352: Dynizer.DynizerFilteredQuery:output_type -> DQLRes
+	95,  // 353: Dynizer.ReIndex:output_type -> EmptyRes
+	146, // 354: Dynizer.DynizerFilteredPlot:output_type -> PlotRes
+	95,  // 355: Dynizer.CreateShareName:output_type -> EmptyRes
+	95,  // 356: Dynizer.UpdateShareNameValue:output_type -> EmptyRes
+	95,  // 357: Dynizer.DeleteShareNameValue:output_type -> EmptyRes
+	165, // 358: Dynizer.SimpleQuery:output_type -> SimpleQueryRes
+	95,  // 359: Dynizer.QueryParse:output_type -> EmptyRes
+	95,  // 360: Dynizer.QueryBind:output_type -> EmptyRes
+	170, // 361: Dynizer.QueryDescribeStatement:output_type -> QueryDescribeStatementRes
+	171, // 362: Dynizer.QueryDescribePortal:output_type -> QueryDescribePortalRes
+	162, // 363: Dynizer.QueryExecute:output_type -> QueryExecuteRes
+	95,  // 364: Dynizer.QueryClose:output_type -> EmptyRes
+	177, // 365: Dynizer.FindActionLabelLinks:output_type -> FindActionLabelLinksRes
+	254, // [254:366] is the sub-list for method output_type
+	142, // [142:254] is the sub-list for method input_type
 	142, // [142:142] is the sub-list for extension type_name
 	142, // [142:142] is the sub-list for extension extendee
 	0,   // [0:142] is the sub-list for field type_name

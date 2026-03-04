@@ -406,6 +406,41 @@ paths:
             $ref: '#/definitions/DynizerUpdateActionLabelBody'
       tags:
         - Actions
+  /api/v2/actions/{action_name}/purge:
+    delete:
+      summary: Purge Action
+      description: Permanently delete an **Action** (hard delete removes the action, its action labels, and all persisted data; this action is irreversible).<br>Fails if **Instances** exist unless `cascade=true`, which also permanently deletes all associated instances.
+      operationId: PurgeAction
+      responses:
+        "200":
+          description: A successful response.
+          schema:
+            $ref: '#/definitions/EmptyRes'
+        "401":
+          description: Unauthorized call
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        "500":
+          description: Unexpected internal error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        default:
+          description: An unexpected error response.
+          schema:
+            $ref: '#/definitions/rpcStatus'
+      parameters:
+        - name: action_name
+          description: The current name of the **Action** to be deleted.
+          in: path
+          required: true
+          type: string
+        - name: cascade
+          description: This flag allows to mark all associated **Instances** as deleted.<br>If cascade == <span style="color:blue">false</span> an error is raised if this **Action** has **Instances**.<br>**Action** with no **Instances** can be deleted no matter what value cascade has.
+          in: query
+          required: false
+          type: boolean
+      tags:
+        - Actions
   /api/v2/actionschemas:
     get:
       summary: List ActionSchemas
@@ -574,6 +609,41 @@ paths:
           required: true
           schema:
             $ref: '#/definitions/DynizerUpdateActionSchemaBody'
+      tags:
+        - ActionSchemas
+  /api/v2/actionschemas/{action_schema_name}/purge:
+    delete:
+      summary: Purge ActionSchema
+      description: Permanently delete an **ActionSchema** (hard delete removes the action schema and all persisted data; this action is irreversible).<br>Fails if **Actions** exist unless `cascade=true`, which also permanently deletes all associated actions and their instances.
+      operationId: PurgeActionSchema
+      responses:
+        "200":
+          description: A successful response.
+          schema:
+            $ref: '#/definitions/EmptyRes'
+        "401":
+          description: Unauthorized call
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        "500":
+          description: Unexpected internal error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        default:
+          description: An unexpected error response.
+          schema:
+            $ref: '#/definitions/rpcStatus'
+      parameters:
+        - name: action_schema_name
+          description: The current name of the **ActionSchema** to be deleted.
+          in: path
+          required: true
+          type: string
+        - name: cascade
+          description: This flag allows to mark all associated **Actions** and **Instances** as deleted.<br>If cascade == <span style="color:blue">false</span> an error is raised if this **ActionSchema** has **Actions** and **Instances**.<br>**ActionSchema** with no **Actions** can be deleted no matter what value cascade has.
+          in: query
+          required: false
+          type: boolean
       tags:
         - ActionSchemas
   /api/v2/actiontypes:
