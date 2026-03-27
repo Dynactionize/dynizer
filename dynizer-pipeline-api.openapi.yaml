@@ -1,42 +1,61 @@
 openapi: "3.0.0"
 info:
-  version: 1.0.0
+  version: 1.0.5
   title: Pipeline API
-  description: TODO
-  termsOfService: TODO
+  description: |
+    The Pipeline API manages analysis pipelines that process documents and return structured results.
+
+    It provides a complete workflow for document analysis: configure authentication credentials, set up
+    connections to external data sources and destinations, define documents to analyze, select analysis
+    flows and plugins, and execute pipelines that orchestrate the full process.
+
+    Key concepts:
+    - **Authentication Configurations** store credentials (basic, bearer, or Dynizer auth) used by connections.
+    - **Connections** define external services for sourcing document data or storing results, each with a type (see Connection Types).
+    - **Documents** hold or reference the data to be analyzed — as inline text/base64, private storage references, or public URIs.
+    - **Flows** are the available analysis methods. Each flow exposes a JSON Schema describing its configuration.
+    - **Plugins** run on the flow result once analysis completes and can expose their own configuration schema.
+    - **Pipeline Configurations** bundle a flow, plugins, destination connection, webhook, and other settings into a reusable template.
+    - **Pipelines** represent individual execution runs. A pipeline combines a configuration with a document, tracks status through its lifecycle (QUEUED, RUNNING, SUCCESS, FAILED, etc.), and stores the output.
+
+    Authentication is handled via JWT bearer tokens obtained through the `/login` endpoint.
   contact:
+
     name: Consono
     email: info@consono.ai
     url: https://consono.ai
   license:
-    name: TODO
-    #url: https://www.apache.org/licenses/LICENSE-2.0.html
+    name: Proprietary
+
+servers:
+  - url: https://example.dynizer.com/pipeline-api/v1
+    description: Example server
 
 tags:
   - name: Login
-    description: Login to the API
+    description: Obtain a JWT bearer token to authenticate subsequent API requests.
   - name: Authentication Configurations
-    description: Authentication configurations store credentials and methods to use as authentication in a connection.
+    description: Authentication configurations store credentials (basic, bearer, or Dynizer auth) used by connections to access external services.
   - name: Connections
-    description: Connections keep information about services that can provide document data, or serve as a destination for the result data.
+    description: Connections define external services that provide document data or serve as a destination for pipeline and plugin results. Each connection has a type (see Connection Types) and optionally references an authentication configuration.
   - name: Connectiontypes
-    description: ConnectionTypes describe available types to be used as a connection.
+    description: Connection types describe the available types that can be assigned to a connection, and whether they support document sourcing, result storage, or both.
   - name: Filetype Configurations
-    description: Filetype configurations are supported filetypes which can be used in a document and the configuration model that can be passed along with it.
+    description: Filetype configurations list the supported document filetypes and expose a JSON Schema describing the configuration options for each.
   - name: Documents
-    description: Documents store the data to be used in a pipeline. They contain raw data or links to (external) data.
+    description: Documents store or reference the data to be analyzed in a pipeline. Data can be provided inline (text/base64), from private storage via a connection, or from a public URI.
   - name: Flows
-    description: Flows describe available flows to be executed in a pipeline.
+    description: Flows are the available analysis methods that can be executed in a pipeline. Each flow exposes a JSON Schema describing its configuration options.
   - name: Pipeline Configurations
-    description: Pipeline configurations store parameters that can be used to execute a pipeline
+    description: Pipeline configurations are reusable templates that bundle a flow, plugins, destination connection, webhook settings, and other parameters. They are referenced when executing a pipeline.
   - name: Pipelines
-    description: Pipelines are all pipelines that have been executed in the system
+    description: Pipelines represent individual execution runs. A pipeline combines a configuration with a document, progresses through lifecycle statuses (QUEUED, RUNNING, SUCCESS, FAILED, etc.), and stores the analysis output.
   - name: Plugins
-    description: Plugins contain all the plugins that can be executed in a pipeline
+    description: Plugins are post-analysis processors that run on the flow result once analysis completes. Each plugin can expose a JSON Schema describing its configuration options.
   - name: Analyzers
-    description: Analyzers are all the registered analyzers that can be used by pipelines
+    description: Analyzers are the registered analysis services that process pipeline requests. They report their capacity, supported flows, and health status.
   - name: Health check
-    description: Checks regarding the health of the service
+    description: Kubernetes-style health check endpoint for monitoring service availability.
 
 paths:
   /login:
@@ -72,6 +91,8 @@ paths:
       responses:
         "200":
           $ref: "#/components/responses/GetAuthenticationConfigurationsResponse"
+        "401":
+          $ref: "#/components/responses/401ErrorResponse"
         default:
           $ref: "#/components/responses/DefaultErrorResponse"
       tags:
@@ -90,6 +111,8 @@ paths:
           $ref: "#/components/responses/CreateAuthenticationConfigurationResponse"
         "400":
           $ref: "#/components/responses/400ErrorResponse"
+        "401":
+          $ref: "#/components/responses/401ErrorResponse"
         default:
           $ref: "#/components/responses/DefaultErrorResponse"
       tags:
@@ -111,6 +134,8 @@ paths:
           $ref: "#/components/responses/400ErrorResponse"
         "404":
           $ref: "#/components/responses/404ErrorResponse"
+        "401":
+          $ref: "#/components/responses/401ErrorResponse"
         default:
           $ref: "#/components/responses/DefaultErrorResponse"
       tags:
@@ -133,6 +158,8 @@ paths:
           $ref: "#/components/responses/400ErrorResponse"
         "404":
           $ref: "#/components/responses/404ErrorResponse"
+        "401":
+          $ref: "#/components/responses/401ErrorResponse"
         default:
           $ref: "#/components/responses/DefaultErrorResponse"
       tags:
@@ -155,6 +182,8 @@ paths:
           $ref: "#/components/responses/404ErrorResponse"
         "409":
           $ref: "#/components/responses/409ErrorResponse"
+        "401":
+          $ref: "#/components/responses/401ErrorResponse"
         default:
           $ref: "#/components/responses/DefaultErrorResponse"
       tags:
@@ -174,6 +203,8 @@ paths:
       responses:
         "200":
           $ref: "#/components/responses/GetConnectionsResponse"
+        "401":
+          $ref: "#/components/responses/401ErrorResponse"
         default:
           $ref: "#/components/responses/DefaultErrorResponse"
       tags:
@@ -192,6 +223,8 @@ paths:
           $ref: "#/components/responses/CreateConnectionResponse"
         "400":
           $ref: "#/components/responses/400ErrorResponse"
+        "401":
+          $ref: "#/components/responses/401ErrorResponse"
         default:
           $ref: "#/components/responses/DefaultErrorResponse"
       tags:
@@ -213,6 +246,8 @@ paths:
           $ref: "#/components/responses/400ErrorResponse"
         "404":
           $ref: "#/components/responses/404ErrorResponse"
+        "401":
+          $ref: "#/components/responses/401ErrorResponse"
         default:
           $ref: "#/components/responses/DefaultErrorResponse"
       tags:
@@ -235,6 +270,8 @@ paths:
           $ref: "#/components/responses/400ErrorResponse"
         "404":
           $ref: "#/components/responses/404ErrorResponse"
+        "401":
+          $ref: "#/components/responses/401ErrorResponse"
         default:
           $ref: "#/components/responses/DefaultErrorResponse"
       tags:
@@ -257,6 +294,8 @@ paths:
           $ref: "#/components/responses/404ErrorResponse"
         "409":
           $ref: "#/components/responses/409ErrorResponse"
+        "401":
+          $ref: "#/components/responses/401ErrorResponse"
         default:
           $ref: "#/components/responses/DefaultErrorResponse"
       tags:
@@ -279,6 +318,8 @@ paths:
           $ref: "#/components/responses/400ErrorResponse"
         "404":
           $ref: "#/components/responses/404ErrorResponse"
+        "401":
+          $ref: "#/components/responses/401ErrorResponse"
         default:
           $ref: "#/components/responses/DefaultErrorResponse"
       tags:
@@ -302,6 +343,8 @@ paths:
           $ref: "#/components/responses/400ErrorResponse"
         "404":
           $ref: "#/components/responses/404ErrorResponse"
+        "401":
+          $ref: "#/components/responses/401ErrorResponse"
         default:
           $ref: "#/components/responses/DefaultErrorResponse"
       tags:
@@ -323,6 +366,8 @@ paths:
           $ref: "#/components/responses/400ErrorResponse"
         "404":
           $ref: "#/components/responses/404ErrorResponse"
+        "401":
+          $ref: "#/components/responses/401ErrorResponse"
         default:
           $ref: "#/components/responses/DefaultErrorResponse"
       tags:
@@ -342,6 +387,8 @@ paths:
       responses:
         "200":
           $ref: "#/components/responses/GetDocumentsResponse"
+        "401":
+          $ref: "#/components/responses/401ErrorResponse"
         default:
           $ref: "#/components/responses/DefaultErrorResponse"
       tags:
@@ -360,6 +407,8 @@ paths:
           $ref: "#/components/responses/CreateDocumentResponse"
         "400":
           $ref: "#/components/responses/400ErrorResponse"
+        "401":
+          $ref: "#/components/responses/401ErrorResponse"
         default:
           $ref: "#/components/responses/DefaultErrorResponse"
       tags:
@@ -381,6 +430,8 @@ paths:
           $ref: "#/components/responses/400ErrorResponse"
         "404":
           $ref: "#/components/responses/404ErrorResponse"
+        "401":
+          $ref: "#/components/responses/401ErrorResponse"
         default:
           $ref: "#/components/responses/DefaultErrorResponse"
       tags:
@@ -403,6 +454,8 @@ paths:
           $ref: "#/components/responses/400ErrorResponse"
         "404":
           $ref: "#/components/responses/404ErrorResponse"
+        "401":
+          $ref: "#/components/responses/401ErrorResponse"
         default:
           $ref: "#/components/responses/DefaultErrorResponse"
       tags:
@@ -425,6 +478,8 @@ paths:
           $ref: "#/components/responses/404ErrorResponse"
         "409":
           $ref: "#/components/responses/409ErrorResponse"
+        "401":
+          $ref: "#/components/responses/401ErrorResponse"
         default:
           $ref: "#/components/responses/DefaultErrorResponse"
       tags:
@@ -444,6 +499,8 @@ paths:
       responses:
         "200":
           $ref: "#/components/responses/GetFlowsResponse"
+        "401":
+          $ref: "#/components/responses/401ErrorResponse"
         default:
           $ref: "#/components/responses/DefaultErrorResponse"
       tags:
@@ -465,6 +522,8 @@ paths:
           $ref: "#/components/responses/400ErrorResponse"
         "404":
           $ref: "#/components/responses/404ErrorResponse"
+        "401":
+          $ref: "#/components/responses/401ErrorResponse"
         default:
           $ref: "#/components/responses/DefaultErrorResponse"
       tags:
@@ -484,6 +543,8 @@ paths:
       responses:
         "200":
           $ref: "#/components/responses/GetFiletypeConfigurationsResponse"
+        "401":
+          $ref: "#/components/responses/401ErrorResponse"
         default:
           $ref: "#/components/responses/DefaultErrorResponse"
       tags:
@@ -505,6 +566,8 @@ paths:
           $ref: "#/components/responses/400ErrorResponse"
         "404":
           $ref: "#/components/responses/404ErrorResponse"
+        "401":
+          $ref: "#/components/responses/401ErrorResponse"
         default:
           $ref: "#/components/responses/DefaultErrorResponse"
       tags:
@@ -524,6 +587,8 @@ paths:
       responses:
         "200":
           $ref: "#/components/responses/GetConnectiontypesResponse"
+        "401":
+          $ref: "#/components/responses/401ErrorResponse"
         default:
           $ref: "#/components/responses/DefaultErrorResponse"
       tags:
@@ -545,6 +610,8 @@ paths:
           $ref: "#/components/responses/400ErrorResponse"
         "404":
           $ref: "#/components/responses/404ErrorResponse"
+        "401":
+          $ref: "#/components/responses/401ErrorResponse"
         default:
           $ref: "#/components/responses/DefaultErrorResponse"
       tags:
@@ -564,6 +631,8 @@ paths:
       responses:
         "200":
           $ref: "#/components/responses/GetPipelineConfigurationsResponse"
+        "401":
+          $ref: "#/components/responses/401ErrorResponse"
         default:
           $ref: "#/components/responses/DefaultErrorResponse"
       tags:
@@ -582,6 +651,8 @@ paths:
           $ref: "#/components/responses/CreatePipelineConfigurationResponse"
         "400":
           $ref: "#/components/responses/400ErrorResponse"
+        "401":
+          $ref: "#/components/responses/401ErrorResponse"
         default:
           $ref: "#/components/responses/DefaultErrorResponse"
       tags:
@@ -603,6 +674,8 @@ paths:
           $ref: "#/components/responses/400ErrorResponse"
         "404":
           $ref: "#/components/responses/404ErrorResponse"
+        "401":
+          $ref: "#/components/responses/401ErrorResponse"
         default:
           $ref: "#/components/responses/DefaultErrorResponse"
       tags:
@@ -625,6 +698,8 @@ paths:
           $ref: "#/components/responses/400ErrorResponse"
         "404":
           $ref: "#/components/responses/404ErrorResponse"
+        "401":
+          $ref: "#/components/responses/401ErrorResponse"
         default:
           $ref: "#/components/responses/DefaultErrorResponse"
       tags:
@@ -647,6 +722,8 @@ paths:
           $ref: "#/components/responses/404ErrorResponse"
         "409":
           $ref: "#/components/responses/409ErrorResponse"
+        "401":
+          $ref: "#/components/responses/401ErrorResponse"
         default:
           $ref: "#/components/responses/DefaultErrorResponse"
       tags:
@@ -669,6 +746,8 @@ paths:
       responses:
         "200":
           $ref: "#/components/responses/GetPipelinesResponse"
+        "401":
+          $ref: "#/components/responses/401ErrorResponse"
         default:
           $ref: "#/components/responses/DefaultErrorResponse"
       tags:
@@ -689,6 +768,8 @@ paths:
           $ref: "#/components/responses/400ErrorResponse"
         "503":
           $ref: "#/components/responses/503ErrorResponse"
+        "401":
+          $ref: "#/components/responses/401ErrorResponse"
         default:
           $ref: "#/components/responses/DefaultErrorResponse"
       tags:
@@ -712,6 +793,8 @@ paths:
           $ref: "#/components/responses/400ErrorResponse"
         "404":
           $ref: "#/components/responses/404ErrorResponse"
+        "401":
+          $ref: "#/components/responses/401ErrorResponse"
         default:
           $ref: "#/components/responses/DefaultErrorResponse"
       tags:
@@ -738,6 +821,8 @@ paths:
           $ref: "#/components/responses/410ErrorResponse"
         "503":
           $ref: "#/components/responses/503ErrorResponse"
+        "401":
+          $ref: "#/components/responses/401ErrorResponse"
         default:
           $ref: "#/components/responses/DefaultErrorResponse"
       tags:
@@ -758,6 +843,8 @@ paths:
           $ref: "#/components/responses/400ErrorResponse"
         "404":
           $ref: "#/components/responses/404ErrorResponse"
+        "401":
+          $ref: "#/components/responses/401ErrorResponse"
         default:
           $ref: "#/components/responses/DefaultErrorResponse"
       tags:
@@ -783,6 +870,8 @@ paths:
           $ref: "#/components/responses/404ErrorResponse"
         "409":
           $ref: "#/components/responses/409ErrorResponse"
+        "401":
+          $ref: "#/components/responses/401ErrorResponse"
         default:
           $ref: "#/components/responses/DefaultErrorResponse"
       tags:
@@ -803,6 +892,8 @@ paths:
       responses:
         "200":
           $ref: "#/components/responses/GetPipelinesResponse"
+        "401":
+          $ref: "#/components/responses/401ErrorResponse"
         default:
           $ref: "#/components/responses/DefaultErrorResponse"
       tags:
@@ -822,6 +913,8 @@ paths:
       responses:
         "200":
           $ref: "#/components/responses/GetPluginsResponse"
+        "401":
+          $ref: "#/components/responses/401ErrorResponse"
         default:
           $ref: "#/components/responses/DefaultErrorResponse"
       tags:
@@ -840,6 +933,8 @@ paths:
           description: Post plugin response
         "400":
           $ref: "#/components/responses/400ErrorResponse"
+        "401":
+          $ref: "#/components/responses/401ErrorResponse"
         default:
           $ref: "#/components/responses/DefaultErrorResponse"
       tags:
@@ -861,6 +956,8 @@ paths:
           $ref: "#/components/responses/400ErrorResponse"
         "404":
           $ref: "#/components/responses/404ErrorResponse"
+        "401":
+          $ref: "#/components/responses/401ErrorResponse"
         default:
           $ref: "#/components/responses/DefaultErrorResponse"
       tags:
@@ -883,6 +980,8 @@ paths:
           $ref: "#/components/responses/400ErrorResponse"
         "404":
           $ref: "#/components/responses/404ErrorResponse"
+        "401":
+          $ref: "#/components/responses/401ErrorResponse"
         default:
           $ref: "#/components/responses/DefaultErrorResponse"
       tags:
@@ -903,6 +1002,8 @@ paths:
           $ref: "#/components/responses/400ErrorResponse"
         "404":
           $ref: "#/components/responses/404ErrorResponse"
+        "401":
+          $ref: "#/components/responses/401ErrorResponse"
         default:
           $ref: "#/components/responses/DefaultErrorResponse"
       tags:
@@ -921,6 +1022,8 @@ paths:
       responses:
         "200":
           $ref: "#/components/responses/GetAnalyzersResponse"
+        "401":
+          $ref: "#/components/responses/401ErrorResponse"
         default:
           $ref: "#/components/responses/DefaultErrorResponse"
       tags:
@@ -947,6 +1050,7 @@ components:
       type: http
       scheme: bearer
       bearerFormat: JWT
+      description: JWT token obtained via the POST /login endpoint.
 
   parameters:
     ID:
@@ -1016,7 +1120,7 @@ components:
     IncludeOutput:
       name: include_output
       in: query
-      description: Flag to indicate wether to include the pipeline output.
+      description: Flag to indicate whether to include the pipeline output.
       required: false
       schema:
         $ref: "#/components/schemas/IncludeOutput"
@@ -1025,7 +1129,7 @@ components:
     IncludeDocument:
       name: include_document
       in: query
-      description: Flag to indicate wether to include the pipeline document.
+      description: Flag to indicate whether to include the pipeline document.
       required: false
       schema:
         $ref: "#/components/schemas/IncludeDocument"
@@ -1217,21 +1321,21 @@ components:
             $ref: "#/components/schemas/LoginToken"
 
     GetAuthenticationConfigurationByIDResponse:
-      description: Get document by ID response body.
+      description: Get authentication configuration by ID response body.
       content:
         application/json:
           schema:
             $ref: "#/components/schemas/GetAuthenticationConfiguration"
 
     GetAuthenticationConfigurationsResponse:
-      description: Get documents response body.
+      description: Get authentication configurations response body.
       content:
         application/json:
           schema:
             $ref: "#/components/schemas/GetAuthenticationConfigurations"
 
     CreateAuthenticationConfigurationResponse:
-      description: Create document response body.
+      description: Create authentication configuration response body.
       content:
         application/json:
           schema:
@@ -1369,13 +1473,6 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/GetPlugin"
-
-    GetPluginResponse:
-      description: Get plugin response body.
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/GetPlugins"
 
     GetPluginsResponse:
       description: Get plugins response body.
@@ -1771,11 +1868,20 @@ components:
         uri:
           $ref: "#/components/schemas/URI"
 
-    FiletypeConfiguration: {}
+    FiletypeConfiguration:
+      type: object
+      description: Dynamic configuration for a filetype. The schema depends on the selected filetype. Call /filetype_configurations to retrieve the JSON Schema for each supported filetype.
+      additionalProperties: true
 
-    FlowConfiguration: {}
+    FlowConfiguration:
+      type: object
+      description: Dynamic configuration for a flow. The schema depends on the selected flow. Call /flows to retrieve the JSON Schema for each supported flow.
+      additionalProperties: true
 
-    PluginConfiguration: {}
+    PluginConfiguration:
+      type: object
+      description: Dynamic configuration for a plugin. The schema depends on the selected plugin. Call /plugins to retrieve the JSON Schema for each supported plugin.
+      additionalProperties: true
 
     DocumentFiletypeConfiguration:
       type: object
@@ -1960,7 +2066,7 @@ components:
 
     GetConnectiontype:
       type: object
-      description: Get connectiontype response object. Contains the name of the connectiontype and wether it is a document and/or destination connection.
+      description: Get connectiontype response object. Contains the name of the connectiontype and whether it is a document and/or destination connection.
       required:
         - name
         - document_support
@@ -2182,12 +2288,20 @@ components:
 
     Timestamp:
       type: string
-      description: Timestamp
+      description: Timestamp in RFC 3339 format (e.g. 2024-01-15T09:30:00Z).
 
     PipelineStatus:
       type: string
       description: |
-        The status the pipeline is currently in. The following statuses can be returned: QUEUED_LOCAL, QUEUED, RUNNING, FAILED, SUCCESS, CANCELED, PAUSED
+        The status the pipeline is currently in.
+      enum:
+        - QUEUED_LOCAL
+        - QUEUED
+        - RUNNING
+        - FAILED
+        - SUCCESS
+        - CANCELED
+        - PAUSED
 
     PipelineStep:
       type: object
@@ -2304,11 +2418,18 @@ components:
         output:
           $ref: "#/components/schemas/PipelineOutput"
 
-    PipelineOutput: {}
+    PipelineOutput:
+      type: object
+      description: The output produced by the pipeline analysis. The structure depends on the flow and plugins used.
+      additionalProperties: true
 
     Operation:
       type: string
       description: The operation to execute on the pipeline update.
+      enum:
+        - CANCEL
+        - PAUSE
+        - RESUME
 
     UpdatePipeline:
       type: object
@@ -2471,7 +2592,8 @@ components:
       items:
         type: string
 
-    JSONSchemaProperties: {}
+    JSONSchemaProperties:
+      description: JSON Schema properties object. Each key is a property name and its value is a JSON Schema describing that property.
 
     JSONSchema:
       type: object
@@ -2515,13 +2637,15 @@ components:
 
     InstanceElement:
       type: object
+      description: |
+        A Dynizer instance element. Both the deprecated misspelled fields (min_occurence, max_occurence) and the
+        correctly spelled fields (min_occurrence, max_occurrence) are accepted. If both variants are provided,
+        they must have the same value or a 400 error is returned.
       required:
         - action_label
         - component
         - default_data_type
         - specs
-        - min_occurence
-        - max_occurence
         - values
       properties:
         action_label:
@@ -2534,19 +2658,35 @@ components:
           $ref: "#/components/schemas/Specs"
         min_occurence:
           $ref: "#/components/schemas/MinOccurence"
+          x-deprecated: true
         max_occurence:
           $ref: "#/components/schemas/MaxOccurence"
+          x-deprecated: true
+        min_occurrence:
+          $ref: "#/components/schemas/MinOccurrence"
+        max_occurrence:
+          $ref: "#/components/schemas/MaxOccurrence"
         values:
           $ref: "#/components/schemas/InstanceValues"
 
     MinOccurence:
       type: integer
-      description: Amount of values that have to occur for a dynizer action label
+      description: "Deprecated: Use min_occurrence instead. Amount of values that have to occur for a dynizer action label."
       example: 0
 
     MaxOccurence:
       type: integer
-      description: Amount of values that may occur for a dynizer action label
+      description: "Deprecated: Use max_occurrence instead. Amount of values that may occur for a dynizer action label."
+      example: 3
+
+    MinOccurrence:
+      type: integer
+      description: Amount of values that have to occur for a dynizer action label.
+      example: 0
+
+    MaxOccurrence:
+      type: integer
+      description: Amount of values that may occur for a dynizer action label.
       example: 3
 
     Specs:
