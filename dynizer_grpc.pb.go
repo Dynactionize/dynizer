@@ -131,6 +131,8 @@ const (
 	Dynizer_QueryExecute_FullMethodName                           = "/Dynizer/QueryExecute"
 	Dynizer_QueryClose_FullMethodName                             = "/Dynizer/QueryClose"
 	Dynizer_FindActionLabelLinks_FullMethodName                   = "/Dynizer/FindActionLabelLinks"
+	Dynizer_Chat_FullMethodName                                   = "/Dynizer/Chat"
+	Dynizer_ChatStream_FullMethodName                             = "/Dynizer/ChatStream"
 )
 
 // DynizerClient is the client API for Dynizer service.
@@ -366,6 +368,12 @@ type DynizerClient interface {
 	QueryClose(ctx context.Context, in *QueryCloseReq, opts ...grpc.CallOption) (*EmptyRes, error)
 	// Finds the actionlabels with shared dataelements within a set of actions
 	FindActionLabelLinks(ctx context.Context, in *FindActionLabelLinksReq, opts ...grpc.CallOption) (*FindActionLabelLinksRes, error)
+	// Chat (experimental) — unary request/response.
+	// REST is wired manually (SSE streaming needs custom handling).
+	Chat(ctx context.Context, in *ChatReq, opts ...grpc.CallOption) (*ChatRes, error)
+	// ChatStream (experimental) — server-streaming chat with per-event updates.
+	// REST is wired manually as SSE.
+	ChatStream(ctx context.Context, in *ChatReq, opts ...grpc.CallOption) (grpc.ServerStreamingClient[ChatStreamEvent], error)
 }
 
 type dynizerClient struct {
@@ -1515,6 +1523,35 @@ func (c *dynizerClient) FindActionLabelLinks(ctx context.Context, in *FindAction
 	return out, nil
 }
 
+func (c *dynizerClient) Chat(ctx context.Context, in *ChatReq, opts ...grpc.CallOption) (*ChatRes, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ChatRes)
+	err := c.cc.Invoke(ctx, Dynizer_Chat_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *dynizerClient) ChatStream(ctx context.Context, in *ChatReq, opts ...grpc.CallOption) (grpc.ServerStreamingClient[ChatStreamEvent], error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	stream, err := c.cc.NewStream(ctx, &Dynizer_ServiceDesc.Streams[3], Dynizer_ChatStream_FullMethodName, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &grpc.GenericClientStream[ChatReq, ChatStreamEvent]{ClientStream: stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
+}
+
+// This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
+type Dynizer_ChatStreamClient = grpc.ServerStreamingClient[ChatStreamEvent]
+
 // DynizerServer is the server API for Dynizer service.
 // All implementations must embed UnimplementedDynizerServer
 // for forward compatibility.
@@ -1748,6 +1785,12 @@ type DynizerServer interface {
 	QueryClose(context.Context, *QueryCloseReq) (*EmptyRes, error)
 	// Finds the actionlabels with shared dataelements within a set of actions
 	FindActionLabelLinks(context.Context, *FindActionLabelLinksReq) (*FindActionLabelLinksRes, error)
+	// Chat (experimental) — unary request/response.
+	// REST is wired manually (SSE streaming needs custom handling).
+	Chat(context.Context, *ChatReq) (*ChatRes, error)
+	// ChatStream (experimental) — server-streaming chat with per-event updates.
+	// REST is wired manually as SSE.
+	ChatStream(*ChatReq, grpc.ServerStreamingServer[ChatStreamEvent]) error
 	mustEmbedUnimplementedDynizerServer()
 }
 
@@ -2093,6 +2136,12 @@ func (UnimplementedDynizerServer) QueryClose(context.Context, *QueryCloseReq) (*
 }
 func (UnimplementedDynizerServer) FindActionLabelLinks(context.Context, *FindActionLabelLinksReq) (*FindActionLabelLinksRes, error) {
 	return nil, status.Error(codes.Unimplemented, "method FindActionLabelLinks not implemented")
+}
+func (UnimplementedDynizerServer) Chat(context.Context, *ChatReq) (*ChatRes, error) {
+	return nil, status.Error(codes.Unimplemented, "method Chat not implemented")
+}
+func (UnimplementedDynizerServer) ChatStream(*ChatReq, grpc.ServerStreamingServer[ChatStreamEvent]) error {
+	return status.Error(codes.Unimplemented, "method ChatStream not implemented")
 }
 func (UnimplementedDynizerServer) mustEmbedUnimplementedDynizerServer() {}
 func (UnimplementedDynizerServer) testEmbeddedByValue()                 {}
@@ -4102,6 +4151,35 @@ func _Dynizer_FindActionLabelLinks_Handler(srv interface{}, ctx context.Context,
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Dynizer_Chat_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ChatReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DynizerServer).Chat(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Dynizer_Chat_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DynizerServer).Chat(ctx, req.(*ChatReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Dynizer_ChatStream_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(ChatReq)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
+	}
+	return srv.(DynizerServer).ChatStream(m, &grpc.GenericServerStream[ChatReq, ChatStreamEvent]{ServerStream: stream})
+}
+
+// This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
+type Dynizer_ChatStreamServer = grpc.ServerStreamingServer[ChatStreamEvent]
+
 // Dynizer_ServiceDesc is the grpc.ServiceDesc for Dynizer service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -4545,6 +4623,10 @@ var Dynizer_ServiceDesc = grpc.ServiceDesc{
 			MethodName: "FindActionLabelLinks",
 			Handler:    _Dynizer_FindActionLabelLinks_Handler,
 		},
+		{
+			MethodName: "Chat",
+			Handler:    _Dynizer_Chat_Handler,
+		},
 	},
 	Streams: []grpc.StreamDesc{
 		{
@@ -4562,6 +4644,11 @@ var Dynizer_ServiceDesc = grpc.ServiceDesc{
 			Handler:       _Dynizer_StreamInstances_Handler,
 			ServerStreams: true,
 			ClientStreams: true,
+		},
+		{
+			StreamName:    "ChatStream",
+			Handler:       _Dynizer_ChatStream_Handler,
+			ServerStreams: true,
 		},
 	},
 	Metadata: "dynizer.proto",

@@ -10749,6 +10749,613 @@ func (x *ActionLabelLink) GetSharedTotal() int64 {
 	return 0
 }
 
+// ChatMessage is a single message in a conversation.
+type ChatMessage struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Role          string                 `protobuf:"bytes,1,opt,name=role,proto3" json:"role,omitempty"` // "user", "assistant", or "system"
+	Content       string                 `protobuf:"bytes,2,opt,name=content,proto3" json:"content,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ChatMessage) Reset() {
+	*x = ChatMessage{}
+	mi := &file_dynizer_proto_msgTypes[174]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ChatMessage) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ChatMessage) ProtoMessage() {}
+
+func (x *ChatMessage) ProtoReflect() protoreflect.Message {
+	mi := &file_dynizer_proto_msgTypes[174]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ChatMessage.ProtoReflect.Descriptor instead.
+func (*ChatMessage) Descriptor() ([]byte, []int) {
+	return file_dynizer_proto_rawDescGZIP(), []int{174}
+}
+
+func (x *ChatMessage) GetRole() string {
+	if x != nil {
+		return x.Role
+	}
+	return ""
+}
+
+func (x *ChatMessage) GetContent() string {
+	if x != nil {
+		return x.Content
+	}
+	return ""
+}
+
+// ChatReq is the request for the Chat and ChatStream RPCs.
+type ChatReq struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Messages      []*ChatMessage         `protobuf:"bytes,1,rep,name=messages,proto3" json:"messages,omitempty"`
+	MaxTokens     uint32                 `protobuf:"varint,2,opt,name=max_tokens,json=maxTokens,proto3" json:"max_tokens,omitempty"`
+	Temperature   float64                `protobuf:"fixed64,3,opt,name=temperature,proto3" json:"temperature,omitempty"`
+	WebSearch     bool                   `protobuf:"varint,4,opt,name=web_search,json=webSearch,proto3" json:"web_search,omitempty"`
+	LocalSearch   bool                   `protobuf:"varint,5,opt,name=local_search,json=localSearch,proto3" json:"local_search,omitempty"`
+	K             uint32                 `protobuf:"varint,6,opt,name=k,proto3" json:"k,omitempty"`            // top-k for local similarity search
+	Actions       []string               `protobuf:"bytes,7,rep,name=actions,proto3" json:"actions,omitempty"` // optional: limit searches to these actions
+	Verify        bool                   `protobuf:"varint,8,opt,name=verify,proto3" json:"verify,omitempty"`  // enable critic→writer refinement pass
+	Dql           []string               `protobuf:"bytes,9,rep,name=dql,proto3" json:"dql,omitempty"`         // optional: DQL statements to execute for context before the agent loop
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ChatReq) Reset() {
+	*x = ChatReq{}
+	mi := &file_dynizer_proto_msgTypes[175]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ChatReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ChatReq) ProtoMessage() {}
+
+func (x *ChatReq) ProtoReflect() protoreflect.Message {
+	mi := &file_dynizer_proto_msgTypes[175]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ChatReq.ProtoReflect.Descriptor instead.
+func (*ChatReq) Descriptor() ([]byte, []int) {
+	return file_dynizer_proto_rawDescGZIP(), []int{175}
+}
+
+func (x *ChatReq) GetMessages() []*ChatMessage {
+	if x != nil {
+		return x.Messages
+	}
+	return nil
+}
+
+func (x *ChatReq) GetMaxTokens() uint32 {
+	if x != nil {
+		return x.MaxTokens
+	}
+	return 0
+}
+
+func (x *ChatReq) GetTemperature() float64 {
+	if x != nil {
+		return x.Temperature
+	}
+	return 0
+}
+
+func (x *ChatReq) GetWebSearch() bool {
+	if x != nil {
+		return x.WebSearch
+	}
+	return false
+}
+
+func (x *ChatReq) GetLocalSearch() bool {
+	if x != nil {
+		return x.LocalSearch
+	}
+	return false
+}
+
+func (x *ChatReq) GetK() uint32 {
+	if x != nil {
+		return x.K
+	}
+	return 0
+}
+
+func (x *ChatReq) GetActions() []string {
+	if x != nil {
+		return x.Actions
+	}
+	return nil
+}
+
+func (x *ChatReq) GetVerify() bool {
+	if x != nil {
+		return x.Verify
+	}
+	return false
+}
+
+func (x *ChatReq) GetDql() []string {
+	if x != nil {
+		return x.Dql
+	}
+	return nil
+}
+
+// ChatRes is the unary response from Chat.
+type ChatRes struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Content       string                 `protobuf:"bytes,1,opt,name=content,proto3" json:"content,omitempty"`
+	ToolCalls     []*ChatToolCall        `protobuf:"bytes,2,rep,name=tool_calls,json=toolCalls,proto3" json:"tool_calls,omitempty"`
+	Iterations    int32                  `protobuf:"varint,3,opt,name=iterations,proto3" json:"iterations,omitempty"`
+	Fallback      bool                   `protobuf:"varint,4,opt,name=fallback,proto3" json:"fallback,omitempty"`
+	CriticRounds  int32                  `protobuf:"varint,5,opt,name=critic_rounds,json=criticRounds,proto3" json:"critic_rounds,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ChatRes) Reset() {
+	*x = ChatRes{}
+	mi := &file_dynizer_proto_msgTypes[176]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ChatRes) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ChatRes) ProtoMessage() {}
+
+func (x *ChatRes) ProtoReflect() protoreflect.Message {
+	mi := &file_dynizer_proto_msgTypes[176]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ChatRes.ProtoReflect.Descriptor instead.
+func (*ChatRes) Descriptor() ([]byte, []int) {
+	return file_dynizer_proto_rawDescGZIP(), []int{176}
+}
+
+func (x *ChatRes) GetContent() string {
+	if x != nil {
+		return x.Content
+	}
+	return ""
+}
+
+func (x *ChatRes) GetToolCalls() []*ChatToolCall {
+	if x != nil {
+		return x.ToolCalls
+	}
+	return nil
+}
+
+func (x *ChatRes) GetIterations() int32 {
+	if x != nil {
+		return x.Iterations
+	}
+	return 0
+}
+
+func (x *ChatRes) GetFallback() bool {
+	if x != nil {
+		return x.Fallback
+	}
+	return false
+}
+
+func (x *ChatRes) GetCriticRounds() int32 {
+	if x != nil {
+		return x.CriticRounds
+	}
+	return 0
+}
+
+// ChatToolCall records a single tool invocation during the agent loop.
+type ChatToolCall struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Tool          string                 `protobuf:"bytes,1,opt,name=tool,proto3" json:"tool,omitempty"`
+	Args          string                 `protobuf:"bytes,2,opt,name=args,proto3" json:"args,omitempty"`
+	Result        string                 `protobuf:"bytes,3,opt,name=result,proto3" json:"result,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ChatToolCall) Reset() {
+	*x = ChatToolCall{}
+	mi := &file_dynizer_proto_msgTypes[177]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ChatToolCall) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ChatToolCall) ProtoMessage() {}
+
+func (x *ChatToolCall) ProtoReflect() protoreflect.Message {
+	mi := &file_dynizer_proto_msgTypes[177]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ChatToolCall.ProtoReflect.Descriptor instead.
+func (*ChatToolCall) Descriptor() ([]byte, []int) {
+	return file_dynizer_proto_rawDescGZIP(), []int{177}
+}
+
+func (x *ChatToolCall) GetTool() string {
+	if x != nil {
+		return x.Tool
+	}
+	return ""
+}
+
+func (x *ChatToolCall) GetArgs() string {
+	if x != nil {
+		return x.Args
+	}
+	return ""
+}
+
+func (x *ChatToolCall) GetResult() string {
+	if x != nil {
+		return x.Result
+	}
+	return ""
+}
+
+// ChatStreamEvent is one event in the ChatStream server-streaming response.
+// Exactly one of the payload fields is populated, selected by type.
+type ChatStreamEvent struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	Type  string                 `protobuf:"bytes,1,opt,name=type,proto3" json:"type,omitempty"` // "tool_call", "critic", "stage", "content", "content_reset", "done", "error"
+	// tool_call payload
+	Tool *ChatToolCall `protobuf:"bytes,2,opt,name=tool,proto3" json:"tool,omitempty"`
+	// critic payload
+	Critic *ChatCriticEvent `protobuf:"bytes,3,opt,name=critic,proto3" json:"critic,omitempty"`
+	// stage payload
+	Stage *ChatStageEvent `protobuf:"bytes,4,opt,name=stage,proto3" json:"stage,omitempty"`
+	// done payload
+	Done *ChatDoneEvent `protobuf:"bytes,5,opt,name=done,proto3" json:"done,omitempty"`
+	// content payload (per-token text fragment)
+	Content string `protobuf:"bytes,6,opt,name=content,proto3" json:"content,omitempty"`
+	// error payload
+	Error         string `protobuf:"bytes,7,opt,name=error,proto3" json:"error,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ChatStreamEvent) Reset() {
+	*x = ChatStreamEvent{}
+	mi := &file_dynizer_proto_msgTypes[178]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ChatStreamEvent) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ChatStreamEvent) ProtoMessage() {}
+
+func (x *ChatStreamEvent) ProtoReflect() protoreflect.Message {
+	mi := &file_dynizer_proto_msgTypes[178]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ChatStreamEvent.ProtoReflect.Descriptor instead.
+func (*ChatStreamEvent) Descriptor() ([]byte, []int) {
+	return file_dynizer_proto_rawDescGZIP(), []int{178}
+}
+
+func (x *ChatStreamEvent) GetType() string {
+	if x != nil {
+		return x.Type
+	}
+	return ""
+}
+
+func (x *ChatStreamEvent) GetTool() *ChatToolCall {
+	if x != nil {
+		return x.Tool
+	}
+	return nil
+}
+
+func (x *ChatStreamEvent) GetCritic() *ChatCriticEvent {
+	if x != nil {
+		return x.Critic
+	}
+	return nil
+}
+
+func (x *ChatStreamEvent) GetStage() *ChatStageEvent {
+	if x != nil {
+		return x.Stage
+	}
+	return nil
+}
+
+func (x *ChatStreamEvent) GetDone() *ChatDoneEvent {
+	if x != nil {
+		return x.Done
+	}
+	return nil
+}
+
+func (x *ChatStreamEvent) GetContent() string {
+	if x != nil {
+		return x.Content
+	}
+	return ""
+}
+
+func (x *ChatStreamEvent) GetError() string {
+	if x != nil {
+		return x.Error
+	}
+	return ""
+}
+
+// ChatCriticEvent reports one verify-loop round.
+type ChatCriticEvent struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Round         int32                  `protobuf:"varint,1,opt,name=round,proto3" json:"round,omitempty"`
+	Approved      bool                   `protobuf:"varint,2,opt,name=approved,proto3" json:"approved,omitempty"`
+	Issues        []string               `protobuf:"bytes,3,rep,name=issues,proto3" json:"issues,omitempty"`
+	Revised       bool                   `protobuf:"varint,4,opt,name=revised,proto3" json:"revised,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ChatCriticEvent) Reset() {
+	*x = ChatCriticEvent{}
+	mi := &file_dynizer_proto_msgTypes[179]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ChatCriticEvent) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ChatCriticEvent) ProtoMessage() {}
+
+func (x *ChatCriticEvent) ProtoReflect() protoreflect.Message {
+	mi := &file_dynizer_proto_msgTypes[179]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ChatCriticEvent.ProtoReflect.Descriptor instead.
+func (*ChatCriticEvent) Descriptor() ([]byte, []int) {
+	return file_dynizer_proto_rawDescGZIP(), []int{179}
+}
+
+func (x *ChatCriticEvent) GetRound() int32 {
+	if x != nil {
+		return x.Round
+	}
+	return 0
+}
+
+func (x *ChatCriticEvent) GetApproved() bool {
+	if x != nil {
+		return x.Approved
+	}
+	return false
+}
+
+func (x *ChatCriticEvent) GetIssues() []string {
+	if x != nil {
+		return x.Issues
+	}
+	return nil
+}
+
+func (x *ChatCriticEvent) GetRevised() bool {
+	if x != nil {
+		return x.Revised
+	}
+	return false
+}
+
+// ChatStageEvent marks a pipeline progression point.
+type ChatStageEvent struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Name          string                 `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`            // e.g. "phase1_start", "phase2_iteration", "skipped"
+	Iteration     int32                  `protobuf:"varint,2,opt,name=iteration,proto3" json:"iteration,omitempty"` // 1-based, set on phase2_iteration
+	Skipped       string                 `protobuf:"bytes,3,opt,name=skipped,proto3" json:"skipped,omitempty"`      // tool/stage name when name="skipped"
+	Reason        string                 `protobuf:"bytes,4,opt,name=reason,proto3" json:"reason,omitempty"`
+	Info          string                 `protobuf:"bytes,5,opt,name=info,proto3" json:"info,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ChatStageEvent) Reset() {
+	*x = ChatStageEvent{}
+	mi := &file_dynizer_proto_msgTypes[180]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ChatStageEvent) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ChatStageEvent) ProtoMessage() {}
+
+func (x *ChatStageEvent) ProtoReflect() protoreflect.Message {
+	mi := &file_dynizer_proto_msgTypes[180]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ChatStageEvent.ProtoReflect.Descriptor instead.
+func (*ChatStageEvent) Descriptor() ([]byte, []int) {
+	return file_dynizer_proto_rawDescGZIP(), []int{180}
+}
+
+func (x *ChatStageEvent) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *ChatStageEvent) GetIteration() int32 {
+	if x != nil {
+		return x.Iteration
+	}
+	return 0
+}
+
+func (x *ChatStageEvent) GetSkipped() string {
+	if x != nil {
+		return x.Skipped
+	}
+	return ""
+}
+
+func (x *ChatStageEvent) GetReason() string {
+	if x != nil {
+		return x.Reason
+	}
+	return ""
+}
+
+func (x *ChatStageEvent) GetInfo() string {
+	if x != nil {
+		return x.Info
+	}
+	return ""
+}
+
+// ChatDoneEvent signals the stream is complete with run-level summary.
+type ChatDoneEvent struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Iterations    int32                  `protobuf:"varint,1,opt,name=iterations,proto3" json:"iterations,omitempty"`
+	CriticRounds  int32                  `protobuf:"varint,2,opt,name=critic_rounds,json=criticRounds,proto3" json:"critic_rounds,omitempty"`
+	Fallback      bool                   `protobuf:"varint,3,opt,name=fallback,proto3" json:"fallback,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ChatDoneEvent) Reset() {
+	*x = ChatDoneEvent{}
+	mi := &file_dynizer_proto_msgTypes[181]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ChatDoneEvent) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ChatDoneEvent) ProtoMessage() {}
+
+func (x *ChatDoneEvent) ProtoReflect() protoreflect.Message {
+	mi := &file_dynizer_proto_msgTypes[181]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ChatDoneEvent.ProtoReflect.Descriptor instead.
+func (*ChatDoneEvent) Descriptor() ([]byte, []int) {
+	return file_dynizer_proto_rawDescGZIP(), []int{181}
+}
+
+func (x *ChatDoneEvent) GetIterations() int32 {
+	if x != nil {
+		return x.Iterations
+	}
+	return 0
+}
+
+func (x *ChatDoneEvent) GetCriticRounds() int32 {
+	if x != nil {
+		return x.CriticRounds
+	}
+	return 0
+}
+
+func (x *ChatDoneEvent) GetFallback() bool {
+	if x != nil {
+		return x.Fallback
+	}
+	return false
+}
+
 var File_dynizer_proto protoreflect.FileDescriptor
 
 const file_dynizer_proto_rawDesc = "" +
@@ -11665,7 +12272,60 @@ const file_dynizer_proto_rawDesc = "" +
 	"rightTotal\x12W\n" +
 	"\fshared_total\x18\x05 \x01(\x03B4\x92A12/The total shared values in both **ActionLabel**R\vsharedTotal:\x91\x01\x92A\x8d\x01\n" +
 	"\x8a\x0125The **ActionLabel** links of the request **Actions**.\xd2\x01\x11left_action_label\xd2\x01\x12right_action_label\xd2\x01\n" +
-	"left_total\xd2\x01\vright_total\xd2\x01\fshared_total*Q\n" +
+	"left_total\xd2\x01\vright_total\xd2\x01\fshared_total\";\n" +
+	"\vChatMessage\x12\x12\n" +
+	"\x04role\x18\x01 \x01(\tR\x04role\x12\x18\n" +
+	"\acontent\x18\x02 \x01(\tR\acontent\"\x88\x02\n" +
+	"\aChatReq\x12(\n" +
+	"\bmessages\x18\x01 \x03(\v2\f.ChatMessageR\bmessages\x12\x1d\n" +
+	"\n" +
+	"max_tokens\x18\x02 \x01(\rR\tmaxTokens\x12 \n" +
+	"\vtemperature\x18\x03 \x01(\x01R\vtemperature\x12\x1d\n" +
+	"\n" +
+	"web_search\x18\x04 \x01(\bR\twebSearch\x12!\n" +
+	"\flocal_search\x18\x05 \x01(\bR\vlocalSearch\x12\f\n" +
+	"\x01k\x18\x06 \x01(\rR\x01k\x12\x18\n" +
+	"\aactions\x18\a \x03(\tR\aactions\x12\x16\n" +
+	"\x06verify\x18\b \x01(\bR\x06verify\x12\x10\n" +
+	"\x03dql\x18\t \x03(\tR\x03dql\"\xb2\x01\n" +
+	"\aChatRes\x12\x18\n" +
+	"\acontent\x18\x01 \x01(\tR\acontent\x12,\n" +
+	"\n" +
+	"tool_calls\x18\x02 \x03(\v2\r.ChatToolCallR\ttoolCalls\x12\x1e\n" +
+	"\n" +
+	"iterations\x18\x03 \x01(\x05R\n" +
+	"iterations\x12\x1a\n" +
+	"\bfallback\x18\x04 \x01(\bR\bfallback\x12#\n" +
+	"\rcritic_rounds\x18\x05 \x01(\x05R\fcriticRounds\"N\n" +
+	"\fChatToolCall\x12\x12\n" +
+	"\x04tool\x18\x01 \x01(\tR\x04tool\x12\x12\n" +
+	"\x04args\x18\x02 \x01(\tR\x04args\x12\x16\n" +
+	"\x06result\x18\x03 \x01(\tR\x06result\"\xed\x01\n" +
+	"\x0fChatStreamEvent\x12\x12\n" +
+	"\x04type\x18\x01 \x01(\tR\x04type\x12!\n" +
+	"\x04tool\x18\x02 \x01(\v2\r.ChatToolCallR\x04tool\x12(\n" +
+	"\x06critic\x18\x03 \x01(\v2\x10.ChatCriticEventR\x06critic\x12%\n" +
+	"\x05stage\x18\x04 \x01(\v2\x0f.ChatStageEventR\x05stage\x12\"\n" +
+	"\x04done\x18\x05 \x01(\v2\x0e.ChatDoneEventR\x04done\x12\x18\n" +
+	"\acontent\x18\x06 \x01(\tR\acontent\x12\x14\n" +
+	"\x05error\x18\a \x01(\tR\x05error\"u\n" +
+	"\x0fChatCriticEvent\x12\x14\n" +
+	"\x05round\x18\x01 \x01(\x05R\x05round\x12\x1a\n" +
+	"\bapproved\x18\x02 \x01(\bR\bapproved\x12\x16\n" +
+	"\x06issues\x18\x03 \x03(\tR\x06issues\x12\x18\n" +
+	"\arevised\x18\x04 \x01(\bR\arevised\"\x88\x01\n" +
+	"\x0eChatStageEvent\x12\x12\n" +
+	"\x04name\x18\x01 \x01(\tR\x04name\x12\x1c\n" +
+	"\titeration\x18\x02 \x01(\x05R\titeration\x12\x18\n" +
+	"\askipped\x18\x03 \x01(\tR\askipped\x12\x16\n" +
+	"\x06reason\x18\x04 \x01(\tR\x06reason\x12\x12\n" +
+	"\x04info\x18\x05 \x01(\tR\x04info\"p\n" +
+	"\rChatDoneEvent\x12\x1e\n" +
+	"\n" +
+	"iterations\x18\x01 \x01(\x05R\n" +
+	"iterations\x12#\n" +
+	"\rcritic_rounds\x18\x02 \x01(\x05R\fcriticRounds\x12\x1a\n" +
+	"\bfallback\x18\x03 \x01(\bR\bfallback*Q\n" +
 	"\rComponentType\x12\x18\n" +
 	"\x14InvalidComponentType\x10\x00\x12\a\n" +
 	"\x03Who\x10\x01\x12\b\n" +
@@ -11740,7 +12400,7 @@ const file_dynizer_proto_rawDesc = "" +
 	"\vDQL_Prepare\x10\x11\x12\x0f\n" +
 	"\vDQL_Execute\x10\x12\x12\x12\n" +
 	"\x0eDQL_Deallocate\x10\x13\x12\x0f\n" +
-	"\vDQL_Explain\x10\x142\xa0\xdc\x01\n" +
+	"\vDQL_Explain\x10\x142\xf8\xdf\x01\n" +
 	"\aDynizer\x12\x81\x02\n" +
 	"\x05Login\x12\t.LoginReq\x1a\t.LoginRes\"\xe1\x01\x92A\xc5\x01\n" +
 	"\x04Auth\x1a\xb3\x01Authenticate with username and password.<br>On success returns a [JSON Web Token](https://jwt.io/) [(RFC 7519)](https://tools.ietf.org/html/rfc7519) to authorize subsequent calls.*\x05Loginb\x00\x82\xd3\xe4\x93\x02\x12:\x01*\"\r/api/v2/login\x12\xce\x02\n" +
@@ -12026,7 +12686,13 @@ const file_dynizer_proto_rawDesc = "" +
 	"\x05Query\x1a\x92\x01Close and clean up parsed/bound DQL statements.<br>Part of the experimental query engine; enable it with session variable `query_v3_session=true`.*\n" +
 	"QueryClose\x82\xd3\xe4\x93\x02\x18:\x01*\"\x13/api/v2/query/close\x12\xe5\x01\n" +
 	"\x14FindActionLabelLinks\x12\x18.FindActionLabelLinksReq\x1a\x18.FindActionLabelLinksRes\"\x98\x01\x92Al\n" +
-	"\aActions\x1aKFind **ActionLabels** that share data elements across a set of **Actions**.*\x14FindActionLabelLinks\x82\xd3\xe4\x93\x02#:\x01*\"\x1e/api/v2/find_actionlabel_linksB\xe0\f\x92A\xbb\f\n" +
+	"\aActions\x1aKFind **ActionLabels** that share data elements across a set of **Actions**.*\x14FindActionLabelLinks\x82\xd3\xe4\x93\x02#:\x01*\"\x1e/api/v2/find_actionlabel_links\x12\xf5\x01\n" +
+	"\x04Chat\x12\b.ChatReq\x1a\b.ChatRes\"\xd8\x01\x92A\xd4\x01\n" +
+	"\fExperimental\x1a\xbd\x01Send a chat message and receive a complete response. The server may invoke tools (DQL queries, web search) and an optional critic→writer refinement pass before returning the final answer.*\x04Chat\x12\xdd\x01\n" +
+	"\n" +
+	"ChatStream\x12\b.ChatReq\x1a\x10.ChatStreamEvent\"\xb0\x01\x92A\xac\x01\n" +
+	"\fExperimental\x1a\x8f\x01Send a chat message and receive a stream of events: tool calls, pipeline stages, per-token content, critic verdicts, and a terminal done event.*\n" +
+	"ChatStream0\x01B\xe0\f\x92A\xbb\f\n" +
 	"\x032.0\x12\xdf\x03\n" +
 	"\vDynizer API\x12\xd7\x01Public API for the Dynizer knowledge engine.<br>All endpoints are under `/api/v2`, secured with JWT unless stated otherwise.<br>See the [Dynizer overview](https://www.consono.ai/technology) for architecture details.\"5\n" +
 	"\aConsono\x12\x16https://www.consono.ai\x1a\x12support@consono.ai2\x032.2:\xb9\x01\n" +
@@ -12164,7 +12830,7 @@ func file_dynizer_proto_rawDescGZIP() []byte {
 }
 
 var file_dynizer_proto_enumTypes = make([]protoimpl.EnumInfo, 6)
-var file_dynizer_proto_msgTypes = make([]protoimpl.MessageInfo, 174)
+var file_dynizer_proto_msgTypes = make([]protoimpl.MessageInfo, 182)
 var file_dynizer_proto_goTypes = []any{
 	(ComponentType)(0),                             // 0: ComponentType
 	(DataType)(0),                                  // 1: DataType
@@ -12346,6 +13012,14 @@ var file_dynizer_proto_goTypes = []any{
 	(*FindActionLabelLinksRes)(nil),                // 177: FindActionLabelLinksRes
 	(*ActionNameActionLabelName)(nil),              // 178: ActionNameActionLabelName
 	(*ActionLabelLink)(nil),                        // 179: ActionLabelLink
+	(*ChatMessage)(nil),                            // 180: ChatMessage
+	(*ChatReq)(nil),                                // 181: ChatReq
+	(*ChatRes)(nil),                                // 182: ChatRes
+	(*ChatToolCall)(nil),                           // 183: ChatToolCall
+	(*ChatStreamEvent)(nil),                        // 184: ChatStreamEvent
+	(*ChatCriticEvent)(nil),                        // 185: ChatCriticEvent
+	(*ChatStageEvent)(nil),                         // 186: ChatStageEvent
+	(*ChatDoneEvent)(nil),                          // 187: ChatDoneEvent
 }
 var file_dynizer_proto_depIdxs = []int32{
 	7,   // 0: ErrorMeta.args:type_name -> ErrorArg
@@ -12490,235 +13164,245 @@ var file_dynizer_proto_depIdxs = []int32{
 	179, // 139: FindActionLabelLinksRes.links:type_name -> ActionLabelLink
 	178, // 140: ActionLabelLink.left_action_label:type_name -> ActionNameActionLabelName
 	178, // 141: ActionLabelLink.right_action_label:type_name -> ActionNameActionLabelName
-	9,   // 142: Dynizer.Login:input_type -> LoginReq
-	10,  // 143: Dynizer.ServiceLogin:input_type -> ServiceLoginReq
-	39,  // 144: Dynizer.Logout:input_type -> EmptyReq
-	11,  // 145: Dynizer.ValidateToken:input_type -> TokenReq
-	39,  // 146: Dynizer.IssueServiceToken:input_type -> EmptyReq
-	39,  // 147: Dynizer.ListRoles:input_type -> EmptyReq
-	12,  // 148: Dynizer.AddUser:input_type -> AddUserReq
-	13,  // 149: Dynizer.AssignUserRole:input_type -> UserRoleReq
-	13,  // 150: Dynizer.RevokeUserRole:input_type -> UserRoleReq
-	14,  // 151: Dynizer.EnableUser:input_type -> UserReq
-	14,  // 152: Dynizer.DisableUser:input_type -> UserReq
-	18,  // 153: Dynizer.SetUserPassword:input_type -> SetUserPasswordReq
-	19,  // 154: Dynizer.ChangeMyPassword:input_type -> ChangePasswordReq
-	14,  // 155: Dynizer.GetUser:input_type -> UserReq
-	39,  // 156: Dynizer.GetMyProfile:input_type -> EmptyReq
-	14,  // 157: Dynizer.DeleteUser:input_type -> UserReq
-	39,  // 158: Dynizer.GetUserCount:input_type -> EmptyReq
-	16,  // 159: Dynizer.ListUsers:input_type -> WindowReq
-	14,  // 160: Dynizer.ListUserRoles:input_type -> UserReq
-	39,  // 161: Dynizer.GetMyRoles:input_type -> EmptyReq
-	14,  // 162: Dynizer.CheckUserName:input_type -> UserReq
-	15,  // 163: Dynizer.CheckPassword:input_type -> CheckPasswordReq
-	27,  // 164: Dynizer.CreateActionType:input_type -> CreateActionTypeReq
-	30,  // 165: Dynizer.UpdateActionType:input_type -> UpdateActionTypeReq
-	33,  // 166: Dynizer.ReadActionType:input_type -> ActionTypeReq
-	16,  // 167: Dynizer.ListActionTypes:input_type -> WindowReq
-	29,  // 168: Dynizer.CreateActionSchema:input_type -> CreateActionSchemaReq
-	31,  // 169: Dynizer.UpdateActionSchema:input_type -> UpdateActionSchemaReq
-	32,  // 170: Dynizer.DeleteActionSchema:input_type -> DeleteActionSchemaReq
-	32,  // 171: Dynizer.PurgeActionSchema:input_type -> DeleteActionSchemaReq
-	34,  // 172: Dynizer.ReadActionSchema:input_type -> ActionSchemaReq
-	16,  // 173: Dynizer.ListActionSchemas:input_type -> WindowReq
-	20,  // 174: Dynizer.CheckActionName:input_type -> CheckActionNameReq
-	21,  // 175: Dynizer.CreateAction:input_type -> CreateActionReq
-	23,  // 176: Dynizer.UpdateAction:input_type -> UpdateActionReq
-	24,  // 177: Dynizer.DeleteAction:input_type -> DeleteActionReq
-	24,  // 178: Dynizer.PurgeAction:input_type -> DeleteActionReq
-	25,  // 179: Dynizer.ReadAction:input_type -> ActionReq
-	61,  // 180: Dynizer.CountActions:input_type -> CountActionReq
-	17,  // 181: Dynizer.ListActionNames:input_type -> ListActionNamesWindowReq
-	40,  // 182: Dynizer.CheckActionLabelName:input_type -> CheckActionLabelNameReq
-	41,  // 183: Dynizer.AddActionLabel:input_type -> AddActionLabelReq
-	42,  // 184: Dynizer.UpdateActionLabel:input_type -> UpdateActionLabelReq
-	43,  // 185: Dynizer.DeleteActionLabel:input_type -> ActionLabelReq
-	43,  // 186: Dynizer.ReadActionLabel:input_type -> ActionLabelReq
-	44,  // 187: Dynizer.CreateObject:input_type -> CreateObjectReq
-	46,  // 188: Dynizer.ClearObjectData:input_type -> ClearObjectDataReq
-	47,  // 189: Dynizer.DeleteObject:input_type -> DeleteObjectReq
-	48,  // 190: Dynizer.StreamObjectDataIn:input_type -> StreamObjectDataInReq
-	49,  // 191: Dynizer.StreamObjectDataOut:input_type -> StreamObjectDataOutReq
-	54,  // 192: Dynizer.UploadObjectData:input_type -> UploadObjectDataReq
-	51,  // 193: Dynizer.DownloadObjectData:input_type -> DownloadObjectDataReq
-	51,  // 194: Dynizer.GetObjectSize:input_type -> DownloadObjectDataReq
-	39,  // 195: Dynizer.ListObjectUUIDS:input_type -> EmptyReq
-	39,  // 196: Dynizer.DeleteAllObjects:input_type -> EmptyReq
-	56,  // 197: Dynizer.CreateInstance:input_type -> CreateInstanceReq
-	57,  // 198: Dynizer.StreamInstances:input_type -> StreamInstanceReq
-	58,  // 199: Dynizer.UpdateInstance:input_type -> UpdateInstanceReq
-	59,  // 200: Dynizer.DeleteInstance:input_type -> InstanceReq
-	59,  // 201: Dynizer.PurgeInstance:input_type -> InstanceReq
-	59,  // 202: Dynizer.ReadInstance:input_type -> InstanceReq
-	62,  // 203: Dynizer.DynizerQuery:input_type -> DQLReq
-	63,  // 204: Dynizer.QueryResultNext:input_type -> QueryResultReq
-	173, // 205: Dynizer.QueryResultClose:input_type -> QueryCloseReq
-	64,  // 206: Dynizer.CheckMetaDataKeyName:input_type -> CheckMetaDataKeyNameReq
-	65,  // 207: Dynizer.CreateMetaDataKey:input_type -> CreateMetaDataKeyReq
-	68,  // 208: Dynizer.ReadMetaDataKey:input_type -> MetaDataKeyReq
-	67,  // 209: Dynizer.UpdateMetaDataKey:input_type -> UpdateMetaDataKeyReq
-	69,  // 210: Dynizer.DeleteMetaDataKey:input_type -> DeleteMetaDataKeyReq
-	39,  // 211: Dynizer.CountMetaDataKeys:input_type -> EmptyReq
-	70,  // 212: Dynizer.ListMetaDataKeys:input_type -> ListMetaDataKeysReq
-	71,  // 213: Dynizer.AddInstanceMetaData:input_type -> AddInstanceMetaDataReq
-	73,  // 214: Dynizer.RemoveInstanceMetaData:input_type -> InstanceMetaDataKeyReq
-	72,  // 215: Dynizer.AddInstanceMetaDataValue:input_type -> AddInstanceMetaDataValueReq
-	74,  // 216: Dynizer.RemoveInstanceMetaDataValue:input_type -> InstanceMetaDataKeyValueReq
-	73,  // 217: Dynizer.GetInstanceMetaDataValues:input_type -> InstanceMetaDataKeyReq
-	59,  // 218: Dynizer.CountInstanceMetaDataKeys:input_type -> InstanceReq
-	73,  // 219: Dynizer.CountInstanceMetaDataKeyValues:input_type -> InstanceMetaDataKeyReq
-	59,  // 220: Dynizer.ListInstanceMetaData:input_type -> InstanceReq
-	75,  // 221: Dynizer.AddInstanceActionLabelMetaData:input_type -> AddInstanceActionLabelMetaDataReq
-	76,  // 222: Dynizer.RemoveInstanceActionLabelMetaData:input_type -> InstanceActionLabelMetaDataKeyReq
-	84,  // 223: Dynizer.AddInstanceActionLabelMetaDataValue:input_type -> AddInstanceActionLabelMetaDataValueReq
-	85,  // 224: Dynizer.RemoveInstanceActionLabelMetaDataValue:input_type -> InstanceActionLabelMetaDataValueReq
-	78,  // 225: Dynizer.AddInstanceCellMetaData:input_type -> AddInstanceCellMetaDataReq
-	79,  // 226: Dynizer.RemoveInstanceCellMetaData:input_type -> InstanceCellMetaDataKeyReq
-	87,  // 227: Dynizer.AddInstanceCellMetaDataValue:input_type -> AddInstanceCellMetaDataValueReq
-	86,  // 228: Dynizer.RemoveInstanceCellMetaDataValue:input_type -> InstanceCellMetaDataKeyValueReq
-	79,  // 229: Dynizer.GetInstanceCellMetaDataValues:input_type -> InstanceCellMetaDataKeyReq
-	80,  // 230: Dynizer.CountInstanceCellMetaDataKeys:input_type -> InstanceCellMetaDataReq
-	79,  // 231: Dynizer.CountInstanceCellMetaDataKeyValues:input_type -> InstanceCellMetaDataKeyReq
-	80,  // 232: Dynizer.ListInstanceCellMetaData:input_type -> InstanceCellMetaDataReq
-	39,  // 233: Dynizer.GetDynizerConfiguration:input_type -> EmptyReq
-	137, // 234: Dynizer.ExportUserActions:input_type -> ExportUserActionsReq
-	139, // 235: Dynizer.ImportUserActions:input_type -> ImportUserActionsReq
-	39,  // 236: Dynizer.DropData:input_type -> EmptyReq
-	39,  // 237: Dynizer.GetDynizerVersion:input_type -> EmptyReq
-	143, // 238: Dynizer.QueryDataElements:input_type -> QueryDataElementsReq
-	144, // 239: Dynizer.GetTopNDataElements:input_type -> GetTopNDataElementsReq
-	147, // 240: Dynizer.DynizerFilteredQuery:input_type -> FilterQueryReq
-	153, // 241: Dynizer.ReIndex:input_type -> ReIndexReq
-	148, // 242: Dynizer.DynizerFilteredPlot:input_type -> FilteredPlotReq
-	154, // 243: Dynizer.CreateShareName:input_type -> CreateShareNameReq
-	155, // 244: Dynizer.UpdateShareNameValue:input_type -> UpdateShareNameValueReq
-	156, // 245: Dynizer.DeleteShareNameValue:input_type -> DeleteShareNameValueReq
-	62,  // 246: Dynizer.SimpleQuery:input_type -> DQLReq
-	166, // 247: Dynizer.QueryParse:input_type -> QueryParseReq
-	167, // 248: Dynizer.QueryBind:input_type -> QueryBindReq
-	168, // 249: Dynizer.QueryDescribeStatement:input_type -> QueryDescribeStatementReq
-	169, // 250: Dynizer.QueryDescribePortal:input_type -> QueryDescribePortalReq
-	172, // 251: Dynizer.QueryExecute:input_type -> QueryExecuteReq
-	173, // 252: Dynizer.QueryClose:input_type -> QueryCloseReq
-	176, // 253: Dynizer.FindActionLabelLinks:input_type -> FindActionLabelLinksReq
-	96,  // 254: Dynizer.Login:output_type -> LoginRes
-	96,  // 255: Dynizer.ServiceLogin:output_type -> LoginRes
-	95,  // 256: Dynizer.Logout:output_type -> EmptyRes
-	134, // 257: Dynizer.ValidateToken:output_type -> SessionID
-	97,  // 258: Dynizer.IssueServiceToken:output_type -> ServiceTokenRes
-	108, // 259: Dynizer.ListRoles:output_type -> ListRolesRes
-	95,  // 260: Dynizer.AddUser:output_type -> EmptyRes
-	95,  // 261: Dynizer.AssignUserRole:output_type -> EmptyRes
-	95,  // 262: Dynizer.RevokeUserRole:output_type -> EmptyRes
-	95,  // 263: Dynizer.EnableUser:output_type -> EmptyRes
-	95,  // 264: Dynizer.DisableUser:output_type -> EmptyRes
-	95,  // 265: Dynizer.SetUserPassword:output_type -> EmptyRes
-	95,  // 266: Dynizer.ChangeMyPassword:output_type -> EmptyRes
-	98,  // 267: Dynizer.GetUser:output_type -> UserRes
-	98,  // 268: Dynizer.GetMyProfile:output_type -> UserRes
-	95,  // 269: Dynizer.DeleteUser:output_type -> EmptyRes
-	106, // 270: Dynizer.GetUserCount:output_type -> UserCountRes
-	99,  // 271: Dynizer.ListUsers:output_type -> ListUsersRes
-	109, // 272: Dynizer.ListUserRoles:output_type -> ListUserRolesRes
-	109, // 273: Dynizer.GetMyRoles:output_type -> ListUserRolesRes
-	95,  // 274: Dynizer.CheckUserName:output_type -> EmptyRes
-	117, // 275: Dynizer.CheckPassword:output_type -> CheckPasswordRes
-	95,  // 276: Dynizer.CreateActionType:output_type -> EmptyRes
-	95,  // 277: Dynizer.UpdateActionType:output_type -> EmptyRes
-	35,  // 278: Dynizer.ReadActionType:output_type -> ActionTypeRes
-	37,  // 279: Dynizer.ListActionTypes:output_type -> ActionTypeArrayRes
-	95,  // 280: Dynizer.CreateActionSchema:output_type -> EmptyRes
-	95,  // 281: Dynizer.UpdateActionSchema:output_type -> EmptyRes
-	95,  // 282: Dynizer.DeleteActionSchema:output_type -> EmptyRes
-	95,  // 283: Dynizer.PurgeActionSchema:output_type -> EmptyRes
-	36,  // 284: Dynizer.ReadActionSchema:output_type -> ActionSchemaRes
-	38,  // 285: Dynizer.ListActionSchemas:output_type -> ActionSchemaArrayRes
-	95,  // 286: Dynizer.CheckActionName:output_type -> EmptyRes
-	95,  // 287: Dynizer.CreateAction:output_type -> EmptyRes
-	95,  // 288: Dynizer.UpdateAction:output_type -> EmptyRes
-	95,  // 289: Dynizer.DeleteAction:output_type -> EmptyRes
-	95,  // 290: Dynizer.PurgeAction:output_type -> EmptyRes
-	26,  // 291: Dynizer.ReadAction:output_type -> ActionRes
-	105, // 292: Dynizer.CountActions:output_type -> CountRes
-	100, // 293: Dynizer.ListActionNames:output_type -> ActionNameArrayRes
-	95,  // 294: Dynizer.CheckActionLabelName:output_type -> EmptyRes
-	95,  // 295: Dynizer.AddActionLabel:output_type -> EmptyRes
-	95,  // 296: Dynizer.UpdateActionLabel:output_type -> EmptyRes
-	95,  // 297: Dynizer.DeleteActionLabel:output_type -> EmptyRes
-	101, // 298: Dynizer.ReadActionLabel:output_type -> LabelRes
-	45,  // 299: Dynizer.CreateObject:output_type -> ObjectRes
-	95,  // 300: Dynizer.ClearObjectData:output_type -> EmptyRes
-	95,  // 301: Dynizer.DeleteObject:output_type -> EmptyRes
-	95,  // 302: Dynizer.StreamObjectDataIn:output_type -> EmptyRes
-	50,  // 303: Dynizer.StreamObjectDataOut:output_type -> StreamObjectDataOutRes
-	95,  // 304: Dynizer.UploadObjectData:output_type -> EmptyRes
-	52,  // 305: Dynizer.DownloadObjectData:output_type -> DownloadObjectDataRes
-	53,  // 306: Dynizer.GetObjectSize:output_type -> GetObjectSizeRes
-	55,  // 307: Dynizer.ListObjectUUIDS:output_type -> ObjectUUIDArrayRes
-	95,  // 308: Dynizer.DeleteAllObjects:output_type -> EmptyRes
-	102, // 309: Dynizer.CreateInstance:output_type -> InstanceIDRes
-	103, // 310: Dynizer.StreamInstances:output_type -> StreamInstanceIDRes
-	95,  // 311: Dynizer.UpdateInstance:output_type -> EmptyRes
-	95,  // 312: Dynizer.DeleteInstance:output_type -> EmptyRes
-	95,  // 313: Dynizer.PurgeInstance:output_type -> EmptyRes
-	104, // 314: Dynizer.ReadInstance:output_type -> InstanceRes
-	107, // 315: Dynizer.DynizerQuery:output_type -> DQLRes
-	161, // 316: Dynizer.QueryResultNext:output_type -> QueryResultRes
-	95,  // 317: Dynizer.QueryResultClose:output_type -> EmptyRes
-	95,  // 318: Dynizer.CheckMetaDataKeyName:output_type -> EmptyRes
-	95,  // 319: Dynizer.CreateMetaDataKey:output_type -> EmptyRes
-	110, // 320: Dynizer.ReadMetaDataKey:output_type -> MetaDataKeyRes
-	95,  // 321: Dynizer.UpdateMetaDataKey:output_type -> EmptyRes
-	95,  // 322: Dynizer.DeleteMetaDataKey:output_type -> EmptyRes
-	105, // 323: Dynizer.CountMetaDataKeys:output_type -> CountRes
-	111, // 324: Dynizer.ListMetaDataKeys:output_type -> MetaDataKeyArrayRes
-	95,  // 325: Dynizer.AddInstanceMetaData:output_type -> EmptyRes
-	95,  // 326: Dynizer.RemoveInstanceMetaData:output_type -> EmptyRes
-	95,  // 327: Dynizer.AddInstanceMetaDataValue:output_type -> EmptyRes
-	95,  // 328: Dynizer.RemoveInstanceMetaDataValue:output_type -> EmptyRes
-	113, // 329: Dynizer.GetInstanceMetaDataValues:output_type -> GetInstanceMetaDataKeyRes
-	105, // 330: Dynizer.CountInstanceMetaDataKeys:output_type -> CountRes
-	105, // 331: Dynizer.CountInstanceMetaDataKeyValues:output_type -> CountRes
-	112, // 332: Dynizer.ListInstanceMetaData:output_type -> ListInstanceMetaDataRes
-	95,  // 333: Dynizer.AddInstanceActionLabelMetaData:output_type -> EmptyRes
-	95,  // 334: Dynizer.RemoveInstanceActionLabelMetaData:output_type -> EmptyRes
-	95,  // 335: Dynizer.AddInstanceActionLabelMetaDataValue:output_type -> EmptyRes
-	95,  // 336: Dynizer.RemoveInstanceActionLabelMetaDataValue:output_type -> EmptyRes
-	95,  // 337: Dynizer.AddInstanceCellMetaData:output_type -> EmptyRes
-	95,  // 338: Dynizer.RemoveInstanceCellMetaData:output_type -> EmptyRes
-	95,  // 339: Dynizer.AddInstanceCellMetaDataValue:output_type -> EmptyRes
-	95,  // 340: Dynizer.RemoveInstanceCellMetaDataValue:output_type -> EmptyRes
-	115, // 341: Dynizer.GetInstanceCellMetaDataValues:output_type -> GetInstanceCellMetaDataKeyRes
-	105, // 342: Dynizer.CountInstanceCellMetaDataKeys:output_type -> CountRes
-	105, // 343: Dynizer.CountInstanceCellMetaDataKeyValues:output_type -> CountRes
-	114, // 344: Dynizer.ListInstanceCellMetaData:output_type -> ListInstanceCellMetaDataRes
-	136, // 345: Dynizer.GetDynizerConfiguration:output_type -> GetDynizerConfigurationRes
-	138, // 346: Dynizer.ExportUserActions:output_type -> ExportUserActionsRes
-	95,  // 347: Dynizer.ImportUserActions:output_type -> EmptyRes
-	95,  // 348: Dynizer.DropData:output_type -> EmptyRes
-	141, // 349: Dynizer.GetDynizerVersion:output_type -> VersionRes
-	152, // 350: Dynizer.QueryDataElements:output_type -> QueryDataElementsRes
-	145, // 351: Dynizer.GetTopNDataElements:output_type -> GetTopNDataElementsRes
-	107, // 352: Dynizer.DynizerFilteredQuery:output_type -> DQLRes
-	95,  // 353: Dynizer.ReIndex:output_type -> EmptyRes
-	146, // 354: Dynizer.DynizerFilteredPlot:output_type -> PlotRes
-	95,  // 355: Dynizer.CreateShareName:output_type -> EmptyRes
-	95,  // 356: Dynizer.UpdateShareNameValue:output_type -> EmptyRes
-	95,  // 357: Dynizer.DeleteShareNameValue:output_type -> EmptyRes
-	165, // 358: Dynizer.SimpleQuery:output_type -> SimpleQueryRes
-	95,  // 359: Dynizer.QueryParse:output_type -> EmptyRes
-	95,  // 360: Dynizer.QueryBind:output_type -> EmptyRes
-	170, // 361: Dynizer.QueryDescribeStatement:output_type -> QueryDescribeStatementRes
-	171, // 362: Dynizer.QueryDescribePortal:output_type -> QueryDescribePortalRes
-	162, // 363: Dynizer.QueryExecute:output_type -> QueryExecuteRes
-	95,  // 364: Dynizer.QueryClose:output_type -> EmptyRes
-	177, // 365: Dynizer.FindActionLabelLinks:output_type -> FindActionLabelLinksRes
-	254, // [254:366] is the sub-list for method output_type
-	142, // [142:254] is the sub-list for method input_type
-	142, // [142:142] is the sub-list for extension type_name
-	142, // [142:142] is the sub-list for extension extendee
-	0,   // [0:142] is the sub-list for field type_name
+	180, // 142: ChatReq.messages:type_name -> ChatMessage
+	183, // 143: ChatRes.tool_calls:type_name -> ChatToolCall
+	183, // 144: ChatStreamEvent.tool:type_name -> ChatToolCall
+	185, // 145: ChatStreamEvent.critic:type_name -> ChatCriticEvent
+	186, // 146: ChatStreamEvent.stage:type_name -> ChatStageEvent
+	187, // 147: ChatStreamEvent.done:type_name -> ChatDoneEvent
+	9,   // 148: Dynizer.Login:input_type -> LoginReq
+	10,  // 149: Dynizer.ServiceLogin:input_type -> ServiceLoginReq
+	39,  // 150: Dynizer.Logout:input_type -> EmptyReq
+	11,  // 151: Dynizer.ValidateToken:input_type -> TokenReq
+	39,  // 152: Dynizer.IssueServiceToken:input_type -> EmptyReq
+	39,  // 153: Dynizer.ListRoles:input_type -> EmptyReq
+	12,  // 154: Dynizer.AddUser:input_type -> AddUserReq
+	13,  // 155: Dynizer.AssignUserRole:input_type -> UserRoleReq
+	13,  // 156: Dynizer.RevokeUserRole:input_type -> UserRoleReq
+	14,  // 157: Dynizer.EnableUser:input_type -> UserReq
+	14,  // 158: Dynizer.DisableUser:input_type -> UserReq
+	18,  // 159: Dynizer.SetUserPassword:input_type -> SetUserPasswordReq
+	19,  // 160: Dynizer.ChangeMyPassword:input_type -> ChangePasswordReq
+	14,  // 161: Dynizer.GetUser:input_type -> UserReq
+	39,  // 162: Dynizer.GetMyProfile:input_type -> EmptyReq
+	14,  // 163: Dynizer.DeleteUser:input_type -> UserReq
+	39,  // 164: Dynizer.GetUserCount:input_type -> EmptyReq
+	16,  // 165: Dynizer.ListUsers:input_type -> WindowReq
+	14,  // 166: Dynizer.ListUserRoles:input_type -> UserReq
+	39,  // 167: Dynizer.GetMyRoles:input_type -> EmptyReq
+	14,  // 168: Dynizer.CheckUserName:input_type -> UserReq
+	15,  // 169: Dynizer.CheckPassword:input_type -> CheckPasswordReq
+	27,  // 170: Dynizer.CreateActionType:input_type -> CreateActionTypeReq
+	30,  // 171: Dynizer.UpdateActionType:input_type -> UpdateActionTypeReq
+	33,  // 172: Dynizer.ReadActionType:input_type -> ActionTypeReq
+	16,  // 173: Dynizer.ListActionTypes:input_type -> WindowReq
+	29,  // 174: Dynizer.CreateActionSchema:input_type -> CreateActionSchemaReq
+	31,  // 175: Dynizer.UpdateActionSchema:input_type -> UpdateActionSchemaReq
+	32,  // 176: Dynizer.DeleteActionSchema:input_type -> DeleteActionSchemaReq
+	32,  // 177: Dynizer.PurgeActionSchema:input_type -> DeleteActionSchemaReq
+	34,  // 178: Dynizer.ReadActionSchema:input_type -> ActionSchemaReq
+	16,  // 179: Dynizer.ListActionSchemas:input_type -> WindowReq
+	20,  // 180: Dynizer.CheckActionName:input_type -> CheckActionNameReq
+	21,  // 181: Dynizer.CreateAction:input_type -> CreateActionReq
+	23,  // 182: Dynizer.UpdateAction:input_type -> UpdateActionReq
+	24,  // 183: Dynizer.DeleteAction:input_type -> DeleteActionReq
+	24,  // 184: Dynizer.PurgeAction:input_type -> DeleteActionReq
+	25,  // 185: Dynizer.ReadAction:input_type -> ActionReq
+	61,  // 186: Dynizer.CountActions:input_type -> CountActionReq
+	17,  // 187: Dynizer.ListActionNames:input_type -> ListActionNamesWindowReq
+	40,  // 188: Dynizer.CheckActionLabelName:input_type -> CheckActionLabelNameReq
+	41,  // 189: Dynizer.AddActionLabel:input_type -> AddActionLabelReq
+	42,  // 190: Dynizer.UpdateActionLabel:input_type -> UpdateActionLabelReq
+	43,  // 191: Dynizer.DeleteActionLabel:input_type -> ActionLabelReq
+	43,  // 192: Dynizer.ReadActionLabel:input_type -> ActionLabelReq
+	44,  // 193: Dynizer.CreateObject:input_type -> CreateObjectReq
+	46,  // 194: Dynizer.ClearObjectData:input_type -> ClearObjectDataReq
+	47,  // 195: Dynizer.DeleteObject:input_type -> DeleteObjectReq
+	48,  // 196: Dynizer.StreamObjectDataIn:input_type -> StreamObjectDataInReq
+	49,  // 197: Dynizer.StreamObjectDataOut:input_type -> StreamObjectDataOutReq
+	54,  // 198: Dynizer.UploadObjectData:input_type -> UploadObjectDataReq
+	51,  // 199: Dynizer.DownloadObjectData:input_type -> DownloadObjectDataReq
+	51,  // 200: Dynizer.GetObjectSize:input_type -> DownloadObjectDataReq
+	39,  // 201: Dynizer.ListObjectUUIDS:input_type -> EmptyReq
+	39,  // 202: Dynizer.DeleteAllObjects:input_type -> EmptyReq
+	56,  // 203: Dynizer.CreateInstance:input_type -> CreateInstanceReq
+	57,  // 204: Dynizer.StreamInstances:input_type -> StreamInstanceReq
+	58,  // 205: Dynizer.UpdateInstance:input_type -> UpdateInstanceReq
+	59,  // 206: Dynizer.DeleteInstance:input_type -> InstanceReq
+	59,  // 207: Dynizer.PurgeInstance:input_type -> InstanceReq
+	59,  // 208: Dynizer.ReadInstance:input_type -> InstanceReq
+	62,  // 209: Dynizer.DynizerQuery:input_type -> DQLReq
+	63,  // 210: Dynizer.QueryResultNext:input_type -> QueryResultReq
+	173, // 211: Dynizer.QueryResultClose:input_type -> QueryCloseReq
+	64,  // 212: Dynizer.CheckMetaDataKeyName:input_type -> CheckMetaDataKeyNameReq
+	65,  // 213: Dynizer.CreateMetaDataKey:input_type -> CreateMetaDataKeyReq
+	68,  // 214: Dynizer.ReadMetaDataKey:input_type -> MetaDataKeyReq
+	67,  // 215: Dynizer.UpdateMetaDataKey:input_type -> UpdateMetaDataKeyReq
+	69,  // 216: Dynizer.DeleteMetaDataKey:input_type -> DeleteMetaDataKeyReq
+	39,  // 217: Dynizer.CountMetaDataKeys:input_type -> EmptyReq
+	70,  // 218: Dynizer.ListMetaDataKeys:input_type -> ListMetaDataKeysReq
+	71,  // 219: Dynizer.AddInstanceMetaData:input_type -> AddInstanceMetaDataReq
+	73,  // 220: Dynizer.RemoveInstanceMetaData:input_type -> InstanceMetaDataKeyReq
+	72,  // 221: Dynizer.AddInstanceMetaDataValue:input_type -> AddInstanceMetaDataValueReq
+	74,  // 222: Dynizer.RemoveInstanceMetaDataValue:input_type -> InstanceMetaDataKeyValueReq
+	73,  // 223: Dynizer.GetInstanceMetaDataValues:input_type -> InstanceMetaDataKeyReq
+	59,  // 224: Dynizer.CountInstanceMetaDataKeys:input_type -> InstanceReq
+	73,  // 225: Dynizer.CountInstanceMetaDataKeyValues:input_type -> InstanceMetaDataKeyReq
+	59,  // 226: Dynizer.ListInstanceMetaData:input_type -> InstanceReq
+	75,  // 227: Dynizer.AddInstanceActionLabelMetaData:input_type -> AddInstanceActionLabelMetaDataReq
+	76,  // 228: Dynizer.RemoveInstanceActionLabelMetaData:input_type -> InstanceActionLabelMetaDataKeyReq
+	84,  // 229: Dynizer.AddInstanceActionLabelMetaDataValue:input_type -> AddInstanceActionLabelMetaDataValueReq
+	85,  // 230: Dynizer.RemoveInstanceActionLabelMetaDataValue:input_type -> InstanceActionLabelMetaDataValueReq
+	78,  // 231: Dynizer.AddInstanceCellMetaData:input_type -> AddInstanceCellMetaDataReq
+	79,  // 232: Dynizer.RemoveInstanceCellMetaData:input_type -> InstanceCellMetaDataKeyReq
+	87,  // 233: Dynizer.AddInstanceCellMetaDataValue:input_type -> AddInstanceCellMetaDataValueReq
+	86,  // 234: Dynizer.RemoveInstanceCellMetaDataValue:input_type -> InstanceCellMetaDataKeyValueReq
+	79,  // 235: Dynizer.GetInstanceCellMetaDataValues:input_type -> InstanceCellMetaDataKeyReq
+	80,  // 236: Dynizer.CountInstanceCellMetaDataKeys:input_type -> InstanceCellMetaDataReq
+	79,  // 237: Dynizer.CountInstanceCellMetaDataKeyValues:input_type -> InstanceCellMetaDataKeyReq
+	80,  // 238: Dynizer.ListInstanceCellMetaData:input_type -> InstanceCellMetaDataReq
+	39,  // 239: Dynizer.GetDynizerConfiguration:input_type -> EmptyReq
+	137, // 240: Dynizer.ExportUserActions:input_type -> ExportUserActionsReq
+	139, // 241: Dynizer.ImportUserActions:input_type -> ImportUserActionsReq
+	39,  // 242: Dynizer.DropData:input_type -> EmptyReq
+	39,  // 243: Dynizer.GetDynizerVersion:input_type -> EmptyReq
+	143, // 244: Dynizer.QueryDataElements:input_type -> QueryDataElementsReq
+	144, // 245: Dynizer.GetTopNDataElements:input_type -> GetTopNDataElementsReq
+	147, // 246: Dynizer.DynizerFilteredQuery:input_type -> FilterQueryReq
+	153, // 247: Dynizer.ReIndex:input_type -> ReIndexReq
+	148, // 248: Dynizer.DynizerFilteredPlot:input_type -> FilteredPlotReq
+	154, // 249: Dynizer.CreateShareName:input_type -> CreateShareNameReq
+	155, // 250: Dynizer.UpdateShareNameValue:input_type -> UpdateShareNameValueReq
+	156, // 251: Dynizer.DeleteShareNameValue:input_type -> DeleteShareNameValueReq
+	62,  // 252: Dynizer.SimpleQuery:input_type -> DQLReq
+	166, // 253: Dynizer.QueryParse:input_type -> QueryParseReq
+	167, // 254: Dynizer.QueryBind:input_type -> QueryBindReq
+	168, // 255: Dynizer.QueryDescribeStatement:input_type -> QueryDescribeStatementReq
+	169, // 256: Dynizer.QueryDescribePortal:input_type -> QueryDescribePortalReq
+	172, // 257: Dynizer.QueryExecute:input_type -> QueryExecuteReq
+	173, // 258: Dynizer.QueryClose:input_type -> QueryCloseReq
+	176, // 259: Dynizer.FindActionLabelLinks:input_type -> FindActionLabelLinksReq
+	181, // 260: Dynizer.Chat:input_type -> ChatReq
+	181, // 261: Dynizer.ChatStream:input_type -> ChatReq
+	96,  // 262: Dynizer.Login:output_type -> LoginRes
+	96,  // 263: Dynizer.ServiceLogin:output_type -> LoginRes
+	95,  // 264: Dynizer.Logout:output_type -> EmptyRes
+	134, // 265: Dynizer.ValidateToken:output_type -> SessionID
+	97,  // 266: Dynizer.IssueServiceToken:output_type -> ServiceTokenRes
+	108, // 267: Dynizer.ListRoles:output_type -> ListRolesRes
+	95,  // 268: Dynizer.AddUser:output_type -> EmptyRes
+	95,  // 269: Dynizer.AssignUserRole:output_type -> EmptyRes
+	95,  // 270: Dynizer.RevokeUserRole:output_type -> EmptyRes
+	95,  // 271: Dynizer.EnableUser:output_type -> EmptyRes
+	95,  // 272: Dynizer.DisableUser:output_type -> EmptyRes
+	95,  // 273: Dynizer.SetUserPassword:output_type -> EmptyRes
+	95,  // 274: Dynizer.ChangeMyPassword:output_type -> EmptyRes
+	98,  // 275: Dynizer.GetUser:output_type -> UserRes
+	98,  // 276: Dynizer.GetMyProfile:output_type -> UserRes
+	95,  // 277: Dynizer.DeleteUser:output_type -> EmptyRes
+	106, // 278: Dynizer.GetUserCount:output_type -> UserCountRes
+	99,  // 279: Dynizer.ListUsers:output_type -> ListUsersRes
+	109, // 280: Dynizer.ListUserRoles:output_type -> ListUserRolesRes
+	109, // 281: Dynizer.GetMyRoles:output_type -> ListUserRolesRes
+	95,  // 282: Dynizer.CheckUserName:output_type -> EmptyRes
+	117, // 283: Dynizer.CheckPassword:output_type -> CheckPasswordRes
+	95,  // 284: Dynizer.CreateActionType:output_type -> EmptyRes
+	95,  // 285: Dynizer.UpdateActionType:output_type -> EmptyRes
+	35,  // 286: Dynizer.ReadActionType:output_type -> ActionTypeRes
+	37,  // 287: Dynizer.ListActionTypes:output_type -> ActionTypeArrayRes
+	95,  // 288: Dynizer.CreateActionSchema:output_type -> EmptyRes
+	95,  // 289: Dynizer.UpdateActionSchema:output_type -> EmptyRes
+	95,  // 290: Dynizer.DeleteActionSchema:output_type -> EmptyRes
+	95,  // 291: Dynizer.PurgeActionSchema:output_type -> EmptyRes
+	36,  // 292: Dynizer.ReadActionSchema:output_type -> ActionSchemaRes
+	38,  // 293: Dynizer.ListActionSchemas:output_type -> ActionSchemaArrayRes
+	95,  // 294: Dynizer.CheckActionName:output_type -> EmptyRes
+	95,  // 295: Dynizer.CreateAction:output_type -> EmptyRes
+	95,  // 296: Dynizer.UpdateAction:output_type -> EmptyRes
+	95,  // 297: Dynizer.DeleteAction:output_type -> EmptyRes
+	95,  // 298: Dynizer.PurgeAction:output_type -> EmptyRes
+	26,  // 299: Dynizer.ReadAction:output_type -> ActionRes
+	105, // 300: Dynizer.CountActions:output_type -> CountRes
+	100, // 301: Dynizer.ListActionNames:output_type -> ActionNameArrayRes
+	95,  // 302: Dynizer.CheckActionLabelName:output_type -> EmptyRes
+	95,  // 303: Dynizer.AddActionLabel:output_type -> EmptyRes
+	95,  // 304: Dynizer.UpdateActionLabel:output_type -> EmptyRes
+	95,  // 305: Dynizer.DeleteActionLabel:output_type -> EmptyRes
+	101, // 306: Dynizer.ReadActionLabel:output_type -> LabelRes
+	45,  // 307: Dynizer.CreateObject:output_type -> ObjectRes
+	95,  // 308: Dynizer.ClearObjectData:output_type -> EmptyRes
+	95,  // 309: Dynizer.DeleteObject:output_type -> EmptyRes
+	95,  // 310: Dynizer.StreamObjectDataIn:output_type -> EmptyRes
+	50,  // 311: Dynizer.StreamObjectDataOut:output_type -> StreamObjectDataOutRes
+	95,  // 312: Dynizer.UploadObjectData:output_type -> EmptyRes
+	52,  // 313: Dynizer.DownloadObjectData:output_type -> DownloadObjectDataRes
+	53,  // 314: Dynizer.GetObjectSize:output_type -> GetObjectSizeRes
+	55,  // 315: Dynizer.ListObjectUUIDS:output_type -> ObjectUUIDArrayRes
+	95,  // 316: Dynizer.DeleteAllObjects:output_type -> EmptyRes
+	102, // 317: Dynizer.CreateInstance:output_type -> InstanceIDRes
+	103, // 318: Dynizer.StreamInstances:output_type -> StreamInstanceIDRes
+	95,  // 319: Dynizer.UpdateInstance:output_type -> EmptyRes
+	95,  // 320: Dynizer.DeleteInstance:output_type -> EmptyRes
+	95,  // 321: Dynizer.PurgeInstance:output_type -> EmptyRes
+	104, // 322: Dynizer.ReadInstance:output_type -> InstanceRes
+	107, // 323: Dynizer.DynizerQuery:output_type -> DQLRes
+	161, // 324: Dynizer.QueryResultNext:output_type -> QueryResultRes
+	95,  // 325: Dynizer.QueryResultClose:output_type -> EmptyRes
+	95,  // 326: Dynizer.CheckMetaDataKeyName:output_type -> EmptyRes
+	95,  // 327: Dynizer.CreateMetaDataKey:output_type -> EmptyRes
+	110, // 328: Dynizer.ReadMetaDataKey:output_type -> MetaDataKeyRes
+	95,  // 329: Dynizer.UpdateMetaDataKey:output_type -> EmptyRes
+	95,  // 330: Dynizer.DeleteMetaDataKey:output_type -> EmptyRes
+	105, // 331: Dynizer.CountMetaDataKeys:output_type -> CountRes
+	111, // 332: Dynizer.ListMetaDataKeys:output_type -> MetaDataKeyArrayRes
+	95,  // 333: Dynizer.AddInstanceMetaData:output_type -> EmptyRes
+	95,  // 334: Dynizer.RemoveInstanceMetaData:output_type -> EmptyRes
+	95,  // 335: Dynizer.AddInstanceMetaDataValue:output_type -> EmptyRes
+	95,  // 336: Dynizer.RemoveInstanceMetaDataValue:output_type -> EmptyRes
+	113, // 337: Dynizer.GetInstanceMetaDataValues:output_type -> GetInstanceMetaDataKeyRes
+	105, // 338: Dynizer.CountInstanceMetaDataKeys:output_type -> CountRes
+	105, // 339: Dynizer.CountInstanceMetaDataKeyValues:output_type -> CountRes
+	112, // 340: Dynizer.ListInstanceMetaData:output_type -> ListInstanceMetaDataRes
+	95,  // 341: Dynizer.AddInstanceActionLabelMetaData:output_type -> EmptyRes
+	95,  // 342: Dynizer.RemoveInstanceActionLabelMetaData:output_type -> EmptyRes
+	95,  // 343: Dynizer.AddInstanceActionLabelMetaDataValue:output_type -> EmptyRes
+	95,  // 344: Dynizer.RemoveInstanceActionLabelMetaDataValue:output_type -> EmptyRes
+	95,  // 345: Dynizer.AddInstanceCellMetaData:output_type -> EmptyRes
+	95,  // 346: Dynizer.RemoveInstanceCellMetaData:output_type -> EmptyRes
+	95,  // 347: Dynizer.AddInstanceCellMetaDataValue:output_type -> EmptyRes
+	95,  // 348: Dynizer.RemoveInstanceCellMetaDataValue:output_type -> EmptyRes
+	115, // 349: Dynizer.GetInstanceCellMetaDataValues:output_type -> GetInstanceCellMetaDataKeyRes
+	105, // 350: Dynizer.CountInstanceCellMetaDataKeys:output_type -> CountRes
+	105, // 351: Dynizer.CountInstanceCellMetaDataKeyValues:output_type -> CountRes
+	114, // 352: Dynizer.ListInstanceCellMetaData:output_type -> ListInstanceCellMetaDataRes
+	136, // 353: Dynizer.GetDynizerConfiguration:output_type -> GetDynizerConfigurationRes
+	138, // 354: Dynizer.ExportUserActions:output_type -> ExportUserActionsRes
+	95,  // 355: Dynizer.ImportUserActions:output_type -> EmptyRes
+	95,  // 356: Dynizer.DropData:output_type -> EmptyRes
+	141, // 357: Dynizer.GetDynizerVersion:output_type -> VersionRes
+	152, // 358: Dynizer.QueryDataElements:output_type -> QueryDataElementsRes
+	145, // 359: Dynizer.GetTopNDataElements:output_type -> GetTopNDataElementsRes
+	107, // 360: Dynizer.DynizerFilteredQuery:output_type -> DQLRes
+	95,  // 361: Dynizer.ReIndex:output_type -> EmptyRes
+	146, // 362: Dynizer.DynizerFilteredPlot:output_type -> PlotRes
+	95,  // 363: Dynizer.CreateShareName:output_type -> EmptyRes
+	95,  // 364: Dynizer.UpdateShareNameValue:output_type -> EmptyRes
+	95,  // 365: Dynizer.DeleteShareNameValue:output_type -> EmptyRes
+	165, // 366: Dynizer.SimpleQuery:output_type -> SimpleQueryRes
+	95,  // 367: Dynizer.QueryParse:output_type -> EmptyRes
+	95,  // 368: Dynizer.QueryBind:output_type -> EmptyRes
+	170, // 369: Dynizer.QueryDescribeStatement:output_type -> QueryDescribeStatementRes
+	171, // 370: Dynizer.QueryDescribePortal:output_type -> QueryDescribePortalRes
+	162, // 371: Dynizer.QueryExecute:output_type -> QueryExecuteRes
+	95,  // 372: Dynizer.QueryClose:output_type -> EmptyRes
+	177, // 373: Dynizer.FindActionLabelLinks:output_type -> FindActionLabelLinksRes
+	182, // 374: Dynizer.Chat:output_type -> ChatRes
+	184, // 375: Dynizer.ChatStream:output_type -> ChatStreamEvent
+	262, // [262:376] is the sub-list for method output_type
+	148, // [148:262] is the sub-list for method input_type
+	148, // [148:148] is the sub-list for extension type_name
+	148, // [148:148] is the sub-list for extension extendee
+	0,   // [0:148] is the sub-list for field type_name
 }
 
 func init() { file_dynizer_proto_init() }
@@ -12759,7 +13443,7 @@ func file_dynizer_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_dynizer_proto_rawDesc), len(file_dynizer_proto_rawDesc)),
 			NumEnums:      6,
-			NumMessages:   174,
+			NumMessages:   182,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

@@ -4958,6 +4958,93 @@ message ActionLabelLink {
     ];
 }
 
+// ---------------------------------------------------------------------------
+// Chat (experimental)
+// ---------------------------------------------------------------------------
+
+// ChatMessage is a single message in a conversation.
+message ChatMessage {
+    string role = 1;    // "user", "assistant", or "system"
+    string content = 2;
+}
+
+// ChatReq is the request for the Chat and ChatStream RPCs.
+message ChatReq {
+    repeated ChatMessage messages = 1;
+    uint32 max_tokens = 2;
+    double temperature = 3;
+    bool web_search = 4;
+    bool local_search = 5;
+    uint32 k = 6;                    // top-k for local similarity search
+    repeated string actions = 7;     // optional: limit searches to these actions
+    bool verify = 8;                 // enable critic→writer refinement pass
+    repeated string dql = 9;         // optional: DQL statements to execute for context before the agent loop
+}
+
+// ChatRes is the unary response from Chat.
+message ChatRes {
+    string content = 1;
+    repeated ChatToolCall tool_calls = 2;
+    int32 iterations = 3;
+    bool fallback = 4;
+    int32 critic_rounds = 5;
+}
+
+// ChatToolCall records a single tool invocation during the agent loop.
+message ChatToolCall {
+    string tool = 1;
+    string args = 2;
+    string result = 3;
+}
+
+// ChatStreamEvent is one event in the ChatStream server-streaming response.
+// Exactly one of the payload fields is populated, selected by type.
+message ChatStreamEvent {
+    string type = 1;  // "tool_call", "critic", "stage", "content", "content_reset", "done", "error"
+
+    // tool_call payload
+    ChatToolCall tool = 2;
+
+    // critic payload
+    ChatCriticEvent critic = 3;
+
+    // stage payload
+    ChatStageEvent stage = 4;
+
+    // done payload
+    ChatDoneEvent done = 5;
+
+    // content payload (per-token text fragment)
+    string content = 6;
+
+    // error payload
+    string error = 7;
+}
+
+// ChatCriticEvent reports one verify-loop round.
+message ChatCriticEvent {
+    int32 round = 1;
+    bool approved = 2;
+    repeated string issues = 3;
+    bool revised = 4;
+}
+
+// ChatStageEvent marks a pipeline progression point.
+message ChatStageEvent {
+    string name = 1;         // e.g. "phase1_start", "phase2_iteration", "skipped"
+    int32 iteration = 2;     // 1-based, set on phase2_iteration
+    string skipped = 3;      // tool/stage name when name="skipped"
+    string reason = 4;
+    string info = 5;
+}
+
+// ChatDoneEvent signals the stream is complete with run-level summary.
+message ChatDoneEvent {
+    int32 iterations = 1;
+    int32 critic_rounds = 2;
+    bool fallback = 3;
+}
+
 /// ** SERVICE RPC DEFINITIONS ** ///
 
 service Dynizer {
@@ -6376,4 +6463,24 @@ service Dynizer {
             description: "Find **ActionLabels** that share data elements across a set of **Actions**."
         };
       }
+
+    // Chat (experimental) — unary request/response.
+    // REST is wired manually (SSE streaming needs custom handling).
+    rpc Chat(ChatReq) returns(ChatRes) {
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            operation_id: "Chat";
+            tags: ["Experimental"]
+            description: "Send a chat message and receive a complete response. The server may invoke tools (DQL queries, web search) and an optional critic→writer refinement pass before returning the final answer."
+        };
+    }
+
+    // ChatStream (experimental) — server-streaming chat with per-event updates.
+    // REST is wired manually as SSE.
+    rpc ChatStream(ChatReq) returns(stream ChatStreamEvent) {
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            operation_id: "ChatStream";
+            tags: ["Experimental"]
+            description: "Send a chat message and receive a stream of events: tool calls, pipeline stages, per-token content, critic verdicts, and a terminal done event."
+        };
+    }
 }

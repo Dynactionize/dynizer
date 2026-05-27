@@ -4294,6 +4294,174 @@ paths:
             $ref: '#/definitions/rpcStatus'
       tags:
         - Documentation
+  /api/v2/experimental/chat:
+    post:
+      summary: Chat (experimental)
+      description: Send a chat message and receive a complete response. The server may invoke tools (DQL queries, web search) and an optional critic-writer refinement pass before returning the final answer. This endpoint is experimental and may have breaking changes.
+      operationId: Chat
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              content:
+                type: string
+                description: The assistant's response text.
+              tool_calls:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    tool:
+                      type: string
+                    args:
+                      type: string
+                    result:
+                      type: string
+              iterations:
+                type: integer
+              fallback:
+                type: boolean
+              critic_rounds:
+                type: integer
+        "400":
+          description: Invalid Argument
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        "401":
+          description: Unauthorized call
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        "500":
+          description: Unexpected internal error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        default:
+          description: An unexpected error response.
+          schema:
+            $ref: '#/definitions/rpcStatus'
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            type: object
+            required:
+              - messages
+            properties:
+              messages:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    role:
+                      type: string
+                      description: "Message role: user, assistant, or system."
+                    content:
+                      type: string
+              max_tokens:
+                type: integer
+              temperature:
+                type: number
+                format: double
+              web_search:
+                type: boolean
+              local_search:
+                type: boolean
+              k:
+                type: integer
+                description: Top-k for local similarity search.
+              actions:
+                type: array
+                items:
+                  type: string
+                description: Limit searches to these actions.
+              verify:
+                type: boolean
+                description: Enable critic-writer refinement pass.
+              dql:
+                type: array
+                items:
+                  type: string
+                description: DQL statements to execute for context before the agent loop.
+      tags:
+        - Experimental
+  /api/v2/experimental/chat/stream:
+    post:
+      summary: Chat stream (experimental)
+      description: Send a chat message and receive a stream of Server-Sent Events (SSE). Events include tool calls, pipeline stages, per-token content, critic verdicts, and a terminal done event. This endpoint is experimental and may have breaking changes.
+      operationId: ChatStream
+      consumes:
+        - application/json
+      produces:
+        - text/event-stream
+      responses:
+        "200":
+          description: A stream of SSE events. Each event has type (tool_call, critic, stage, content, content_reset, done, error) and a corresponding payload.
+          schema:
+            type: string
+        "400":
+          description: Invalid Argument
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        "401":
+          description: Unauthorized call
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        "500":
+          description: Unexpected internal error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        default:
+          description: An unexpected error response.
+          schema:
+            $ref: '#/definitions/rpcStatus'
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            type: object
+            required:
+              - messages
+            properties:
+              messages:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    role:
+                      type: string
+                    content:
+                      type: string
+              max_tokens:
+                type: integer
+              temperature:
+                type: number
+                format: double
+              web_search:
+                type: boolean
+              local_search:
+                type: boolean
+              k:
+                type: integer
+              actions:
+                type: array
+                items:
+                  type: string
+              verify:
+                type: boolean
+              dql:
+                type: array
+                items:
+                  type: string
+      tags:
+        - Experimental
   /api/v2/proto/{file}:
     get:
       summary: Download the proto definition
