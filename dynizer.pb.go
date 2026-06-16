@@ -10804,16 +10804,28 @@ func (x *ChatMessage) GetContent() string {
 
 // ChatReq is the request for the Chat and ChatStream RPCs.
 type ChatReq struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Messages      []*ChatMessage         `protobuf:"bytes,1,rep,name=messages,proto3" json:"messages,omitempty"`
-	MaxTokens     uint32                 `protobuf:"varint,2,opt,name=max_tokens,json=maxTokens,proto3" json:"max_tokens,omitempty"`
-	Temperature   float64                `protobuf:"fixed64,3,opt,name=temperature,proto3" json:"temperature,omitempty"`
-	WebSearch     bool                   `protobuf:"varint,4,opt,name=web_search,json=webSearch,proto3" json:"web_search,omitempty"`
-	LocalSearch   bool                   `protobuf:"varint,5,opt,name=local_search,json=localSearch,proto3" json:"local_search,omitempty"`
-	K             uint32                 `protobuf:"varint,6,opt,name=k,proto3" json:"k,omitempty"`            // top-k for local similarity search
-	Actions       []string               `protobuf:"bytes,7,rep,name=actions,proto3" json:"actions,omitempty"` // optional: limit searches to these actions
-	Verify        bool                   `protobuf:"varint,8,opt,name=verify,proto3" json:"verify,omitempty"`  // enable critic→writer refinement pass
-	Dql           []string               `protobuf:"bytes,9,rep,name=dql,proto3" json:"dql,omitempty"`         // optional: DQL statements to execute for context before the agent loop
+	state       protoimpl.MessageState `protogen:"open.v1"`
+	Messages    []*ChatMessage         `protobuf:"bytes,1,rep,name=messages,proto3" json:"messages,omitempty"`
+	MaxTokens   uint32                 `protobuf:"varint,2,opt,name=max_tokens,json=maxTokens,proto3" json:"max_tokens,omitempty"`
+	Temperature float64                `protobuf:"fixed64,3,opt,name=temperature,proto3" json:"temperature,omitempty"`
+	WebSearch   bool                   `protobuf:"varint,4,opt,name=web_search,json=webSearch,proto3" json:"web_search,omitempty"`
+	LocalSearch bool                   `protobuf:"varint,5,opt,name=local_search,json=localSearch,proto3" json:"local_search,omitempty"`
+	K           uint32                 `protobuf:"varint,6,opt,name=k,proto3" json:"k,omitempty"`            // top-k for local similarity search
+	Actions     []string               `protobuf:"bytes,7,rep,name=actions,proto3" json:"actions,omitempty"` // optional: limit searches to these actions
+	Verify      bool                   `protobuf:"varint,8,opt,name=verify,proto3" json:"verify,omitempty"`  // enable critic→writer refinement pass
+	Dql         []string               `protobuf:"bytes,9,rep,name=dql,proto3" json:"dql,omitempty"`         // optional: DQL statements to execute for context before the agent loop
+	// Tool selection: caller-owned filter over the chat agent's tool catalog.
+	// Both lists default to empty, which preserves the server's default
+	// catalog. When non-empty:
+	//   - enable_tools  : whitelist — only these tool names are exposed.
+	//   - disable_tools : blacklist — applied AFTER enable_tools (or the
+	//     default set) to drop specific names.
+	//
+	// Names not in the server's catalog are ignored. Server-side tools
+	// unaffected by this filter (security/scope enforcement etc.) remain
+	// active regardless of the lists.
+	EnableTools   []string `protobuf:"bytes,10,rep,name=enable_tools,json=enableTools,proto3" json:"enable_tools,omitempty"`
+	DisableTools  []string `protobuf:"bytes,11,rep,name=disable_tools,json=disableTools,proto3" json:"disable_tools,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -10907,6 +10919,20 @@ func (x *ChatReq) GetVerify() bool {
 func (x *ChatReq) GetDql() []string {
 	if x != nil {
 		return x.Dql
+	}
+	return nil
+}
+
+func (x *ChatReq) GetEnableTools() []string {
+	if x != nil {
+		return x.EnableTools
+	}
+	return nil
+}
+
+func (x *ChatReq) GetDisableTools() []string {
+	if x != nil {
+		return x.DisableTools
 	}
 	return nil
 }
@@ -12275,7 +12301,7 @@ const file_dynizer_proto_rawDesc = "" +
 	"left_total\xd2\x01\vright_total\xd2\x01\fshared_total\";\n" +
 	"\vChatMessage\x12\x12\n" +
 	"\x04role\x18\x01 \x01(\tR\x04role\x12\x18\n" +
-	"\acontent\x18\x02 \x01(\tR\acontent\"\x88\x02\n" +
+	"\acontent\x18\x02 \x01(\tR\acontent\"\xd0\x02\n" +
 	"\aChatReq\x12(\n" +
 	"\bmessages\x18\x01 \x03(\v2\f.ChatMessageR\bmessages\x12\x1d\n" +
 	"\n" +
@@ -12287,7 +12313,10 @@ const file_dynizer_proto_rawDesc = "" +
 	"\x01k\x18\x06 \x01(\rR\x01k\x12\x18\n" +
 	"\aactions\x18\a \x03(\tR\aactions\x12\x16\n" +
 	"\x06verify\x18\b \x01(\bR\x06verify\x12\x10\n" +
-	"\x03dql\x18\t \x03(\tR\x03dql\"\xb2\x01\n" +
+	"\x03dql\x18\t \x03(\tR\x03dql\x12!\n" +
+	"\fenable_tools\x18\n" +
+	" \x03(\tR\venableTools\x12#\n" +
+	"\rdisable_tools\x18\v \x03(\tR\fdisableTools\"\xb2\x01\n" +
 	"\aChatRes\x12\x18\n" +
 	"\acontent\x18\x01 \x01(\tR\acontent\x12,\n" +
 	"\n" +

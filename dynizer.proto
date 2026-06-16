@@ -4979,6 +4979,18 @@ message ChatReq {
     repeated string actions = 7;     // optional: limit searches to these actions
     bool verify = 8;                 // enable critic→writer refinement pass
     repeated string dql = 9;         // optional: DQL statements to execute for context before the agent loop
+
+    // Tool selection: caller-owned filter over the chat agent's tool catalog.
+    // Both lists default to empty, which preserves the server's default
+    // catalog. When non-empty:
+    //   - enable_tools  : whitelist — only these tool names are exposed.
+    //   - disable_tools : blacklist — applied AFTER enable_tools (or the
+    //                     default set) to drop specific names.
+    // Names not in the server's catalog are ignored. Server-side tools
+    // unaffected by this filter (security/scope enforcement etc.) remain
+    // active regardless of the lists.
+    repeated string enable_tools = 10;
+    repeated string disable_tools = 11;
 }
 
 // ChatRes is the unary response from Chat.
