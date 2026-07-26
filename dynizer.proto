@@ -4991,6 +4991,14 @@ message ChatReq {
     // active regardless of the lists.
     repeated string enable_tools = 10;
     repeated string disable_tools = 11;
+
+    // Answer role: LLM-router role that produces the answers in the agent
+    // loop. Defaults to empty, which preserves the server's default
+    // (tool_caller). Set to a configured role name (e.g. "critic",
+    // "writer") to run the conversation on that role's model instead —
+    // tool availability and the rest of the pipeline are unaffected.
+    // An unknown role name is an InvalidArgument error.
+    string answer_role = 12;
 }
 
 // ChatRes is the unary response from Chat.

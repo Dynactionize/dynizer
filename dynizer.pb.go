@@ -10824,8 +10824,15 @@ type ChatReq struct {
 	// Names not in the server's catalog are ignored. Server-side tools
 	// unaffected by this filter (security/scope enforcement etc.) remain
 	// active regardless of the lists.
-	EnableTools   []string `protobuf:"bytes,10,rep,name=enable_tools,json=enableTools,proto3" json:"enable_tools,omitempty"`
-	DisableTools  []string `protobuf:"bytes,11,rep,name=disable_tools,json=disableTools,proto3" json:"disable_tools,omitempty"`
+	EnableTools  []string `protobuf:"bytes,10,rep,name=enable_tools,json=enableTools,proto3" json:"enable_tools,omitempty"`
+	DisableTools []string `protobuf:"bytes,11,rep,name=disable_tools,json=disableTools,proto3" json:"disable_tools,omitempty"`
+	// Answer role: LLM-router role that produces the answers in the agent
+	// loop. Defaults to empty, which preserves the server's default
+	// (tool_caller). Set to a configured role name (e.g. "critic",
+	// "writer") to run the conversation on that role's model instead —
+	// tool availability and the rest of the pipeline are unaffected.
+	// An unknown role name is an InvalidArgument error.
+	AnswerRole    string `protobuf:"bytes,12,opt,name=answer_role,json=answerRole,proto3" json:"answer_role,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -10935,6 +10942,13 @@ func (x *ChatReq) GetDisableTools() []string {
 		return x.DisableTools
 	}
 	return nil
+}
+
+func (x *ChatReq) GetAnswerRole() string {
+	if x != nil {
+		return x.AnswerRole
+	}
+	return ""
 }
 
 // ChatRes is the unary response from Chat.
@@ -12301,7 +12315,7 @@ const file_dynizer_proto_rawDesc = "" +
 	"left_total\xd2\x01\vright_total\xd2\x01\fshared_total\";\n" +
 	"\vChatMessage\x12\x12\n" +
 	"\x04role\x18\x01 \x01(\tR\x04role\x12\x18\n" +
-	"\acontent\x18\x02 \x01(\tR\acontent\"\xd0\x02\n" +
+	"\acontent\x18\x02 \x01(\tR\acontent\"\xf1\x02\n" +
 	"\aChatReq\x12(\n" +
 	"\bmessages\x18\x01 \x03(\v2\f.ChatMessageR\bmessages\x12\x1d\n" +
 	"\n" +
@@ -12316,7 +12330,9 @@ const file_dynizer_proto_rawDesc = "" +
 	"\x03dql\x18\t \x03(\tR\x03dql\x12!\n" +
 	"\fenable_tools\x18\n" +
 	" \x03(\tR\venableTools\x12#\n" +
-	"\rdisable_tools\x18\v \x03(\tR\fdisableTools\"\xb2\x01\n" +
+	"\rdisable_tools\x18\v \x03(\tR\fdisableTools\x12\x1f\n" +
+	"\vanswer_role\x18\f \x01(\tR\n" +
+	"answerRole\"\xb2\x01\n" +
 	"\aChatRes\x12\x18\n" +
 	"\acontent\x18\x01 \x01(\tR\acontent\x12,\n" +
 	"\n" +
