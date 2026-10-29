@@ -3261,316 +3261,6 @@ func local_request_Dynizer_ListInstanceMetaData_0(ctx context.Context, marshaler
 	return msg, metadata, err
 }
 
-func request_Dynizer_AddInstanceActionLabelMetaData_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var (
-		protoReq AddInstanceActionLabelMetaDataReq
-		metadata runtime.ServerMetadata
-		err      error
-	)
-	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if req.Body != nil {
-		_, _ = io.Copy(io.Discard, req.Body)
-	}
-	val, ok := pathParams["instance_id"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "instance_id")
-	}
-	protoReq.InstanceId, err = runtime.String(val)
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "instance_id", err)
-	}
-	val, ok = pathParams["action_label"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "action_label")
-	}
-	protoReq.ActionLabel, err = runtime.String(val)
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "action_label", err)
-	}
-	msg, err := client.AddInstanceActionLabelMetaData(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
-	return msg, metadata, err
-}
-
-func local_request_Dynizer_AddInstanceActionLabelMetaData_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var (
-		protoReq AddInstanceActionLabelMetaDataReq
-		metadata runtime.ServerMetadata
-		err      error
-	)
-	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	val, ok := pathParams["instance_id"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "instance_id")
-	}
-	protoReq.InstanceId, err = runtime.String(val)
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "instance_id", err)
-	}
-	val, ok = pathParams["action_label"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "action_label")
-	}
-	protoReq.ActionLabel, err = runtime.String(val)
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "action_label", err)
-	}
-	msg, err := server.AddInstanceActionLabelMetaData(ctx, &protoReq)
-	return msg, metadata, err
-}
-
-func request_Dynizer_RemoveInstanceActionLabelMetaData_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var (
-		protoReq InstanceActionLabelMetaDataKeyReq
-		metadata runtime.ServerMetadata
-		err      error
-	)
-	if req.Body != nil {
-		_, _ = io.Copy(io.Discard, req.Body)
-	}
-	val, ok := pathParams["instance_id"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "instance_id")
-	}
-	protoReq.InstanceId, err = runtime.String(val)
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "instance_id", err)
-	}
-	val, ok = pathParams["action_label"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "action_label")
-	}
-	protoReq.ActionLabel, err = runtime.String(val)
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "action_label", err)
-	}
-	val, ok = pathParams["key_name"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "key_name")
-	}
-	protoReq.KeyName, err = runtime.String(val)
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "key_name", err)
-	}
-	msg, err := client.RemoveInstanceActionLabelMetaData(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
-	return msg, metadata, err
-}
-
-func local_request_Dynizer_RemoveInstanceActionLabelMetaData_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var (
-		protoReq InstanceActionLabelMetaDataKeyReq
-		metadata runtime.ServerMetadata
-		err      error
-	)
-	val, ok := pathParams["instance_id"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "instance_id")
-	}
-	protoReq.InstanceId, err = runtime.String(val)
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "instance_id", err)
-	}
-	val, ok = pathParams["action_label"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "action_label")
-	}
-	protoReq.ActionLabel, err = runtime.String(val)
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "action_label", err)
-	}
-	val, ok = pathParams["key_name"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "key_name")
-	}
-	protoReq.KeyName, err = runtime.String(val)
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "key_name", err)
-	}
-	msg, err := server.RemoveInstanceActionLabelMetaData(ctx, &protoReq)
-	return msg, metadata, err
-}
-
-func request_Dynizer_AddInstanceActionLabelMetaDataValue_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var (
-		protoReq AddInstanceActionLabelMetaDataValueReq
-		metadata runtime.ServerMetadata
-		err      error
-	)
-	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if req.Body != nil {
-		_, _ = io.Copy(io.Discard, req.Body)
-	}
-	val, ok := pathParams["instance_id"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "instance_id")
-	}
-	protoReq.InstanceId, err = runtime.String(val)
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "instance_id", err)
-	}
-	val, ok = pathParams["action_label"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "action_label")
-	}
-	protoReq.ActionLabel, err = runtime.String(val)
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "action_label", err)
-	}
-	val, ok = pathParams["key_name"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "key_name")
-	}
-	protoReq.KeyName, err = runtime.String(val)
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "key_name", err)
-	}
-	msg, err := client.AddInstanceActionLabelMetaDataValue(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
-	return msg, metadata, err
-}
-
-func local_request_Dynizer_AddInstanceActionLabelMetaDataValue_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var (
-		protoReq AddInstanceActionLabelMetaDataValueReq
-		metadata runtime.ServerMetadata
-		err      error
-	)
-	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	val, ok := pathParams["instance_id"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "instance_id")
-	}
-	protoReq.InstanceId, err = runtime.String(val)
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "instance_id", err)
-	}
-	val, ok = pathParams["action_label"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "action_label")
-	}
-	protoReq.ActionLabel, err = runtime.String(val)
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "action_label", err)
-	}
-	val, ok = pathParams["key_name"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "key_name")
-	}
-	protoReq.KeyName, err = runtime.String(val)
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "key_name", err)
-	}
-	msg, err := server.AddInstanceActionLabelMetaDataValue(ctx, &protoReq)
-	return msg, metadata, err
-}
-
-var filter_Dynizer_RemoveInstanceActionLabelMetaDataValue_0 = &utilities.DoubleArray{Encoding: map[string]int{"instance_id": 0, "action_label": 1, "key_name": 2, "value": 3}, Base: []int{1, 1, 2, 3, 4, 0, 0, 0, 0}, Check: []int{0, 1, 1, 1, 1, 2, 3, 4, 5}}
-
-func request_Dynizer_RemoveInstanceActionLabelMetaDataValue_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var (
-		protoReq InstanceActionLabelMetaDataValueReq
-		metadata runtime.ServerMetadata
-		err      error
-	)
-	if req.Body != nil {
-		_, _ = io.Copy(io.Discard, req.Body)
-	}
-	val, ok := pathParams["instance_id"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "instance_id")
-	}
-	protoReq.InstanceId, err = runtime.String(val)
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "instance_id", err)
-	}
-	val, ok = pathParams["action_label"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "action_label")
-	}
-	protoReq.ActionLabel, err = runtime.String(val)
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "action_label", err)
-	}
-	val, ok = pathParams["key_name"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "key_name")
-	}
-	protoReq.KeyName, err = runtime.String(val)
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "key_name", err)
-	}
-	val, ok = pathParams["value"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "value")
-	}
-	protoReq.Value, err = runtime.String(val)
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "value", err)
-	}
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Dynizer_RemoveInstanceActionLabelMetaDataValue_0); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	msg, err := client.RemoveInstanceActionLabelMetaDataValue(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
-	return msg, metadata, err
-}
-
-func local_request_Dynizer_RemoveInstanceActionLabelMetaDataValue_0(ctx context.Context, marshaler runtime.Marshaler, server DynizerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var (
-		protoReq InstanceActionLabelMetaDataValueReq
-		metadata runtime.ServerMetadata
-		err      error
-	)
-	val, ok := pathParams["instance_id"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "instance_id")
-	}
-	protoReq.InstanceId, err = runtime.String(val)
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "instance_id", err)
-	}
-	val, ok = pathParams["action_label"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "action_label")
-	}
-	protoReq.ActionLabel, err = runtime.String(val)
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "action_label", err)
-	}
-	val, ok = pathParams["key_name"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "key_name")
-	}
-	protoReq.KeyName, err = runtime.String(val)
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "key_name", err)
-	}
-	val, ok = pathParams["value"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "value")
-	}
-	protoReq.Value, err = runtime.String(val)
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "value", err)
-	}
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Dynizer_RemoveInstanceActionLabelMetaDataValue_0); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	msg, err := server.RemoveInstanceActionLabelMetaDataValue(ctx, &protoReq)
-	return msg, metadata, err
-}
-
 func request_Dynizer_AddInstanceCellMetaData_0(ctx context.Context, marshaler runtime.Marshaler, client DynizerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var (
 		protoReq AddInstanceCellMetaDataReq
@@ -6432,86 +6122,6 @@ func RegisterDynizerHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 		}
 		forward_Dynizer_ListInstanceMetaData_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 	})
-	mux.Handle(http.MethodPost, pattern_Dynizer_AddInstanceActionLabelMetaData_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
-		ctx, cancel := context.WithCancel(req.Context())
-		defer cancel()
-		var stream runtime.ServerTransportStream
-		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
-		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/AddInstanceActionLabelMetaData", runtime.WithHTTPPathPattern("/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}"))
-		if err != nil {
-			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
-			return
-		}
-		resp, md, err := local_request_Dynizer_AddInstanceActionLabelMetaData_0(annotatedContext, inboundMarshaler, server, req, pathParams)
-		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
-		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
-		if err != nil {
-			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
-			return
-		}
-		forward_Dynizer_AddInstanceActionLabelMetaData_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-	})
-	mux.Handle(http.MethodDelete, pattern_Dynizer_RemoveInstanceActionLabelMetaData_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
-		ctx, cancel := context.WithCancel(req.Context())
-		defer cancel()
-		var stream runtime.ServerTransportStream
-		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
-		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/RemoveInstanceActionLabelMetaData", runtime.WithHTTPPathPattern("/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/keys/{key_name}"))
-		if err != nil {
-			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
-			return
-		}
-		resp, md, err := local_request_Dynizer_RemoveInstanceActionLabelMetaData_0(annotatedContext, inboundMarshaler, server, req, pathParams)
-		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
-		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
-		if err != nil {
-			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
-			return
-		}
-		forward_Dynizer_RemoveInstanceActionLabelMetaData_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-	})
-	mux.Handle(http.MethodPost, pattern_Dynizer_AddInstanceActionLabelMetaDataValue_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
-		ctx, cancel := context.WithCancel(req.Context())
-		defer cancel()
-		var stream runtime.ServerTransportStream
-		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
-		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/AddInstanceActionLabelMetaDataValue", runtime.WithHTTPPathPattern("/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/keys/{key_name}/values"))
-		if err != nil {
-			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
-			return
-		}
-		resp, md, err := local_request_Dynizer_AddInstanceActionLabelMetaDataValue_0(annotatedContext, inboundMarshaler, server, req, pathParams)
-		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
-		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
-		if err != nil {
-			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
-			return
-		}
-		forward_Dynizer_AddInstanceActionLabelMetaDataValue_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-	})
-	mux.Handle(http.MethodDelete, pattern_Dynizer_RemoveInstanceActionLabelMetaDataValue_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
-		ctx, cancel := context.WithCancel(req.Context())
-		defer cancel()
-		var stream runtime.ServerTransportStream
-		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
-		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.Dynizer/RemoveInstanceActionLabelMetaDataValue", runtime.WithHTTPPathPattern("/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/keys/{key_name}/values/{value}"))
-		if err != nil {
-			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
-			return
-		}
-		resp, md, err := local_request_Dynizer_RemoveInstanceActionLabelMetaDataValue_0(annotatedContext, inboundMarshaler, server, req, pathParams)
-		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
-		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
-		if err != nil {
-			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
-			return
-		}
-		forward_Dynizer_RemoveInstanceActionLabelMetaDataValue_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-	})
 	mux.Handle(http.MethodPost, pattern_Dynizer_AddInstanceCellMetaData_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
@@ -8424,74 +8034,6 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 		}
 		forward_Dynizer_ListInstanceMetaData_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 	})
-	mux.Handle(http.MethodPost, pattern_Dynizer_AddInstanceActionLabelMetaData_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
-		ctx, cancel := context.WithCancel(req.Context())
-		defer cancel()
-		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/AddInstanceActionLabelMetaData", runtime.WithHTTPPathPattern("/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}"))
-		if err != nil {
-			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
-			return
-		}
-		resp, md, err := request_Dynizer_AddInstanceActionLabelMetaData_0(annotatedContext, inboundMarshaler, client, req, pathParams)
-		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
-		if err != nil {
-			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
-			return
-		}
-		forward_Dynizer_AddInstanceActionLabelMetaData_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-	})
-	mux.Handle(http.MethodDelete, pattern_Dynizer_RemoveInstanceActionLabelMetaData_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
-		ctx, cancel := context.WithCancel(req.Context())
-		defer cancel()
-		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/RemoveInstanceActionLabelMetaData", runtime.WithHTTPPathPattern("/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/keys/{key_name}"))
-		if err != nil {
-			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
-			return
-		}
-		resp, md, err := request_Dynizer_RemoveInstanceActionLabelMetaData_0(annotatedContext, inboundMarshaler, client, req, pathParams)
-		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
-		if err != nil {
-			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
-			return
-		}
-		forward_Dynizer_RemoveInstanceActionLabelMetaData_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-	})
-	mux.Handle(http.MethodPost, pattern_Dynizer_AddInstanceActionLabelMetaDataValue_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
-		ctx, cancel := context.WithCancel(req.Context())
-		defer cancel()
-		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/AddInstanceActionLabelMetaDataValue", runtime.WithHTTPPathPattern("/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/keys/{key_name}/values"))
-		if err != nil {
-			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
-			return
-		}
-		resp, md, err := request_Dynizer_AddInstanceActionLabelMetaDataValue_0(annotatedContext, inboundMarshaler, client, req, pathParams)
-		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
-		if err != nil {
-			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
-			return
-		}
-		forward_Dynizer_AddInstanceActionLabelMetaDataValue_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-	})
-	mux.Handle(http.MethodDelete, pattern_Dynizer_RemoveInstanceActionLabelMetaDataValue_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
-		ctx, cancel := context.WithCancel(req.Context())
-		defer cancel()
-		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.Dynizer/RemoveInstanceActionLabelMetaDataValue", runtime.WithHTTPPathPattern("/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/keys/{key_name}/values/{value}"))
-		if err != nil {
-			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
-			return
-		}
-		resp, md, err := request_Dynizer_RemoveInstanceActionLabelMetaDataValue_0(annotatedContext, inboundMarshaler, client, req, pathParams)
-		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
-		if err != nil {
-			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
-			return
-		}
-		forward_Dynizer_RemoveInstanceActionLabelMetaDataValue_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-	})
 	mux.Handle(http.MethodPost, pattern_Dynizer_AddInstanceCellMetaData_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
@@ -8989,225 +8531,217 @@ func RegisterDynizerHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 }
 
 var (
-	pattern_Dynizer_Login_0                                  = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"api", "v2", "login"}, ""))
-	pattern_Dynizer_ServiceLogin_0                           = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"api", "v2", "servicelogin"}, ""))
-	pattern_Dynizer_Logout_0                                 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"api", "v2", "logout"}, ""))
-	pattern_Dynizer_ValidateToken_0                          = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"api", "v2", "jwt", "token", "validate"}, ""))
-	pattern_Dynizer_IssueServiceToken_0                      = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v2", "servicetoken", "issue"}, ""))
-	pattern_Dynizer_ListRoles_0                              = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"api", "v2", "roles"}, ""))
-	pattern_Dynizer_AddUser_0                                = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"api", "v2", "users"}, ""))
-	pattern_Dynizer_AssignUserRole_0                         = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"api", "v2", "users", "user", "roles"}, ""))
-	pattern_Dynizer_RevokeUserRole_0                         = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"api", "v2", "users", "user", "roles", "role.name"}, ""))
-	pattern_Dynizer_EnableUser_0                             = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"api", "v2", "users", "user", "enable"}, ""))
-	pattern_Dynizer_DisableUser_0                            = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"api", "v2", "users", "user", "disable"}, ""))
-	pattern_Dynizer_SetUserPassword_0                        = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"api", "v2", "users", "user", "password"}, ""))
-	pattern_Dynizer_ChangeMyPassword_0                       = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v2", "my", "password"}, ""))
-	pattern_Dynizer_GetUser_0                                = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"api", "v2", "users", "user"}, ""))
-	pattern_Dynizer_GetMyProfile_0                           = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v2", "my", "profile"}, ""))
-	pattern_Dynizer_DeleteUser_0                             = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"api", "v2", "users", "user"}, ""))
-	pattern_Dynizer_GetUserCount_0                           = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"api", "v2", "users", "all", "count"}, ""))
-	pattern_Dynizer_ListUsers_0                              = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"api", "v2", "users"}, ""))
-	pattern_Dynizer_ListUserRoles_0                          = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"api", "v2", "users", "user", "roles"}, ""))
-	pattern_Dynizer_GetMyRoles_0                             = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v2", "my", "roles"}, ""))
-	pattern_Dynizer_CheckUserName_0                          = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 3}, []string{"api", "v2", "check", "user"}, ""))
-	pattern_Dynizer_CheckPassword_0                          = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v2", "check", "password"}, ""))
-	pattern_Dynizer_CreateActionType_0                       = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"api", "v2", "actiontypes"}, ""))
-	pattern_Dynizer_UpdateActionType_0                       = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"api", "v2", "actiontypes", "action_type_label"}, ""))
-	pattern_Dynizer_ReadActionType_0                         = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"api", "v2", "actiontypes", "action_type_label"}, ""))
-	pattern_Dynizer_ListActionTypes_0                        = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"api", "v2", "actiontypes"}, ""))
-	pattern_Dynizer_CreateActionSchema_0                     = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"api", "v2", "actionschemas"}, ""))
-	pattern_Dynizer_UpdateActionSchema_0                     = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"api", "v2", "actionschemas", "action_schema_name"}, ""))
-	pattern_Dynizer_DeleteActionSchema_0                     = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"api", "v2", "actionschemas", "action_schema_name"}, ""))
-	pattern_Dynizer_PurgeActionSchema_0                      = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"api", "v2", "actionschemas", "action_schema_name", "purge"}, ""))
-	pattern_Dynizer_ReadActionSchema_0                       = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"api", "v2", "actionschemas", "action_schema_name"}, ""))
-	pattern_Dynizer_ListActionSchemas_0                      = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"api", "v2", "actionschemas"}, ""))
-	pattern_Dynizer_CheckActionName_0                        = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"api", "v2", "check", "actions", "action_name"}, ""))
-	pattern_Dynizer_CreateAction_0                           = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"api", "v2", "actions"}, ""))
-	pattern_Dynizer_UpdateAction_0                           = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"api", "v2", "actions", "action_name"}, ""))
-	pattern_Dynizer_DeleteAction_0                           = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"api", "v2", "actions", "action_name"}, ""))
-	pattern_Dynizer_PurgeAction_0                            = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"api", "v2", "actions", "action_name", "purge"}, ""))
-	pattern_Dynizer_ReadAction_0                             = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"api", "v2", "actions", "action_name"}, ""))
-	pattern_Dynizer_CountActions_0                           = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5}, []string{"api", "v2", "actions", "types", "action_type_label", "count"}, ""))
-	pattern_Dynizer_ListActionNames_0                        = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5, 2, 6}, []string{"api", "v2", "actions", "types", "action_type_label", "names", "all"}, ""))
-	pattern_Dynizer_CheckActionLabelName_0                   = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5, 1, 0, 4, 1, 5, 6}, []string{"api", "v2", "check", "actions", "action_name", "actionlabels", "action_label"}, ""))
-	pattern_Dynizer_AddActionLabel_0                         = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"api", "v2", "actions", "action_name", "actionlabels"}, ""))
-	pattern_Dynizer_UpdateActionLabel_0                      = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"api", "v2", "actions", "action_name", "actionlabels", "action_label"}, ""))
-	pattern_Dynizer_DeleteActionLabel_0                      = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"api", "v2", "actions", "action_name", "actionlabels", "action_label"}, ""))
-	pattern_Dynizer_ReadActionLabel_0                        = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"api", "v2", "actions", "action_name", "actionlabels", "action_label"}, ""))
-	pattern_Dynizer_CreateObject_0                           = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"api", "v2", "objects"}, ""))
-	pattern_Dynizer_ClearObjectData_0                        = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 1, 0, 4, 1, 5, 4}, []string{"api", "v2", "objects", "object_ref.type", "object_ref.ref_uuid"}, ""))
-	pattern_Dynizer_DeleteObject_0                           = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 1, 0, 4, 1, 5, 4}, []string{"api", "v2", "objects", "object_ref.type", "object_ref.ref_uuid"}, ""))
-	pattern_Dynizer_UploadObjectData_0                       = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 1, 0, 4, 1, 5, 4}, []string{"api", "v2", "objects", "object_ref.type", "object_ref.ref_uuid"}, ""))
-	pattern_Dynizer_DownloadObjectData_0                     = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 1, 0, 4, 1, 5, 4}, []string{"api", "v2", "objects", "object_ref.type", "object_ref.ref_uuid"}, ""))
-	pattern_Dynizer_GetObjectSize_0                          = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 1, 0, 4, 1, 5, 4, 2, 5}, []string{"api", "v2", "objects", "object_ref.type", "object_ref.ref_uuid", "size"}, ""))
-	pattern_Dynizer_ListObjectUUIDS_0                        = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"api", "v2", "objects"}, ""))
-	pattern_Dynizer_DeleteAllObjects_0                       = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"api", "v2", "objects"}, ""))
-	pattern_Dynizer_CreateInstance_0                         = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"api", "v2", "instances"}, ""))
-	pattern_Dynizer_UpdateInstance_0                         = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"api", "v2", "instances", "instance_id"}, ""))
-	pattern_Dynizer_DeleteInstance_0                         = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"api", "v2", "instances", "instance_id"}, ""))
-	pattern_Dynizer_PurgeInstance_0                          = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"api", "v2", "instances", "instance_id", "purge"}, ""))
-	pattern_Dynizer_ReadInstance_0                           = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"api", "v2", "instances", "instance_id"}, ""))
-	pattern_Dynizer_DynizerQuery_0                           = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"api", "v2", "query"}, ""))
-	pattern_Dynizer_QueryResultNext_0                        = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"api", "v2", "query", "result_handle", "next"}, ""))
-	pattern_Dynizer_QueryResultClose_0                       = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"api", "v2", "query", "result_handle", "close"}, ""))
-	pattern_Dynizer_CheckMetaDataKeyName_0                   = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"api", "v2", "check", "metadata", "keys", "key_name"}, ""))
-	pattern_Dynizer_CreateMetaDataKey_0                      = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v2", "metadata", "keys"}, ""))
-	pattern_Dynizer_ReadMetaDataKey_0                        = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"api", "v2", "metadata", "keys", "key_name"}, ""))
-	pattern_Dynizer_UpdateMetaDataKey_0                      = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"api", "v2", "metadata", "keys", "key_name"}, ""))
-	pattern_Dynizer_DeleteMetaDataKey_0                      = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"api", "v2", "metadata", "keys", "key_name"}, ""))
-	pattern_Dynizer_CountMetaDataKeys_0                      = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4, 2, 5}, []string{"api", "v2", "metadata", "keys", "all", "count"}, ""))
-	pattern_Dynizer_ListMetaDataKeys_0                       = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v2", "metadata", "keys"}, ""))
-	pattern_Dynizer_AddInstanceMetaData_0                    = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"api", "v2", "metadata", "instances", "instance_id"}, ""))
-	pattern_Dynizer_RemoveInstanceMetaData_0                 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5, 1, 0, 4, 1, 5, 6}, []string{"api", "v2", "metadata", "instances", "instance_id", "keys", "key_name"}, ""))
-	pattern_Dynizer_AddInstanceMetaDataValue_0               = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5, 1, 0, 4, 1, 5, 6, 2, 7}, []string{"api", "v2", "metadata", "instances", "instance_id", "keys", "key_name", "values"}, ""))
-	pattern_Dynizer_RemoveInstanceMetaDataValue_0            = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5, 1, 0, 4, 1, 5, 6, 2, 7, 1, 0, 4, 1, 5, 8}, []string{"api", "v2", "metadata", "instances", "instance_id", "keys", "key_name", "values", "value"}, ""))
-	pattern_Dynizer_GetInstanceMetaDataValues_0              = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5, 1, 0, 4, 1, 5, 6}, []string{"api", "v2", "metadata", "instances", "instance_id", "keys", "key_name"}, ""))
-	pattern_Dynizer_CountInstanceMetaDataKeys_0              = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5, 2, 6, 2, 7}, []string{"api", "v2", "metadata", "instances", "instance_id", "keys", "all", "count"}, ""))
-	pattern_Dynizer_CountInstanceMetaDataKeyValues_0         = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5, 1, 0, 4, 1, 5, 6, 2, 7, 2, 8, 2, 9}, []string{"api", "v2", "metadata", "instances", "instance_id", "keys", "key_name", "values", "all", "count"}, ""))
-	pattern_Dynizer_ListInstanceMetaData_0                   = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5}, []string{"api", "v2", "metadata", "instances", "instance_id", "keys"}, ""))
-	pattern_Dynizer_AddInstanceActionLabelMetaData_0         = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5, 1, 0, 4, 1, 5, 6}, []string{"api", "v2", "metadata", "instances", "instance_id", "actionlabels", "action_label"}, ""))
-	pattern_Dynizer_RemoveInstanceActionLabelMetaData_0      = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5, 1, 0, 4, 1, 5, 6, 2, 7, 1, 0, 4, 1, 5, 8}, []string{"api", "v2", "metadata", "instances", "instance_id", "actionlabels", "action_label", "keys", "key_name"}, ""))
-	pattern_Dynizer_AddInstanceActionLabelMetaDataValue_0    = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5, 1, 0, 4, 1, 5, 6, 2, 7, 1, 0, 4, 1, 5, 8, 2, 9}, []string{"api", "v2", "metadata", "instances", "instance_id", "actionlabels", "action_label", "keys", "key_name", "values"}, ""))
-	pattern_Dynizer_RemoveInstanceActionLabelMetaDataValue_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5, 1, 0, 4, 1, 5, 6, 2, 7, 1, 0, 4, 1, 5, 8, 2, 9, 1, 0, 4, 1, 5, 10}, []string{"api", "v2", "metadata", "instances", "instance_id", "actionlabels", "action_label", "keys", "key_name", "values", "value"}, ""))
-	pattern_Dynizer_AddInstanceCellMetaData_0                = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5, 1, 0, 4, 1, 5, 6, 2, 7, 1, 0, 4, 1, 5, 8}, []string{"api", "v2", "metadata", "instances", "instance_id", "actionlabels", "action_label", "position", "value_position"}, ""))
-	pattern_Dynizer_RemoveInstanceCellMetaData_0             = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5, 1, 0, 4, 1, 5, 6, 2, 7, 1, 0, 4, 1, 5, 8, 2, 9, 1, 0, 4, 1, 5, 10}, []string{"api", "v2", "metadata", "instances", "instance_id", "actionlabels", "action_label", "position", "value_position", "keys", "key_name"}, ""))
-	pattern_Dynizer_AddInstanceCellMetaDataValue_0           = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5, 1, 0, 4, 1, 5, 6, 2, 7, 1, 0, 4, 1, 5, 8, 2, 9, 1, 0, 4, 1, 5, 10, 2, 11}, []string{"api", "v2", "metadata", "instances", "instance_id", "actionlabels", "action_label", "position", "value_position", "keys", "key_name", "values"}, ""))
-	pattern_Dynizer_RemoveInstanceCellMetaDataValue_0        = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5, 1, 0, 4, 1, 5, 6, 2, 7, 1, 0, 4, 1, 5, 8, 2, 9, 1, 0, 4, 1, 5, 10, 2, 11, 1, 0, 4, 1, 5, 12}, []string{"api", "v2", "metadata", "instances", "instance_id", "actionlabels", "action_label", "position", "value_position", "keys", "key_name", "values", "value"}, ""))
-	pattern_Dynizer_GetInstanceCellMetaDataValues_0          = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5, 1, 0, 4, 1, 5, 6, 2, 7, 1, 0, 4, 1, 5, 8, 2, 9, 1, 0, 4, 1, 5, 10}, []string{"api", "v2", "metadata", "instances", "instance_id", "actionlabels", "action_label", "position", "value_position", "keys", "key_name"}, ""))
-	pattern_Dynizer_CountInstanceCellMetaDataKeys_0          = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5, 1, 0, 4, 1, 5, 6, 2, 7, 1, 0, 4, 1, 5, 8, 2, 9, 2, 10, 2, 11}, []string{"api", "v2", "metadata", "instances", "instance_id", "actionlabels", "action_label", "position", "value_position", "keys", "all", "count"}, ""))
-	pattern_Dynizer_CountInstanceCellMetaDataKeyValues_0     = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5, 1, 0, 4, 1, 5, 6, 2, 7, 1, 0, 4, 1, 5, 8, 2, 9, 1, 0, 4, 1, 5, 10, 2, 11, 2, 12, 2, 13}, []string{"api", "v2", "metadata", "instances", "instance_id", "actionlabels", "action_label", "position", "value_position", "keys", "key_name", "values", "all", "count"}, ""))
-	pattern_Dynizer_ListInstanceCellMetaData_0               = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5, 1, 0, 4, 1, 5, 6, 2, 7, 1, 0, 4, 1, 5, 8, 2, 9}, []string{"api", "v2", "metadata", "instances", "instance_id", "actionlabels", "action_label", "position", "value_position", "keys"}, ""))
-	pattern_Dynizer_GetDynizerConfiguration_0                = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"api", "v2", "config"}, ""))
-	pattern_Dynizer_ExportUserActions_0                      = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"api", "v2", "system", "export", "useractions"}, ""))
-	pattern_Dynizer_ImportUserActions_0                      = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"api", "v2", "system", "import", "useractions"}, ""))
-	pattern_Dynizer_DropData_0                               = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v2", "system", "data"}, ""))
-	pattern_Dynizer_GetDynizerVersion_0                      = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v2", "system", "version"}, ""))
-	pattern_Dynizer_QueryDataElements_0                      = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"api", "v2", "dataelements", "query", "contains"}, ""))
-	pattern_Dynizer_GetTopNDataElements_0                    = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v2", "dataelements", "top"}, ""))
-	pattern_Dynizer_DynizerFilteredQuery_0                   = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v2", "query", "filtered"}, ""))
-	pattern_Dynizer_ReIndex_0                                = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"api", "v2", "maintenance", "index", "index_name"}, ""))
-	pattern_Dynizer_DynizerFilteredPlot_0                    = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 1, 0, 4, 1, 5, 5}, []string{"api", "v2", "plots", "filtered", "top", "plot_name"}, ""))
-	pattern_Dynizer_CreateShareName_0                        = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"api", "v2", "sharename"}, ""))
-	pattern_Dynizer_UpdateShareNameValue_0                   = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"api", "v2", "sharename", "share_name", "value"}, ""))
-	pattern_Dynizer_DeleteShareNameValue_0                   = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4, 2, 5}, []string{"api", "v2", "sharename", "share_name", "delete", "value"}, ""))
-	pattern_Dynizer_SimpleQuery_0                            = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v2", "query", "simple"}, ""))
-	pattern_Dynizer_QueryParse_0                             = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v2", "query", "parse"}, ""))
-	pattern_Dynizer_QueryBind_0                              = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v2", "query", "bind"}, ""))
-	pattern_Dynizer_QueryDescribeStatement_0                 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"api", "v2", "query", "statement", "describe"}, ""))
-	pattern_Dynizer_QueryDescribePortal_0                    = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"api", "v2", "query", "portal", "describe"}, ""))
-	pattern_Dynizer_QueryExecute_0                           = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v2", "query", "execute"}, ""))
-	pattern_Dynizer_QueryClose_0                             = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v2", "query", "close"}, ""))
-	pattern_Dynizer_FindActionLabelLinks_0                   = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"api", "v2", "find_actionlabel_links"}, ""))
+	pattern_Dynizer_Login_0                              = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"api", "v2", "login"}, ""))
+	pattern_Dynizer_ServiceLogin_0                       = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"api", "v2", "servicelogin"}, ""))
+	pattern_Dynizer_Logout_0                             = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"api", "v2", "logout"}, ""))
+	pattern_Dynizer_ValidateToken_0                      = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"api", "v2", "jwt", "token", "validate"}, ""))
+	pattern_Dynizer_IssueServiceToken_0                  = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v2", "servicetoken", "issue"}, ""))
+	pattern_Dynizer_ListRoles_0                          = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"api", "v2", "roles"}, ""))
+	pattern_Dynizer_AddUser_0                            = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"api", "v2", "users"}, ""))
+	pattern_Dynizer_AssignUserRole_0                     = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"api", "v2", "users", "user", "roles"}, ""))
+	pattern_Dynizer_RevokeUserRole_0                     = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"api", "v2", "users", "user", "roles", "role.name"}, ""))
+	pattern_Dynizer_EnableUser_0                         = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"api", "v2", "users", "user", "enable"}, ""))
+	pattern_Dynizer_DisableUser_0                        = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"api", "v2", "users", "user", "disable"}, ""))
+	pattern_Dynizer_SetUserPassword_0                    = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"api", "v2", "users", "user", "password"}, ""))
+	pattern_Dynizer_ChangeMyPassword_0                   = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v2", "my", "password"}, ""))
+	pattern_Dynizer_GetUser_0                            = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"api", "v2", "users", "user"}, ""))
+	pattern_Dynizer_GetMyProfile_0                       = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v2", "my", "profile"}, ""))
+	pattern_Dynizer_DeleteUser_0                         = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"api", "v2", "users", "user"}, ""))
+	pattern_Dynizer_GetUserCount_0                       = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"api", "v2", "users", "all", "count"}, ""))
+	pattern_Dynizer_ListUsers_0                          = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"api", "v2", "users"}, ""))
+	pattern_Dynizer_ListUserRoles_0                      = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"api", "v2", "users", "user", "roles"}, ""))
+	pattern_Dynizer_GetMyRoles_0                         = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v2", "my", "roles"}, ""))
+	pattern_Dynizer_CheckUserName_0                      = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 3}, []string{"api", "v2", "check", "user"}, ""))
+	pattern_Dynizer_CheckPassword_0                      = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v2", "check", "password"}, ""))
+	pattern_Dynizer_CreateActionType_0                   = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"api", "v2", "actiontypes"}, ""))
+	pattern_Dynizer_UpdateActionType_0                   = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"api", "v2", "actiontypes", "action_type_label"}, ""))
+	pattern_Dynizer_ReadActionType_0                     = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"api", "v2", "actiontypes", "action_type_label"}, ""))
+	pattern_Dynizer_ListActionTypes_0                    = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"api", "v2", "actiontypes"}, ""))
+	pattern_Dynizer_CreateActionSchema_0                 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"api", "v2", "actionschemas"}, ""))
+	pattern_Dynizer_UpdateActionSchema_0                 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"api", "v2", "actionschemas", "action_schema_name"}, ""))
+	pattern_Dynizer_DeleteActionSchema_0                 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"api", "v2", "actionschemas", "action_schema_name"}, ""))
+	pattern_Dynizer_PurgeActionSchema_0                  = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"api", "v2", "actionschemas", "action_schema_name", "purge"}, ""))
+	pattern_Dynizer_ReadActionSchema_0                   = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"api", "v2", "actionschemas", "action_schema_name"}, ""))
+	pattern_Dynizer_ListActionSchemas_0                  = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"api", "v2", "actionschemas"}, ""))
+	pattern_Dynizer_CheckActionName_0                    = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"api", "v2", "check", "actions", "action_name"}, ""))
+	pattern_Dynizer_CreateAction_0                       = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"api", "v2", "actions"}, ""))
+	pattern_Dynizer_UpdateAction_0                       = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"api", "v2", "actions", "action_name"}, ""))
+	pattern_Dynizer_DeleteAction_0                       = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"api", "v2", "actions", "action_name"}, ""))
+	pattern_Dynizer_PurgeAction_0                        = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"api", "v2", "actions", "action_name", "purge"}, ""))
+	pattern_Dynizer_ReadAction_0                         = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"api", "v2", "actions", "action_name"}, ""))
+	pattern_Dynizer_CountActions_0                       = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5}, []string{"api", "v2", "actions", "types", "action_type_label", "count"}, ""))
+	pattern_Dynizer_ListActionNames_0                    = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5, 2, 6}, []string{"api", "v2", "actions", "types", "action_type_label", "names", "all"}, ""))
+	pattern_Dynizer_CheckActionLabelName_0               = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5, 1, 0, 4, 1, 5, 6}, []string{"api", "v2", "check", "actions", "action_name", "actionlabels", "action_label"}, ""))
+	pattern_Dynizer_AddActionLabel_0                     = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"api", "v2", "actions", "action_name", "actionlabels"}, ""))
+	pattern_Dynizer_UpdateActionLabel_0                  = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"api", "v2", "actions", "action_name", "actionlabels", "action_label"}, ""))
+	pattern_Dynizer_DeleteActionLabel_0                  = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"api", "v2", "actions", "action_name", "actionlabels", "action_label"}, ""))
+	pattern_Dynizer_ReadActionLabel_0                    = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"api", "v2", "actions", "action_name", "actionlabels", "action_label"}, ""))
+	pattern_Dynizer_CreateObject_0                       = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"api", "v2", "objects"}, ""))
+	pattern_Dynizer_ClearObjectData_0                    = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 1, 0, 4, 1, 5, 4}, []string{"api", "v2", "objects", "object_ref.type", "object_ref.ref_uuid"}, ""))
+	pattern_Dynizer_DeleteObject_0                       = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 1, 0, 4, 1, 5, 4}, []string{"api", "v2", "objects", "object_ref.type", "object_ref.ref_uuid"}, ""))
+	pattern_Dynizer_UploadObjectData_0                   = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 1, 0, 4, 1, 5, 4}, []string{"api", "v2", "objects", "object_ref.type", "object_ref.ref_uuid"}, ""))
+	pattern_Dynizer_DownloadObjectData_0                 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 1, 0, 4, 1, 5, 4}, []string{"api", "v2", "objects", "object_ref.type", "object_ref.ref_uuid"}, ""))
+	pattern_Dynizer_GetObjectSize_0                      = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 1, 0, 4, 1, 5, 4, 2, 5}, []string{"api", "v2", "objects", "object_ref.type", "object_ref.ref_uuid", "size"}, ""))
+	pattern_Dynizer_ListObjectUUIDS_0                    = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"api", "v2", "objects"}, ""))
+	pattern_Dynizer_DeleteAllObjects_0                   = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"api", "v2", "objects"}, ""))
+	pattern_Dynizer_CreateInstance_0                     = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"api", "v2", "instances"}, ""))
+	pattern_Dynizer_UpdateInstance_0                     = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"api", "v2", "instances", "instance_id"}, ""))
+	pattern_Dynizer_DeleteInstance_0                     = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"api", "v2", "instances", "instance_id"}, ""))
+	pattern_Dynizer_PurgeInstance_0                      = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"api", "v2", "instances", "instance_id", "purge"}, ""))
+	pattern_Dynizer_ReadInstance_0                       = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"api", "v2", "instances", "instance_id"}, ""))
+	pattern_Dynizer_DynizerQuery_0                       = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"api", "v2", "query"}, ""))
+	pattern_Dynizer_QueryResultNext_0                    = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"api", "v2", "query", "result_handle", "next"}, ""))
+	pattern_Dynizer_QueryResultClose_0                   = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"api", "v2", "query", "result_handle", "close"}, ""))
+	pattern_Dynizer_CheckMetaDataKeyName_0               = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"api", "v2", "check", "metadata", "keys", "key_name"}, ""))
+	pattern_Dynizer_CreateMetaDataKey_0                  = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v2", "metadata", "keys"}, ""))
+	pattern_Dynizer_ReadMetaDataKey_0                    = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"api", "v2", "metadata", "keys", "key_name"}, ""))
+	pattern_Dynizer_UpdateMetaDataKey_0                  = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"api", "v2", "metadata", "keys", "key_name"}, ""))
+	pattern_Dynizer_DeleteMetaDataKey_0                  = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"api", "v2", "metadata", "keys", "key_name"}, ""))
+	pattern_Dynizer_CountMetaDataKeys_0                  = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4, 2, 5}, []string{"api", "v2", "metadata", "keys", "all", "count"}, ""))
+	pattern_Dynizer_ListMetaDataKeys_0                   = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v2", "metadata", "keys"}, ""))
+	pattern_Dynizer_AddInstanceMetaData_0                = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"api", "v2", "metadata", "instances", "instance_id"}, ""))
+	pattern_Dynizer_RemoveInstanceMetaData_0             = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5, 1, 0, 4, 1, 5, 6}, []string{"api", "v2", "metadata", "instances", "instance_id", "keys", "key_name"}, ""))
+	pattern_Dynizer_AddInstanceMetaDataValue_0           = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5, 1, 0, 4, 1, 5, 6, 2, 7}, []string{"api", "v2", "metadata", "instances", "instance_id", "keys", "key_name", "values"}, ""))
+	pattern_Dynizer_RemoveInstanceMetaDataValue_0        = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5, 1, 0, 4, 1, 5, 6, 2, 7, 1, 0, 4, 1, 5, 8}, []string{"api", "v2", "metadata", "instances", "instance_id", "keys", "key_name", "values", "value"}, ""))
+	pattern_Dynizer_GetInstanceMetaDataValues_0          = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5, 1, 0, 4, 1, 5, 6}, []string{"api", "v2", "metadata", "instances", "instance_id", "keys", "key_name"}, ""))
+	pattern_Dynizer_CountInstanceMetaDataKeys_0          = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5, 2, 6, 2, 7}, []string{"api", "v2", "metadata", "instances", "instance_id", "keys", "all", "count"}, ""))
+	pattern_Dynizer_CountInstanceMetaDataKeyValues_0     = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5, 1, 0, 4, 1, 5, 6, 2, 7, 2, 8, 2, 9}, []string{"api", "v2", "metadata", "instances", "instance_id", "keys", "key_name", "values", "all", "count"}, ""))
+	pattern_Dynizer_ListInstanceMetaData_0               = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5}, []string{"api", "v2", "metadata", "instances", "instance_id", "keys"}, ""))
+	pattern_Dynizer_AddInstanceCellMetaData_0            = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5, 1, 0, 4, 1, 5, 6, 2, 7, 1, 0, 4, 1, 5, 8}, []string{"api", "v2", "metadata", "instances", "instance_id", "actionlabels", "action_label", "position", "value_position"}, ""))
+	pattern_Dynizer_RemoveInstanceCellMetaData_0         = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5, 1, 0, 4, 1, 5, 6, 2, 7, 1, 0, 4, 1, 5, 8, 2, 9, 1, 0, 4, 1, 5, 10}, []string{"api", "v2", "metadata", "instances", "instance_id", "actionlabels", "action_label", "position", "value_position", "keys", "key_name"}, ""))
+	pattern_Dynizer_AddInstanceCellMetaDataValue_0       = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5, 1, 0, 4, 1, 5, 6, 2, 7, 1, 0, 4, 1, 5, 8, 2, 9, 1, 0, 4, 1, 5, 10, 2, 11}, []string{"api", "v2", "metadata", "instances", "instance_id", "actionlabels", "action_label", "position", "value_position", "keys", "key_name", "values"}, ""))
+	pattern_Dynizer_RemoveInstanceCellMetaDataValue_0    = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5, 1, 0, 4, 1, 5, 6, 2, 7, 1, 0, 4, 1, 5, 8, 2, 9, 1, 0, 4, 1, 5, 10, 2, 11, 1, 0, 4, 1, 5, 12}, []string{"api", "v2", "metadata", "instances", "instance_id", "actionlabels", "action_label", "position", "value_position", "keys", "key_name", "values", "value"}, ""))
+	pattern_Dynizer_GetInstanceCellMetaDataValues_0      = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5, 1, 0, 4, 1, 5, 6, 2, 7, 1, 0, 4, 1, 5, 8, 2, 9, 1, 0, 4, 1, 5, 10}, []string{"api", "v2", "metadata", "instances", "instance_id", "actionlabels", "action_label", "position", "value_position", "keys", "key_name"}, ""))
+	pattern_Dynizer_CountInstanceCellMetaDataKeys_0      = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5, 1, 0, 4, 1, 5, 6, 2, 7, 1, 0, 4, 1, 5, 8, 2, 9, 2, 10, 2, 11}, []string{"api", "v2", "metadata", "instances", "instance_id", "actionlabels", "action_label", "position", "value_position", "keys", "all", "count"}, ""))
+	pattern_Dynizer_CountInstanceCellMetaDataKeyValues_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5, 1, 0, 4, 1, 5, 6, 2, 7, 1, 0, 4, 1, 5, 8, 2, 9, 1, 0, 4, 1, 5, 10, 2, 11, 2, 12, 2, 13}, []string{"api", "v2", "metadata", "instances", "instance_id", "actionlabels", "action_label", "position", "value_position", "keys", "key_name", "values", "all", "count"}, ""))
+	pattern_Dynizer_ListInstanceCellMetaData_0           = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5, 1, 0, 4, 1, 5, 6, 2, 7, 1, 0, 4, 1, 5, 8, 2, 9}, []string{"api", "v2", "metadata", "instances", "instance_id", "actionlabels", "action_label", "position", "value_position", "keys"}, ""))
+	pattern_Dynizer_GetDynizerConfiguration_0            = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"api", "v2", "config"}, ""))
+	pattern_Dynizer_ExportUserActions_0                  = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"api", "v2", "system", "export", "useractions"}, ""))
+	pattern_Dynizer_ImportUserActions_0                  = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"api", "v2", "system", "import", "useractions"}, ""))
+	pattern_Dynizer_DropData_0                           = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v2", "system", "data"}, ""))
+	pattern_Dynizer_GetDynizerVersion_0                  = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v2", "system", "version"}, ""))
+	pattern_Dynizer_QueryDataElements_0                  = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"api", "v2", "dataelements", "query", "contains"}, ""))
+	pattern_Dynizer_GetTopNDataElements_0                = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v2", "dataelements", "top"}, ""))
+	pattern_Dynizer_DynizerFilteredQuery_0               = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v2", "query", "filtered"}, ""))
+	pattern_Dynizer_ReIndex_0                            = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"api", "v2", "maintenance", "index", "index_name"}, ""))
+	pattern_Dynizer_DynizerFilteredPlot_0                = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 1, 0, 4, 1, 5, 5}, []string{"api", "v2", "plots", "filtered", "top", "plot_name"}, ""))
+	pattern_Dynizer_CreateShareName_0                    = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"api", "v2", "sharename"}, ""))
+	pattern_Dynizer_UpdateShareNameValue_0               = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"api", "v2", "sharename", "share_name", "value"}, ""))
+	pattern_Dynizer_DeleteShareNameValue_0               = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4, 2, 5}, []string{"api", "v2", "sharename", "share_name", "delete", "value"}, ""))
+	pattern_Dynizer_SimpleQuery_0                        = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v2", "query", "simple"}, ""))
+	pattern_Dynizer_QueryParse_0                         = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v2", "query", "parse"}, ""))
+	pattern_Dynizer_QueryBind_0                          = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v2", "query", "bind"}, ""))
+	pattern_Dynizer_QueryDescribeStatement_0             = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"api", "v2", "query", "statement", "describe"}, ""))
+	pattern_Dynizer_QueryDescribePortal_0                = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"api", "v2", "query", "portal", "describe"}, ""))
+	pattern_Dynizer_QueryExecute_0                       = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v2", "query", "execute"}, ""))
+	pattern_Dynizer_QueryClose_0                         = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v2", "query", "close"}, ""))
+	pattern_Dynizer_FindActionLabelLinks_0               = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"api", "v2", "find_actionlabel_links"}, ""))
 )
 
 var (
-	forward_Dynizer_Login_0                                  = runtime.ForwardResponseMessage
-	forward_Dynizer_ServiceLogin_0                           = runtime.ForwardResponseMessage
-	forward_Dynizer_Logout_0                                 = runtime.ForwardResponseMessage
-	forward_Dynizer_ValidateToken_0                          = runtime.ForwardResponseMessage
-	forward_Dynizer_IssueServiceToken_0                      = runtime.ForwardResponseMessage
-	forward_Dynizer_ListRoles_0                              = runtime.ForwardResponseMessage
-	forward_Dynizer_AddUser_0                                = runtime.ForwardResponseMessage
-	forward_Dynizer_AssignUserRole_0                         = runtime.ForwardResponseMessage
-	forward_Dynizer_RevokeUserRole_0                         = runtime.ForwardResponseMessage
-	forward_Dynizer_EnableUser_0                             = runtime.ForwardResponseMessage
-	forward_Dynizer_DisableUser_0                            = runtime.ForwardResponseMessage
-	forward_Dynizer_SetUserPassword_0                        = runtime.ForwardResponseMessage
-	forward_Dynizer_ChangeMyPassword_0                       = runtime.ForwardResponseMessage
-	forward_Dynizer_GetUser_0                                = runtime.ForwardResponseMessage
-	forward_Dynizer_GetMyProfile_0                           = runtime.ForwardResponseMessage
-	forward_Dynizer_DeleteUser_0                             = runtime.ForwardResponseMessage
-	forward_Dynizer_GetUserCount_0                           = runtime.ForwardResponseMessage
-	forward_Dynizer_ListUsers_0                              = runtime.ForwardResponseMessage
-	forward_Dynizer_ListUserRoles_0                          = runtime.ForwardResponseMessage
-	forward_Dynizer_GetMyRoles_0                             = runtime.ForwardResponseMessage
-	forward_Dynizer_CheckUserName_0                          = runtime.ForwardResponseMessage
-	forward_Dynizer_CheckPassword_0                          = runtime.ForwardResponseMessage
-	forward_Dynizer_CreateActionType_0                       = runtime.ForwardResponseMessage
-	forward_Dynizer_UpdateActionType_0                       = runtime.ForwardResponseMessage
-	forward_Dynizer_ReadActionType_0                         = runtime.ForwardResponseMessage
-	forward_Dynizer_ListActionTypes_0                        = runtime.ForwardResponseMessage
-	forward_Dynizer_CreateActionSchema_0                     = runtime.ForwardResponseMessage
-	forward_Dynizer_UpdateActionSchema_0                     = runtime.ForwardResponseMessage
-	forward_Dynizer_DeleteActionSchema_0                     = runtime.ForwardResponseMessage
-	forward_Dynizer_PurgeActionSchema_0                      = runtime.ForwardResponseMessage
-	forward_Dynizer_ReadActionSchema_0                       = runtime.ForwardResponseMessage
-	forward_Dynizer_ListActionSchemas_0                      = runtime.ForwardResponseMessage
-	forward_Dynizer_CheckActionName_0                        = runtime.ForwardResponseMessage
-	forward_Dynizer_CreateAction_0                           = runtime.ForwardResponseMessage
-	forward_Dynizer_UpdateAction_0                           = runtime.ForwardResponseMessage
-	forward_Dynizer_DeleteAction_0                           = runtime.ForwardResponseMessage
-	forward_Dynizer_PurgeAction_0                            = runtime.ForwardResponseMessage
-	forward_Dynizer_ReadAction_0                             = runtime.ForwardResponseMessage
-	forward_Dynizer_CountActions_0                           = runtime.ForwardResponseMessage
-	forward_Dynizer_ListActionNames_0                        = runtime.ForwardResponseMessage
-	forward_Dynizer_CheckActionLabelName_0                   = runtime.ForwardResponseMessage
-	forward_Dynizer_AddActionLabel_0                         = runtime.ForwardResponseMessage
-	forward_Dynizer_UpdateActionLabel_0                      = runtime.ForwardResponseMessage
-	forward_Dynizer_DeleteActionLabel_0                      = runtime.ForwardResponseMessage
-	forward_Dynizer_ReadActionLabel_0                        = runtime.ForwardResponseMessage
-	forward_Dynizer_CreateObject_0                           = runtime.ForwardResponseMessage
-	forward_Dynizer_ClearObjectData_0                        = runtime.ForwardResponseMessage
-	forward_Dynizer_DeleteObject_0                           = runtime.ForwardResponseMessage
-	forward_Dynizer_UploadObjectData_0                       = runtime.ForwardResponseMessage
-	forward_Dynizer_DownloadObjectData_0                     = runtime.ForwardResponseMessage
-	forward_Dynizer_GetObjectSize_0                          = runtime.ForwardResponseMessage
-	forward_Dynizer_ListObjectUUIDS_0                        = runtime.ForwardResponseMessage
-	forward_Dynizer_DeleteAllObjects_0                       = runtime.ForwardResponseMessage
-	forward_Dynizer_CreateInstance_0                         = runtime.ForwardResponseMessage
-	forward_Dynizer_UpdateInstance_0                         = runtime.ForwardResponseMessage
-	forward_Dynizer_DeleteInstance_0                         = runtime.ForwardResponseMessage
-	forward_Dynizer_PurgeInstance_0                          = runtime.ForwardResponseMessage
-	forward_Dynizer_ReadInstance_0                           = runtime.ForwardResponseMessage
-	forward_Dynizer_DynizerQuery_0                           = runtime.ForwardResponseMessage
-	forward_Dynizer_QueryResultNext_0                        = runtime.ForwardResponseMessage
-	forward_Dynizer_QueryResultClose_0                       = runtime.ForwardResponseMessage
-	forward_Dynizer_CheckMetaDataKeyName_0                   = runtime.ForwardResponseMessage
-	forward_Dynizer_CreateMetaDataKey_0                      = runtime.ForwardResponseMessage
-	forward_Dynizer_ReadMetaDataKey_0                        = runtime.ForwardResponseMessage
-	forward_Dynizer_UpdateMetaDataKey_0                      = runtime.ForwardResponseMessage
-	forward_Dynizer_DeleteMetaDataKey_0                      = runtime.ForwardResponseMessage
-	forward_Dynizer_CountMetaDataKeys_0                      = runtime.ForwardResponseMessage
-	forward_Dynizer_ListMetaDataKeys_0                       = runtime.ForwardResponseMessage
-	forward_Dynizer_AddInstanceMetaData_0                    = runtime.ForwardResponseMessage
-	forward_Dynizer_RemoveInstanceMetaData_0                 = runtime.ForwardResponseMessage
-	forward_Dynizer_AddInstanceMetaDataValue_0               = runtime.ForwardResponseMessage
-	forward_Dynizer_RemoveInstanceMetaDataValue_0            = runtime.ForwardResponseMessage
-	forward_Dynizer_GetInstanceMetaDataValues_0              = runtime.ForwardResponseMessage
-	forward_Dynizer_CountInstanceMetaDataKeys_0              = runtime.ForwardResponseMessage
-	forward_Dynizer_CountInstanceMetaDataKeyValues_0         = runtime.ForwardResponseMessage
-	forward_Dynizer_ListInstanceMetaData_0                   = runtime.ForwardResponseMessage
-	forward_Dynizer_AddInstanceActionLabelMetaData_0         = runtime.ForwardResponseMessage
-	forward_Dynizer_RemoveInstanceActionLabelMetaData_0      = runtime.ForwardResponseMessage
-	forward_Dynizer_AddInstanceActionLabelMetaDataValue_0    = runtime.ForwardResponseMessage
-	forward_Dynizer_RemoveInstanceActionLabelMetaDataValue_0 = runtime.ForwardResponseMessage
-	forward_Dynizer_AddInstanceCellMetaData_0                = runtime.ForwardResponseMessage
-	forward_Dynizer_RemoveInstanceCellMetaData_0             = runtime.ForwardResponseMessage
-	forward_Dynizer_AddInstanceCellMetaDataValue_0           = runtime.ForwardResponseMessage
-	forward_Dynizer_RemoveInstanceCellMetaDataValue_0        = runtime.ForwardResponseMessage
-	forward_Dynizer_GetInstanceCellMetaDataValues_0          = runtime.ForwardResponseMessage
-	forward_Dynizer_CountInstanceCellMetaDataKeys_0          = runtime.ForwardResponseMessage
-	forward_Dynizer_CountInstanceCellMetaDataKeyValues_0     = runtime.ForwardResponseMessage
-	forward_Dynizer_ListInstanceCellMetaData_0               = runtime.ForwardResponseMessage
-	forward_Dynizer_GetDynizerConfiguration_0                = runtime.ForwardResponseMessage
-	forward_Dynizer_ExportUserActions_0                      = runtime.ForwardResponseMessage
-	forward_Dynizer_ImportUserActions_0                      = runtime.ForwardResponseMessage
-	forward_Dynizer_DropData_0                               = runtime.ForwardResponseMessage
-	forward_Dynizer_GetDynizerVersion_0                      = runtime.ForwardResponseMessage
-	forward_Dynizer_QueryDataElements_0                      = runtime.ForwardResponseMessage
-	forward_Dynizer_GetTopNDataElements_0                    = runtime.ForwardResponseMessage
-	forward_Dynizer_DynizerFilteredQuery_0                   = runtime.ForwardResponseMessage
-	forward_Dynizer_ReIndex_0                                = runtime.ForwardResponseMessage
-	forward_Dynizer_DynizerFilteredPlot_0                    = runtime.ForwardResponseMessage
-	forward_Dynizer_CreateShareName_0                        = runtime.ForwardResponseMessage
-	forward_Dynizer_UpdateShareNameValue_0                   = runtime.ForwardResponseMessage
-	forward_Dynizer_DeleteShareNameValue_0                   = runtime.ForwardResponseMessage
-	forward_Dynizer_SimpleQuery_0                            = runtime.ForwardResponseMessage
-	forward_Dynizer_QueryParse_0                             = runtime.ForwardResponseMessage
-	forward_Dynizer_QueryBind_0                              = runtime.ForwardResponseMessage
-	forward_Dynizer_QueryDescribeStatement_0                 = runtime.ForwardResponseMessage
-	forward_Dynizer_QueryDescribePortal_0                    = runtime.ForwardResponseMessage
-	forward_Dynizer_QueryExecute_0                           = runtime.ForwardResponseMessage
-	forward_Dynizer_QueryClose_0                             = runtime.ForwardResponseMessage
-	forward_Dynizer_FindActionLabelLinks_0                   = runtime.ForwardResponseMessage
+	forward_Dynizer_Login_0                              = runtime.ForwardResponseMessage
+	forward_Dynizer_ServiceLogin_0                       = runtime.ForwardResponseMessage
+	forward_Dynizer_Logout_0                             = runtime.ForwardResponseMessage
+	forward_Dynizer_ValidateToken_0                      = runtime.ForwardResponseMessage
+	forward_Dynizer_IssueServiceToken_0                  = runtime.ForwardResponseMessage
+	forward_Dynizer_ListRoles_0                          = runtime.ForwardResponseMessage
+	forward_Dynizer_AddUser_0                            = runtime.ForwardResponseMessage
+	forward_Dynizer_AssignUserRole_0                     = runtime.ForwardResponseMessage
+	forward_Dynizer_RevokeUserRole_0                     = runtime.ForwardResponseMessage
+	forward_Dynizer_EnableUser_0                         = runtime.ForwardResponseMessage
+	forward_Dynizer_DisableUser_0                        = runtime.ForwardResponseMessage
+	forward_Dynizer_SetUserPassword_0                    = runtime.ForwardResponseMessage
+	forward_Dynizer_ChangeMyPassword_0                   = runtime.ForwardResponseMessage
+	forward_Dynizer_GetUser_0                            = runtime.ForwardResponseMessage
+	forward_Dynizer_GetMyProfile_0                       = runtime.ForwardResponseMessage
+	forward_Dynizer_DeleteUser_0                         = runtime.ForwardResponseMessage
+	forward_Dynizer_GetUserCount_0                       = runtime.ForwardResponseMessage
+	forward_Dynizer_ListUsers_0                          = runtime.ForwardResponseMessage
+	forward_Dynizer_ListUserRoles_0                      = runtime.ForwardResponseMessage
+	forward_Dynizer_GetMyRoles_0                         = runtime.ForwardResponseMessage
+	forward_Dynizer_CheckUserName_0                      = runtime.ForwardResponseMessage
+	forward_Dynizer_CheckPassword_0                      = runtime.ForwardResponseMessage
+	forward_Dynizer_CreateActionType_0                   = runtime.ForwardResponseMessage
+	forward_Dynizer_UpdateActionType_0                   = runtime.ForwardResponseMessage
+	forward_Dynizer_ReadActionType_0                     = runtime.ForwardResponseMessage
+	forward_Dynizer_ListActionTypes_0                    = runtime.ForwardResponseMessage
+	forward_Dynizer_CreateActionSchema_0                 = runtime.ForwardResponseMessage
+	forward_Dynizer_UpdateActionSchema_0                 = runtime.ForwardResponseMessage
+	forward_Dynizer_DeleteActionSchema_0                 = runtime.ForwardResponseMessage
+	forward_Dynizer_PurgeActionSchema_0                  = runtime.ForwardResponseMessage
+	forward_Dynizer_ReadActionSchema_0                   = runtime.ForwardResponseMessage
+	forward_Dynizer_ListActionSchemas_0                  = runtime.ForwardResponseMessage
+	forward_Dynizer_CheckActionName_0                    = runtime.ForwardResponseMessage
+	forward_Dynizer_CreateAction_0                       = runtime.ForwardResponseMessage
+	forward_Dynizer_UpdateAction_0                       = runtime.ForwardResponseMessage
+	forward_Dynizer_DeleteAction_0                       = runtime.ForwardResponseMessage
+	forward_Dynizer_PurgeAction_0                        = runtime.ForwardResponseMessage
+	forward_Dynizer_ReadAction_0                         = runtime.ForwardResponseMessage
+	forward_Dynizer_CountActions_0                       = runtime.ForwardResponseMessage
+	forward_Dynizer_ListActionNames_0                    = runtime.ForwardResponseMessage
+	forward_Dynizer_CheckActionLabelName_0               = runtime.ForwardResponseMessage
+	forward_Dynizer_AddActionLabel_0                     = runtime.ForwardResponseMessage
+	forward_Dynizer_UpdateActionLabel_0                  = runtime.ForwardResponseMessage
+	forward_Dynizer_DeleteActionLabel_0                  = runtime.ForwardResponseMessage
+	forward_Dynizer_ReadActionLabel_0                    = runtime.ForwardResponseMessage
+	forward_Dynizer_CreateObject_0                       = runtime.ForwardResponseMessage
+	forward_Dynizer_ClearObjectData_0                    = runtime.ForwardResponseMessage
+	forward_Dynizer_DeleteObject_0                       = runtime.ForwardResponseMessage
+	forward_Dynizer_UploadObjectData_0                   = runtime.ForwardResponseMessage
+	forward_Dynizer_DownloadObjectData_0                 = runtime.ForwardResponseMessage
+	forward_Dynizer_GetObjectSize_0                      = runtime.ForwardResponseMessage
+	forward_Dynizer_ListObjectUUIDS_0                    = runtime.ForwardResponseMessage
+	forward_Dynizer_DeleteAllObjects_0                   = runtime.ForwardResponseMessage
+	forward_Dynizer_CreateInstance_0                     = runtime.ForwardResponseMessage
+	forward_Dynizer_UpdateInstance_0                     = runtime.ForwardResponseMessage
+	forward_Dynizer_DeleteInstance_0                     = runtime.ForwardResponseMessage
+	forward_Dynizer_PurgeInstance_0                      = runtime.ForwardResponseMessage
+	forward_Dynizer_ReadInstance_0                       = runtime.ForwardResponseMessage
+	forward_Dynizer_DynizerQuery_0                       = runtime.ForwardResponseMessage
+	forward_Dynizer_QueryResultNext_0                    = runtime.ForwardResponseMessage
+	forward_Dynizer_QueryResultClose_0                   = runtime.ForwardResponseMessage
+	forward_Dynizer_CheckMetaDataKeyName_0               = runtime.ForwardResponseMessage
+	forward_Dynizer_CreateMetaDataKey_0                  = runtime.ForwardResponseMessage
+	forward_Dynizer_ReadMetaDataKey_0                    = runtime.ForwardResponseMessage
+	forward_Dynizer_UpdateMetaDataKey_0                  = runtime.ForwardResponseMessage
+	forward_Dynizer_DeleteMetaDataKey_0                  = runtime.ForwardResponseMessage
+	forward_Dynizer_CountMetaDataKeys_0                  = runtime.ForwardResponseMessage
+	forward_Dynizer_ListMetaDataKeys_0                   = runtime.ForwardResponseMessage
+	forward_Dynizer_AddInstanceMetaData_0                = runtime.ForwardResponseMessage
+	forward_Dynizer_RemoveInstanceMetaData_0             = runtime.ForwardResponseMessage
+	forward_Dynizer_AddInstanceMetaDataValue_0           = runtime.ForwardResponseMessage
+	forward_Dynizer_RemoveInstanceMetaDataValue_0        = runtime.ForwardResponseMessage
+	forward_Dynizer_GetInstanceMetaDataValues_0          = runtime.ForwardResponseMessage
+	forward_Dynizer_CountInstanceMetaDataKeys_0          = runtime.ForwardResponseMessage
+	forward_Dynizer_CountInstanceMetaDataKeyValues_0     = runtime.ForwardResponseMessage
+	forward_Dynizer_ListInstanceMetaData_0               = runtime.ForwardResponseMessage
+	forward_Dynizer_AddInstanceCellMetaData_0            = runtime.ForwardResponseMessage
+	forward_Dynizer_RemoveInstanceCellMetaData_0         = runtime.ForwardResponseMessage
+	forward_Dynizer_AddInstanceCellMetaDataValue_0       = runtime.ForwardResponseMessage
+	forward_Dynizer_RemoveInstanceCellMetaDataValue_0    = runtime.ForwardResponseMessage
+	forward_Dynizer_GetInstanceCellMetaDataValues_0      = runtime.ForwardResponseMessage
+	forward_Dynizer_CountInstanceCellMetaDataKeys_0      = runtime.ForwardResponseMessage
+	forward_Dynizer_CountInstanceCellMetaDataKeyValues_0 = runtime.ForwardResponseMessage
+	forward_Dynizer_ListInstanceCellMetaData_0           = runtime.ForwardResponseMessage
+	forward_Dynizer_GetDynizerConfiguration_0            = runtime.ForwardResponseMessage
+	forward_Dynizer_ExportUserActions_0                  = runtime.ForwardResponseMessage
+	forward_Dynizer_ImportUserActions_0                  = runtime.ForwardResponseMessage
+	forward_Dynizer_DropData_0                           = runtime.ForwardResponseMessage
+	forward_Dynizer_GetDynizerVersion_0                  = runtime.ForwardResponseMessage
+	forward_Dynizer_QueryDataElements_0                  = runtime.ForwardResponseMessage
+	forward_Dynizer_GetTopNDataElements_0                = runtime.ForwardResponseMessage
+	forward_Dynizer_DynizerFilteredQuery_0               = runtime.ForwardResponseMessage
+	forward_Dynizer_ReIndex_0                            = runtime.ForwardResponseMessage
+	forward_Dynizer_DynizerFilteredPlot_0                = runtime.ForwardResponseMessage
+	forward_Dynizer_CreateShareName_0                    = runtime.ForwardResponseMessage
+	forward_Dynizer_UpdateShareNameValue_0               = runtime.ForwardResponseMessage
+	forward_Dynizer_DeleteShareNameValue_0               = runtime.ForwardResponseMessage
+	forward_Dynizer_SimpleQuery_0                        = runtime.ForwardResponseMessage
+	forward_Dynizer_QueryParse_0                         = runtime.ForwardResponseMessage
+	forward_Dynizer_QueryBind_0                          = runtime.ForwardResponseMessage
+	forward_Dynizer_QueryDescribeStatement_0             = runtime.ForwardResponseMessage
+	forward_Dynizer_QueryDescribePortal_0                = runtime.ForwardResponseMessage
+	forward_Dynizer_QueryExecute_0                       = runtime.ForwardResponseMessage
+	forward_Dynizer_QueryClose_0                         = runtime.ForwardResponseMessage
+	forward_Dynizer_FindActionLabelLinks_0               = runtime.ForwardResponseMessage
 )

@@ -19,120 +19,116 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	Dynizer_Login_FullMethodName                                  = "/Dynizer/Login"
-	Dynizer_ServiceLogin_FullMethodName                           = "/Dynizer/ServiceLogin"
-	Dynizer_Logout_FullMethodName                                 = "/Dynizer/Logout"
-	Dynizer_ValidateToken_FullMethodName                          = "/Dynizer/ValidateToken"
-	Dynizer_IssueServiceToken_FullMethodName                      = "/Dynizer/IssueServiceToken"
-	Dynizer_ListRoles_FullMethodName                              = "/Dynizer/ListRoles"
-	Dynizer_AddUser_FullMethodName                                = "/Dynizer/AddUser"
-	Dynizer_AssignUserRole_FullMethodName                         = "/Dynizer/AssignUserRole"
-	Dynizer_RevokeUserRole_FullMethodName                         = "/Dynizer/RevokeUserRole"
-	Dynizer_EnableUser_FullMethodName                             = "/Dynizer/EnableUser"
-	Dynizer_DisableUser_FullMethodName                            = "/Dynizer/DisableUser"
-	Dynizer_SetUserPassword_FullMethodName                        = "/Dynizer/SetUserPassword"
-	Dynizer_ChangeMyPassword_FullMethodName                       = "/Dynizer/ChangeMyPassword"
-	Dynizer_GetUser_FullMethodName                                = "/Dynizer/GetUser"
-	Dynizer_GetMyProfile_FullMethodName                           = "/Dynizer/GetMyProfile"
-	Dynizer_DeleteUser_FullMethodName                             = "/Dynizer/DeleteUser"
-	Dynizer_GetUserCount_FullMethodName                           = "/Dynizer/GetUserCount"
-	Dynizer_ListUsers_FullMethodName                              = "/Dynizer/ListUsers"
-	Dynizer_ListUserRoles_FullMethodName                          = "/Dynizer/ListUserRoles"
-	Dynizer_GetMyRoles_FullMethodName                             = "/Dynizer/GetMyRoles"
-	Dynizer_CheckUserName_FullMethodName                          = "/Dynizer/CheckUserName"
-	Dynizer_CheckPassword_FullMethodName                          = "/Dynizer/CheckPassword"
-	Dynizer_CreateActionType_FullMethodName                       = "/Dynizer/CreateActionType"
-	Dynizer_UpdateActionType_FullMethodName                       = "/Dynizer/UpdateActionType"
-	Dynizer_ReadActionType_FullMethodName                         = "/Dynizer/ReadActionType"
-	Dynizer_ListActionTypes_FullMethodName                        = "/Dynizer/ListActionTypes"
-	Dynizer_CreateActionSchema_FullMethodName                     = "/Dynizer/CreateActionSchema"
-	Dynizer_UpdateActionSchema_FullMethodName                     = "/Dynizer/UpdateActionSchema"
-	Dynizer_DeleteActionSchema_FullMethodName                     = "/Dynizer/DeleteActionSchema"
-	Dynizer_PurgeActionSchema_FullMethodName                      = "/Dynizer/PurgeActionSchema"
-	Dynizer_ReadActionSchema_FullMethodName                       = "/Dynizer/ReadActionSchema"
-	Dynizer_ListActionSchemas_FullMethodName                      = "/Dynizer/ListActionSchemas"
-	Dynizer_CheckActionName_FullMethodName                        = "/Dynizer/CheckActionName"
-	Dynizer_CreateAction_FullMethodName                           = "/Dynizer/CreateAction"
-	Dynizer_UpdateAction_FullMethodName                           = "/Dynizer/UpdateAction"
-	Dynizer_DeleteAction_FullMethodName                           = "/Dynizer/DeleteAction"
-	Dynizer_PurgeAction_FullMethodName                            = "/Dynizer/PurgeAction"
-	Dynizer_ReadAction_FullMethodName                             = "/Dynizer/ReadAction"
-	Dynizer_CountActions_FullMethodName                           = "/Dynizer/CountActions"
-	Dynizer_ListActionNames_FullMethodName                        = "/Dynizer/ListActionNames"
-	Dynizer_CheckActionLabelName_FullMethodName                   = "/Dynizer/CheckActionLabelName"
-	Dynizer_AddActionLabel_FullMethodName                         = "/Dynizer/AddActionLabel"
-	Dynizer_UpdateActionLabel_FullMethodName                      = "/Dynizer/UpdateActionLabel"
-	Dynizer_DeleteActionLabel_FullMethodName                      = "/Dynizer/DeleteActionLabel"
-	Dynizer_ReadActionLabel_FullMethodName                        = "/Dynizer/ReadActionLabel"
-	Dynizer_CreateObject_FullMethodName                           = "/Dynizer/CreateObject"
-	Dynizer_ClearObjectData_FullMethodName                        = "/Dynizer/ClearObjectData"
-	Dynizer_DeleteObject_FullMethodName                           = "/Dynizer/DeleteObject"
-	Dynizer_StreamObjectDataIn_FullMethodName                     = "/Dynizer/StreamObjectDataIn"
-	Dynizer_StreamObjectDataOut_FullMethodName                    = "/Dynizer/StreamObjectDataOut"
-	Dynizer_UploadObjectData_FullMethodName                       = "/Dynizer/UploadObjectData"
-	Dynizer_DownloadObjectData_FullMethodName                     = "/Dynizer/DownloadObjectData"
-	Dynizer_GetObjectSize_FullMethodName                          = "/Dynizer/GetObjectSize"
-	Dynizer_ListObjectUUIDS_FullMethodName                        = "/Dynizer/ListObjectUUIDS"
-	Dynizer_DeleteAllObjects_FullMethodName                       = "/Dynizer/DeleteAllObjects"
-	Dynizer_CreateInstance_FullMethodName                         = "/Dynizer/CreateInstance"
-	Dynizer_StreamInstances_FullMethodName                        = "/Dynizer/StreamInstances"
-	Dynizer_UpdateInstance_FullMethodName                         = "/Dynizer/UpdateInstance"
-	Dynizer_DeleteInstance_FullMethodName                         = "/Dynizer/DeleteInstance"
-	Dynizer_PurgeInstance_FullMethodName                          = "/Dynizer/PurgeInstance"
-	Dynizer_ReadInstance_FullMethodName                           = "/Dynizer/ReadInstance"
-	Dynizer_DynizerQuery_FullMethodName                           = "/Dynizer/DynizerQuery"
-	Dynizer_QueryResultNext_FullMethodName                        = "/Dynizer/QueryResultNext"
-	Dynizer_QueryResultClose_FullMethodName                       = "/Dynizer/QueryResultClose"
-	Dynizer_CheckMetaDataKeyName_FullMethodName                   = "/Dynizer/CheckMetaDataKeyName"
-	Dynizer_CreateMetaDataKey_FullMethodName                      = "/Dynizer/CreateMetaDataKey"
-	Dynizer_ReadMetaDataKey_FullMethodName                        = "/Dynizer/ReadMetaDataKey"
-	Dynizer_UpdateMetaDataKey_FullMethodName                      = "/Dynizer/UpdateMetaDataKey"
-	Dynizer_DeleteMetaDataKey_FullMethodName                      = "/Dynizer/DeleteMetaDataKey"
-	Dynizer_CountMetaDataKeys_FullMethodName                      = "/Dynizer/CountMetaDataKeys"
-	Dynizer_ListMetaDataKeys_FullMethodName                       = "/Dynizer/ListMetaDataKeys"
-	Dynizer_AddInstanceMetaData_FullMethodName                    = "/Dynizer/AddInstanceMetaData"
-	Dynizer_RemoveInstanceMetaData_FullMethodName                 = "/Dynizer/RemoveInstanceMetaData"
-	Dynizer_AddInstanceMetaDataValue_FullMethodName               = "/Dynizer/AddInstanceMetaDataValue"
-	Dynizer_RemoveInstanceMetaDataValue_FullMethodName            = "/Dynizer/RemoveInstanceMetaDataValue"
-	Dynizer_GetInstanceMetaDataValues_FullMethodName              = "/Dynizer/GetInstanceMetaDataValues"
-	Dynizer_CountInstanceMetaDataKeys_FullMethodName              = "/Dynizer/CountInstanceMetaDataKeys"
-	Dynizer_CountInstanceMetaDataKeyValues_FullMethodName         = "/Dynizer/CountInstanceMetaDataKeyValues"
-	Dynizer_ListInstanceMetaData_FullMethodName                   = "/Dynizer/ListInstanceMetaData"
-	Dynizer_AddInstanceActionLabelMetaData_FullMethodName         = "/Dynizer/AddInstanceActionLabelMetaData"
-	Dynizer_RemoveInstanceActionLabelMetaData_FullMethodName      = "/Dynizer/RemoveInstanceActionLabelMetaData"
-	Dynizer_AddInstanceActionLabelMetaDataValue_FullMethodName    = "/Dynizer/AddInstanceActionLabelMetaDataValue"
-	Dynizer_RemoveInstanceActionLabelMetaDataValue_FullMethodName = "/Dynizer/RemoveInstanceActionLabelMetaDataValue"
-	Dynizer_AddInstanceCellMetaData_FullMethodName                = "/Dynizer/AddInstanceCellMetaData"
-	Dynizer_RemoveInstanceCellMetaData_FullMethodName             = "/Dynizer/RemoveInstanceCellMetaData"
-	Dynizer_AddInstanceCellMetaDataValue_FullMethodName           = "/Dynizer/AddInstanceCellMetaDataValue"
-	Dynizer_RemoveInstanceCellMetaDataValue_FullMethodName        = "/Dynizer/RemoveInstanceCellMetaDataValue"
-	Dynizer_GetInstanceCellMetaDataValues_FullMethodName          = "/Dynizer/GetInstanceCellMetaDataValues"
-	Dynizer_CountInstanceCellMetaDataKeys_FullMethodName          = "/Dynizer/CountInstanceCellMetaDataKeys"
-	Dynizer_CountInstanceCellMetaDataKeyValues_FullMethodName     = "/Dynizer/CountInstanceCellMetaDataKeyValues"
-	Dynizer_ListInstanceCellMetaData_FullMethodName               = "/Dynizer/ListInstanceCellMetaData"
-	Dynizer_GetDynizerConfiguration_FullMethodName                = "/Dynizer/GetDynizerConfiguration"
-	Dynizer_ExportUserActions_FullMethodName                      = "/Dynizer/ExportUserActions"
-	Dynizer_ImportUserActions_FullMethodName                      = "/Dynizer/ImportUserActions"
-	Dynizer_DropData_FullMethodName                               = "/Dynizer/DropData"
-	Dynizer_GetDynizerVersion_FullMethodName                      = "/Dynizer/GetDynizerVersion"
-	Dynizer_QueryDataElements_FullMethodName                      = "/Dynizer/QueryDataElements"
-	Dynizer_GetTopNDataElements_FullMethodName                    = "/Dynizer/GetTopNDataElements"
-	Dynizer_DynizerFilteredQuery_FullMethodName                   = "/Dynizer/DynizerFilteredQuery"
-	Dynizer_ReIndex_FullMethodName                                = "/Dynizer/ReIndex"
-	Dynizer_DynizerFilteredPlot_FullMethodName                    = "/Dynizer/DynizerFilteredPlot"
-	Dynizer_CreateShareName_FullMethodName                        = "/Dynizer/CreateShareName"
-	Dynizer_UpdateShareNameValue_FullMethodName                   = "/Dynizer/UpdateShareNameValue"
-	Dynizer_DeleteShareNameValue_FullMethodName                   = "/Dynizer/DeleteShareNameValue"
-	Dynizer_SimpleQuery_FullMethodName                            = "/Dynizer/SimpleQuery"
-	Dynizer_QueryParse_FullMethodName                             = "/Dynizer/QueryParse"
-	Dynizer_QueryBind_FullMethodName                              = "/Dynizer/QueryBind"
-	Dynizer_QueryDescribeStatement_FullMethodName                 = "/Dynizer/QueryDescribeStatement"
-	Dynizer_QueryDescribePortal_FullMethodName                    = "/Dynizer/QueryDescribePortal"
-	Dynizer_QueryExecute_FullMethodName                           = "/Dynizer/QueryExecute"
-	Dynizer_QueryClose_FullMethodName                             = "/Dynizer/QueryClose"
-	Dynizer_FindActionLabelLinks_FullMethodName                   = "/Dynizer/FindActionLabelLinks"
-	Dynizer_Chat_FullMethodName                                   = "/Dynizer/Chat"
-	Dynizer_ChatStream_FullMethodName                             = "/Dynizer/ChatStream"
+	Dynizer_Login_FullMethodName                              = "/Dynizer/Login"
+	Dynizer_ServiceLogin_FullMethodName                       = "/Dynizer/ServiceLogin"
+	Dynizer_Logout_FullMethodName                             = "/Dynizer/Logout"
+	Dynizer_ValidateToken_FullMethodName                      = "/Dynizer/ValidateToken"
+	Dynizer_IssueServiceToken_FullMethodName                  = "/Dynizer/IssueServiceToken"
+	Dynizer_ListRoles_FullMethodName                          = "/Dynizer/ListRoles"
+	Dynizer_AddUser_FullMethodName                            = "/Dynizer/AddUser"
+	Dynizer_AssignUserRole_FullMethodName                     = "/Dynizer/AssignUserRole"
+	Dynizer_RevokeUserRole_FullMethodName                     = "/Dynizer/RevokeUserRole"
+	Dynizer_EnableUser_FullMethodName                         = "/Dynizer/EnableUser"
+	Dynizer_DisableUser_FullMethodName                        = "/Dynizer/DisableUser"
+	Dynizer_SetUserPassword_FullMethodName                    = "/Dynizer/SetUserPassword"
+	Dynizer_ChangeMyPassword_FullMethodName                   = "/Dynizer/ChangeMyPassword"
+	Dynizer_GetUser_FullMethodName                            = "/Dynizer/GetUser"
+	Dynizer_GetMyProfile_FullMethodName                       = "/Dynizer/GetMyProfile"
+	Dynizer_DeleteUser_FullMethodName                         = "/Dynizer/DeleteUser"
+	Dynizer_GetUserCount_FullMethodName                       = "/Dynizer/GetUserCount"
+	Dynizer_ListUsers_FullMethodName                          = "/Dynizer/ListUsers"
+	Dynizer_ListUserRoles_FullMethodName                      = "/Dynizer/ListUserRoles"
+	Dynizer_GetMyRoles_FullMethodName                         = "/Dynizer/GetMyRoles"
+	Dynizer_CheckUserName_FullMethodName                      = "/Dynizer/CheckUserName"
+	Dynizer_CheckPassword_FullMethodName                      = "/Dynizer/CheckPassword"
+	Dynizer_CreateActionType_FullMethodName                   = "/Dynizer/CreateActionType"
+	Dynizer_UpdateActionType_FullMethodName                   = "/Dynizer/UpdateActionType"
+	Dynizer_ReadActionType_FullMethodName                     = "/Dynizer/ReadActionType"
+	Dynizer_ListActionTypes_FullMethodName                    = "/Dynizer/ListActionTypes"
+	Dynizer_CreateActionSchema_FullMethodName                 = "/Dynizer/CreateActionSchema"
+	Dynizer_UpdateActionSchema_FullMethodName                 = "/Dynizer/UpdateActionSchema"
+	Dynizer_DeleteActionSchema_FullMethodName                 = "/Dynizer/DeleteActionSchema"
+	Dynizer_PurgeActionSchema_FullMethodName                  = "/Dynizer/PurgeActionSchema"
+	Dynizer_ReadActionSchema_FullMethodName                   = "/Dynizer/ReadActionSchema"
+	Dynizer_ListActionSchemas_FullMethodName                  = "/Dynizer/ListActionSchemas"
+	Dynizer_CheckActionName_FullMethodName                    = "/Dynizer/CheckActionName"
+	Dynizer_CreateAction_FullMethodName                       = "/Dynizer/CreateAction"
+	Dynizer_UpdateAction_FullMethodName                       = "/Dynizer/UpdateAction"
+	Dynizer_DeleteAction_FullMethodName                       = "/Dynizer/DeleteAction"
+	Dynizer_PurgeAction_FullMethodName                        = "/Dynizer/PurgeAction"
+	Dynizer_ReadAction_FullMethodName                         = "/Dynizer/ReadAction"
+	Dynizer_CountActions_FullMethodName                       = "/Dynizer/CountActions"
+	Dynizer_ListActionNames_FullMethodName                    = "/Dynizer/ListActionNames"
+	Dynizer_CheckActionLabelName_FullMethodName               = "/Dynizer/CheckActionLabelName"
+	Dynizer_AddActionLabel_FullMethodName                     = "/Dynizer/AddActionLabel"
+	Dynizer_UpdateActionLabel_FullMethodName                  = "/Dynizer/UpdateActionLabel"
+	Dynizer_DeleteActionLabel_FullMethodName                  = "/Dynizer/DeleteActionLabel"
+	Dynizer_ReadActionLabel_FullMethodName                    = "/Dynizer/ReadActionLabel"
+	Dynizer_CreateObject_FullMethodName                       = "/Dynizer/CreateObject"
+	Dynizer_ClearObjectData_FullMethodName                    = "/Dynizer/ClearObjectData"
+	Dynizer_DeleteObject_FullMethodName                       = "/Dynizer/DeleteObject"
+	Dynizer_StreamObjectDataIn_FullMethodName                 = "/Dynizer/StreamObjectDataIn"
+	Dynizer_StreamObjectDataOut_FullMethodName                = "/Dynizer/StreamObjectDataOut"
+	Dynizer_UploadObjectData_FullMethodName                   = "/Dynizer/UploadObjectData"
+	Dynizer_DownloadObjectData_FullMethodName                 = "/Dynizer/DownloadObjectData"
+	Dynizer_GetObjectSize_FullMethodName                      = "/Dynizer/GetObjectSize"
+	Dynizer_ListObjectUUIDS_FullMethodName                    = "/Dynizer/ListObjectUUIDS"
+	Dynizer_DeleteAllObjects_FullMethodName                   = "/Dynizer/DeleteAllObjects"
+	Dynizer_CreateInstance_FullMethodName                     = "/Dynizer/CreateInstance"
+	Dynizer_StreamInstances_FullMethodName                    = "/Dynizer/StreamInstances"
+	Dynizer_UpdateInstance_FullMethodName                     = "/Dynizer/UpdateInstance"
+	Dynizer_DeleteInstance_FullMethodName                     = "/Dynizer/DeleteInstance"
+	Dynizer_PurgeInstance_FullMethodName                      = "/Dynizer/PurgeInstance"
+	Dynizer_ReadInstance_FullMethodName                       = "/Dynizer/ReadInstance"
+	Dynizer_DynizerQuery_FullMethodName                       = "/Dynizer/DynizerQuery"
+	Dynizer_QueryResultNext_FullMethodName                    = "/Dynizer/QueryResultNext"
+	Dynizer_QueryResultClose_FullMethodName                   = "/Dynizer/QueryResultClose"
+	Dynizer_CheckMetaDataKeyName_FullMethodName               = "/Dynizer/CheckMetaDataKeyName"
+	Dynizer_CreateMetaDataKey_FullMethodName                  = "/Dynizer/CreateMetaDataKey"
+	Dynizer_ReadMetaDataKey_FullMethodName                    = "/Dynizer/ReadMetaDataKey"
+	Dynizer_UpdateMetaDataKey_FullMethodName                  = "/Dynizer/UpdateMetaDataKey"
+	Dynizer_DeleteMetaDataKey_FullMethodName                  = "/Dynizer/DeleteMetaDataKey"
+	Dynizer_CountMetaDataKeys_FullMethodName                  = "/Dynizer/CountMetaDataKeys"
+	Dynizer_ListMetaDataKeys_FullMethodName                   = "/Dynizer/ListMetaDataKeys"
+	Dynizer_AddInstanceMetaData_FullMethodName                = "/Dynizer/AddInstanceMetaData"
+	Dynizer_RemoveInstanceMetaData_FullMethodName             = "/Dynizer/RemoveInstanceMetaData"
+	Dynizer_AddInstanceMetaDataValue_FullMethodName           = "/Dynizer/AddInstanceMetaDataValue"
+	Dynizer_RemoveInstanceMetaDataValue_FullMethodName        = "/Dynizer/RemoveInstanceMetaDataValue"
+	Dynizer_GetInstanceMetaDataValues_FullMethodName          = "/Dynizer/GetInstanceMetaDataValues"
+	Dynizer_CountInstanceMetaDataKeys_FullMethodName          = "/Dynizer/CountInstanceMetaDataKeys"
+	Dynizer_CountInstanceMetaDataKeyValues_FullMethodName     = "/Dynizer/CountInstanceMetaDataKeyValues"
+	Dynizer_ListInstanceMetaData_FullMethodName               = "/Dynizer/ListInstanceMetaData"
+	Dynizer_AddInstanceCellMetaData_FullMethodName            = "/Dynizer/AddInstanceCellMetaData"
+	Dynizer_RemoveInstanceCellMetaData_FullMethodName         = "/Dynizer/RemoveInstanceCellMetaData"
+	Dynizer_AddInstanceCellMetaDataValue_FullMethodName       = "/Dynizer/AddInstanceCellMetaDataValue"
+	Dynizer_RemoveInstanceCellMetaDataValue_FullMethodName    = "/Dynizer/RemoveInstanceCellMetaDataValue"
+	Dynizer_GetInstanceCellMetaDataValues_FullMethodName      = "/Dynizer/GetInstanceCellMetaDataValues"
+	Dynizer_CountInstanceCellMetaDataKeys_FullMethodName      = "/Dynizer/CountInstanceCellMetaDataKeys"
+	Dynizer_CountInstanceCellMetaDataKeyValues_FullMethodName = "/Dynizer/CountInstanceCellMetaDataKeyValues"
+	Dynizer_ListInstanceCellMetaData_FullMethodName           = "/Dynizer/ListInstanceCellMetaData"
+	Dynizer_GetDynizerConfiguration_FullMethodName            = "/Dynizer/GetDynizerConfiguration"
+	Dynizer_ExportUserActions_FullMethodName                  = "/Dynizer/ExportUserActions"
+	Dynizer_ImportUserActions_FullMethodName                  = "/Dynizer/ImportUserActions"
+	Dynizer_DropData_FullMethodName                           = "/Dynizer/DropData"
+	Dynizer_GetDynizerVersion_FullMethodName                  = "/Dynizer/GetDynizerVersion"
+	Dynizer_QueryDataElements_FullMethodName                  = "/Dynizer/QueryDataElements"
+	Dynizer_GetTopNDataElements_FullMethodName                = "/Dynizer/GetTopNDataElements"
+	Dynizer_DynizerFilteredQuery_FullMethodName               = "/Dynizer/DynizerFilteredQuery"
+	Dynizer_ReIndex_FullMethodName                            = "/Dynizer/ReIndex"
+	Dynizer_DynizerFilteredPlot_FullMethodName                = "/Dynizer/DynizerFilteredPlot"
+	Dynizer_CreateShareName_FullMethodName                    = "/Dynizer/CreateShareName"
+	Dynizer_UpdateShareNameValue_FullMethodName               = "/Dynizer/UpdateShareNameValue"
+	Dynizer_DeleteShareNameValue_FullMethodName               = "/Dynizer/DeleteShareNameValue"
+	Dynizer_SimpleQuery_FullMethodName                        = "/Dynizer/SimpleQuery"
+	Dynizer_QueryParse_FullMethodName                         = "/Dynizer/QueryParse"
+	Dynizer_QueryBind_FullMethodName                          = "/Dynizer/QueryBind"
+	Dynizer_QueryDescribeStatement_FullMethodName             = "/Dynizer/QueryDescribeStatement"
+	Dynizer_QueryDescribePortal_FullMethodName                = "/Dynizer/QueryDescribePortal"
+	Dynizer_QueryExecute_FullMethodName                       = "/Dynizer/QueryExecute"
+	Dynizer_QueryClose_FullMethodName                         = "/Dynizer/QueryClose"
+	Dynizer_FindActionLabelLinks_FullMethodName               = "/Dynizer/FindActionLabelLinks"
+	Dynizer_Chat_FullMethodName                               = "/Dynizer/Chat"
+	Dynizer_ChatStream_FullMethodName                         = "/Dynizer/ChatStream"
 )
 
 // DynizerClient is the client API for Dynizer service.
@@ -306,15 +302,6 @@ type DynizerClient interface {
 	CountInstanceMetaDataKeyValues(ctx context.Context, in *InstanceMetaDataKeyReq, opts ...grpc.CallOption) (*CountRes, error)
 	// List Instance MetaData
 	ListInstanceMetaData(ctx context.Context, in *InstanceReq, opts ...grpc.CallOption) (*ListInstanceMetaDataRes, error)
-	// Add Instance ActionLabel MetaData
-	AddInstanceActionLabelMetaData(ctx context.Context, in *AddInstanceActionLabelMetaDataReq, opts ...grpc.CallOption) (*EmptyRes, error)
-	// Remove Instance ActionLabel MetaData
-	RemoveInstanceActionLabelMetaData(ctx context.Context, in *InstanceActionLabelMetaDataKeyReq, opts ...grpc.CallOption) (*EmptyRes, error)
-	// Add Instance ActionLabel MetaData Value
-	AddInstanceActionLabelMetaDataValue(ctx context.Context, in *AddInstanceActionLabelMetaDataValueReq, opts ...grpc.CallOption) (*EmptyRes, error)
-	// Remove Instance ActionLabel MetaData Value
-	RemoveInstanceActionLabelMetaDataValue(ctx context.Context, in *InstanceActionLabelMetaDataValueReq, opts ...grpc.CallOption) (*EmptyRes, error)
-	// Add InstanceCell MetaData
 	AddInstanceCellMetaData(ctx context.Context, in *AddInstanceCellMetaDataReq, opts ...grpc.CallOption) (*EmptyRes, error)
 	// Remove InstanceCell MetaData
 	RemoveInstanceCellMetaData(ctx context.Context, in *InstanceCellMetaDataKeyReq, opts ...grpc.CallOption) (*EmptyRes, error)
@@ -1193,46 +1180,6 @@ func (c *dynizerClient) ListInstanceMetaData(ctx context.Context, in *InstanceRe
 	return out, nil
 }
 
-func (c *dynizerClient) AddInstanceActionLabelMetaData(ctx context.Context, in *AddInstanceActionLabelMetaDataReq, opts ...grpc.CallOption) (*EmptyRes, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(EmptyRes)
-	err := c.cc.Invoke(ctx, Dynizer_AddInstanceActionLabelMetaData_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *dynizerClient) RemoveInstanceActionLabelMetaData(ctx context.Context, in *InstanceActionLabelMetaDataKeyReq, opts ...grpc.CallOption) (*EmptyRes, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(EmptyRes)
-	err := c.cc.Invoke(ctx, Dynizer_RemoveInstanceActionLabelMetaData_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *dynizerClient) AddInstanceActionLabelMetaDataValue(ctx context.Context, in *AddInstanceActionLabelMetaDataValueReq, opts ...grpc.CallOption) (*EmptyRes, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(EmptyRes)
-	err := c.cc.Invoke(ctx, Dynizer_AddInstanceActionLabelMetaDataValue_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *dynizerClient) RemoveInstanceActionLabelMetaDataValue(ctx context.Context, in *InstanceActionLabelMetaDataValueReq, opts ...grpc.CallOption) (*EmptyRes, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(EmptyRes)
-	err := c.cc.Invoke(ctx, Dynizer_RemoveInstanceActionLabelMetaDataValue_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 func (c *dynizerClient) AddInstanceCellMetaData(ctx context.Context, in *AddInstanceCellMetaDataReq, opts ...grpc.CallOption) (*EmptyRes, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(EmptyRes)
@@ -1723,15 +1670,6 @@ type DynizerServer interface {
 	CountInstanceMetaDataKeyValues(context.Context, *InstanceMetaDataKeyReq) (*CountRes, error)
 	// List Instance MetaData
 	ListInstanceMetaData(context.Context, *InstanceReq) (*ListInstanceMetaDataRes, error)
-	// Add Instance ActionLabel MetaData
-	AddInstanceActionLabelMetaData(context.Context, *AddInstanceActionLabelMetaDataReq) (*EmptyRes, error)
-	// Remove Instance ActionLabel MetaData
-	RemoveInstanceActionLabelMetaData(context.Context, *InstanceActionLabelMetaDataKeyReq) (*EmptyRes, error)
-	// Add Instance ActionLabel MetaData Value
-	AddInstanceActionLabelMetaDataValue(context.Context, *AddInstanceActionLabelMetaDataValueReq) (*EmptyRes, error)
-	// Remove Instance ActionLabel MetaData Value
-	RemoveInstanceActionLabelMetaDataValue(context.Context, *InstanceActionLabelMetaDataValueReq) (*EmptyRes, error)
-	// Add InstanceCell MetaData
 	AddInstanceCellMetaData(context.Context, *AddInstanceCellMetaDataReq) (*EmptyRes, error)
 	// Remove InstanceCell MetaData
 	RemoveInstanceCellMetaData(context.Context, *InstanceCellMetaDataKeyReq) (*EmptyRes, error)
@@ -2037,18 +1975,6 @@ func (UnimplementedDynizerServer) CountInstanceMetaDataKeyValues(context.Context
 }
 func (UnimplementedDynizerServer) ListInstanceMetaData(context.Context, *InstanceReq) (*ListInstanceMetaDataRes, error) {
 	return nil, status.Error(codes.Unimplemented, "method ListInstanceMetaData not implemented")
-}
-func (UnimplementedDynizerServer) AddInstanceActionLabelMetaData(context.Context, *AddInstanceActionLabelMetaDataReq) (*EmptyRes, error) {
-	return nil, status.Error(codes.Unimplemented, "method AddInstanceActionLabelMetaData not implemented")
-}
-func (UnimplementedDynizerServer) RemoveInstanceActionLabelMetaData(context.Context, *InstanceActionLabelMetaDataKeyReq) (*EmptyRes, error) {
-	return nil, status.Error(codes.Unimplemented, "method RemoveInstanceActionLabelMetaData not implemented")
-}
-func (UnimplementedDynizerServer) AddInstanceActionLabelMetaDataValue(context.Context, *AddInstanceActionLabelMetaDataValueReq) (*EmptyRes, error) {
-	return nil, status.Error(codes.Unimplemented, "method AddInstanceActionLabelMetaDataValue not implemented")
-}
-func (UnimplementedDynizerServer) RemoveInstanceActionLabelMetaDataValue(context.Context, *InstanceActionLabelMetaDataValueReq) (*EmptyRes, error) {
-	return nil, status.Error(codes.Unimplemented, "method RemoveInstanceActionLabelMetaDataValue not implemented")
 }
 func (UnimplementedDynizerServer) AddInstanceCellMetaData(context.Context, *AddInstanceCellMetaDataReq) (*EmptyRes, error) {
 	return nil, status.Error(codes.Unimplemented, "method AddInstanceCellMetaData not implemented")
@@ -3557,78 +3483,6 @@ func _Dynizer_ListInstanceMetaData_Handler(srv interface{}, ctx context.Context,
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Dynizer_AddInstanceActionLabelMetaData_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(AddInstanceActionLabelMetaDataReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(DynizerServer).AddInstanceActionLabelMetaData(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: Dynizer_AddInstanceActionLabelMetaData_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DynizerServer).AddInstanceActionLabelMetaData(ctx, req.(*AddInstanceActionLabelMetaDataReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Dynizer_RemoveInstanceActionLabelMetaData_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(InstanceActionLabelMetaDataKeyReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(DynizerServer).RemoveInstanceActionLabelMetaData(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: Dynizer_RemoveInstanceActionLabelMetaData_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DynizerServer).RemoveInstanceActionLabelMetaData(ctx, req.(*InstanceActionLabelMetaDataKeyReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Dynizer_AddInstanceActionLabelMetaDataValue_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(AddInstanceActionLabelMetaDataValueReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(DynizerServer).AddInstanceActionLabelMetaDataValue(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: Dynizer_AddInstanceActionLabelMetaDataValue_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DynizerServer).AddInstanceActionLabelMetaDataValue(ctx, req.(*AddInstanceActionLabelMetaDataValueReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Dynizer_RemoveInstanceActionLabelMetaDataValue_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(InstanceActionLabelMetaDataValueReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(DynizerServer).RemoveInstanceActionLabelMetaDataValue(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: Dynizer_RemoveInstanceActionLabelMetaDataValue_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DynizerServer).RemoveInstanceActionLabelMetaDataValue(ctx, req.(*InstanceActionLabelMetaDataValueReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 func _Dynizer_AddInstanceCellMetaData_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(AddInstanceCellMetaDataReq)
 	if err := dec(in); err != nil {
@@ -4490,22 +4344,6 @@ var Dynizer_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ListInstanceMetaData",
 			Handler:    _Dynizer_ListInstanceMetaData_Handler,
-		},
-		{
-			MethodName: "AddInstanceActionLabelMetaData",
-			Handler:    _Dynizer_AddInstanceActionLabelMetaData_Handler,
-		},
-		{
-			MethodName: "RemoveInstanceActionLabelMetaData",
-			Handler:    _Dynizer_RemoveInstanceActionLabelMetaData_Handler,
-		},
-		{
-			MethodName: "AddInstanceActionLabelMetaDataValue",
-			Handler:    _Dynizer_AddInstanceActionLabelMetaDataValue_Handler,
-		},
-		{
-			MethodName: "RemoveInstanceActionLabelMetaDataValue",
-			Handler:    _Dynizer_RemoveInstanceActionLabelMetaDataValue_Handler,
 		},
 		{
 			MethodName: "AddInstanceCellMetaData",

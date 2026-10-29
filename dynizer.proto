@@ -248,9 +248,6 @@ option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
                                     values: {
                                         string_value: "Instances Cells MetaData";
                                     }
-                                    values: {
-                                        string_value: "Instances ActionLabels MetaData";
-                                    }
                                 }
                             }
                         }
@@ -2173,96 +2170,6 @@ message InstanceMetaDataKeyValueReq {
 
 }
 
-// AddInstanceActionLabelMetaDataRequest
-message AddInstanceActionLabelMetaDataReq {
-    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
-        json_schema: {
-          required: ["instance_id", "action_label", "key_name", "values"]
-          description: "Holds the properties to set MetaData for all cells under the **ActionLabel**."
-        }
-    };
-
-    string instance_id = 1 [
-        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-            description: "The special UUID identifying an **Instance**."
-        }
-    ];
-
-    string action_label = 2 [
-        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-            description: "The unique name of the **ActionLabel**."
-        }
-    ];
-
-    string key_name = 3 [
-        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-            description: "Unique name of the **MetaDataKey**."
-        }
-    ];
-
-    repeated string values = 4 [
-        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-            description: "String representation of the value for the **MetaDataKey**.<br>To parse non standard string represetations set a proper parse-format string in *format*"
-        }
-    ];
-
-    repeated ValueSpec specs = 5 [
-        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-            description: "allows to add special handling for a value"
-        }
-    ];
-}
-
-// InstanceActionLabelMetaDataKeyRequest
-message InstanceActionLabelMetaDataKeyReq {
-    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
-        json_schema: {
-          required: ["instance_id", "action_label", "key_name"]
-          description: "Performs a **MetaData** task on an **ActionLabel**."
-        }
-    };
-
-    string instance_id = 1 [
-        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-            description: "The special UUID identifying an **Instance**."
-        }
-    ];
-
-    string action_label = 2 [
-        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-            description: "The unique name of the **ActionLabel**."
-        }
-    ];
-
-    string key_name = 3 [
-        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-            description: "Unique name of the **MetaDataKey**."
-        }
-    ];
-}
-
-// InstanceActionLabelMetaDataRequest
-message InstanceActionLabelMetaDataReq {
-    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
-        json_schema: {
-          required: ["instance_id", "action_label"]
-          description: "Holds the properties to identify MetaData asscoiated to an **Instance** keyed by an **ActionLabel**."
-        }
-    };
-
-    string instance_id = 1 [
-        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-            description: "The special UUID identifying an **Instance**."
-        }
-    ];
-
-    string action_label = 2 [
-        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-            description: "The unique name of the **ActionLabel**."
-        }
-    ];
-}
-
 // AddInstanceCellMetaDataRequest
 message AddInstanceCellMetaDataReq {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
@@ -2438,86 +2345,6 @@ message ListMetaDataKeyLinksReq {
     Window window = 2 [
         (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
             description: "Keeps limit and offset together."
-        }
-    ];
-}
-
-// AddInstanceActionLabelMetaDataValueRequest
-message AddInstanceActionLabelMetaDataValueReq {
-    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
-        json_schema: {
-          required: ["instance_id", "action_label", "key_name", "value"]
-          description: "Holds the properties to add a value to the MetaData to ActionLabel grouped cells."
-        }
-    };
-
-    string instance_id = 1 [
-        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-            description: "The special UUID identifying an **Instance**."
-        }
-    ];
-
-    string action_label = 2 [
-        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-            description: "The unique name of the **ActionLabel**."
-        }
-    ];
-
-    string key_name = 3 [
-        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-            description: "Unique name of the **MetaDataKey**."
-        }
-    ];
-
-    string value = 4 [
-        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-            description: "String representation of the value for the **MetaDataKey**.<br>To parse non standard string represetations set a proper parse-format string in *format*"
-        }
-    ];
-
-    DataTypeFormat spec = 5 [
-        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-            description: "Set this value if you want to use a different **DataType** from the default **DataType** for the values of the **MetaDataKey**."
-        }
-    ];
-}
-
-// InstanceActionLabelMetaDataValueRequest
-message InstanceActionLabelMetaDataValueReq {
-    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
-        json_schema: {
-          required: ["instance_id", "action_label", "key_name", "value"]
-          description: "Properties to perform an operation on a MetaData value for all the **InstanceCells** identified by an **ActionLabel**."
-        }
-    };
-
-    string instance_id = 1 [
-        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-            description: "The special UUID identifying an **Instance**."
-        }
-    ];
-
-    string action_label = 2 [
-        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-            description: "The unique name of the **ActionLabel**."
-        }
-    ];
-
-    string key_name = 3 [
-        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-            description: "Unique name of the **MetaDataKey**."
-        }
-    ];
-
-    string value = 4 [
-        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-            description: "String representation of the value of the **MetaDataKey**."
-        }
-    ];
-
-    DataTypeFormat spec = 5 [
-        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-            description: "Set this value if you want to use a different **DataType** from the default **DataType** for the values of the **MetaDataKey**."
         }
     ];
 }
@@ -6071,57 +5898,6 @@ service Dynizer {
         };
     }
 
-    // Add Instance ActionLabel MetaData
-    rpc AddInstanceActionLabelMetaData(AddInstanceActionLabelMetaDataReq) returns(EmptyRes) {
-        option (google.api.http) = {
-            post: "/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}"
-            body: "*"
-        };
-        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-            operation_id: "AddInstanceActionLabelMetaData";
-            tags: ["MetaData", "Instances ActionLabels MetaData"]
-            description: "Add a **MetaDataKey** and values to all **InstanceCells** under an **ActionLabel**.<br>Experimental: interface may change in a minor update."
-        };
-    }
-
-    // Remove Instance ActionLabel MetaData
-    rpc RemoveInstanceActionLabelMetaData(InstanceActionLabelMetaDataKeyReq) returns(EmptyRes) {
-        option (google.api.http) = {
-            delete: "/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/keys/{key_name}"
-        };
-        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-            operation_id: "RemoveInstanceActionLabelMetaData";
-            tags: ["MetaData", "Instances ActionLabels MetaData"]
-            description: "Remove a **MetaDataKey** and all its values from all **InstanceCells** under an **ActionLabel**.<br>Experimental: interface may change in a minor update."
-        };
-    }
-
-    // Add Instance ActionLabel MetaData Value
-    rpc AddInstanceActionLabelMetaDataValue(AddInstanceActionLabelMetaDataValueReq) returns(EmptyRes) {
-        option (google.api.http) = {
-            post: "/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/keys/{key_name}/values"
-            body: "*"
-        };
-        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-            operation_id: "AddInstanceActionLabelMetaDataValue";
-            tags: ["MetaData", "Instances ActionLabels MetaData"]
-            description: "Add another value to a **MetaDataKey** across all **InstanceCells** under an **ActionLabel**.<br>Fails if the value already exists. Experimental: interface may change in a minor update."
-        };
-    }
-
-    // Remove Instance ActionLabel MetaData Value
-    rpc RemoveInstanceActionLabelMetaDataValue(InstanceActionLabelMetaDataValueReq) returns(EmptyRes) {
-        option (google.api.http) = {
-            delete: "/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/keys/{key_name}/values/{value}"
-        };
-        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-            operation_id: "RemoveInstanceActionLabelMetaDataValue";
-            tags: ["MetaData", "Instances ActionLabels MetaData"]
-            description: "Remove a value from a **MetaDataKey** across all **InstanceCells** under an **ActionLabel**.<br>Fails if the value is not present. Experimental: interface may change in a minor update."
-        };
-    }
-
-    // Add InstanceCell MetaData
     rpc AddInstanceCellMetaData(AddInstanceCellMetaDataReq) returns(EmptyRes) {
         option (google.api.http) = {
             post: "/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/position/{value_position}"

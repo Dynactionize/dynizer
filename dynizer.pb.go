@@ -4439,197 +4439,6 @@ func (x *InstanceMetaDataKeyValueReq) GetSpec() *DataTypeFormat {
 	return nil
 }
 
-// AddInstanceActionLabelMetaDataRequest
-type AddInstanceActionLabelMetaDataReq struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	InstanceId    string                 `protobuf:"bytes,1,opt,name=instance_id,json=instanceId,proto3" json:"instance_id,omitempty"`
-	ActionLabel   string                 `protobuf:"bytes,2,opt,name=action_label,json=actionLabel,proto3" json:"action_label,omitempty"`
-	KeyName       string                 `protobuf:"bytes,3,opt,name=key_name,json=keyName,proto3" json:"key_name,omitempty"`
-	Values        []string               `protobuf:"bytes,4,rep,name=values,proto3" json:"values,omitempty"`
-	Specs         []*ValueSpec           `protobuf:"bytes,5,rep,name=specs,proto3" json:"specs,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *AddInstanceActionLabelMetaDataReq) Reset() {
-	*x = AddInstanceActionLabelMetaDataReq{}
-	mi := &file_dynizer_proto_msgTypes[69]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *AddInstanceActionLabelMetaDataReq) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*AddInstanceActionLabelMetaDataReq) ProtoMessage() {}
-
-func (x *AddInstanceActionLabelMetaDataReq) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[69]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use AddInstanceActionLabelMetaDataReq.ProtoReflect.Descriptor instead.
-func (*AddInstanceActionLabelMetaDataReq) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{69}
-}
-
-func (x *AddInstanceActionLabelMetaDataReq) GetInstanceId() string {
-	if x != nil {
-		return x.InstanceId
-	}
-	return ""
-}
-
-func (x *AddInstanceActionLabelMetaDataReq) GetActionLabel() string {
-	if x != nil {
-		return x.ActionLabel
-	}
-	return ""
-}
-
-func (x *AddInstanceActionLabelMetaDataReq) GetKeyName() string {
-	if x != nil {
-		return x.KeyName
-	}
-	return ""
-}
-
-func (x *AddInstanceActionLabelMetaDataReq) GetValues() []string {
-	if x != nil {
-		return x.Values
-	}
-	return nil
-}
-
-func (x *AddInstanceActionLabelMetaDataReq) GetSpecs() []*ValueSpec {
-	if x != nil {
-		return x.Specs
-	}
-	return nil
-}
-
-// InstanceActionLabelMetaDataKeyRequest
-type InstanceActionLabelMetaDataKeyReq struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	InstanceId    string                 `protobuf:"bytes,1,opt,name=instance_id,json=instanceId,proto3" json:"instance_id,omitempty"`
-	ActionLabel   string                 `protobuf:"bytes,2,opt,name=action_label,json=actionLabel,proto3" json:"action_label,omitempty"`
-	KeyName       string                 `protobuf:"bytes,3,opt,name=key_name,json=keyName,proto3" json:"key_name,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *InstanceActionLabelMetaDataKeyReq) Reset() {
-	*x = InstanceActionLabelMetaDataKeyReq{}
-	mi := &file_dynizer_proto_msgTypes[70]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *InstanceActionLabelMetaDataKeyReq) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*InstanceActionLabelMetaDataKeyReq) ProtoMessage() {}
-
-func (x *InstanceActionLabelMetaDataKeyReq) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[70]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use InstanceActionLabelMetaDataKeyReq.ProtoReflect.Descriptor instead.
-func (*InstanceActionLabelMetaDataKeyReq) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{70}
-}
-
-func (x *InstanceActionLabelMetaDataKeyReq) GetInstanceId() string {
-	if x != nil {
-		return x.InstanceId
-	}
-	return ""
-}
-
-func (x *InstanceActionLabelMetaDataKeyReq) GetActionLabel() string {
-	if x != nil {
-		return x.ActionLabel
-	}
-	return ""
-}
-
-func (x *InstanceActionLabelMetaDataKeyReq) GetKeyName() string {
-	if x != nil {
-		return x.KeyName
-	}
-	return ""
-}
-
-// InstanceActionLabelMetaDataRequest
-type InstanceActionLabelMetaDataReq struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	InstanceId    string                 `protobuf:"bytes,1,opt,name=instance_id,json=instanceId,proto3" json:"instance_id,omitempty"`
-	ActionLabel   string                 `protobuf:"bytes,2,opt,name=action_label,json=actionLabel,proto3" json:"action_label,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *InstanceActionLabelMetaDataReq) Reset() {
-	*x = InstanceActionLabelMetaDataReq{}
-	mi := &file_dynizer_proto_msgTypes[71]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *InstanceActionLabelMetaDataReq) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*InstanceActionLabelMetaDataReq) ProtoMessage() {}
-
-func (x *InstanceActionLabelMetaDataReq) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[71]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use InstanceActionLabelMetaDataReq.ProtoReflect.Descriptor instead.
-func (*InstanceActionLabelMetaDataReq) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{71}
-}
-
-func (x *InstanceActionLabelMetaDataReq) GetInstanceId() string {
-	if x != nil {
-		return x.InstanceId
-	}
-	return ""
-}
-
-func (x *InstanceActionLabelMetaDataReq) GetActionLabel() string {
-	if x != nil {
-		return x.ActionLabel
-	}
-	return ""
-}
-
 // AddInstanceCellMetaDataRequest
 type AddInstanceCellMetaDataReq struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
@@ -4645,7 +4454,7 @@ type AddInstanceCellMetaDataReq struct {
 
 func (x *AddInstanceCellMetaDataReq) Reset() {
 	*x = AddInstanceCellMetaDataReq{}
-	mi := &file_dynizer_proto_msgTypes[72]
+	mi := &file_dynizer_proto_msgTypes[69]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -4657,7 +4466,7 @@ func (x *AddInstanceCellMetaDataReq) String() string {
 func (*AddInstanceCellMetaDataReq) ProtoMessage() {}
 
 func (x *AddInstanceCellMetaDataReq) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[72]
+	mi := &file_dynizer_proto_msgTypes[69]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4670,7 +4479,7 @@ func (x *AddInstanceCellMetaDataReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AddInstanceCellMetaDataReq.ProtoReflect.Descriptor instead.
 func (*AddInstanceCellMetaDataReq) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{72}
+	return file_dynizer_proto_rawDescGZIP(), []int{69}
 }
 
 func (x *AddInstanceCellMetaDataReq) GetInstanceId() string {
@@ -4728,7 +4537,7 @@ type InstanceCellMetaDataKeyReq struct {
 
 func (x *InstanceCellMetaDataKeyReq) Reset() {
 	*x = InstanceCellMetaDataKeyReq{}
-	mi := &file_dynizer_proto_msgTypes[73]
+	mi := &file_dynizer_proto_msgTypes[70]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -4740,7 +4549,7 @@ func (x *InstanceCellMetaDataKeyReq) String() string {
 func (*InstanceCellMetaDataKeyReq) ProtoMessage() {}
 
 func (x *InstanceCellMetaDataKeyReq) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[73]
+	mi := &file_dynizer_proto_msgTypes[70]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4753,7 +4562,7 @@ func (x *InstanceCellMetaDataKeyReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use InstanceCellMetaDataKeyReq.ProtoReflect.Descriptor instead.
 func (*InstanceCellMetaDataKeyReq) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{73}
+	return file_dynizer_proto_rawDescGZIP(), []int{70}
 }
 
 func (x *InstanceCellMetaDataKeyReq) GetInstanceId() string {
@@ -4796,7 +4605,7 @@ type InstanceCellMetaDataReq struct {
 
 func (x *InstanceCellMetaDataReq) Reset() {
 	*x = InstanceCellMetaDataReq{}
-	mi := &file_dynizer_proto_msgTypes[74]
+	mi := &file_dynizer_proto_msgTypes[71]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -4808,7 +4617,7 @@ func (x *InstanceCellMetaDataReq) String() string {
 func (*InstanceCellMetaDataReq) ProtoMessage() {}
 
 func (x *InstanceCellMetaDataReq) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[74]
+	mi := &file_dynizer_proto_msgTypes[71]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4821,7 +4630,7 @@ func (x *InstanceCellMetaDataReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use InstanceCellMetaDataReq.ProtoReflect.Descriptor instead.
 func (*InstanceCellMetaDataReq) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{74}
+	return file_dynizer_proto_rawDescGZIP(), []int{71}
 }
 
 func (x *InstanceCellMetaDataReq) GetInstanceId() string {
@@ -4855,7 +4664,7 @@ type StatsMetaDataKeyUsageReq struct {
 
 func (x *StatsMetaDataKeyUsageReq) Reset() {
 	*x = StatsMetaDataKeyUsageReq{}
-	mi := &file_dynizer_proto_msgTypes[75]
+	mi := &file_dynizer_proto_msgTypes[72]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -4867,7 +4676,7 @@ func (x *StatsMetaDataKeyUsageReq) String() string {
 func (*StatsMetaDataKeyUsageReq) ProtoMessage() {}
 
 func (x *StatsMetaDataKeyUsageReq) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[75]
+	mi := &file_dynizer_proto_msgTypes[72]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4880,7 +4689,7 @@ func (x *StatsMetaDataKeyUsageReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use StatsMetaDataKeyUsageReq.ProtoReflect.Descriptor instead.
 func (*StatsMetaDataKeyUsageReq) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{75}
+	return file_dynizer_proto_rawDescGZIP(), []int{72}
 }
 
 func (x *StatsMetaDataKeyUsageReq) GetKeyName() string {
@@ -4902,7 +4711,7 @@ type StatsMetaDataKeyValueUsageReq struct {
 
 func (x *StatsMetaDataKeyValueUsageReq) Reset() {
 	*x = StatsMetaDataKeyValueUsageReq{}
-	mi := &file_dynizer_proto_msgTypes[76]
+	mi := &file_dynizer_proto_msgTypes[73]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -4914,7 +4723,7 @@ func (x *StatsMetaDataKeyValueUsageReq) String() string {
 func (*StatsMetaDataKeyValueUsageReq) ProtoMessage() {}
 
 func (x *StatsMetaDataKeyValueUsageReq) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[76]
+	mi := &file_dynizer_proto_msgTypes[73]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4927,7 +4736,7 @@ func (x *StatsMetaDataKeyValueUsageReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use StatsMetaDataKeyValueUsageReq.ProtoReflect.Descriptor instead.
 func (*StatsMetaDataKeyValueUsageReq) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{76}
+	return file_dynizer_proto_rawDescGZIP(), []int{73}
 }
 
 func (x *StatsMetaDataKeyValueUsageReq) GetKeyName() string {
@@ -4962,7 +4771,7 @@ type ListMetaDataKeyLinksReq struct {
 
 func (x *ListMetaDataKeyLinksReq) Reset() {
 	*x = ListMetaDataKeyLinksReq{}
-	mi := &file_dynizer_proto_msgTypes[77]
+	mi := &file_dynizer_proto_msgTypes[74]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -4974,7 +4783,7 @@ func (x *ListMetaDataKeyLinksReq) String() string {
 func (*ListMetaDataKeyLinksReq) ProtoMessage() {}
 
 func (x *ListMetaDataKeyLinksReq) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[77]
+	mi := &file_dynizer_proto_msgTypes[74]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4987,7 +4796,7 @@ func (x *ListMetaDataKeyLinksReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListMetaDataKeyLinksReq.ProtoReflect.Descriptor instead.
 func (*ListMetaDataKeyLinksReq) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{77}
+	return file_dynizer_proto_rawDescGZIP(), []int{74}
 }
 
 func (x *ListMetaDataKeyLinksReq) GetKeyName() string {
@@ -5000,160 +4809,6 @@ func (x *ListMetaDataKeyLinksReq) GetKeyName() string {
 func (x *ListMetaDataKeyLinksReq) GetWindow() *Window {
 	if x != nil {
 		return x.Window
-	}
-	return nil
-}
-
-// AddInstanceActionLabelMetaDataValueRequest
-type AddInstanceActionLabelMetaDataValueReq struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	InstanceId    string                 `protobuf:"bytes,1,opt,name=instance_id,json=instanceId,proto3" json:"instance_id,omitempty"`
-	ActionLabel   string                 `protobuf:"bytes,2,opt,name=action_label,json=actionLabel,proto3" json:"action_label,omitempty"`
-	KeyName       string                 `protobuf:"bytes,3,opt,name=key_name,json=keyName,proto3" json:"key_name,omitempty"`
-	Value         string                 `protobuf:"bytes,4,opt,name=value,proto3" json:"value,omitempty"`
-	Spec          *DataTypeFormat        `protobuf:"bytes,5,opt,name=spec,proto3" json:"spec,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *AddInstanceActionLabelMetaDataValueReq) Reset() {
-	*x = AddInstanceActionLabelMetaDataValueReq{}
-	mi := &file_dynizer_proto_msgTypes[78]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *AddInstanceActionLabelMetaDataValueReq) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*AddInstanceActionLabelMetaDataValueReq) ProtoMessage() {}
-
-func (x *AddInstanceActionLabelMetaDataValueReq) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[78]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use AddInstanceActionLabelMetaDataValueReq.ProtoReflect.Descriptor instead.
-func (*AddInstanceActionLabelMetaDataValueReq) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{78}
-}
-
-func (x *AddInstanceActionLabelMetaDataValueReq) GetInstanceId() string {
-	if x != nil {
-		return x.InstanceId
-	}
-	return ""
-}
-
-func (x *AddInstanceActionLabelMetaDataValueReq) GetActionLabel() string {
-	if x != nil {
-		return x.ActionLabel
-	}
-	return ""
-}
-
-func (x *AddInstanceActionLabelMetaDataValueReq) GetKeyName() string {
-	if x != nil {
-		return x.KeyName
-	}
-	return ""
-}
-
-func (x *AddInstanceActionLabelMetaDataValueReq) GetValue() string {
-	if x != nil {
-		return x.Value
-	}
-	return ""
-}
-
-func (x *AddInstanceActionLabelMetaDataValueReq) GetSpec() *DataTypeFormat {
-	if x != nil {
-		return x.Spec
-	}
-	return nil
-}
-
-// InstanceActionLabelMetaDataValueRequest
-type InstanceActionLabelMetaDataValueReq struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	InstanceId    string                 `protobuf:"bytes,1,opt,name=instance_id,json=instanceId,proto3" json:"instance_id,omitempty"`
-	ActionLabel   string                 `protobuf:"bytes,2,opt,name=action_label,json=actionLabel,proto3" json:"action_label,omitempty"`
-	KeyName       string                 `protobuf:"bytes,3,opt,name=key_name,json=keyName,proto3" json:"key_name,omitempty"`
-	Value         string                 `protobuf:"bytes,4,opt,name=value,proto3" json:"value,omitempty"`
-	Spec          *DataTypeFormat        `protobuf:"bytes,5,opt,name=spec,proto3" json:"spec,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *InstanceActionLabelMetaDataValueReq) Reset() {
-	*x = InstanceActionLabelMetaDataValueReq{}
-	mi := &file_dynizer_proto_msgTypes[79]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *InstanceActionLabelMetaDataValueReq) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*InstanceActionLabelMetaDataValueReq) ProtoMessage() {}
-
-func (x *InstanceActionLabelMetaDataValueReq) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[79]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use InstanceActionLabelMetaDataValueReq.ProtoReflect.Descriptor instead.
-func (*InstanceActionLabelMetaDataValueReq) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{79}
-}
-
-func (x *InstanceActionLabelMetaDataValueReq) GetInstanceId() string {
-	if x != nil {
-		return x.InstanceId
-	}
-	return ""
-}
-
-func (x *InstanceActionLabelMetaDataValueReq) GetActionLabel() string {
-	if x != nil {
-		return x.ActionLabel
-	}
-	return ""
-}
-
-func (x *InstanceActionLabelMetaDataValueReq) GetKeyName() string {
-	if x != nil {
-		return x.KeyName
-	}
-	return ""
-}
-
-func (x *InstanceActionLabelMetaDataValueReq) GetValue() string {
-	if x != nil {
-		return x.Value
-	}
-	return ""
-}
-
-func (x *InstanceActionLabelMetaDataValueReq) GetSpec() *DataTypeFormat {
-	if x != nil {
-		return x.Spec
 	}
 	return nil
 }
@@ -5173,7 +4828,7 @@ type InstanceCellMetaDataKeyValueReq struct {
 
 func (x *InstanceCellMetaDataKeyValueReq) Reset() {
 	*x = InstanceCellMetaDataKeyValueReq{}
-	mi := &file_dynizer_proto_msgTypes[80]
+	mi := &file_dynizer_proto_msgTypes[75]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -5185,7 +4840,7 @@ func (x *InstanceCellMetaDataKeyValueReq) String() string {
 func (*InstanceCellMetaDataKeyValueReq) ProtoMessage() {}
 
 func (x *InstanceCellMetaDataKeyValueReq) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[80]
+	mi := &file_dynizer_proto_msgTypes[75]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -5198,7 +4853,7 @@ func (x *InstanceCellMetaDataKeyValueReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use InstanceCellMetaDataKeyValueReq.ProtoReflect.Descriptor instead.
 func (*InstanceCellMetaDataKeyValueReq) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{80}
+	return file_dynizer_proto_rawDescGZIP(), []int{75}
 }
 
 func (x *InstanceCellMetaDataKeyValueReq) GetInstanceId() string {
@@ -5258,7 +4913,7 @@ type AddInstanceCellMetaDataValueReq struct {
 
 func (x *AddInstanceCellMetaDataValueReq) Reset() {
 	*x = AddInstanceCellMetaDataValueReq{}
-	mi := &file_dynizer_proto_msgTypes[81]
+	mi := &file_dynizer_proto_msgTypes[76]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -5270,7 +4925,7 @@ func (x *AddInstanceCellMetaDataValueReq) String() string {
 func (*AddInstanceCellMetaDataValueReq) ProtoMessage() {}
 
 func (x *AddInstanceCellMetaDataValueReq) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[81]
+	mi := &file_dynizer_proto_msgTypes[76]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -5283,7 +4938,7 @@ func (x *AddInstanceCellMetaDataValueReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AddInstanceCellMetaDataValueReq.ProtoReflect.Descriptor instead.
 func (*AddInstanceCellMetaDataValueReq) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{81}
+	return file_dynizer_proto_rawDescGZIP(), []int{76}
 }
 
 func (x *AddInstanceCellMetaDataValueReq) GetInstanceId() string {
@@ -5339,7 +4994,7 @@ type MetaDataValue struct {
 
 func (x *MetaDataValue) Reset() {
 	*x = MetaDataValue{}
-	mi := &file_dynizer_proto_msgTypes[82]
+	mi := &file_dynizer_proto_msgTypes[77]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -5351,7 +5006,7 @@ func (x *MetaDataValue) String() string {
 func (*MetaDataValue) ProtoMessage() {}
 
 func (x *MetaDataValue) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[82]
+	mi := &file_dynizer_proto_msgTypes[77]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -5364,7 +5019,7 @@ func (x *MetaDataValue) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use MetaDataValue.ProtoReflect.Descriptor instead.
 func (*MetaDataValue) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{82}
+	return file_dynizer_proto_rawDescGZIP(), []int{77}
 }
 
 func (x *MetaDataValue) GetValue() *MetaDataValue {
@@ -5401,7 +5056,7 @@ type InstanceElement struct {
 
 func (x *InstanceElement) Reset() {
 	*x = InstanceElement{}
-	mi := &file_dynizer_proto_msgTypes[83]
+	mi := &file_dynizer_proto_msgTypes[78]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -5413,7 +5068,7 @@ func (x *InstanceElement) String() string {
 func (*InstanceElement) ProtoMessage() {}
 
 func (x *InstanceElement) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[83]
+	mi := &file_dynizer_proto_msgTypes[78]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -5426,7 +5081,7 @@ func (x *InstanceElement) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use InstanceElement.ProtoReflect.Descriptor instead.
 func (*InstanceElement) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{83}
+	return file_dynizer_proto_rawDescGZIP(), []int{78}
 }
 
 func (x *InstanceElement) GetActionLabel() string {
@@ -5468,7 +5123,7 @@ type ValueSpec struct {
 
 func (x *ValueSpec) Reset() {
 	*x = ValueSpec{}
-	mi := &file_dynizer_proto_msgTypes[84]
+	mi := &file_dynizer_proto_msgTypes[79]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -5480,7 +5135,7 @@ func (x *ValueSpec) String() string {
 func (*ValueSpec) ProtoMessage() {}
 
 func (x *ValueSpec) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[84]
+	mi := &file_dynizer_proto_msgTypes[79]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -5493,7 +5148,7 @@ func (x *ValueSpec) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ValueSpec.ProtoReflect.Descriptor instead.
 func (*ValueSpec) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{84}
+	return file_dynizer_proto_rawDescGZIP(), []int{79}
 }
 
 func (x *ValueSpec) GetPosition() uint32 {
@@ -5521,7 +5176,7 @@ type InstanceElementMetaData struct {
 
 func (x *InstanceElementMetaData) Reset() {
 	*x = InstanceElementMetaData{}
-	mi := &file_dynizer_proto_msgTypes[85]
+	mi := &file_dynizer_proto_msgTypes[80]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -5533,7 +5188,7 @@ func (x *InstanceElementMetaData) String() string {
 func (*InstanceElementMetaData) ProtoMessage() {}
 
 func (x *InstanceElementMetaData) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[85]
+	mi := &file_dynizer_proto_msgTypes[80]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -5546,7 +5201,7 @@ func (x *InstanceElementMetaData) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use InstanceElementMetaData.ProtoReflect.Descriptor instead.
 func (*InstanceElementMetaData) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{85}
+	return file_dynizer_proto_rawDescGZIP(), []int{80}
 }
 
 func (x *InstanceElementMetaData) GetPosition() uint32 {
@@ -5582,7 +5237,7 @@ type MetaDataKeyValue struct {
 
 func (x *MetaDataKeyValue) Reset() {
 	*x = MetaDataKeyValue{}
-	mi := &file_dynizer_proto_msgTypes[86]
+	mi := &file_dynizer_proto_msgTypes[81]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -5594,7 +5249,7 @@ func (x *MetaDataKeyValue) String() string {
 func (*MetaDataKeyValue) ProtoMessage() {}
 
 func (x *MetaDataKeyValue) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[86]
+	mi := &file_dynizer_proto_msgTypes[81]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -5607,7 +5262,7 @@ func (x *MetaDataKeyValue) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use MetaDataKeyValue.ProtoReflect.Descriptor instead.
 func (*MetaDataKeyValue) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{86}
+	return file_dynizer_proto_rawDescGZIP(), []int{81}
 }
 
 func (x *MetaDataKeyValue) GetKeyName() string {
@@ -5642,7 +5297,7 @@ type DataTypeFormat struct {
 
 func (x *DataTypeFormat) Reset() {
 	*x = DataTypeFormat{}
-	mi := &file_dynizer_proto_msgTypes[87]
+	mi := &file_dynizer_proto_msgTypes[82]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -5654,7 +5309,7 @@ func (x *DataTypeFormat) String() string {
 func (*DataTypeFormat) ProtoMessage() {}
 
 func (x *DataTypeFormat) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[87]
+	mi := &file_dynizer_proto_msgTypes[82]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -5667,7 +5322,7 @@ func (x *DataTypeFormat) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DataTypeFormat.ProtoReflect.Descriptor instead.
 func (*DataTypeFormat) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{87}
+	return file_dynizer_proto_rawDescGZIP(), []int{82}
 }
 
 func (x *DataTypeFormat) GetDataType() DataType {
@@ -5697,7 +5352,7 @@ type InstanceUpdateElementCell struct {
 
 func (x *InstanceUpdateElementCell) Reset() {
 	*x = InstanceUpdateElementCell{}
-	mi := &file_dynizer_proto_msgTypes[88]
+	mi := &file_dynizer_proto_msgTypes[83]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -5709,7 +5364,7 @@ func (x *InstanceUpdateElementCell) String() string {
 func (*InstanceUpdateElementCell) ProtoMessage() {}
 
 func (x *InstanceUpdateElementCell) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[88]
+	mi := &file_dynizer_proto_msgTypes[83]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -5722,7 +5377,7 @@ func (x *InstanceUpdateElementCell) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use InstanceUpdateElementCell.ProtoReflect.Descriptor instead.
 func (*InstanceUpdateElementCell) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{88}
+	return file_dynizer_proto_rawDescGZIP(), []int{83}
 }
 
 func (x *InstanceUpdateElementCell) GetActionLabel() string {
@@ -5762,7 +5417,7 @@ type EmptyRes struct {
 
 func (x *EmptyRes) Reset() {
 	*x = EmptyRes{}
-	mi := &file_dynizer_proto_msgTypes[89]
+	mi := &file_dynizer_proto_msgTypes[84]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -5774,7 +5429,7 @@ func (x *EmptyRes) String() string {
 func (*EmptyRes) ProtoMessage() {}
 
 func (x *EmptyRes) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[89]
+	mi := &file_dynizer_proto_msgTypes[84]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -5787,7 +5442,7 @@ func (x *EmptyRes) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use EmptyRes.ProtoReflect.Descriptor instead.
 func (*EmptyRes) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{89}
+	return file_dynizer_proto_rawDescGZIP(), []int{84}
 }
 
 // LoginResponse
@@ -5801,7 +5456,7 @@ type LoginRes struct {
 
 func (x *LoginRes) Reset() {
 	*x = LoginRes{}
-	mi := &file_dynizer_proto_msgTypes[90]
+	mi := &file_dynizer_proto_msgTypes[85]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -5813,7 +5468,7 @@ func (x *LoginRes) String() string {
 func (*LoginRes) ProtoMessage() {}
 
 func (x *LoginRes) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[90]
+	mi := &file_dynizer_proto_msgTypes[85]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -5826,7 +5481,7 @@ func (x *LoginRes) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use LoginRes.ProtoReflect.Descriptor instead.
 func (*LoginRes) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{90}
+	return file_dynizer_proto_rawDescGZIP(), []int{85}
 }
 
 func (x *LoginRes) GetJwt() string {
@@ -5853,7 +5508,7 @@ type ServiceTokenRes struct {
 
 func (x *ServiceTokenRes) Reset() {
 	*x = ServiceTokenRes{}
-	mi := &file_dynizer_proto_msgTypes[91]
+	mi := &file_dynizer_proto_msgTypes[86]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -5865,7 +5520,7 @@ func (x *ServiceTokenRes) String() string {
 func (*ServiceTokenRes) ProtoMessage() {}
 
 func (x *ServiceTokenRes) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[91]
+	mi := &file_dynizer_proto_msgTypes[86]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -5878,7 +5533,7 @@ func (x *ServiceTokenRes) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ServiceTokenRes.ProtoReflect.Descriptor instead.
 func (*ServiceTokenRes) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{91}
+	return file_dynizer_proto_rawDescGZIP(), []int{86}
 }
 
 func (x *ServiceTokenRes) GetToken() string {
@@ -5898,7 +5553,7 @@ type UserRes struct {
 
 func (x *UserRes) Reset() {
 	*x = UserRes{}
-	mi := &file_dynizer_proto_msgTypes[92]
+	mi := &file_dynizer_proto_msgTypes[87]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -5910,7 +5565,7 @@ func (x *UserRes) String() string {
 func (*UserRes) ProtoMessage() {}
 
 func (x *UserRes) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[92]
+	mi := &file_dynizer_proto_msgTypes[87]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -5923,7 +5578,7 @@ func (x *UserRes) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UserRes.ProtoReflect.Descriptor instead.
 func (*UserRes) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{92}
+	return file_dynizer_proto_rawDescGZIP(), []int{87}
 }
 
 func (x *UserRes) GetUser() *User {
@@ -5944,7 +5599,7 @@ type ListUsersRes struct {
 
 func (x *ListUsersRes) Reset() {
 	*x = ListUsersRes{}
-	mi := &file_dynizer_proto_msgTypes[93]
+	mi := &file_dynizer_proto_msgTypes[88]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -5956,7 +5611,7 @@ func (x *ListUsersRes) String() string {
 func (*ListUsersRes) ProtoMessage() {}
 
 func (x *ListUsersRes) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[93]
+	mi := &file_dynizer_proto_msgTypes[88]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -5969,7 +5624,7 @@ func (x *ListUsersRes) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListUsersRes.ProtoReflect.Descriptor instead.
 func (*ListUsersRes) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{93}
+	return file_dynizer_proto_rawDescGZIP(), []int{88}
 }
 
 func (x *ListUsersRes) GetTotalUsers() int64 {
@@ -5997,7 +5652,7 @@ type ActionNameArrayRes struct {
 
 func (x *ActionNameArrayRes) Reset() {
 	*x = ActionNameArrayRes{}
-	mi := &file_dynizer_proto_msgTypes[94]
+	mi := &file_dynizer_proto_msgTypes[89]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -6009,7 +5664,7 @@ func (x *ActionNameArrayRes) String() string {
 func (*ActionNameArrayRes) ProtoMessage() {}
 
 func (x *ActionNameArrayRes) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[94]
+	mi := &file_dynizer_proto_msgTypes[89]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -6022,7 +5677,7 @@ func (x *ActionNameArrayRes) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ActionNameArrayRes.ProtoReflect.Descriptor instead.
 func (*ActionNameArrayRes) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{94}
+	return file_dynizer_proto_rawDescGZIP(), []int{89}
 }
 
 func (x *ActionNameArrayRes) GetTotalActions() int64 {
@@ -6050,7 +5705,7 @@ type LabelRes struct {
 
 func (x *LabelRes) Reset() {
 	*x = LabelRes{}
-	mi := &file_dynizer_proto_msgTypes[95]
+	mi := &file_dynizer_proto_msgTypes[90]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -6062,7 +5717,7 @@ func (x *LabelRes) String() string {
 func (*LabelRes) ProtoMessage() {}
 
 func (x *LabelRes) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[95]
+	mi := &file_dynizer_proto_msgTypes[90]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -6075,7 +5730,7 @@ func (x *LabelRes) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use LabelRes.ProtoReflect.Descriptor instead.
 func (*LabelRes) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{95}
+	return file_dynizer_proto_rawDescGZIP(), []int{90}
 }
 
 func (x *LabelRes) GetAction() string {
@@ -6102,7 +5757,7 @@ type InstanceIDRes struct {
 
 func (x *InstanceIDRes) Reset() {
 	*x = InstanceIDRes{}
-	mi := &file_dynizer_proto_msgTypes[96]
+	mi := &file_dynizer_proto_msgTypes[91]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -6114,7 +5769,7 @@ func (x *InstanceIDRes) String() string {
 func (*InstanceIDRes) ProtoMessage() {}
 
 func (x *InstanceIDRes) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[96]
+	mi := &file_dynizer_proto_msgTypes[91]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -6127,7 +5782,7 @@ func (x *InstanceIDRes) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use InstanceIDRes.ProtoReflect.Descriptor instead.
 func (*InstanceIDRes) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{96}
+	return file_dynizer_proto_rawDescGZIP(), []int{91}
 }
 
 func (x *InstanceIDRes) GetInstanceId() string {
@@ -6148,7 +5803,7 @@ type StreamInstanceIDRes struct {
 
 func (x *StreamInstanceIDRes) Reset() {
 	*x = StreamInstanceIDRes{}
-	mi := &file_dynizer_proto_msgTypes[97]
+	mi := &file_dynizer_proto_msgTypes[92]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -6160,7 +5815,7 @@ func (x *StreamInstanceIDRes) String() string {
 func (*StreamInstanceIDRes) ProtoMessage() {}
 
 func (x *StreamInstanceIDRes) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[97]
+	mi := &file_dynizer_proto_msgTypes[92]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -6173,7 +5828,7 @@ func (x *StreamInstanceIDRes) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use StreamInstanceIDRes.ProtoReflect.Descriptor instead.
 func (*StreamInstanceIDRes) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{97}
+	return file_dynizer_proto_rawDescGZIP(), []int{92}
 }
 
 func (x *StreamInstanceIDRes) GetUserReference() string {
@@ -6210,7 +5865,7 @@ type InstanceRes struct {
 
 func (x *InstanceRes) Reset() {
 	*x = InstanceRes{}
-	mi := &file_dynizer_proto_msgTypes[98]
+	mi := &file_dynizer_proto_msgTypes[93]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -6222,7 +5877,7 @@ func (x *InstanceRes) String() string {
 func (*InstanceRes) ProtoMessage() {}
 
 func (x *InstanceRes) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[98]
+	mi := &file_dynizer_proto_msgTypes[93]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -6235,7 +5890,7 @@ func (x *InstanceRes) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use InstanceRes.ProtoReflect.Descriptor instead.
 func (*InstanceRes) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{98}
+	return file_dynizer_proto_rawDescGZIP(), []int{93}
 }
 
 func (x *InstanceRes) GetInstanceId() string {
@@ -6276,7 +5931,7 @@ type CountRes struct {
 
 func (x *CountRes) Reset() {
 	*x = CountRes{}
-	mi := &file_dynizer_proto_msgTypes[99]
+	mi := &file_dynizer_proto_msgTypes[94]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -6288,7 +5943,7 @@ func (x *CountRes) String() string {
 func (*CountRes) ProtoMessage() {}
 
 func (x *CountRes) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[99]
+	mi := &file_dynizer_proto_msgTypes[94]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -6301,7 +5956,7 @@ func (x *CountRes) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CountRes.ProtoReflect.Descriptor instead.
 func (*CountRes) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{99}
+	return file_dynizer_proto_rawDescGZIP(), []int{94}
 }
 
 func (x *CountRes) GetCount() int64 {
@@ -6323,7 +5978,7 @@ type UserCountRes struct {
 
 func (x *UserCountRes) Reset() {
 	*x = UserCountRes{}
-	mi := &file_dynizer_proto_msgTypes[100]
+	mi := &file_dynizer_proto_msgTypes[95]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -6335,7 +5990,7 @@ func (x *UserCountRes) String() string {
 func (*UserCountRes) ProtoMessage() {}
 
 func (x *UserCountRes) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[100]
+	mi := &file_dynizer_proto_msgTypes[95]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -6348,7 +6003,7 @@ func (x *UserCountRes) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UserCountRes.ProtoReflect.Descriptor instead.
 func (*UserCountRes) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{100}
+	return file_dynizer_proto_rawDescGZIP(), []int{95}
 }
 
 func (x *UserCountRes) GetActiveUsers() int64 {
@@ -6388,7 +6043,7 @@ type DQLRes struct {
 
 func (x *DQLRes) Reset() {
 	*x = DQLRes{}
-	mi := &file_dynizer_proto_msgTypes[101]
+	mi := &file_dynizer_proto_msgTypes[96]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -6400,7 +6055,7 @@ func (x *DQLRes) String() string {
 func (*DQLRes) ProtoMessage() {}
 
 func (x *DQLRes) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[101]
+	mi := &file_dynizer_proto_msgTypes[96]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -6413,7 +6068,7 @@ func (x *DQLRes) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DQLRes.ProtoReflect.Descriptor instead.
 func (*DQLRes) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{101}
+	return file_dynizer_proto_rawDescGZIP(), []int{96}
 }
 
 func (x *DQLRes) GetKind() isDQLRes_Kind {
@@ -6468,7 +6123,7 @@ type ListRolesRes struct {
 
 func (x *ListRolesRes) Reset() {
 	*x = ListRolesRes{}
-	mi := &file_dynizer_proto_msgTypes[102]
+	mi := &file_dynizer_proto_msgTypes[97]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -6480,7 +6135,7 @@ func (x *ListRolesRes) String() string {
 func (*ListRolesRes) ProtoMessage() {}
 
 func (x *ListRolesRes) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[102]
+	mi := &file_dynizer_proto_msgTypes[97]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -6493,7 +6148,7 @@ func (x *ListRolesRes) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListRolesRes.ProtoReflect.Descriptor instead.
 func (*ListRolesRes) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{102}
+	return file_dynizer_proto_rawDescGZIP(), []int{97}
 }
 
 func (x *ListRolesRes) GetTotalRoles() int64 {
@@ -6521,7 +6176,7 @@ type ListUserRolesRes struct {
 
 func (x *ListUserRolesRes) Reset() {
 	*x = ListUserRolesRes{}
-	mi := &file_dynizer_proto_msgTypes[103]
+	mi := &file_dynizer_proto_msgTypes[98]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -6533,7 +6188,7 @@ func (x *ListUserRolesRes) String() string {
 func (*ListUserRolesRes) ProtoMessage() {}
 
 func (x *ListUserRolesRes) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[103]
+	mi := &file_dynizer_proto_msgTypes[98]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -6546,7 +6201,7 @@ func (x *ListUserRolesRes) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListUserRolesRes.ProtoReflect.Descriptor instead.
 func (*ListUserRolesRes) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{103}
+	return file_dynizer_proto_rawDescGZIP(), []int{98}
 }
 
 func (x *ListUserRolesRes) GetTotalRoles() int64 {
@@ -6573,7 +6228,7 @@ type MetaDataKeyRes struct {
 
 func (x *MetaDataKeyRes) Reset() {
 	*x = MetaDataKeyRes{}
-	mi := &file_dynizer_proto_msgTypes[104]
+	mi := &file_dynizer_proto_msgTypes[99]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -6585,7 +6240,7 @@ func (x *MetaDataKeyRes) String() string {
 func (*MetaDataKeyRes) ProtoMessage() {}
 
 func (x *MetaDataKeyRes) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[104]
+	mi := &file_dynizer_proto_msgTypes[99]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -6598,7 +6253,7 @@ func (x *MetaDataKeyRes) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use MetaDataKeyRes.ProtoReflect.Descriptor instead.
 func (*MetaDataKeyRes) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{104}
+	return file_dynizer_proto_rawDescGZIP(), []int{99}
 }
 
 func (x *MetaDataKeyRes) GetMetaDataKey() *MetaDataKey {
@@ -6619,7 +6274,7 @@ type MetaDataKeyArrayRes struct {
 
 func (x *MetaDataKeyArrayRes) Reset() {
 	*x = MetaDataKeyArrayRes{}
-	mi := &file_dynizer_proto_msgTypes[105]
+	mi := &file_dynizer_proto_msgTypes[100]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -6631,7 +6286,7 @@ func (x *MetaDataKeyArrayRes) String() string {
 func (*MetaDataKeyArrayRes) ProtoMessage() {}
 
 func (x *MetaDataKeyArrayRes) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[105]
+	mi := &file_dynizer_proto_msgTypes[100]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -6644,7 +6299,7 @@ func (x *MetaDataKeyArrayRes) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use MetaDataKeyArrayRes.ProtoReflect.Descriptor instead.
 func (*MetaDataKeyArrayRes) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{105}
+	return file_dynizer_proto_rawDescGZIP(), []int{100}
 }
 
 func (x *MetaDataKeyArrayRes) GetTotalMetaDataKeys() int64 {
@@ -6673,7 +6328,7 @@ type ListInstanceMetaDataRes struct {
 
 func (x *ListInstanceMetaDataRes) Reset() {
 	*x = ListInstanceMetaDataRes{}
-	mi := &file_dynizer_proto_msgTypes[106]
+	mi := &file_dynizer_proto_msgTypes[101]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -6685,7 +6340,7 @@ func (x *ListInstanceMetaDataRes) String() string {
 func (*ListInstanceMetaDataRes) ProtoMessage() {}
 
 func (x *ListInstanceMetaDataRes) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[106]
+	mi := &file_dynizer_proto_msgTypes[101]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -6698,7 +6353,7 @@ func (x *ListInstanceMetaDataRes) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListInstanceMetaDataRes.ProtoReflect.Descriptor instead.
 func (*ListInstanceMetaDataRes) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{106}
+	return file_dynizer_proto_rawDescGZIP(), []int{101}
 }
 
 func (x *ListInstanceMetaDataRes) GetInstanceId() string {
@@ -6733,7 +6388,7 @@ type GetInstanceMetaDataKeyRes struct {
 
 func (x *GetInstanceMetaDataKeyRes) Reset() {
 	*x = GetInstanceMetaDataKeyRes{}
-	mi := &file_dynizer_proto_msgTypes[107]
+	mi := &file_dynizer_proto_msgTypes[102]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -6745,7 +6400,7 @@ func (x *GetInstanceMetaDataKeyRes) String() string {
 func (*GetInstanceMetaDataKeyRes) ProtoMessage() {}
 
 func (x *GetInstanceMetaDataKeyRes) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[107]
+	mi := &file_dynizer_proto_msgTypes[102]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -6758,7 +6413,7 @@ func (x *GetInstanceMetaDataKeyRes) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetInstanceMetaDataKeyRes.ProtoReflect.Descriptor instead.
 func (*GetInstanceMetaDataKeyRes) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{107}
+	return file_dynizer_proto_rawDescGZIP(), []int{102}
 }
 
 func (x *GetInstanceMetaDataKeyRes) GetInstanceId() string {
@@ -6789,7 +6444,7 @@ type ListInstanceCellMetaDataRes struct {
 
 func (x *ListInstanceCellMetaDataRes) Reset() {
 	*x = ListInstanceCellMetaDataRes{}
-	mi := &file_dynizer_proto_msgTypes[108]
+	mi := &file_dynizer_proto_msgTypes[103]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -6801,7 +6456,7 @@ func (x *ListInstanceCellMetaDataRes) String() string {
 func (*ListInstanceCellMetaDataRes) ProtoMessage() {}
 
 func (x *ListInstanceCellMetaDataRes) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[108]
+	mi := &file_dynizer_proto_msgTypes[103]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -6814,7 +6469,7 @@ func (x *ListInstanceCellMetaDataRes) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListInstanceCellMetaDataRes.ProtoReflect.Descriptor instead.
 func (*ListInstanceCellMetaDataRes) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{108}
+	return file_dynizer_proto_rawDescGZIP(), []int{103}
 }
 
 func (x *ListInstanceCellMetaDataRes) GetInstanceId() string {
@@ -6865,7 +6520,7 @@ type GetInstanceCellMetaDataKeyRes struct {
 
 func (x *GetInstanceCellMetaDataKeyRes) Reset() {
 	*x = GetInstanceCellMetaDataKeyRes{}
-	mi := &file_dynizer_proto_msgTypes[109]
+	mi := &file_dynizer_proto_msgTypes[104]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -6877,7 +6532,7 @@ func (x *GetInstanceCellMetaDataKeyRes) String() string {
 func (*GetInstanceCellMetaDataKeyRes) ProtoMessage() {}
 
 func (x *GetInstanceCellMetaDataKeyRes) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[109]
+	mi := &file_dynizer_proto_msgTypes[104]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -6890,7 +6545,7 @@ func (x *GetInstanceCellMetaDataKeyRes) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetInstanceCellMetaDataKeyRes.ProtoReflect.Descriptor instead.
 func (*GetInstanceCellMetaDataKeyRes) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{109}
+	return file_dynizer_proto_rawDescGZIP(), []int{104}
 }
 
 func (x *GetInstanceCellMetaDataKeyRes) GetInstanceId() string {
@@ -6932,7 +6587,7 @@ type StatsMetaUsageRes struct {
 
 func (x *StatsMetaUsageRes) Reset() {
 	*x = StatsMetaUsageRes{}
-	mi := &file_dynizer_proto_msgTypes[110]
+	mi := &file_dynizer_proto_msgTypes[105]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -6944,7 +6599,7 @@ func (x *StatsMetaUsageRes) String() string {
 func (*StatsMetaUsageRes) ProtoMessage() {}
 
 func (x *StatsMetaUsageRes) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[110]
+	mi := &file_dynizer_proto_msgTypes[105]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -6957,7 +6612,7 @@ func (x *StatsMetaUsageRes) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use StatsMetaUsageRes.ProtoReflect.Descriptor instead.
 func (*StatsMetaUsageRes) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{110}
+	return file_dynizer_proto_rawDescGZIP(), []int{105}
 }
 
 func (x *StatsMetaUsageRes) GetInstanceCount() int64 {
@@ -6987,7 +6642,7 @@ type CheckPasswordRes struct {
 
 func (x *CheckPasswordRes) Reset() {
 	*x = CheckPasswordRes{}
-	mi := &file_dynizer_proto_msgTypes[111]
+	mi := &file_dynizer_proto_msgTypes[106]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -6999,7 +6654,7 @@ func (x *CheckPasswordRes) String() string {
 func (*CheckPasswordRes) ProtoMessage() {}
 
 func (x *CheckPasswordRes) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[111]
+	mi := &file_dynizer_proto_msgTypes[106]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -7012,7 +6667,7 @@ func (x *CheckPasswordRes) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CheckPasswordRes.ProtoReflect.Descriptor instead.
 func (*CheckPasswordRes) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{111}
+	return file_dynizer_proto_rawDescGZIP(), []int{106}
 }
 
 func (x *CheckPasswordRes) GetStrength() uint32 {
@@ -7053,7 +6708,7 @@ type DynizerRole struct {
 
 func (x *DynizerRole) Reset() {
 	*x = DynizerRole{}
-	mi := &file_dynizer_proto_msgTypes[112]
+	mi := &file_dynizer_proto_msgTypes[107]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -7065,7 +6720,7 @@ func (x *DynizerRole) String() string {
 func (*DynizerRole) ProtoMessage() {}
 
 func (x *DynizerRole) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[112]
+	mi := &file_dynizer_proto_msgTypes[107]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -7078,7 +6733,7 @@ func (x *DynizerRole) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DynizerRole.ProtoReflect.Descriptor instead.
 func (*DynizerRole) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{112}
+	return file_dynizer_proto_rawDescGZIP(), []int{107}
 }
 
 func (x *DynizerRole) GetName() string {
@@ -7100,7 +6755,7 @@ type User struct {
 
 func (x *User) Reset() {
 	*x = User{}
-	mi := &file_dynizer_proto_msgTypes[113]
+	mi := &file_dynizer_proto_msgTypes[108]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -7112,7 +6767,7 @@ func (x *User) String() string {
 func (*User) ProtoMessage() {}
 
 func (x *User) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[113]
+	mi := &file_dynizer_proto_msgTypes[108]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -7125,7 +6780,7 @@ func (x *User) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use User.ProtoReflect.Descriptor instead.
 func (*User) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{113}
+	return file_dynizer_proto_rawDescGZIP(), []int{108}
 }
 
 func (x *User) GetUserName() string {
@@ -7158,7 +6813,7 @@ type DDLResult struct {
 
 func (x *DDLResult) Reset() {
 	*x = DDLResult{}
-	mi := &file_dynizer_proto_msgTypes[114]
+	mi := &file_dynizer_proto_msgTypes[109]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -7170,7 +6825,7 @@ func (x *DDLResult) String() string {
 func (*DDLResult) ProtoMessage() {}
 
 func (x *DDLResult) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[114]
+	mi := &file_dynizer_proto_msgTypes[109]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -7183,7 +6838,7 @@ func (x *DDLResult) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DDLResult.ProtoReflect.Descriptor instead.
 func (*DDLResult) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{114}
+	return file_dynizer_proto_rawDescGZIP(), []int{109}
 }
 
 // SelectDQLResult
@@ -7198,7 +6853,7 @@ type SelectDQLResult struct {
 
 func (x *SelectDQLResult) Reset() {
 	*x = SelectDQLResult{}
-	mi := &file_dynizer_proto_msgTypes[115]
+	mi := &file_dynizer_proto_msgTypes[110]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -7210,7 +6865,7 @@ func (x *SelectDQLResult) String() string {
 func (*SelectDQLResult) ProtoMessage() {}
 
 func (x *SelectDQLResult) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[115]
+	mi := &file_dynizer_proto_msgTypes[110]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -7223,7 +6878,7 @@ func (x *SelectDQLResult) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SelectDQLResult.ProtoReflect.Descriptor instead.
 func (*SelectDQLResult) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{115}
+	return file_dynizer_proto_rawDescGZIP(), []int{110}
 }
 
 func (x *SelectDQLResult) GetResultCount() int64 {
@@ -7262,7 +6917,7 @@ type ResultLabel struct {
 
 func (x *ResultLabel) Reset() {
 	*x = ResultLabel{}
-	mi := &file_dynizer_proto_msgTypes[116]
+	mi := &file_dynizer_proto_msgTypes[111]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -7274,7 +6929,7 @@ func (x *ResultLabel) String() string {
 func (*ResultLabel) ProtoMessage() {}
 
 func (x *ResultLabel) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[116]
+	mi := &file_dynizer_proto_msgTypes[111]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -7287,7 +6942,7 @@ func (x *ResultLabel) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ResultLabel.ProtoReflect.Descriptor instead.
 func (*ResultLabel) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{116}
+	return file_dynizer_proto_rawDescGZIP(), []int{111}
 }
 
 func (x *ResultLabel) GetActionName() string {
@@ -7348,7 +7003,7 @@ type ResultLabelWithOverride struct {
 
 func (x *ResultLabelWithOverride) Reset() {
 	*x = ResultLabelWithOverride{}
-	mi := &file_dynizer_proto_msgTypes[117]
+	mi := &file_dynizer_proto_msgTypes[112]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -7360,7 +7015,7 @@ func (x *ResultLabelWithOverride) String() string {
 func (*ResultLabelWithOverride) ProtoMessage() {}
 
 func (x *ResultLabelWithOverride) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[117]
+	mi := &file_dynizer_proto_msgTypes[112]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -7373,7 +7028,7 @@ func (x *ResultLabelWithOverride) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ResultLabelWithOverride.ProtoReflect.Descriptor instead.
 func (*ResultLabelWithOverride) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{117}
+	return file_dynizer_proto_rawDescGZIP(), []int{112}
 }
 
 func (x *ResultLabelWithOverride) GetActionName() string {
@@ -7437,7 +7092,7 @@ type ResultValueAlternativeMetaDataPosition struct {
 
 func (x *ResultValueAlternativeMetaDataPosition) Reset() {
 	*x = ResultValueAlternativeMetaDataPosition{}
-	mi := &file_dynizer_proto_msgTypes[118]
+	mi := &file_dynizer_proto_msgTypes[113]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -7449,7 +7104,7 @@ func (x *ResultValueAlternativeMetaDataPosition) String() string {
 func (*ResultValueAlternativeMetaDataPosition) ProtoMessage() {}
 
 func (x *ResultValueAlternativeMetaDataPosition) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[118]
+	mi := &file_dynizer_proto_msgTypes[113]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -7462,7 +7117,7 @@ func (x *ResultValueAlternativeMetaDataPosition) ProtoReflect() protoreflect.Mes
 
 // Deprecated: Use ResultValueAlternativeMetaDataPosition.ProtoReflect.Descriptor instead.
 func (*ResultValueAlternativeMetaDataPosition) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{118}
+	return file_dynizer_proto_rawDescGZIP(), []int{113}
 }
 
 func (x *ResultValueAlternativeMetaDataPosition) GetRow() uint32 {
@@ -7496,7 +7151,7 @@ type ResultRow struct {
 
 func (x *ResultRow) Reset() {
 	*x = ResultRow{}
-	mi := &file_dynizer_proto_msgTypes[119]
+	mi := &file_dynizer_proto_msgTypes[114]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -7508,7 +7163,7 @@ func (x *ResultRow) String() string {
 func (*ResultRow) ProtoMessage() {}
 
 func (x *ResultRow) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[119]
+	mi := &file_dynizer_proto_msgTypes[114]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -7521,7 +7176,7 @@ func (x *ResultRow) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ResultRow.ProtoReflect.Descriptor instead.
 func (*ResultRow) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{119}
+	return file_dynizer_proto_rawDescGZIP(), []int{114}
 }
 
 func (x *ResultRow) GetInstanceCellValues() []string {
@@ -7542,7 +7197,7 @@ type Action struct {
 
 func (x *Action) Reset() {
 	*x = Action{}
-	mi := &file_dynizer_proto_msgTypes[120]
+	mi := &file_dynizer_proto_msgTypes[115]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -7554,7 +7209,7 @@ func (x *Action) String() string {
 func (*Action) ProtoMessage() {}
 
 func (x *Action) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[120]
+	mi := &file_dynizer_proto_msgTypes[115]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -7567,7 +7222,7 @@ func (x *Action) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Action.ProtoReflect.Descriptor instead.
 func (*Action) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{120}
+	return file_dynizer_proto_rawDescGZIP(), []int{115}
 }
 
 func (x *Action) GetActionName() string {
@@ -7597,7 +7252,7 @@ type ObjectRef struct {
 
 func (x *ObjectRef) Reset() {
 	*x = ObjectRef{}
-	mi := &file_dynizer_proto_msgTypes[121]
+	mi := &file_dynizer_proto_msgTypes[116]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -7609,7 +7264,7 @@ func (x *ObjectRef) String() string {
 func (*ObjectRef) ProtoMessage() {}
 
 func (x *ObjectRef) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[121]
+	mi := &file_dynizer_proto_msgTypes[116]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -7622,7 +7277,7 @@ func (x *ObjectRef) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ObjectRef.ProtoReflect.Descriptor instead.
 func (*ObjectRef) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{121}
+	return file_dynizer_proto_rawDescGZIP(), []int{116}
 }
 
 // Deprecated: Marked as deprecated in dynizer.proto.
@@ -7663,7 +7318,7 @@ type ActionLabel struct {
 
 func (x *ActionLabel) Reset() {
 	*x = ActionLabel{}
-	mi := &file_dynizer_proto_msgTypes[122]
+	mi := &file_dynizer_proto_msgTypes[117]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -7675,7 +7330,7 @@ func (x *ActionLabel) String() string {
 func (*ActionLabel) ProtoMessage() {}
 
 func (x *ActionLabel) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[122]
+	mi := &file_dynizer_proto_msgTypes[117]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -7688,7 +7343,7 @@ func (x *ActionLabel) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ActionLabel.ProtoReflect.Descriptor instead.
 func (*ActionLabel) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{122}
+	return file_dynizer_proto_rawDescGZIP(), []int{117}
 }
 
 func (x *ActionLabel) GetActionLabelName() string {
@@ -7753,7 +7408,7 @@ type MetaDataKey struct {
 
 func (x *MetaDataKey) Reset() {
 	*x = MetaDataKey{}
-	mi := &file_dynizer_proto_msgTypes[123]
+	mi := &file_dynizer_proto_msgTypes[118]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -7765,7 +7420,7 @@ func (x *MetaDataKey) String() string {
 func (*MetaDataKey) ProtoMessage() {}
 
 func (x *MetaDataKey) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[123]
+	mi := &file_dynizer_proto_msgTypes[118]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -7778,7 +7433,7 @@ func (x *MetaDataKey) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use MetaDataKey.ProtoReflect.Descriptor instead.
 func (*MetaDataKey) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{123}
+	return file_dynizer_proto_rawDescGZIP(), []int{118}
 }
 
 func (x *MetaDataKey) GetKeyName() string {
@@ -7819,7 +7474,7 @@ type MetaDataOut struct {
 
 func (x *MetaDataOut) Reset() {
 	*x = MetaDataOut{}
-	mi := &file_dynizer_proto_msgTypes[124]
+	mi := &file_dynizer_proto_msgTypes[119]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -7831,7 +7486,7 @@ func (x *MetaDataOut) String() string {
 func (*MetaDataOut) ProtoMessage() {}
 
 func (x *MetaDataOut) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[124]
+	mi := &file_dynizer_proto_msgTypes[119]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -7844,7 +7499,7 @@ func (x *MetaDataOut) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use MetaDataOut.ProtoReflect.Descriptor instead.
 func (*MetaDataOut) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{124}
+	return file_dynizer_proto_rawDescGZIP(), []int{119}
 }
 
 func (x *MetaDataOut) GetMetaDataKeyValue() *MetaDataRecord {
@@ -7866,7 +7521,7 @@ type MetaDataRecord struct {
 
 func (x *MetaDataRecord) Reset() {
 	*x = MetaDataRecord{}
-	mi := &file_dynizer_proto_msgTypes[125]
+	mi := &file_dynizer_proto_msgTypes[120]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -7878,7 +7533,7 @@ func (x *MetaDataRecord) String() string {
 func (*MetaDataRecord) ProtoMessage() {}
 
 func (x *MetaDataRecord) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[125]
+	mi := &file_dynizer_proto_msgTypes[120]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -7891,7 +7546,7 @@ func (x *MetaDataRecord) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use MetaDataRecord.ProtoReflect.Descriptor instead.
 func (*MetaDataRecord) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{125}
+	return file_dynizer_proto_rawDescGZIP(), []int{120}
 }
 
 func (x *MetaDataRecord) GetKeyName() string {
@@ -7927,7 +7582,7 @@ type Window struct {
 
 func (x *Window) Reset() {
 	*x = Window{}
-	mi := &file_dynizer_proto_msgTypes[126]
+	mi := &file_dynizer_proto_msgTypes[121]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -7939,7 +7594,7 @@ func (x *Window) String() string {
 func (*Window) ProtoMessage() {}
 
 func (x *Window) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[126]
+	mi := &file_dynizer_proto_msgTypes[121]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -7952,7 +7607,7 @@ func (x *Window) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Window.ProtoReflect.Descriptor instead.
 func (*Window) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{126}
+	return file_dynizer_proto_rawDescGZIP(), []int{121}
 }
 
 func (x *Window) GetLimit() int64 {
@@ -7992,7 +7647,7 @@ type DQLParam struct {
 
 func (x *DQLParam) Reset() {
 	*x = DQLParam{}
-	mi := &file_dynizer_proto_msgTypes[127]
+	mi := &file_dynizer_proto_msgTypes[122]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -8004,7 +7659,7 @@ func (x *DQLParam) String() string {
 func (*DQLParam) ProtoMessage() {}
 
 func (x *DQLParam) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[127]
+	mi := &file_dynizer_proto_msgTypes[122]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -8017,7 +7672,7 @@ func (x *DQLParam) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DQLParam.ProtoReflect.Descriptor instead.
 func (*DQLParam) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{127}
+	return file_dynizer_proto_rawDescGZIP(), []int{122}
 }
 
 func (x *DQLParam) GetIndex() uint32 {
@@ -8085,7 +7740,7 @@ type SessionID struct {
 
 func (x *SessionID) Reset() {
 	*x = SessionID{}
-	mi := &file_dynizer_proto_msgTypes[128]
+	mi := &file_dynizer_proto_msgTypes[123]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -8097,7 +7752,7 @@ func (x *SessionID) String() string {
 func (*SessionID) ProtoMessage() {}
 
 func (x *SessionID) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[128]
+	mi := &file_dynizer_proto_msgTypes[123]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -8110,7 +7765,7 @@ func (x *SessionID) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SessionID.ProtoReflect.Descriptor instead.
 func (*SessionID) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{128}
+	return file_dynizer_proto_rawDescGZIP(), []int{123}
 }
 
 func (x *SessionID) GetSessionId() string {
@@ -8135,7 +7790,7 @@ type ConfigKV struct {
 
 func (x *ConfigKV) Reset() {
 	*x = ConfigKV{}
-	mi := &file_dynizer_proto_msgTypes[129]
+	mi := &file_dynizer_proto_msgTypes[124]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -8147,7 +7802,7 @@ func (x *ConfigKV) String() string {
 func (*ConfigKV) ProtoMessage() {}
 
 func (x *ConfigKV) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[129]
+	mi := &file_dynizer_proto_msgTypes[124]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -8160,7 +7815,7 @@ func (x *ConfigKV) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ConfigKV.ProtoReflect.Descriptor instead.
 func (*ConfigKV) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{129}
+	return file_dynizer_proto_rawDescGZIP(), []int{124}
 }
 
 func (x *ConfigKV) GetConfigKey() string {
@@ -8221,7 +7876,7 @@ type GetDynizerConfigurationRes struct {
 
 func (x *GetDynizerConfigurationRes) Reset() {
 	*x = GetDynizerConfigurationRes{}
-	mi := &file_dynizer_proto_msgTypes[130]
+	mi := &file_dynizer_proto_msgTypes[125]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -8233,7 +7888,7 @@ func (x *GetDynizerConfigurationRes) String() string {
 func (*GetDynizerConfigurationRes) ProtoMessage() {}
 
 func (x *GetDynizerConfigurationRes) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[130]
+	mi := &file_dynizer_proto_msgTypes[125]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -8246,7 +7901,7 @@ func (x *GetDynizerConfigurationRes) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetDynizerConfigurationRes.ProtoReflect.Descriptor instead.
 func (*GetDynizerConfigurationRes) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{130}
+	return file_dynizer_proto_rawDescGZIP(), []int{125}
 }
 
 func (x *GetDynizerConfigurationRes) GetConfigKeyValues() []*ConfigKV {
@@ -8266,7 +7921,7 @@ type ExportUserActionsReq struct {
 
 func (x *ExportUserActionsReq) Reset() {
 	*x = ExportUserActionsReq{}
-	mi := &file_dynizer_proto_msgTypes[131]
+	mi := &file_dynizer_proto_msgTypes[126]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -8278,7 +7933,7 @@ func (x *ExportUserActionsReq) String() string {
 func (*ExportUserActionsReq) ProtoMessage() {}
 
 func (x *ExportUserActionsReq) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[131]
+	mi := &file_dynizer_proto_msgTypes[126]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -8291,7 +7946,7 @@ func (x *ExportUserActionsReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ExportUserActionsReq.ProtoReflect.Descriptor instead.
 func (*ExportUserActionsReq) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{131}
+	return file_dynizer_proto_rawDescGZIP(), []int{126}
 }
 
 func (x *ExportUserActionsReq) GetActions() []string {
@@ -8311,7 +7966,7 @@ type ExportUserActionsRes struct {
 
 func (x *ExportUserActionsRes) Reset() {
 	*x = ExportUserActionsRes{}
-	mi := &file_dynizer_proto_msgTypes[132]
+	mi := &file_dynizer_proto_msgTypes[127]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -8323,7 +7978,7 @@ func (x *ExportUserActionsRes) String() string {
 func (*ExportUserActionsRes) ProtoMessage() {}
 
 func (x *ExportUserActionsRes) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[132]
+	mi := &file_dynizer_proto_msgTypes[127]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -8336,7 +7991,7 @@ func (x *ExportUserActionsRes) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ExportUserActionsRes.ProtoReflect.Descriptor instead.
 func (*ExportUserActionsRes) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{132}
+	return file_dynizer_proto_rawDescGZIP(), []int{127}
 }
 
 func (x *ExportUserActionsRes) GetActions() []*Action {
@@ -8357,7 +8012,7 @@ type ImportUserActionsReq struct {
 
 func (x *ImportUserActionsReq) Reset() {
 	*x = ImportUserActionsReq{}
-	mi := &file_dynizer_proto_msgTypes[133]
+	mi := &file_dynizer_proto_msgTypes[128]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -8369,7 +8024,7 @@ func (x *ImportUserActionsReq) String() string {
 func (*ImportUserActionsReq) ProtoMessage() {}
 
 func (x *ImportUserActionsReq) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[133]
+	mi := &file_dynizer_proto_msgTypes[128]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -8382,7 +8037,7 @@ func (x *ImportUserActionsReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ImportUserActionsReq.ProtoReflect.Descriptor instead.
 func (*ImportUserActionsReq) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{133}
+	return file_dynizer_proto_rawDescGZIP(), []int{128}
 }
 
 func (x *ImportUserActionsReq) GetActions() []*Action {
@@ -8410,7 +8065,7 @@ type ActionLabelSelector struct {
 
 func (x *ActionLabelSelector) Reset() {
 	*x = ActionLabelSelector{}
-	mi := &file_dynizer_proto_msgTypes[134]
+	mi := &file_dynizer_proto_msgTypes[129]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -8422,7 +8077,7 @@ func (x *ActionLabelSelector) String() string {
 func (*ActionLabelSelector) ProtoMessage() {}
 
 func (x *ActionLabelSelector) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[134]
+	mi := &file_dynizer_proto_msgTypes[129]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -8435,7 +8090,7 @@ func (x *ActionLabelSelector) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ActionLabelSelector.ProtoReflect.Descriptor instead.
 func (*ActionLabelSelector) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{134}
+	return file_dynizer_proto_rawDescGZIP(), []int{129}
 }
 
 func (x *ActionLabelSelector) GetActionName() string {
@@ -8464,7 +8119,7 @@ type VersionRes struct {
 
 func (x *VersionRes) Reset() {
 	*x = VersionRes{}
-	mi := &file_dynizer_proto_msgTypes[135]
+	mi := &file_dynizer_proto_msgTypes[130]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -8476,7 +8131,7 @@ func (x *VersionRes) String() string {
 func (*VersionRes) ProtoMessage() {}
 
 func (x *VersionRes) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[135]
+	mi := &file_dynizer_proto_msgTypes[130]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -8489,7 +8144,7 @@ func (x *VersionRes) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use VersionRes.ProtoReflect.Descriptor instead.
 func (*VersionRes) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{135}
+	return file_dynizer_proto_rawDescGZIP(), []int{130}
 }
 
 func (x *VersionRes) GetVersion() string {
@@ -8524,7 +8179,7 @@ type InstanceFilter struct {
 
 func (x *InstanceFilter) Reset() {
 	*x = InstanceFilter{}
-	mi := &file_dynizer_proto_msgTypes[136]
+	mi := &file_dynizer_proto_msgTypes[131]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -8536,7 +8191,7 @@ func (x *InstanceFilter) String() string {
 func (*InstanceFilter) ProtoMessage() {}
 
 func (x *InstanceFilter) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[136]
+	mi := &file_dynizer_proto_msgTypes[131]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -8549,7 +8204,7 @@ func (x *InstanceFilter) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use InstanceFilter.ProtoReflect.Descriptor instead.
 func (*InstanceFilter) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{136}
+	return file_dynizer_proto_rawDescGZIP(), []int{131}
 }
 
 func (x *InstanceFilter) GetActionLabelName() string {
@@ -8595,7 +8250,7 @@ type QueryDataElementsReq struct {
 
 func (x *QueryDataElementsReq) Reset() {
 	*x = QueryDataElementsReq{}
-	mi := &file_dynizer_proto_msgTypes[137]
+	mi := &file_dynizer_proto_msgTypes[132]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -8607,7 +8262,7 @@ func (x *QueryDataElementsReq) String() string {
 func (*QueryDataElementsReq) ProtoMessage() {}
 
 func (x *QueryDataElementsReq) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[137]
+	mi := &file_dynizer_proto_msgTypes[132]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -8620,7 +8275,7 @@ func (x *QueryDataElementsReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use QueryDataElementsReq.ProtoReflect.Descriptor instead.
 func (*QueryDataElementsReq) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{137}
+	return file_dynizer_proto_rawDescGZIP(), []int{132}
 }
 
 func (x *QueryDataElementsReq) GetContains() string {
@@ -8685,7 +8340,7 @@ type GetTopNDataElementsReq struct {
 
 func (x *GetTopNDataElementsReq) Reset() {
 	*x = GetTopNDataElementsReq{}
-	mi := &file_dynizer_proto_msgTypes[138]
+	mi := &file_dynizer_proto_msgTypes[133]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -8697,7 +8352,7 @@ func (x *GetTopNDataElementsReq) String() string {
 func (*GetTopNDataElementsReq) ProtoMessage() {}
 
 func (x *GetTopNDataElementsReq) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[138]
+	mi := &file_dynizer_proto_msgTypes[133]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -8710,7 +8365,7 @@ func (x *GetTopNDataElementsReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetTopNDataElementsReq.ProtoReflect.Descriptor instead.
 func (*GetTopNDataElementsReq) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{138}
+	return file_dynizer_proto_rawDescGZIP(), []int{133}
 }
 
 func (x *GetTopNDataElementsReq) GetTop() int64 {
@@ -8760,7 +8415,7 @@ type GetTopNDataElementsRes struct {
 
 func (x *GetTopNDataElementsRes) Reset() {
 	*x = GetTopNDataElementsRes{}
-	mi := &file_dynizer_proto_msgTypes[139]
+	mi := &file_dynizer_proto_msgTypes[134]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -8772,7 +8427,7 @@ func (x *GetTopNDataElementsRes) String() string {
 func (*GetTopNDataElementsRes) ProtoMessage() {}
 
 func (x *GetTopNDataElementsRes) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[139]
+	mi := &file_dynizer_proto_msgTypes[134]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -8785,7 +8440,7 @@ func (x *GetTopNDataElementsRes) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetTopNDataElementsRes.ProtoReflect.Descriptor instead.
 func (*GetTopNDataElementsRes) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{139}
+	return file_dynizer_proto_rawDescGZIP(), []int{134}
 }
 
 func (x *GetTopNDataElementsRes) GetWho() []*TopNDataElement {
@@ -8826,7 +8481,7 @@ type PlotRes struct {
 
 func (x *PlotRes) Reset() {
 	*x = PlotRes{}
-	mi := &file_dynizer_proto_msgTypes[140]
+	mi := &file_dynizer_proto_msgTypes[135]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -8838,7 +8493,7 @@ func (x *PlotRes) String() string {
 func (*PlotRes) ProtoMessage() {}
 
 func (x *PlotRes) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[140]
+	mi := &file_dynizer_proto_msgTypes[135]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -8851,7 +8506,7 @@ func (x *PlotRes) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PlotRes.ProtoReflect.Descriptor instead.
 func (*PlotRes) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{140}
+	return file_dynizer_proto_rawDescGZIP(), []int{135}
 }
 
 func (x *PlotRes) GetPlotName() string {
@@ -8878,7 +8533,7 @@ type FilterQueryReq struct {
 
 func (x *FilterQueryReq) Reset() {
 	*x = FilterQueryReq{}
-	mi := &file_dynizer_proto_msgTypes[141]
+	mi := &file_dynizer_proto_msgTypes[136]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -8890,7 +8545,7 @@ func (x *FilterQueryReq) String() string {
 func (*FilterQueryReq) ProtoMessage() {}
 
 func (x *FilterQueryReq) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[141]
+	mi := &file_dynizer_proto_msgTypes[136]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -8903,7 +8558,7 @@ func (x *FilterQueryReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use FilterQueryReq.ProtoReflect.Descriptor instead.
 func (*FilterQueryReq) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{141}
+	return file_dynizer_proto_rawDescGZIP(), []int{136}
 }
 
 func (x *FilterQueryReq) GetActions() []string {
@@ -8934,7 +8589,7 @@ type FilteredPlotReq struct {
 
 func (x *FilteredPlotReq) Reset() {
 	*x = FilteredPlotReq{}
-	mi := &file_dynizer_proto_msgTypes[142]
+	mi := &file_dynizer_proto_msgTypes[137]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -8946,7 +8601,7 @@ func (x *FilteredPlotReq) String() string {
 func (*FilteredPlotReq) ProtoMessage() {}
 
 func (x *FilteredPlotReq) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[142]
+	mi := &file_dynizer_proto_msgTypes[137]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -8959,7 +8614,7 @@ func (x *FilteredPlotReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use FilteredPlotReq.ProtoReflect.Descriptor instead.
 func (*FilteredPlotReq) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{142}
+	return file_dynizer_proto_rawDescGZIP(), []int{137}
 }
 
 func (x *FilteredPlotReq) GetTop() int64 {
@@ -9014,7 +8669,7 @@ type ComponentTypeUsage struct {
 
 func (x *ComponentTypeUsage) Reset() {
 	*x = ComponentTypeUsage{}
-	mi := &file_dynizer_proto_msgTypes[143]
+	mi := &file_dynizer_proto_msgTypes[138]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -9026,7 +8681,7 @@ func (x *ComponentTypeUsage) String() string {
 func (*ComponentTypeUsage) ProtoMessage() {}
 
 func (x *ComponentTypeUsage) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[143]
+	mi := &file_dynizer_proto_msgTypes[138]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -9039,7 +8694,7 @@ func (x *ComponentTypeUsage) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ComponentTypeUsage.ProtoReflect.Descriptor instead.
 func (*ComponentTypeUsage) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{143}
+	return file_dynizer_proto_rawDescGZIP(), []int{138}
 }
 
 func (x *ComponentTypeUsage) GetComponentType() ComponentType {
@@ -9067,7 +8722,7 @@ type TopNDataElement struct {
 
 func (x *TopNDataElement) Reset() {
 	*x = TopNDataElement{}
-	mi := &file_dynizer_proto_msgTypes[144]
+	mi := &file_dynizer_proto_msgTypes[139]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -9079,7 +8734,7 @@ func (x *TopNDataElement) String() string {
 func (*TopNDataElement) ProtoMessage() {}
 
 func (x *TopNDataElement) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[144]
+	mi := &file_dynizer_proto_msgTypes[139]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -9092,7 +8747,7 @@ func (x *TopNDataElement) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use TopNDataElement.ProtoReflect.Descriptor instead.
 func (*TopNDataElement) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{144}
+	return file_dynizer_proto_rawDescGZIP(), []int{139}
 }
 
 func (x *TopNDataElement) GetValue() string {
@@ -9129,7 +8784,7 @@ type DataElement struct {
 
 func (x *DataElement) Reset() {
 	*x = DataElement{}
-	mi := &file_dynizer_proto_msgTypes[145]
+	mi := &file_dynizer_proto_msgTypes[140]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -9141,7 +8796,7 @@ func (x *DataElement) String() string {
 func (*DataElement) ProtoMessage() {}
 
 func (x *DataElement) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[145]
+	mi := &file_dynizer_proto_msgTypes[140]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -9154,7 +8809,7 @@ func (x *DataElement) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DataElement.ProtoReflect.Descriptor instead.
 func (*DataElement) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{145}
+	return file_dynizer_proto_rawDescGZIP(), []int{140}
 }
 
 func (x *DataElement) GetValue() string {
@@ -9202,7 +8857,7 @@ type QueryDataElementsRes struct {
 
 func (x *QueryDataElementsRes) Reset() {
 	*x = QueryDataElementsRes{}
-	mi := &file_dynizer_proto_msgTypes[146]
+	mi := &file_dynizer_proto_msgTypes[141]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -9214,7 +8869,7 @@ func (x *QueryDataElementsRes) String() string {
 func (*QueryDataElementsRes) ProtoMessage() {}
 
 func (x *QueryDataElementsRes) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[146]
+	mi := &file_dynizer_proto_msgTypes[141]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -9227,7 +8882,7 @@ func (x *QueryDataElementsRes) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use QueryDataElementsRes.ProtoReflect.Descriptor instead.
 func (*QueryDataElementsRes) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{146}
+	return file_dynizer_proto_rawDescGZIP(), []int{141}
 }
 
 func (x *QueryDataElementsRes) GetTotalDataelements() int64 {
@@ -9254,7 +8909,7 @@ type ReIndexReq struct {
 
 func (x *ReIndexReq) Reset() {
 	*x = ReIndexReq{}
-	mi := &file_dynizer_proto_msgTypes[147]
+	mi := &file_dynizer_proto_msgTypes[142]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -9266,7 +8921,7 @@ func (x *ReIndexReq) String() string {
 func (*ReIndexReq) ProtoMessage() {}
 
 func (x *ReIndexReq) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[147]
+	mi := &file_dynizer_proto_msgTypes[142]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -9279,7 +8934,7 @@ func (x *ReIndexReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ReIndexReq.ProtoReflect.Descriptor instead.
 func (*ReIndexReq) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{147}
+	return file_dynizer_proto_rawDescGZIP(), []int{142}
 }
 
 func (x *ReIndexReq) GetIndexName() string {
@@ -9306,7 +8961,7 @@ type CreateShareNameReq struct {
 
 func (x *CreateShareNameReq) Reset() {
 	*x = CreateShareNameReq{}
-	mi := &file_dynizer_proto_msgTypes[148]
+	mi := &file_dynizer_proto_msgTypes[143]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -9318,7 +8973,7 @@ func (x *CreateShareNameReq) String() string {
 func (*CreateShareNameReq) ProtoMessage() {}
 
 func (x *CreateShareNameReq) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[148]
+	mi := &file_dynizer_proto_msgTypes[143]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -9331,7 +8986,7 @@ func (x *CreateShareNameReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateShareNameReq.ProtoReflect.Descriptor instead.
 func (*CreateShareNameReq) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{148}
+	return file_dynizer_proto_rawDescGZIP(), []int{143}
 }
 
 func (x *CreateShareNameReq) GetShareName() string {
@@ -9360,7 +9015,7 @@ type UpdateShareNameValueReq struct {
 
 func (x *UpdateShareNameValueReq) Reset() {
 	*x = UpdateShareNameValueReq{}
-	mi := &file_dynizer_proto_msgTypes[149]
+	mi := &file_dynizer_proto_msgTypes[144]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -9372,7 +9027,7 @@ func (x *UpdateShareNameValueReq) String() string {
 func (*UpdateShareNameValueReq) ProtoMessage() {}
 
 func (x *UpdateShareNameValueReq) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[149]
+	mi := &file_dynizer_proto_msgTypes[144]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -9385,7 +9040,7 @@ func (x *UpdateShareNameValueReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateShareNameValueReq.ProtoReflect.Descriptor instead.
 func (*UpdateShareNameValueReq) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{149}
+	return file_dynizer_proto_rawDescGZIP(), []int{144}
 }
 
 func (x *UpdateShareNameValueReq) GetShareName() string {
@@ -9427,7 +9082,7 @@ type DeleteShareNameValueReq struct {
 
 func (x *DeleteShareNameValueReq) Reset() {
 	*x = DeleteShareNameValueReq{}
-	mi := &file_dynizer_proto_msgTypes[150]
+	mi := &file_dynizer_proto_msgTypes[145]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -9439,7 +9094,7 @@ func (x *DeleteShareNameValueReq) String() string {
 func (*DeleteShareNameValueReq) ProtoMessage() {}
 
 func (x *DeleteShareNameValueReq) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[150]
+	mi := &file_dynizer_proto_msgTypes[145]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -9452,7 +9107,7 @@ func (x *DeleteShareNameValueReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteShareNameValueReq.ProtoReflect.Descriptor instead.
 func (*DeleteShareNameValueReq) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{150}
+	return file_dynizer_proto_rawDescGZIP(), []int{145}
 }
 
 func (x *DeleteShareNameValueReq) GetShareName() string {
@@ -9484,7 +9139,7 @@ type BulkInstanceInsertStartReq struct {
 
 func (x *BulkInstanceInsertStartReq) Reset() {
 	*x = BulkInstanceInsertStartReq{}
-	mi := &file_dynizer_proto_msgTypes[151]
+	mi := &file_dynizer_proto_msgTypes[146]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -9496,7 +9151,7 @@ func (x *BulkInstanceInsertStartReq) String() string {
 func (*BulkInstanceInsertStartReq) ProtoMessage() {}
 
 func (x *BulkInstanceInsertStartReq) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[151]
+	mi := &file_dynizer_proto_msgTypes[146]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -9509,7 +9164,7 @@ func (x *BulkInstanceInsertStartReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use BulkInstanceInsertStartReq.ProtoReflect.Descriptor instead.
 func (*BulkInstanceInsertStartReq) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{151}
+	return file_dynizer_proto_rawDescGZIP(), []int{146}
 }
 
 type BuilInstanceInsertRes struct {
@@ -9520,7 +9175,7 @@ type BuilInstanceInsertRes struct {
 
 func (x *BuilInstanceInsertRes) Reset() {
 	*x = BuilInstanceInsertRes{}
-	mi := &file_dynizer_proto_msgTypes[152]
+	mi := &file_dynizer_proto_msgTypes[147]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -9532,7 +9187,7 @@ func (x *BuilInstanceInsertRes) String() string {
 func (*BuilInstanceInsertRes) ProtoMessage() {}
 
 func (x *BuilInstanceInsertRes) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[152]
+	mi := &file_dynizer_proto_msgTypes[147]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -9545,7 +9200,7 @@ func (x *BuilInstanceInsertRes) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use BuilInstanceInsertRes.ProtoReflect.Descriptor instead.
 func (*BuilInstanceInsertRes) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{152}
+	return file_dynizer_proto_rawDescGZIP(), []int{147}
 }
 
 type BulkInstanceInsertDataReq struct {
@@ -9556,7 +9211,7 @@ type BulkInstanceInsertDataReq struct {
 
 func (x *BulkInstanceInsertDataReq) Reset() {
 	*x = BulkInstanceInsertDataReq{}
-	mi := &file_dynizer_proto_msgTypes[153]
+	mi := &file_dynizer_proto_msgTypes[148]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -9568,7 +9223,7 @@ func (x *BulkInstanceInsertDataReq) String() string {
 func (*BulkInstanceInsertDataReq) ProtoMessage() {}
 
 func (x *BulkInstanceInsertDataReq) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[153]
+	mi := &file_dynizer_proto_msgTypes[148]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -9581,7 +9236,7 @@ func (x *BulkInstanceInsertDataReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use BulkInstanceInsertDataReq.ProtoReflect.Descriptor instead.
 func (*BulkInstanceInsertDataReq) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{153}
+	return file_dynizer_proto_rawDescGZIP(), []int{148}
 }
 
 type BulkInstanceInsertCloseReq struct {
@@ -9592,7 +9247,7 @@ type BulkInstanceInsertCloseReq struct {
 
 func (x *BulkInstanceInsertCloseReq) Reset() {
 	*x = BulkInstanceInsertCloseReq{}
-	mi := &file_dynizer_proto_msgTypes[154]
+	mi := &file_dynizer_proto_msgTypes[149]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -9604,7 +9259,7 @@ func (x *BulkInstanceInsertCloseReq) String() string {
 func (*BulkInstanceInsertCloseReq) ProtoMessage() {}
 
 func (x *BulkInstanceInsertCloseReq) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[154]
+	mi := &file_dynizer_proto_msgTypes[149]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -9617,7 +9272,7 @@ func (x *BulkInstanceInsertCloseReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use BulkInstanceInsertCloseReq.ProtoReflect.Descriptor instead.
 func (*BulkInstanceInsertCloseReq) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{154}
+	return file_dynizer_proto_rawDescGZIP(), []int{149}
 }
 
 // QueryResultResponse
@@ -9631,7 +9286,7 @@ type QueryResultRes struct {
 
 func (x *QueryResultRes) Reset() {
 	*x = QueryResultRes{}
-	mi := &file_dynizer_proto_msgTypes[155]
+	mi := &file_dynizer_proto_msgTypes[150]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -9643,7 +9298,7 @@ func (x *QueryResultRes) String() string {
 func (*QueryResultRes) ProtoMessage() {}
 
 func (x *QueryResultRes) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[155]
+	mi := &file_dynizer_proto_msgTypes[150]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -9656,7 +9311,7 @@ func (x *QueryResultRes) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use QueryResultRes.ProtoReflect.Descriptor instead.
 func (*QueryResultRes) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{155}
+	return file_dynizer_proto_rawDescGZIP(), []int{150}
 }
 
 func (x *QueryResultRes) GetRows() []*ResultRow {
@@ -9688,7 +9343,7 @@ type QueryExecuteRes struct {
 
 func (x *QueryExecuteRes) Reset() {
 	*x = QueryExecuteRes{}
-	mi := &file_dynizer_proto_msgTypes[156]
+	mi := &file_dynizer_proto_msgTypes[151]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -9700,7 +9355,7 @@ func (x *QueryExecuteRes) String() string {
 func (*QueryExecuteRes) ProtoMessage() {}
 
 func (x *QueryExecuteRes) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[156]
+	mi := &file_dynizer_proto_msgTypes[151]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -9713,7 +9368,7 @@ func (x *QueryExecuteRes) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use QueryExecuteRes.ProtoReflect.Descriptor instead.
 func (*QueryExecuteRes) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{156}
+	return file_dynizer_proto_rawDescGZIP(), []int{151}
 }
 
 func (x *QueryExecuteRes) GetRows() []*ResultRow {
@@ -9770,7 +9425,7 @@ type SimpleSelectResult struct {
 
 func (x *SimpleSelectResult) Reset() {
 	*x = SimpleSelectResult{}
-	mi := &file_dynizer_proto_msgTypes[157]
+	mi := &file_dynizer_proto_msgTypes[152]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -9782,7 +9437,7 @@ func (x *SimpleSelectResult) String() string {
 func (*SimpleSelectResult) ProtoMessage() {}
 
 func (x *SimpleSelectResult) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[157]
+	mi := &file_dynizer_proto_msgTypes[152]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -9795,7 +9450,7 @@ func (x *SimpleSelectResult) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SimpleSelectResult.ProtoReflect.Descriptor instead.
 func (*SimpleSelectResult) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{157}
+	return file_dynizer_proto_rawDescGZIP(), []int{152}
 }
 
 func (x *SimpleSelectResult) GetResultCount() int64 {
@@ -9840,7 +9495,7 @@ type SimpleQueryResItem struct {
 
 func (x *SimpleQueryResItem) Reset() {
 	*x = SimpleQueryResItem{}
-	mi := &file_dynizer_proto_msgTypes[158]
+	mi := &file_dynizer_proto_msgTypes[153]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -9852,7 +9507,7 @@ func (x *SimpleQueryResItem) String() string {
 func (*SimpleQueryResItem) ProtoMessage() {}
 
 func (x *SimpleQueryResItem) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[158]
+	mi := &file_dynizer_proto_msgTypes[153]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -9865,7 +9520,7 @@ func (x *SimpleQueryResItem) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SimpleQueryResItem.ProtoReflect.Descriptor instead.
 func (*SimpleQueryResItem) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{158}
+	return file_dynizer_proto_rawDescGZIP(), []int{153}
 }
 
 func (x *SimpleQueryResItem) GetKind() isSimpleQueryResItem_Kind {
@@ -9925,7 +9580,7 @@ type SimpleQueryRes struct {
 
 func (x *SimpleQueryRes) Reset() {
 	*x = SimpleQueryRes{}
-	mi := &file_dynizer_proto_msgTypes[159]
+	mi := &file_dynizer_proto_msgTypes[154]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -9937,7 +9592,7 @@ func (x *SimpleQueryRes) String() string {
 func (*SimpleQueryRes) ProtoMessage() {}
 
 func (x *SimpleQueryRes) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[159]
+	mi := &file_dynizer_proto_msgTypes[154]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -9950,7 +9605,7 @@ func (x *SimpleQueryRes) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SimpleQueryRes.ProtoReflect.Descriptor instead.
 func (*SimpleQueryRes) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{159}
+	return file_dynizer_proto_rawDescGZIP(), []int{154}
 }
 
 func (x *SimpleQueryRes) GetResult() []*SimpleQueryResItem {
@@ -9971,7 +9626,7 @@ type QueryParseReq struct {
 
 func (x *QueryParseReq) Reset() {
 	*x = QueryParseReq{}
-	mi := &file_dynizer_proto_msgTypes[160]
+	mi := &file_dynizer_proto_msgTypes[155]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -9983,7 +9638,7 @@ func (x *QueryParseReq) String() string {
 func (*QueryParseReq) ProtoMessage() {}
 
 func (x *QueryParseReq) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[160]
+	mi := &file_dynizer_proto_msgTypes[155]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -9996,7 +9651,7 @@ func (x *QueryParseReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use QueryParseReq.ProtoReflect.Descriptor instead.
 func (*QueryParseReq) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{160}
+	return file_dynizer_proto_rawDescGZIP(), []int{155}
 }
 
 func (x *QueryParseReq) GetStatement() string {
@@ -10031,7 +9686,7 @@ type QueryBindReq struct {
 
 func (x *QueryBindReq) Reset() {
 	*x = QueryBindReq{}
-	mi := &file_dynizer_proto_msgTypes[161]
+	mi := &file_dynizer_proto_msgTypes[156]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -10043,7 +9698,7 @@ func (x *QueryBindReq) String() string {
 func (*QueryBindReq) ProtoMessage() {}
 
 func (x *QueryBindReq) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[161]
+	mi := &file_dynizer_proto_msgTypes[156]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -10056,7 +9711,7 @@ func (x *QueryBindReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use QueryBindReq.ProtoReflect.Descriptor instead.
 func (*QueryBindReq) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{161}
+	return file_dynizer_proto_rawDescGZIP(), []int{156}
 }
 
 func (x *QueryBindReq) GetStatement() string {
@@ -10089,7 +9744,7 @@ type QueryDescribeStatementReq struct {
 
 func (x *QueryDescribeStatementReq) Reset() {
 	*x = QueryDescribeStatementReq{}
-	mi := &file_dynizer_proto_msgTypes[162]
+	mi := &file_dynizer_proto_msgTypes[157]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -10101,7 +9756,7 @@ func (x *QueryDescribeStatementReq) String() string {
 func (*QueryDescribeStatementReq) ProtoMessage() {}
 
 func (x *QueryDescribeStatementReq) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[162]
+	mi := &file_dynizer_proto_msgTypes[157]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -10114,7 +9769,7 @@ func (x *QueryDescribeStatementReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use QueryDescribeStatementReq.ProtoReflect.Descriptor instead.
 func (*QueryDescribeStatementReq) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{162}
+	return file_dynizer_proto_rawDescGZIP(), []int{157}
 }
 
 func (x *QueryDescribeStatementReq) GetStatement() string {
@@ -10133,7 +9788,7 @@ type QueryDescribePortalReq struct {
 
 func (x *QueryDescribePortalReq) Reset() {
 	*x = QueryDescribePortalReq{}
-	mi := &file_dynizer_proto_msgTypes[163]
+	mi := &file_dynizer_proto_msgTypes[158]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -10145,7 +9800,7 @@ func (x *QueryDescribePortalReq) String() string {
 func (*QueryDescribePortalReq) ProtoMessage() {}
 
 func (x *QueryDescribePortalReq) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[163]
+	mi := &file_dynizer_proto_msgTypes[158]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -10158,7 +9813,7 @@ func (x *QueryDescribePortalReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use QueryDescribePortalReq.ProtoReflect.Descriptor instead.
 func (*QueryDescribePortalReq) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{163}
+	return file_dynizer_proto_rawDescGZIP(), []int{158}
 }
 
 func (x *QueryDescribePortalReq) GetPortal() string {
@@ -10179,7 +9834,7 @@ type QueryDescribeStatementRes struct {
 
 func (x *QueryDescribeStatementRes) Reset() {
 	*x = QueryDescribeStatementRes{}
-	mi := &file_dynizer_proto_msgTypes[164]
+	mi := &file_dynizer_proto_msgTypes[159]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -10191,7 +9846,7 @@ func (x *QueryDescribeStatementRes) String() string {
 func (*QueryDescribeStatementRes) ProtoMessage() {}
 
 func (x *QueryDescribeStatementRes) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[164]
+	mi := &file_dynizer_proto_msgTypes[159]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -10204,7 +9859,7 @@ func (x *QueryDescribeStatementRes) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use QueryDescribeStatementRes.ProtoReflect.Descriptor instead.
 func (*QueryDescribeStatementRes) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{164}
+	return file_dynizer_proto_rawDescGZIP(), []int{159}
 }
 
 func (x *QueryDescribeStatementRes) GetResultLabels() []*ResultLabelWithOverride {
@@ -10239,7 +9894,7 @@ type QueryDescribePortalRes struct {
 
 func (x *QueryDescribePortalRes) Reset() {
 	*x = QueryDescribePortalRes{}
-	mi := &file_dynizer_proto_msgTypes[165]
+	mi := &file_dynizer_proto_msgTypes[160]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -10251,7 +9906,7 @@ func (x *QueryDescribePortalRes) String() string {
 func (*QueryDescribePortalRes) ProtoMessage() {}
 
 func (x *QueryDescribePortalRes) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[165]
+	mi := &file_dynizer_proto_msgTypes[160]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -10264,7 +9919,7 @@ func (x *QueryDescribePortalRes) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use QueryDescribePortalRes.ProtoReflect.Descriptor instead.
 func (*QueryDescribePortalRes) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{165}
+	return file_dynizer_proto_rawDescGZIP(), []int{160}
 }
 
 func (x *QueryDescribePortalRes) GetResultLabels() []*ResultLabelWithOverride {
@@ -10298,7 +9953,7 @@ type QueryExecuteReq struct {
 
 func (x *QueryExecuteReq) Reset() {
 	*x = QueryExecuteReq{}
-	mi := &file_dynizer_proto_msgTypes[166]
+	mi := &file_dynizer_proto_msgTypes[161]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -10310,7 +9965,7 @@ func (x *QueryExecuteReq) String() string {
 func (*QueryExecuteReq) ProtoMessage() {}
 
 func (x *QueryExecuteReq) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[166]
+	mi := &file_dynizer_proto_msgTypes[161]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -10323,7 +9978,7 @@ func (x *QueryExecuteReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use QueryExecuteReq.ProtoReflect.Descriptor instead.
 func (*QueryExecuteReq) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{166}
+	return file_dynizer_proto_rawDescGZIP(), []int{161}
 }
 
 func (x *QueryExecuteReq) GetPortal() string {
@@ -10355,7 +10010,7 @@ type QueryCloseReq struct {
 
 func (x *QueryCloseReq) Reset() {
 	*x = QueryCloseReq{}
-	mi := &file_dynizer_proto_msgTypes[167]
+	mi := &file_dynizer_proto_msgTypes[162]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -10367,7 +10022,7 @@ func (x *QueryCloseReq) String() string {
 func (*QueryCloseReq) ProtoMessage() {}
 
 func (x *QueryCloseReq) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[167]
+	mi := &file_dynizer_proto_msgTypes[162]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -10380,7 +10035,7 @@ func (x *QueryCloseReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use QueryCloseReq.ProtoReflect.Descriptor instead.
 func (*QueryCloseReq) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{167}
+	return file_dynizer_proto_rawDescGZIP(), []int{162}
 }
 
 // Deprecated: Marked as deprecated in dynizer.proto.
@@ -10441,7 +10096,7 @@ type QueryCancelReq struct {
 
 func (x *QueryCancelReq) Reset() {
 	*x = QueryCancelReq{}
-	mi := &file_dynizer_proto_msgTypes[168]
+	mi := &file_dynizer_proto_msgTypes[163]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -10453,7 +10108,7 @@ func (x *QueryCancelReq) String() string {
 func (*QueryCancelReq) ProtoMessage() {}
 
 func (x *QueryCancelReq) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[168]
+	mi := &file_dynizer_proto_msgTypes[163]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -10466,7 +10121,7 @@ func (x *QueryCancelReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use QueryCancelReq.ProtoReflect.Descriptor instead.
 func (*QueryCancelReq) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{168}
+	return file_dynizer_proto_rawDescGZIP(), []int{163}
 }
 
 func (x *QueryCancelReq) GetPortal() string {
@@ -10487,7 +10142,7 @@ type DQLParamDescription struct {
 
 func (x *DQLParamDescription) Reset() {
 	*x = DQLParamDescription{}
-	mi := &file_dynizer_proto_msgTypes[169]
+	mi := &file_dynizer_proto_msgTypes[164]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -10499,7 +10154,7 @@ func (x *DQLParamDescription) String() string {
 func (*DQLParamDescription) ProtoMessage() {}
 
 func (x *DQLParamDescription) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[169]
+	mi := &file_dynizer_proto_msgTypes[164]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -10512,7 +10167,7 @@ func (x *DQLParamDescription) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DQLParamDescription.ProtoReflect.Descriptor instead.
 func (*DQLParamDescription) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{169}
+	return file_dynizer_proto_rawDescGZIP(), []int{164}
 }
 
 func (x *DQLParamDescription) GetIndex() uint32 {
@@ -10539,7 +10194,7 @@ type FindActionLabelLinksReq struct {
 
 func (x *FindActionLabelLinksReq) Reset() {
 	*x = FindActionLabelLinksReq{}
-	mi := &file_dynizer_proto_msgTypes[170]
+	mi := &file_dynizer_proto_msgTypes[165]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -10551,7 +10206,7 @@ func (x *FindActionLabelLinksReq) String() string {
 func (*FindActionLabelLinksReq) ProtoMessage() {}
 
 func (x *FindActionLabelLinksReq) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[170]
+	mi := &file_dynizer_proto_msgTypes[165]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -10564,7 +10219,7 @@ func (x *FindActionLabelLinksReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use FindActionLabelLinksReq.ProtoReflect.Descriptor instead.
 func (*FindActionLabelLinksReq) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{170}
+	return file_dynizer_proto_rawDescGZIP(), []int{165}
 }
 
 func (x *FindActionLabelLinksReq) GetActionNames() []string {
@@ -10584,7 +10239,7 @@ type FindActionLabelLinksRes struct {
 
 func (x *FindActionLabelLinksRes) Reset() {
 	*x = FindActionLabelLinksRes{}
-	mi := &file_dynizer_proto_msgTypes[171]
+	mi := &file_dynizer_proto_msgTypes[166]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -10596,7 +10251,7 @@ func (x *FindActionLabelLinksRes) String() string {
 func (*FindActionLabelLinksRes) ProtoMessage() {}
 
 func (x *FindActionLabelLinksRes) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[171]
+	mi := &file_dynizer_proto_msgTypes[166]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -10609,7 +10264,7 @@ func (x *FindActionLabelLinksRes) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use FindActionLabelLinksRes.ProtoReflect.Descriptor instead.
 func (*FindActionLabelLinksRes) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{171}
+	return file_dynizer_proto_rawDescGZIP(), []int{166}
 }
 
 func (x *FindActionLabelLinksRes) GetLinks() []*ActionLabelLink {
@@ -10630,7 +10285,7 @@ type ActionNameActionLabelName struct {
 
 func (x *ActionNameActionLabelName) Reset() {
 	*x = ActionNameActionLabelName{}
-	mi := &file_dynizer_proto_msgTypes[172]
+	mi := &file_dynizer_proto_msgTypes[167]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -10642,7 +10297,7 @@ func (x *ActionNameActionLabelName) String() string {
 func (*ActionNameActionLabelName) ProtoMessage() {}
 
 func (x *ActionNameActionLabelName) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[172]
+	mi := &file_dynizer_proto_msgTypes[167]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -10655,7 +10310,7 @@ func (x *ActionNameActionLabelName) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ActionNameActionLabelName.ProtoReflect.Descriptor instead.
 func (*ActionNameActionLabelName) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{172}
+	return file_dynizer_proto_rawDescGZIP(), []int{167}
 }
 
 func (x *ActionNameActionLabelName) GetActionName() string {
@@ -10686,7 +10341,7 @@ type ActionLabelLink struct {
 
 func (x *ActionLabelLink) Reset() {
 	*x = ActionLabelLink{}
-	mi := &file_dynizer_proto_msgTypes[173]
+	mi := &file_dynizer_proto_msgTypes[168]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -10698,7 +10353,7 @@ func (x *ActionLabelLink) String() string {
 func (*ActionLabelLink) ProtoMessage() {}
 
 func (x *ActionLabelLink) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[173]
+	mi := &file_dynizer_proto_msgTypes[168]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -10711,7 +10366,7 @@ func (x *ActionLabelLink) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ActionLabelLink.ProtoReflect.Descriptor instead.
 func (*ActionLabelLink) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{173}
+	return file_dynizer_proto_rawDescGZIP(), []int{168}
 }
 
 func (x *ActionLabelLink) GetLeftActionLabel() *ActionNameActionLabelName {
@@ -10760,7 +10415,7 @@ type ChatMessage struct {
 
 func (x *ChatMessage) Reset() {
 	*x = ChatMessage{}
-	mi := &file_dynizer_proto_msgTypes[174]
+	mi := &file_dynizer_proto_msgTypes[169]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -10772,7 +10427,7 @@ func (x *ChatMessage) String() string {
 func (*ChatMessage) ProtoMessage() {}
 
 func (x *ChatMessage) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[174]
+	mi := &file_dynizer_proto_msgTypes[169]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -10785,7 +10440,7 @@ func (x *ChatMessage) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ChatMessage.ProtoReflect.Descriptor instead.
 func (*ChatMessage) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{174}
+	return file_dynizer_proto_rawDescGZIP(), []int{169}
 }
 
 func (x *ChatMessage) GetRole() string {
@@ -10839,7 +10494,7 @@ type ChatReq struct {
 
 func (x *ChatReq) Reset() {
 	*x = ChatReq{}
-	mi := &file_dynizer_proto_msgTypes[175]
+	mi := &file_dynizer_proto_msgTypes[170]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -10851,7 +10506,7 @@ func (x *ChatReq) String() string {
 func (*ChatReq) ProtoMessage() {}
 
 func (x *ChatReq) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[175]
+	mi := &file_dynizer_proto_msgTypes[170]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -10864,7 +10519,7 @@ func (x *ChatReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ChatReq.ProtoReflect.Descriptor instead.
 func (*ChatReq) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{175}
+	return file_dynizer_proto_rawDescGZIP(), []int{170}
 }
 
 func (x *ChatReq) GetMessages() []*ChatMessage {
@@ -10965,7 +10620,7 @@ type ChatRes struct {
 
 func (x *ChatRes) Reset() {
 	*x = ChatRes{}
-	mi := &file_dynizer_proto_msgTypes[176]
+	mi := &file_dynizer_proto_msgTypes[171]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -10977,7 +10632,7 @@ func (x *ChatRes) String() string {
 func (*ChatRes) ProtoMessage() {}
 
 func (x *ChatRes) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[176]
+	mi := &file_dynizer_proto_msgTypes[171]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -10990,7 +10645,7 @@ func (x *ChatRes) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ChatRes.ProtoReflect.Descriptor instead.
 func (*ChatRes) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{176}
+	return file_dynizer_proto_rawDescGZIP(), []int{171}
 }
 
 func (x *ChatRes) GetContent() string {
@@ -11040,7 +10695,7 @@ type ChatToolCall struct {
 
 func (x *ChatToolCall) Reset() {
 	*x = ChatToolCall{}
-	mi := &file_dynizer_proto_msgTypes[177]
+	mi := &file_dynizer_proto_msgTypes[172]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -11052,7 +10707,7 @@ func (x *ChatToolCall) String() string {
 func (*ChatToolCall) ProtoMessage() {}
 
 func (x *ChatToolCall) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[177]
+	mi := &file_dynizer_proto_msgTypes[172]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -11065,7 +10720,7 @@ func (x *ChatToolCall) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ChatToolCall.ProtoReflect.Descriptor instead.
 func (*ChatToolCall) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{177}
+	return file_dynizer_proto_rawDescGZIP(), []int{172}
 }
 
 func (x *ChatToolCall) GetTool() string {
@@ -11112,7 +10767,7 @@ type ChatStreamEvent struct {
 
 func (x *ChatStreamEvent) Reset() {
 	*x = ChatStreamEvent{}
-	mi := &file_dynizer_proto_msgTypes[178]
+	mi := &file_dynizer_proto_msgTypes[173]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -11124,7 +10779,7 @@ func (x *ChatStreamEvent) String() string {
 func (*ChatStreamEvent) ProtoMessage() {}
 
 func (x *ChatStreamEvent) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[178]
+	mi := &file_dynizer_proto_msgTypes[173]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -11137,7 +10792,7 @@ func (x *ChatStreamEvent) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ChatStreamEvent.ProtoReflect.Descriptor instead.
 func (*ChatStreamEvent) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{178}
+	return file_dynizer_proto_rawDescGZIP(), []int{173}
 }
 
 func (x *ChatStreamEvent) GetType() string {
@@ -11202,7 +10857,7 @@ type ChatCriticEvent struct {
 
 func (x *ChatCriticEvent) Reset() {
 	*x = ChatCriticEvent{}
-	mi := &file_dynizer_proto_msgTypes[179]
+	mi := &file_dynizer_proto_msgTypes[174]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -11214,7 +10869,7 @@ func (x *ChatCriticEvent) String() string {
 func (*ChatCriticEvent) ProtoMessage() {}
 
 func (x *ChatCriticEvent) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[179]
+	mi := &file_dynizer_proto_msgTypes[174]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -11227,7 +10882,7 @@ func (x *ChatCriticEvent) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ChatCriticEvent.ProtoReflect.Descriptor instead.
 func (*ChatCriticEvent) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{179}
+	return file_dynizer_proto_rawDescGZIP(), []int{174}
 }
 
 func (x *ChatCriticEvent) GetRound() int32 {
@@ -11272,7 +10927,7 @@ type ChatStageEvent struct {
 
 func (x *ChatStageEvent) Reset() {
 	*x = ChatStageEvent{}
-	mi := &file_dynizer_proto_msgTypes[180]
+	mi := &file_dynizer_proto_msgTypes[175]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -11284,7 +10939,7 @@ func (x *ChatStageEvent) String() string {
 func (*ChatStageEvent) ProtoMessage() {}
 
 func (x *ChatStageEvent) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[180]
+	mi := &file_dynizer_proto_msgTypes[175]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -11297,7 +10952,7 @@ func (x *ChatStageEvent) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ChatStageEvent.ProtoReflect.Descriptor instead.
 func (*ChatStageEvent) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{180}
+	return file_dynizer_proto_rawDescGZIP(), []int{175}
 }
 
 func (x *ChatStageEvent) GetName() string {
@@ -11347,7 +11002,7 @@ type ChatDoneEvent struct {
 
 func (x *ChatDoneEvent) Reset() {
 	*x = ChatDoneEvent{}
-	mi := &file_dynizer_proto_msgTypes[181]
+	mi := &file_dynizer_proto_msgTypes[176]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -11359,7 +11014,7 @@ func (x *ChatDoneEvent) String() string {
 func (*ChatDoneEvent) ProtoMessage() {}
 
 func (x *ChatDoneEvent) ProtoReflect() protoreflect.Message {
-	mi := &file_dynizer_proto_msgTypes[181]
+	mi := &file_dynizer_proto_msgTypes[176]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -11372,7 +11027,7 @@ func (x *ChatDoneEvent) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ChatDoneEvent.ProtoReflect.Descriptor instead.
 func (*ChatDoneEvent) Descriptor() ([]byte, []int) {
-	return file_dynizer_proto_rawDescGZIP(), []int{181}
+	return file_dynizer_proto_rawDescGZIP(), []int{176}
 }
 
 func (x *ChatDoneEvent) GetIterations() int32 {
@@ -11741,27 +11396,7 @@ const file_dynizer_proto_rawDesc = "" +
 	"\bkey_name\x18\x02 \x01(\tB(\x92A%2#Unique name of the **MetaDataKey**.R\akeyName\x12\xb5\x01\n" +
 	"\x05value\x18\x03 \x01(\tB\x9e\x01\x92A\x9a\x012\x97\x01String representation of the value for the **MetaDataKey**.<br>To parse non standard string represetations set a proper parse-format string in *format*R\x05value\x12T\n" +
 	"\x04spec\x18\x04 \x01(\v2\x0f.DataTypeFormatB/\x92A,2*allows to add special handling for a valueR\x04spec:j\x92Ag\n" +
-	"e2BPerform a task on a value for a linked MetaData on an **Instance**\xd2\x01\vinstance_id\xd2\x01\bkey_name\xd2\x01\x05value\"\xa5\x05\n" +
-	"!AddInstanceActionLabelMetaDataReq\x12S\n" +
-	"\vinstance_id\x18\x01 \x01(\tB2\x92A/2-The special UUID identifying an **Instance**.R\n" +
-	"instanceId\x12O\n" +
-	"\faction_label\x18\x02 \x01(\tB,\x92A)2'The unique name of the **ActionLabel**.R\vactionLabel\x12C\n" +
-	"\bkey_name\x18\x03 \x01(\tB(\x92A%2#Unique name of the **MetaDataKey**.R\akeyName\x12\xb7\x01\n" +
-	"\x06values\x18\x04 \x03(\tB\x9e\x01\x92A\x9a\x012\x97\x01String representation of the value for the **MetaDataKey**.<br>To parse non standard string represetations set a proper parse-format string in *format*R\x06values\x12Q\n" +
-	"\x05specs\x18\x05 \x03(\v2\n" +
-	".ValueSpecB/\x92A,2*allows to add special handling for a valueR\x05specs:\x87\x01\x92A\x83\x01\n" +
-	"\x80\x012MHolds the properties to set MetaData for all cells under the **ActionLabel**.\xd2\x01\vinstance_id\xd2\x01\faction_label\xd2\x01\bkey_name\xd2\x01\x06values\"\xf2\x02\n" +
-	"!InstanceActionLabelMetaDataKeyReq\x12S\n" +
-	"\vinstance_id\x18\x01 \x01(\tB2\x92A/2-The special UUID identifying an **Instance**.R\n" +
-	"instanceId\x12O\n" +
-	"\faction_label\x18\x02 \x01(\tB,\x92A)2'The unique name of the **ActionLabel**.R\vactionLabel\x12C\n" +
-	"\bkey_name\x18\x03 \x01(\tB(\x92A%2#Unique name of the **MetaDataKey**.R\akeyName:b\x92A_\n" +
-	"]23Performs a **MetaData** task on an **ActionLabel**.\xd2\x01\vinstance_id\xd2\x01\faction_label\xd2\x01\bkey_name\"\xd3\x02\n" +
-	"\x1eInstanceActionLabelMetaDataReq\x12S\n" +
-	"\vinstance_id\x18\x01 \x01(\tB2\x92A/2-The special UUID identifying an **Instance**.R\n" +
-	"instanceId\x12O\n" +
-	"\faction_label\x18\x02 \x01(\tB,\x92A)2'The unique name of the **ActionLabel**.R\vactionLabel:\x8a\x01\x92A\x86\x01\n" +
-	"\x83\x012dHolds the properties to identify MetaData asscoiated to an **Instance** keyed by an **ActionLabel**.\xd2\x01\vinstance_id\xd2\x01\faction_label\"\xd7\x06\n" +
+	"e2BPerform a task on a value for a linked MetaData on an **Instance**\xd2\x01\vinstance_id\xd2\x01\bkey_name\xd2\x01\x05value\"\xd7\x06\n" +
 	"\x1aAddInstanceCellMetaDataReq\x12S\n" +
 	"\vinstance_id\x18\x01 \x01(\tB2\x92A/2-The special UUID identifying an **Instance**.R\n" +
 	"instanceId\x12O\n" +
@@ -11796,23 +11431,7 @@ const file_dynizer_proto_rawDesc = "" +
 	"\x17ListMetaDataKeyLinksReq\x12C\n" +
 	"\bkey_name\x18\x01 \x01(\tB(\x92A%2#Unique name of the **MetaDataKey**.R\akeyName\x12F\n" +
 	"\x06window\x18\x02 \x01(\v2\a.WindowB%\x92A\"2 Keeps limit and offset together.R\x06window:I\x92AF\n" +
-	"D27The **MetaDataKey** to list with the window for paging.\xd2\x01\bkey_name\"\x86\x06\n" +
-	"&AddInstanceActionLabelMetaDataValueReq\x12S\n" +
-	"\vinstance_id\x18\x01 \x01(\tB2\x92A/2-The special UUID identifying an **Instance**.R\n" +
-	"instanceId\x12O\n" +
-	"\faction_label\x18\x02 \x01(\tB,\x92A)2'The unique name of the **ActionLabel**.R\vactionLabel\x12C\n" +
-	"\bkey_name\x18\x03 \x01(\tB(\x92A%2#Unique name of the **MetaDataKey**.R\akeyName\x12\xb5\x01\n" +
-	"\x05value\x18\x04 \x01(\tB\x9e\x01\x92A\x9a\x012\x97\x01String representation of the value for the **MetaDataKey**.<br>To parse non standard string represetations set a proper parse-format string in *format*R\x05value\x12\xab\x01\n" +
-	"\x04spec\x18\x05 \x01(\v2\x0f.DataTypeFormatB\x85\x01\x92A\x81\x012\x7fSet this value if you want to use a different **DataType** from the default **DataType** for the values of the **MetaDataKey**.R\x04spec:\x8a\x01\x92A\x86\x01\n" +
-	"\x83\x012QHolds the properties to add a value to the MetaData to ActionLabel grouped cells.\xd2\x01\vinstance_id\xd2\x01\faction_label\xd2\x01\bkey_name\xd2\x01\x05value\"\xc7\x05\n" +
-	"#InstanceActionLabelMetaDataValueReq\x12S\n" +
-	"\vinstance_id\x18\x01 \x01(\tB2\x92A/2-The special UUID identifying an **Instance**.R\n" +
-	"instanceId\x12O\n" +
-	"\faction_label\x18\x02 \x01(\tB,\x92A)2'The unique name of the **ActionLabel**.R\vactionLabel\x12C\n" +
-	"\bkey_name\x18\x03 \x01(\tB(\x92A%2#Unique name of the **MetaDataKey**.R\akeyName\x12U\n" +
-	"\x05value\x18\x04 \x01(\tB?\x92A<2:String representation of the value of the **MetaDataKey**.R\x05value\x12\xab\x01\n" +
-	"\x04spec\x18\x05 \x01(\v2\x0f.DataTypeFormatB\x85\x01\x92A\x81\x012\x7fSet this value if you want to use a different **DataType** from the default **DataType** for the values of the **MetaDataKey**.R\x04spec:\xaf\x01\x92A\xab\x01\n" +
-	"\xa8\x012vProperties to perform an operation on a MetaData value for all the **InstanceCells** identified by an **ActionLabel**.\xd2\x01\vinstance_id\xd2\x01\faction_label\xd2\x01\bkey_name\xd2\x01\x05value\"\xfc\x06\n" +
+	"D27The **MetaDataKey** to list with the window for paging.\xd2\x01\bkey_name\"\xfc\x06\n" +
 	"\x1fInstanceCellMetaDataKeyValueReq\x12S\n" +
 	"\vinstance_id\x18\x01 \x01(\tB2\x92A/2-The special UUID identifying an **Instance**.R\n" +
 	"instanceId\x12O\n" +
@@ -12445,7 +12064,7 @@ const file_dynizer_proto_rawDesc = "" +
 	"\vDQL_Prepare\x10\x11\x12\x0f\n" +
 	"\vDQL_Execute\x10\x12\x12\x12\n" +
 	"\x0eDQL_Deallocate\x10\x13\x12\x0f\n" +
-	"\vDQL_Explain\x10\x142\xf8\xdf\x01\n" +
+	"\vDQL_Explain\x10\x142\xa3\xd2\x01\n" +
 	"\aDynizer\x12\x81\x02\n" +
 	"\x05Login\x12\t.LoginReq\x1a\t.LoginRes\"\xe1\x01\x92A\xc5\x01\n" +
 	"\x04Auth\x1a\xb3\x01Authenticate with username and password.<br>On success returns a [JSON Web Token](https://jwt.io/) [(RFC 7519)](https://tools.ietf.org/html/rfc7519) to authorize subsequent calls.*\x05Loginb\x00\x82\xd3\xe4\x93\x02\x12:\x01*\"\r/api/v2/login\x12\xce\x02\n" +
@@ -12645,19 +12264,7 @@ const file_dynizer_proto_rawDesc = "" +
 	"\x12Instances MetaData\x1asCount values set for a **MetaDataKey** on an **Instance**.<br>Experimental: interface may change in a minor update.*\x1eCountInstanceMetaDataKeyValues\x82\xd3\xe4\x93\x02K\x12I/api/v2/metadata/instances/{instance_id}/keys/{key_name}/values/all/count\x12\xab\x02\n" +
 	"\x14ListInstanceMetaData\x12\f.InstanceReq\x1a\x18.ListInstanceMetaDataRes\"\xea\x01\x92A\xb1\x01\n" +
 	"\bMetaData\n" +
-	"\x12Instances MetaData\x1a{List **MetaDataKeys** linked to an **Instance** with their values.<br>Experimental: interface may change in a minor update.*\x14ListInstanceMetaData\x82\xd3\xe4\x93\x02/\x12-/api/v2/metadata/instances/{instance_id}/keys\x12\xff\x02\n" +
-	"\x1eAddInstanceActionLabelMetaData\x12\".AddInstanceActionLabelMetaDataReq\x1a\t.EmptyRes\"\xad\x02\x92A\xda\x01\n" +
-	"\bMetaData\n" +
-	"\x1fInstances ActionLabels MetaData\x1a\x8c\x01Add a **MetaDataKey** and values to all **InstanceCells** under an **ActionLabel**.<br>Experimental: interface may change in a minor update.*\x1eAddInstanceActionLabelMetaData\x82\xd3\xe4\x93\x02I:\x01*\"D/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}\x12\x9f\x03\n" +
-	"!RemoveInstanceActionLabelMetaData\x12\".InstanceActionLabelMetaDataKeyReq\x1a\t.EmptyRes\"\xca\x02\x92A\xea\x01\n" +
-	"\bMetaData\n" +
-	"\x1fInstances ActionLabels MetaData\x1a\x99\x01Remove a **MetaDataKey** and all its values from all **InstanceCells** under an **ActionLabel**.<br>Experimental: interface may change in a minor update.*!RemoveInstanceActionLabelMetaData\x82\xd3\xe4\x93\x02V*T/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/keys/{key_name}\x12\xd2\x03\n" +
-	"#AddInstanceActionLabelMetaDataValue\x12'.AddInstanceActionLabelMetaDataValueReq\x1a\t.EmptyRes\"\xf6\x02\x92A\x8c\x02\n" +
-	"\bMetaData\n" +
-	"\x1fInstances ActionLabels MetaData\x1a\xb9\x01Add another value to a **MetaDataKey** across all **InstanceCells** under an **ActionLabel**.<br>Fails if the value already exists. Experimental: interface may change in a minor update.*#AddInstanceActionLabelMetaDataValue\x82\xd3\xe4\x93\x02`:\x01*\"[/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/keys/{key_name}/values\x12\xd9\x03\n" +
-	"&RemoveInstanceActionLabelMetaDataValue\x12$.InstanceActionLabelMetaDataValueReq\x1a\t.EmptyRes\"\xfd\x02\x92A\x8e\x02\n" +
-	"\bMetaData\n" +
-	"\x1fInstances ActionLabels MetaData\x1a\xb8\x01Remove a value from a **MetaDataKey** across all **InstanceCells** under an **ActionLabel**.<br>Fails if the value is not present. Experimental: interface may change in a minor update.*&RemoveInstanceActionLabelMetaDataValue\x82\xd3\xe4\x93\x02e*c/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/keys/{key_name}/values/{value}\x12\xe9\x02\n" +
+	"\x12Instances MetaData\x1a{List **MetaDataKeys** linked to an **Instance** with their values.<br>Experimental: interface may change in a minor update.*\x14ListInstanceMetaData\x82\xd3\xe4\x93\x02/\x12-/api/v2/metadata/instances/{instance_id}/keys\x12\xe9\x02\n" +
 	"\x17AddInstanceCellMetaData\x12\x1b.AddInstanceCellMetaDataReq\x1a\t.EmptyRes\"\xa5\x02\x92A\xb8\x01\n" +
 	"\bMetaData\n" +
 	"\x18Instances Cells MetaData\x1ayAdd a **MetaDataKey** and values to a specific **InstanceCell**.<br>Experimental: interface may change in a minor update.*\x17AddInstanceCellMetaData\x82\xd3\xe4\x93\x02c:\x01*\"^/api/v2/metadata/instances/{instance_id}/actionlabels/{action_label}/position/{value_position}\x12\x8a\x03\n" +
@@ -12737,7 +12344,7 @@ const file_dynizer_proto_rawDesc = "" +
 	"\n" +
 	"ChatStream\x12\b.ChatReq\x1a\x10.ChatStreamEvent\"\xb0\x01\x92A\xac\x01\n" +
 	"\fExperimental\x1a\x8f\x01Send a chat message and receive a stream of events: tool calls, pipeline stages, per-token content, critic verdicts, and a terminal done event.*\n" +
-	"ChatStream0\x01B\xe0\f\x92A\xbb\f\n" +
+	"ChatStream0\x01B\xbb\f\x92A\x96\f\n" +
 	"\x032.0\x12\xdf\x03\n" +
 	"\vDynizer API\x12\xd7\x01Public API for the Dynizer knowledge engine.<br>All endpoints are under `/api/v2`, secured with JWT unless stated otherwise.<br>See the [Dynizer overview](https://www.consono.ai/technology) for architecture details.\"5\n" +
 	"\aConsono\x12\x16https://www.consono.ai\x1a\x12support@consono.ai2\x032.2:\xb9\x01\n" +
@@ -12759,8 +12366,8 @@ const file_dynizer_proto_rawDesc = "" +
 	"\x1a\n" +
 	"\x03JWT\x12\x13\b\x02\x1a\rauthorization \x02b\t\n" +
 	"\a\n" +
-	"\x03JWT\x12\x00z\x87\a\n" +
-	"\vx-tagGroups\x12\xf7\x062\xf4\x06\n" +
+	"\x03JWT\x12\x00z\xe2\x06\n" +
+	"\vx-tagGroups\x12\xd2\x062\xcf\x06\n" +
 	"N*L\n" +
 	"\x19\n" +
 	"\x04name\x12\x11\x1a\x0fUser Management\n" +
@@ -12802,16 +12409,15 @@ const file_dynizer_proto_rawDesc = "" +
 	"\x17\n" +
 	"\x04tags\x12\x0f2\r\n" +
 	"\v\x1a\tInstances\n" +
-	"\x87\x01*\x84\x01\n" +
+	"c*a\n" +
 	"\x12\n" +
 	"\x04name\x12\n" +
 	"\x1a\bMetaData\n" +
-	"n\n" +
-	"\x04tags\x12f2d\n" +
+	"K\n" +
+	"\x04tags\x12C2A\n" +
 	"\r\x1a\vMetaDataKey\n" +
 	"\x14\x1a\x12Instances MetaData\n" +
 	"\x1a\x1a\x18Instances Cells MetaData\n" +
-	"!\x1a\x1fInstances ActionLabels MetaData\n" +
 	"(*&\n" +
 	"\x0f\n" +
 	"\x04name\x12\a\x1a\x05Query\n" +
@@ -12875,7 +12481,7 @@ func file_dynizer_proto_rawDescGZIP() []byte {
 }
 
 var file_dynizer_proto_enumTypes = make([]protoimpl.EnumInfo, 6)
-var file_dynizer_proto_msgTypes = make([]protoimpl.MessageInfo, 182)
+var file_dynizer_proto_msgTypes = make([]protoimpl.MessageInfo, 177)
 var file_dynizer_proto_goTypes = []any{
 	(ComponentType)(0),                             // 0: ComponentType
 	(DataType)(0),                                  // 1: DataType
@@ -12952,132 +12558,127 @@ var file_dynizer_proto_goTypes = []any{
 	(*AddInstanceMetaDataValueReq)(nil),            // 72: AddInstanceMetaDataValueReq
 	(*InstanceMetaDataKeyReq)(nil),                 // 73: InstanceMetaDataKeyReq
 	(*InstanceMetaDataKeyValueReq)(nil),            // 74: InstanceMetaDataKeyValueReq
-	(*AddInstanceActionLabelMetaDataReq)(nil),      // 75: AddInstanceActionLabelMetaDataReq
-	(*InstanceActionLabelMetaDataKeyReq)(nil),      // 76: InstanceActionLabelMetaDataKeyReq
-	(*InstanceActionLabelMetaDataReq)(nil),         // 77: InstanceActionLabelMetaDataReq
-	(*AddInstanceCellMetaDataReq)(nil),             // 78: AddInstanceCellMetaDataReq
-	(*InstanceCellMetaDataKeyReq)(nil),             // 79: InstanceCellMetaDataKeyReq
-	(*InstanceCellMetaDataReq)(nil),                // 80: InstanceCellMetaDataReq
-	(*StatsMetaDataKeyUsageReq)(nil),               // 81: StatsMetaDataKeyUsageReq
-	(*StatsMetaDataKeyValueUsageReq)(nil),          // 82: StatsMetaDataKeyValueUsageReq
-	(*ListMetaDataKeyLinksReq)(nil),                // 83: ListMetaDataKeyLinksReq
-	(*AddInstanceActionLabelMetaDataValueReq)(nil), // 84: AddInstanceActionLabelMetaDataValueReq
-	(*InstanceActionLabelMetaDataValueReq)(nil),    // 85: InstanceActionLabelMetaDataValueReq
-	(*InstanceCellMetaDataKeyValueReq)(nil),        // 86: InstanceCellMetaDataKeyValueReq
-	(*AddInstanceCellMetaDataValueReq)(nil),        // 87: AddInstanceCellMetaDataValueReq
-	(*MetaDataValue)(nil),                          // 88: MetaDataValue
-	(*InstanceElement)(nil),                        // 89: InstanceElement
-	(*ValueSpec)(nil),                              // 90: ValueSpec
-	(*InstanceElementMetaData)(nil),                // 91: InstanceElementMetaData
-	(*MetaDataKeyValue)(nil),                       // 92: MetaDataKeyValue
-	(*DataTypeFormat)(nil),                         // 93: DataTypeFormat
-	(*InstanceUpdateElementCell)(nil),              // 94: InstanceUpdateElementCell
-	(*EmptyRes)(nil),                               // 95: EmptyRes
-	(*LoginRes)(nil),                               // 96: LoginRes
-	(*ServiceTokenRes)(nil),                        // 97: ServiceTokenRes
-	(*UserRes)(nil),                                // 98: UserRes
-	(*ListUsersRes)(nil),                           // 99: ListUsersRes
-	(*ActionNameArrayRes)(nil),                     // 100: ActionNameArrayRes
-	(*LabelRes)(nil),                               // 101: LabelRes
-	(*InstanceIDRes)(nil),                          // 102: InstanceIDRes
-	(*StreamInstanceIDRes)(nil),                    // 103: StreamInstanceIDRes
-	(*InstanceRes)(nil),                            // 104: InstanceRes
-	(*CountRes)(nil),                               // 105: CountRes
-	(*UserCountRes)(nil),                           // 106: UserCountRes
-	(*DQLRes)(nil),                                 // 107: DQLRes
-	(*ListRolesRes)(nil),                           // 108: ListRolesRes
-	(*ListUserRolesRes)(nil),                       // 109: ListUserRolesRes
-	(*MetaDataKeyRes)(nil),                         // 110: MetaDataKeyRes
-	(*MetaDataKeyArrayRes)(nil),                    // 111: MetaDataKeyArrayRes
-	(*ListInstanceMetaDataRes)(nil),                // 112: ListInstanceMetaDataRes
-	(*GetInstanceMetaDataKeyRes)(nil),              // 113: GetInstanceMetaDataKeyRes
-	(*ListInstanceCellMetaDataRes)(nil),            // 114: ListInstanceCellMetaDataRes
-	(*GetInstanceCellMetaDataKeyRes)(nil),          // 115: GetInstanceCellMetaDataKeyRes
-	(*StatsMetaUsageRes)(nil),                      // 116: StatsMetaUsageRes
-	(*CheckPasswordRes)(nil),                       // 117: CheckPasswordRes
-	(*DynizerRole)(nil),                            // 118: DynizerRole
-	(*User)(nil),                                   // 119: User
-	(*DDLResult)(nil),                              // 120: DDLResult
-	(*SelectDQLResult)(nil),                        // 121: SelectDQLResult
-	(*ResultLabel)(nil),                            // 122: ResultLabel
-	(*ResultLabelWithOverride)(nil),                // 123: ResultLabelWithOverride
-	(*ResultValueAlternativeMetaDataPosition)(nil), // 124: ResultValueAlternativeMetaDataPosition
-	(*ResultRow)(nil),                              // 125: ResultRow
-	(*Action)(nil),                                 // 126: Action
-	(*ObjectRef)(nil),                              // 127: ObjectRef
-	(*ActionLabel)(nil),                            // 128: ActionLabel
-	(*MetaDataKey)(nil),                            // 129: MetaDataKey
-	(*MetaDataOut)(nil),                            // 130: MetaDataOut
-	(*MetaDataRecord)(nil),                         // 131: MetaDataRecord
-	(*Window)(nil),                                 // 132: Window
-	(*DQLParam)(nil),                               // 133: DQLParam
-	(*SessionID)(nil),                              // 134: SessionID
-	(*ConfigKV)(nil),                               // 135: ConfigKV
-	(*GetDynizerConfigurationRes)(nil),             // 136: GetDynizerConfigurationRes
-	(*ExportUserActionsReq)(nil),                   // 137: ExportUserActionsReq
-	(*ExportUserActionsRes)(nil),                   // 138: ExportUserActionsRes
-	(*ImportUserActionsReq)(nil),                   // 139: ImportUserActionsReq
-	(*ActionLabelSelector)(nil),                    // 140: ActionLabelSelector
-	(*VersionRes)(nil),                             // 141: VersionRes
-	(*InstanceFilter)(nil),                         // 142: InstanceFilter
-	(*QueryDataElementsReq)(nil),                   // 143: QueryDataElementsReq
-	(*GetTopNDataElementsReq)(nil),                 // 144: GetTopNDataElementsReq
-	(*GetTopNDataElementsRes)(nil),                 // 145: GetTopNDataElementsRes
-	(*PlotRes)(nil),                                // 146: PlotRes
-	(*FilterQueryReq)(nil),                         // 147: FilterQueryReq
-	(*FilteredPlotReq)(nil),                        // 148: FilteredPlotReq
-	(*ComponentTypeUsage)(nil),                     // 149: ComponentTypeUsage
-	(*TopNDataElement)(nil),                        // 150: TopNDataElement
-	(*DataElement)(nil),                            // 151: DataElement
-	(*QueryDataElementsRes)(nil),                   // 152: QueryDataElementsRes
-	(*ReIndexReq)(nil),                             // 153: ReIndexReq
-	(*CreateShareNameReq)(nil),                     // 154: CreateShareNameReq
-	(*UpdateShareNameValueReq)(nil),                // 155: UpdateShareNameValueReq
-	(*DeleteShareNameValueReq)(nil),                // 156: DeleteShareNameValueReq
-	(*BulkInstanceInsertStartReq)(nil),             // 157: BulkInstanceInsertStartReq
-	(*BuilInstanceInsertRes)(nil),                  // 158: BuilInstanceInsertRes
-	(*BulkInstanceInsertDataReq)(nil),              // 159: BulkInstanceInsertDataReq
-	(*BulkInstanceInsertCloseReq)(nil),             // 160: BulkInstanceInsertCloseReq
-	(*QueryResultRes)(nil),                         // 161: QueryResultRes
-	(*QueryExecuteRes)(nil),                        // 162: QueryExecuteRes
-	(*SimpleSelectResult)(nil),                     // 163: SimpleSelectResult
-	(*SimpleQueryResItem)(nil),                     // 164: SimpleQueryResItem
-	(*SimpleQueryRes)(nil),                         // 165: SimpleQueryRes
-	(*QueryParseReq)(nil),                          // 166: QueryParseReq
-	(*QueryBindReq)(nil),                           // 167: QueryBindReq
-	(*QueryDescribeStatementReq)(nil),              // 168: QueryDescribeStatementReq
-	(*QueryDescribePortalReq)(nil),                 // 169: QueryDescribePortalReq
-	(*QueryDescribeStatementRes)(nil),              // 170: QueryDescribeStatementRes
-	(*QueryDescribePortalRes)(nil),                 // 171: QueryDescribePortalRes
-	(*QueryExecuteReq)(nil),                        // 172: QueryExecuteReq
-	(*QueryCloseReq)(nil),                          // 173: QueryCloseReq
-	(*QueryCancelReq)(nil),                         // 174: QueryCancelReq
-	(*DQLParamDescription)(nil),                    // 175: DQLParamDescription
-	(*FindActionLabelLinksReq)(nil),                // 176: FindActionLabelLinksReq
-	(*FindActionLabelLinksRes)(nil),                // 177: FindActionLabelLinksRes
-	(*ActionNameActionLabelName)(nil),              // 178: ActionNameActionLabelName
-	(*ActionLabelLink)(nil),                        // 179: ActionLabelLink
-	(*ChatMessage)(nil),                            // 180: ChatMessage
-	(*ChatReq)(nil),                                // 181: ChatReq
-	(*ChatRes)(nil),                                // 182: ChatRes
-	(*ChatToolCall)(nil),                           // 183: ChatToolCall
-	(*ChatStreamEvent)(nil),                        // 184: ChatStreamEvent
-	(*ChatCriticEvent)(nil),                        // 185: ChatCriticEvent
-	(*ChatStageEvent)(nil),                         // 186: ChatStageEvent
-	(*ChatDoneEvent)(nil),                          // 187: ChatDoneEvent
+	(*AddInstanceCellMetaDataReq)(nil),             // 75: AddInstanceCellMetaDataReq
+	(*InstanceCellMetaDataKeyReq)(nil),             // 76: InstanceCellMetaDataKeyReq
+	(*InstanceCellMetaDataReq)(nil),                // 77: InstanceCellMetaDataReq
+	(*StatsMetaDataKeyUsageReq)(nil),               // 78: StatsMetaDataKeyUsageReq
+	(*StatsMetaDataKeyValueUsageReq)(nil),          // 79: StatsMetaDataKeyValueUsageReq
+	(*ListMetaDataKeyLinksReq)(nil),                // 80: ListMetaDataKeyLinksReq
+	(*InstanceCellMetaDataKeyValueReq)(nil),        // 81: InstanceCellMetaDataKeyValueReq
+	(*AddInstanceCellMetaDataValueReq)(nil),        // 82: AddInstanceCellMetaDataValueReq
+	(*MetaDataValue)(nil),                          // 83: MetaDataValue
+	(*InstanceElement)(nil),                        // 84: InstanceElement
+	(*ValueSpec)(nil),                              // 85: ValueSpec
+	(*InstanceElementMetaData)(nil),                // 86: InstanceElementMetaData
+	(*MetaDataKeyValue)(nil),                       // 87: MetaDataKeyValue
+	(*DataTypeFormat)(nil),                         // 88: DataTypeFormat
+	(*InstanceUpdateElementCell)(nil),              // 89: InstanceUpdateElementCell
+	(*EmptyRes)(nil),                               // 90: EmptyRes
+	(*LoginRes)(nil),                               // 91: LoginRes
+	(*ServiceTokenRes)(nil),                        // 92: ServiceTokenRes
+	(*UserRes)(nil),                                // 93: UserRes
+	(*ListUsersRes)(nil),                           // 94: ListUsersRes
+	(*ActionNameArrayRes)(nil),                     // 95: ActionNameArrayRes
+	(*LabelRes)(nil),                               // 96: LabelRes
+	(*InstanceIDRes)(nil),                          // 97: InstanceIDRes
+	(*StreamInstanceIDRes)(nil),                    // 98: StreamInstanceIDRes
+	(*InstanceRes)(nil),                            // 99: InstanceRes
+	(*CountRes)(nil),                               // 100: CountRes
+	(*UserCountRes)(nil),                           // 101: UserCountRes
+	(*DQLRes)(nil),                                 // 102: DQLRes
+	(*ListRolesRes)(nil),                           // 103: ListRolesRes
+	(*ListUserRolesRes)(nil),                       // 104: ListUserRolesRes
+	(*MetaDataKeyRes)(nil),                         // 105: MetaDataKeyRes
+	(*MetaDataKeyArrayRes)(nil),                    // 106: MetaDataKeyArrayRes
+	(*ListInstanceMetaDataRes)(nil),                // 107: ListInstanceMetaDataRes
+	(*GetInstanceMetaDataKeyRes)(nil),              // 108: GetInstanceMetaDataKeyRes
+	(*ListInstanceCellMetaDataRes)(nil),            // 109: ListInstanceCellMetaDataRes
+	(*GetInstanceCellMetaDataKeyRes)(nil),          // 110: GetInstanceCellMetaDataKeyRes
+	(*StatsMetaUsageRes)(nil),                      // 111: StatsMetaUsageRes
+	(*CheckPasswordRes)(nil),                       // 112: CheckPasswordRes
+	(*DynizerRole)(nil),                            // 113: DynizerRole
+	(*User)(nil),                                   // 114: User
+	(*DDLResult)(nil),                              // 115: DDLResult
+	(*SelectDQLResult)(nil),                        // 116: SelectDQLResult
+	(*ResultLabel)(nil),                            // 117: ResultLabel
+	(*ResultLabelWithOverride)(nil),                // 118: ResultLabelWithOverride
+	(*ResultValueAlternativeMetaDataPosition)(nil), // 119: ResultValueAlternativeMetaDataPosition
+	(*ResultRow)(nil),                              // 120: ResultRow
+	(*Action)(nil),                                 // 121: Action
+	(*ObjectRef)(nil),                              // 122: ObjectRef
+	(*ActionLabel)(nil),                            // 123: ActionLabel
+	(*MetaDataKey)(nil),                            // 124: MetaDataKey
+	(*MetaDataOut)(nil),                            // 125: MetaDataOut
+	(*MetaDataRecord)(nil),                         // 126: MetaDataRecord
+	(*Window)(nil),                                 // 127: Window
+	(*DQLParam)(nil),                               // 128: DQLParam
+	(*SessionID)(nil),                              // 129: SessionID
+	(*ConfigKV)(nil),                               // 130: ConfigKV
+	(*GetDynizerConfigurationRes)(nil),             // 131: GetDynizerConfigurationRes
+	(*ExportUserActionsReq)(nil),                   // 132: ExportUserActionsReq
+	(*ExportUserActionsRes)(nil),                   // 133: ExportUserActionsRes
+	(*ImportUserActionsReq)(nil),                   // 134: ImportUserActionsReq
+	(*ActionLabelSelector)(nil),                    // 135: ActionLabelSelector
+	(*VersionRes)(nil),                             // 136: VersionRes
+	(*InstanceFilter)(nil),                         // 137: InstanceFilter
+	(*QueryDataElementsReq)(nil),                   // 138: QueryDataElementsReq
+	(*GetTopNDataElementsReq)(nil),                 // 139: GetTopNDataElementsReq
+	(*GetTopNDataElementsRes)(nil),                 // 140: GetTopNDataElementsRes
+	(*PlotRes)(nil),                                // 141: PlotRes
+	(*FilterQueryReq)(nil),                         // 142: FilterQueryReq
+	(*FilteredPlotReq)(nil),                        // 143: FilteredPlotReq
+	(*ComponentTypeUsage)(nil),                     // 144: ComponentTypeUsage
+	(*TopNDataElement)(nil),                        // 145: TopNDataElement
+	(*DataElement)(nil),                            // 146: DataElement
+	(*QueryDataElementsRes)(nil),                   // 147: QueryDataElementsRes
+	(*ReIndexReq)(nil),                             // 148: ReIndexReq
+	(*CreateShareNameReq)(nil),                     // 149: CreateShareNameReq
+	(*UpdateShareNameValueReq)(nil),                // 150: UpdateShareNameValueReq
+	(*DeleteShareNameValueReq)(nil),                // 151: DeleteShareNameValueReq
+	(*BulkInstanceInsertStartReq)(nil),             // 152: BulkInstanceInsertStartReq
+	(*BuilInstanceInsertRes)(nil),                  // 153: BuilInstanceInsertRes
+	(*BulkInstanceInsertDataReq)(nil),              // 154: BulkInstanceInsertDataReq
+	(*BulkInstanceInsertCloseReq)(nil),             // 155: BulkInstanceInsertCloseReq
+	(*QueryResultRes)(nil),                         // 156: QueryResultRes
+	(*QueryExecuteRes)(nil),                        // 157: QueryExecuteRes
+	(*SimpleSelectResult)(nil),                     // 158: SimpleSelectResult
+	(*SimpleQueryResItem)(nil),                     // 159: SimpleQueryResItem
+	(*SimpleQueryRes)(nil),                         // 160: SimpleQueryRes
+	(*QueryParseReq)(nil),                          // 161: QueryParseReq
+	(*QueryBindReq)(nil),                           // 162: QueryBindReq
+	(*QueryDescribeStatementReq)(nil),              // 163: QueryDescribeStatementReq
+	(*QueryDescribePortalReq)(nil),                 // 164: QueryDescribePortalReq
+	(*QueryDescribeStatementRes)(nil),              // 165: QueryDescribeStatementRes
+	(*QueryDescribePortalRes)(nil),                 // 166: QueryDescribePortalRes
+	(*QueryExecuteReq)(nil),                        // 167: QueryExecuteReq
+	(*QueryCloseReq)(nil),                          // 168: QueryCloseReq
+	(*QueryCancelReq)(nil),                         // 169: QueryCancelReq
+	(*DQLParamDescription)(nil),                    // 170: DQLParamDescription
+	(*FindActionLabelLinksReq)(nil),                // 171: FindActionLabelLinksReq
+	(*FindActionLabelLinksRes)(nil),                // 172: FindActionLabelLinksRes
+	(*ActionNameActionLabelName)(nil),              // 173: ActionNameActionLabelName
+	(*ActionLabelLink)(nil),                        // 174: ActionLabelLink
+	(*ChatMessage)(nil),                            // 175: ChatMessage
+	(*ChatReq)(nil),                                // 176: ChatReq
+	(*ChatRes)(nil),                                // 177: ChatRes
+	(*ChatToolCall)(nil),                           // 178: ChatToolCall
+	(*ChatStreamEvent)(nil),                        // 179: ChatStreamEvent
+	(*ChatCriticEvent)(nil),                        // 180: ChatCriticEvent
+	(*ChatStageEvent)(nil),                         // 181: ChatStageEvent
+	(*ChatDoneEvent)(nil),                          // 182: ChatDoneEvent
 }
 var file_dynizer_proto_depIdxs = []int32{
 	7,   // 0: ErrorMeta.args:type_name -> ErrorArg
 	7,   // 1: ErrorResponse.args:type_name -> ErrorArg
-	118, // 2: AddUserReq.roles:type_name -> DynizerRole
-	118, // 3: UserRoleReq.role:type_name -> DynizerRole
-	132, // 4: WindowReq.window:type_name -> Window
-	132, // 5: ListActionNamesWindowReq.window:type_name -> Window
+	113, // 2: AddUserReq.roles:type_name -> DynizerRole
+	113, // 3: UserRoleReq.role:type_name -> DynizerRole
+	127, // 4: WindowReq.window:type_name -> Window
+	127, // 5: ListActionNamesWindowReq.window:type_name -> Window
 	4,   // 6: ListActionNamesWindowReq.order_field:type_name -> OrderField
 	3,   // 7: ListActionNamesWindowReq.order_direction:type_name -> SortOrder
-	128, // 8: CreateActionReq.action_labels:type_name -> ActionLabel
+	123, // 8: CreateActionReq.action_labels:type_name -> ActionLabel
 	22,  // 9: UpdateActionReq.new_action_name:type_name -> ActionName
-	126, // 10: ActionRes.action:type_name -> Action
+	121, // 10: ActionRes.action:type_name -> Action
 	28,  // 11: UpdateActionTypeReq.new_action_type_label:type_name -> ActionTypeLabel
 	0,   // 12: AddActionLabelReq.component:type_name -> ComponentType
 	1,   // 13: AddActionLabelReq.default_data_type:type_name -> DataType
@@ -13085,369 +12686,358 @@ var file_dynizer_proto_depIdxs = []int32{
 	1,   // 15: UpdateActionLabelReq.default_data_type:type_name -> DataType
 	1,   // 16: UpdateActionLabelReq.alternative_data_types:type_name -> DataType
 	2,   // 17: CreateObjectReq.type:type_name -> ObjectDataType
-	127, // 18: ObjectRes.object_ref:type_name -> ObjectRef
+	122, // 18: ObjectRes.object_ref:type_name -> ObjectRef
 	2,   // 19: ClearObjectDataReq.type:type_name -> ObjectDataType
-	127, // 20: ClearObjectDataReq.object_ref:type_name -> ObjectRef
-	127, // 21: DeleteObjectReq.object_ref:type_name -> ObjectRef
-	127, // 22: StreamObjectDataInReq.object_ref:type_name -> ObjectRef
+	122, // 20: ClearObjectDataReq.object_ref:type_name -> ObjectRef
+	122, // 21: DeleteObjectReq.object_ref:type_name -> ObjectRef
+	122, // 22: StreamObjectDataInReq.object_ref:type_name -> ObjectRef
 	2,   // 23: StreamObjectDataOutReq.type:type_name -> ObjectDataType
-	127, // 24: StreamObjectDataOutReq.object_ref:type_name -> ObjectRef
-	127, // 25: DownloadObjectDataReq.object_ref:type_name -> ObjectRef
-	127, // 26: UploadObjectDataReq.object_ref:type_name -> ObjectRef
-	89,  // 27: CreateInstanceReq.instance_elements:type_name -> InstanceElement
-	92,  // 28: CreateInstanceReq.instance_metadata:type_name -> MetaDataKeyValue
+	122, // 24: StreamObjectDataOutReq.object_ref:type_name -> ObjectRef
+	122, // 25: DownloadObjectDataReq.object_ref:type_name -> ObjectRef
+	122, // 26: UploadObjectDataReq.object_ref:type_name -> ObjectRef
+	84,  // 27: CreateInstanceReq.instance_elements:type_name -> InstanceElement
+	87,  // 28: CreateInstanceReq.instance_metadata:type_name -> MetaDataKeyValue
 	56,  // 29: StreamInstanceReq.instance:type_name -> CreateInstanceReq
-	94,  // 30: UpdateInstanceReq.instance_cell_elements:type_name -> InstanceUpdateElementCell
-	132, // 31: ReadActionInstancesReq.window:type_name -> Window
-	133, // 32: DQLReq.parameters:type_name -> DQLParam
-	132, // 33: QueryResultReq.window:type_name -> Window
+	89,  // 30: UpdateInstanceReq.instance_cell_elements:type_name -> InstanceUpdateElementCell
+	127, // 31: ReadActionInstancesReq.window:type_name -> Window
+	128, // 32: DQLReq.parameters:type_name -> DQLParam
+	127, // 33: QueryResultReq.window:type_name -> Window
 	1,   // 34: CreateMetaDataKeyReq.default_data_type:type_name -> DataType
 	1,   // 35: CreateMetaDataKeyReq.alternative_data_types:type_name -> DataType
 	1,   // 36: UpdateMetaDataKeyReq.default_data_type:type_name -> DataType
 	1,   // 37: UpdateMetaDataKeyReq.alternative_data_types:type_name -> DataType
-	132, // 38: ListMetaDataKeysReq.window:type_name -> Window
-	90,  // 39: AddInstanceMetaDataReq.specs:type_name -> ValueSpec
-	93,  // 40: AddInstanceMetaDataValueReq.spec:type_name -> DataTypeFormat
-	93,  // 41: InstanceMetaDataKeyValueReq.spec:type_name -> DataTypeFormat
-	90,  // 42: AddInstanceActionLabelMetaDataReq.specs:type_name -> ValueSpec
-	90,  // 43: AddInstanceCellMetaDataReq.specs:type_name -> ValueSpec
-	93,  // 44: StatsMetaDataKeyValueUsageReq.spec:type_name -> DataTypeFormat
-	132, // 45: ListMetaDataKeyLinksReq.window:type_name -> Window
-	93,  // 46: AddInstanceActionLabelMetaDataValueReq.spec:type_name -> DataTypeFormat
-	93,  // 47: InstanceActionLabelMetaDataValueReq.spec:type_name -> DataTypeFormat
-	93,  // 48: InstanceCellMetaDataKeyValueReq.spec:type_name -> DataTypeFormat
-	93,  // 49: AddInstanceCellMetaDataValueReq.spec:type_name -> DataTypeFormat
-	88,  // 50: MetaDataValue.value:type_name -> MetaDataValue
-	1,   // 51: MetaDataValue.data_type:type_name -> DataType
-	90,  // 52: InstanceElement.specs:type_name -> ValueSpec
-	91,  // 53: InstanceElement.meta_data:type_name -> InstanceElementMetaData
-	93,  // 54: ValueSpec.override:type_name -> DataTypeFormat
-	92,  // 55: InstanceElementMetaData.meta_data_key_values:type_name -> MetaDataKeyValue
-	90,  // 56: MetaDataKeyValue.specs:type_name -> ValueSpec
-	1,   // 57: DataTypeFormat.data_type:type_name -> DataType
-	93,  // 58: InstanceUpdateElementCell.override:type_name -> DataTypeFormat
-	118, // 59: LoginRes.roles:type_name -> DynizerRole
-	119, // 60: UserRes.user:type_name -> User
-	119, // 61: ListUsersRes.users:type_name -> User
-	128, // 62: LabelRes.action_label:type_name -> ActionLabel
-	8,   // 63: StreamInstanceIDRes.error:type_name -> ErrorResponse
-	122, // 64: InstanceRes.action_labels:type_name -> ResultLabel
-	124, // 65: InstanceRes.alternative_data_types:type_name -> ResultValueAlternativeMetaDataPosition
-	121, // 66: DQLRes.select_result:type_name -> SelectDQLResult
-	118, // 67: ListRolesRes.roles:type_name -> DynizerRole
-	118, // 68: ListUserRolesRes.roles:type_name -> DynizerRole
-	129, // 69: MetaDataKeyRes.meta_data_key:type_name -> MetaDataKey
-	129, // 70: MetaDataKeyArrayRes.meta_data_keys:type_name -> MetaDataKey
-	130, // 71: ListInstanceMetaDataRes.meta_data:type_name -> MetaDataOut
-	130, // 72: GetInstanceMetaDataKeyRes.meta_data:type_name -> MetaDataOut
-	130, // 73: ListInstanceCellMetaDataRes.meta_data:type_name -> MetaDataOut
-	130, // 74: GetInstanceCellMetaDataKeyRes.meta_data:type_name -> MetaDataOut
-	118, // 75: User.roles:type_name -> DynizerRole
-	122, // 76: SelectDQLResult.result_labels:type_name -> ResultLabel
-	0,   // 77: ResultLabel.component_type:type_name -> ComponentType
-	1,   // 78: ResultLabel.default_data_type:type_name -> DataType
-	0,   // 79: ResultLabelWithOverride.component_type:type_name -> ComponentType
-	1,   // 80: ResultLabelWithOverride.default_data_type:type_name -> DataType
-	1,   // 81: ResultLabelWithOverride.override_data_type:type_name -> DataType
-	1,   // 82: ResultValueAlternativeMetaDataPosition.data_type:type_name -> DataType
-	128, // 83: Action.action_labels:type_name -> ActionLabel
-	2,   // 84: ObjectRef.type:type_name -> ObjectDataType
-	0,   // 85: ActionLabel.component:type_name -> ComponentType
-	1,   // 86: ActionLabel.default_data_type:type_name -> DataType
-	1,   // 87: ActionLabel.alternative_data_types:type_name -> DataType
-	1,   // 88: MetaDataKey.default_data_type:type_name -> DataType
-	1,   // 89: MetaDataKey.alternative_data_types:type_name -> DataType
-	131, // 90: MetaDataOut.meta_data_key_value:type_name -> MetaDataRecord
-	1,   // 91: MetaDataRecord.data_type:type_name -> DataType
-	93,  // 92: DQLParam.spec:type_name -> DataTypeFormat
-	135, // 93: GetDynizerConfigurationRes.config_key_values:type_name -> ConfigKV
-	126, // 94: ExportUserActionsRes.actions:type_name -> Action
-	126, // 95: ImportUserActionsReq.actions:type_name -> Action
-	0,   // 96: InstanceFilter.component_type:type_name -> ComponentType
-	1,   // 97: QueryDataElementsReq.data_types:type_name -> DataType
-	142, // 98: QueryDataElementsReq.filters:type_name -> InstanceFilter
-	0,   // 99: QueryDataElementsReq.component_types:type_name -> ComponentType
-	1,   // 100: GetTopNDataElementsReq.data_types:type_name -> DataType
-	0,   // 101: GetTopNDataElementsReq.component_types:type_name -> ComponentType
-	142, // 102: GetTopNDataElementsReq.filters:type_name -> InstanceFilter
-	150, // 103: GetTopNDataElementsRes.who:type_name -> TopNDataElement
-	150, // 104: GetTopNDataElementsRes.what:type_name -> TopNDataElement
-	150, // 105: GetTopNDataElementsRes.where:type_name -> TopNDataElement
-	150, // 106: GetTopNDataElementsRes.when:type_name -> TopNDataElement
-	142, // 107: FilterQueryReq.filters:type_name -> InstanceFilter
-	1,   // 108: FilteredPlotReq.data_types:type_name -> DataType
-	0,   // 109: FilteredPlotReq.component_types:type_name -> ComponentType
-	142, // 110: FilteredPlotReq.filters:type_name -> InstanceFilter
-	0,   // 111: ComponentTypeUsage.component_type:type_name -> ComponentType
-	1,   // 112: TopNDataElement.data_type:type_name -> DataType
-	1,   // 113: DataElement.data_type:type_name -> DataType
-	149, // 114: DataElement.by_component_type:type_name -> ComponentTypeUsage
-	151, // 115: QueryDataElementsRes.dataelements:type_name -> DataElement
-	1,   // 116: UpdateShareNameValueReq.data_type:type_name -> DataType
-	1,   // 117: DeleteShareNameValueReq.data_type:type_name -> DataType
-	125, // 118: QueryResultRes.rows:type_name -> ResultRow
-	124, // 119: QueryResultRes.alternative_data_types:type_name -> ResultValueAlternativeMetaDataPosition
-	125, // 120: QueryExecuteRes.rows:type_name -> ResultRow
-	124, // 121: QueryExecuteRes.alternative_data_types:type_name -> ResultValueAlternativeMetaDataPosition
-	5,   // 122: QueryExecuteRes.type:type_name -> DQLType
-	123, // 123: SimpleSelectResult.result_labels:type_name -> ResultLabelWithOverride
-	125, // 124: SimpleSelectResult.rows:type_name -> ResultRow
-	124, // 125: SimpleSelectResult.alternative_data_types:type_name -> ResultValueAlternativeMetaDataPosition
-	163, // 126: SimpleQueryResItem.select_result:type_name -> SimpleSelectResult
-	5,   // 127: SimpleQueryResItem.type:type_name -> DQLType
-	164, // 128: SimpleQueryRes.result:type_name -> SimpleQueryResItem
-	175, // 129: QueryParseReq.parameter_descriptions:type_name -> DQLParamDescription
-	133, // 130: QueryBindReq.parameters:type_name -> DQLParam
-	123, // 131: QueryDescribeStatementRes.result_labels:type_name -> ResultLabelWithOverride
-	175, // 132: QueryDescribeStatementRes.parameter_descriptions:type_name -> DQLParamDescription
-	5,   // 133: QueryDescribeStatementRes.type:type_name -> DQLType
-	123, // 134: QueryDescribePortalRes.result_labels:type_name -> ResultLabelWithOverride
-	133, // 135: QueryDescribePortalRes.parameters:type_name -> DQLParam
-	5,   // 136: QueryDescribePortalRes.type:type_name -> DQLType
-	132, // 137: QueryExecuteReq.window:type_name -> Window
-	1,   // 138: DQLParamDescription.data_type:type_name -> DataType
-	179, // 139: FindActionLabelLinksRes.links:type_name -> ActionLabelLink
-	178, // 140: ActionLabelLink.left_action_label:type_name -> ActionNameActionLabelName
-	178, // 141: ActionLabelLink.right_action_label:type_name -> ActionNameActionLabelName
-	180, // 142: ChatReq.messages:type_name -> ChatMessage
-	183, // 143: ChatRes.tool_calls:type_name -> ChatToolCall
-	183, // 144: ChatStreamEvent.tool:type_name -> ChatToolCall
-	185, // 145: ChatStreamEvent.critic:type_name -> ChatCriticEvent
-	186, // 146: ChatStreamEvent.stage:type_name -> ChatStageEvent
-	187, // 147: ChatStreamEvent.done:type_name -> ChatDoneEvent
-	9,   // 148: Dynizer.Login:input_type -> LoginReq
-	10,  // 149: Dynizer.ServiceLogin:input_type -> ServiceLoginReq
-	39,  // 150: Dynizer.Logout:input_type -> EmptyReq
-	11,  // 151: Dynizer.ValidateToken:input_type -> TokenReq
-	39,  // 152: Dynizer.IssueServiceToken:input_type -> EmptyReq
-	39,  // 153: Dynizer.ListRoles:input_type -> EmptyReq
-	12,  // 154: Dynizer.AddUser:input_type -> AddUserReq
-	13,  // 155: Dynizer.AssignUserRole:input_type -> UserRoleReq
-	13,  // 156: Dynizer.RevokeUserRole:input_type -> UserRoleReq
-	14,  // 157: Dynizer.EnableUser:input_type -> UserReq
-	14,  // 158: Dynizer.DisableUser:input_type -> UserReq
-	18,  // 159: Dynizer.SetUserPassword:input_type -> SetUserPasswordReq
-	19,  // 160: Dynizer.ChangeMyPassword:input_type -> ChangePasswordReq
-	14,  // 161: Dynizer.GetUser:input_type -> UserReq
-	39,  // 162: Dynizer.GetMyProfile:input_type -> EmptyReq
-	14,  // 163: Dynizer.DeleteUser:input_type -> UserReq
-	39,  // 164: Dynizer.GetUserCount:input_type -> EmptyReq
-	16,  // 165: Dynizer.ListUsers:input_type -> WindowReq
-	14,  // 166: Dynizer.ListUserRoles:input_type -> UserReq
-	39,  // 167: Dynizer.GetMyRoles:input_type -> EmptyReq
-	14,  // 168: Dynizer.CheckUserName:input_type -> UserReq
-	15,  // 169: Dynizer.CheckPassword:input_type -> CheckPasswordReq
-	27,  // 170: Dynizer.CreateActionType:input_type -> CreateActionTypeReq
-	30,  // 171: Dynizer.UpdateActionType:input_type -> UpdateActionTypeReq
-	33,  // 172: Dynizer.ReadActionType:input_type -> ActionTypeReq
-	16,  // 173: Dynizer.ListActionTypes:input_type -> WindowReq
-	29,  // 174: Dynizer.CreateActionSchema:input_type -> CreateActionSchemaReq
-	31,  // 175: Dynizer.UpdateActionSchema:input_type -> UpdateActionSchemaReq
-	32,  // 176: Dynizer.DeleteActionSchema:input_type -> DeleteActionSchemaReq
-	32,  // 177: Dynizer.PurgeActionSchema:input_type -> DeleteActionSchemaReq
-	34,  // 178: Dynizer.ReadActionSchema:input_type -> ActionSchemaReq
-	16,  // 179: Dynizer.ListActionSchemas:input_type -> WindowReq
-	20,  // 180: Dynizer.CheckActionName:input_type -> CheckActionNameReq
-	21,  // 181: Dynizer.CreateAction:input_type -> CreateActionReq
-	23,  // 182: Dynizer.UpdateAction:input_type -> UpdateActionReq
-	24,  // 183: Dynizer.DeleteAction:input_type -> DeleteActionReq
-	24,  // 184: Dynizer.PurgeAction:input_type -> DeleteActionReq
-	25,  // 185: Dynizer.ReadAction:input_type -> ActionReq
-	61,  // 186: Dynizer.CountActions:input_type -> CountActionReq
-	17,  // 187: Dynizer.ListActionNames:input_type -> ListActionNamesWindowReq
-	40,  // 188: Dynizer.CheckActionLabelName:input_type -> CheckActionLabelNameReq
-	41,  // 189: Dynizer.AddActionLabel:input_type -> AddActionLabelReq
-	42,  // 190: Dynizer.UpdateActionLabel:input_type -> UpdateActionLabelReq
-	43,  // 191: Dynizer.DeleteActionLabel:input_type -> ActionLabelReq
-	43,  // 192: Dynizer.ReadActionLabel:input_type -> ActionLabelReq
-	44,  // 193: Dynizer.CreateObject:input_type -> CreateObjectReq
-	46,  // 194: Dynizer.ClearObjectData:input_type -> ClearObjectDataReq
-	47,  // 195: Dynizer.DeleteObject:input_type -> DeleteObjectReq
-	48,  // 196: Dynizer.StreamObjectDataIn:input_type -> StreamObjectDataInReq
-	49,  // 197: Dynizer.StreamObjectDataOut:input_type -> StreamObjectDataOutReq
-	54,  // 198: Dynizer.UploadObjectData:input_type -> UploadObjectDataReq
-	51,  // 199: Dynizer.DownloadObjectData:input_type -> DownloadObjectDataReq
-	51,  // 200: Dynizer.GetObjectSize:input_type -> DownloadObjectDataReq
-	39,  // 201: Dynizer.ListObjectUUIDS:input_type -> EmptyReq
-	39,  // 202: Dynizer.DeleteAllObjects:input_type -> EmptyReq
-	56,  // 203: Dynizer.CreateInstance:input_type -> CreateInstanceReq
-	57,  // 204: Dynizer.StreamInstances:input_type -> StreamInstanceReq
-	58,  // 205: Dynizer.UpdateInstance:input_type -> UpdateInstanceReq
-	59,  // 206: Dynizer.DeleteInstance:input_type -> InstanceReq
-	59,  // 207: Dynizer.PurgeInstance:input_type -> InstanceReq
-	59,  // 208: Dynizer.ReadInstance:input_type -> InstanceReq
-	62,  // 209: Dynizer.DynizerQuery:input_type -> DQLReq
-	63,  // 210: Dynizer.QueryResultNext:input_type -> QueryResultReq
-	173, // 211: Dynizer.QueryResultClose:input_type -> QueryCloseReq
-	64,  // 212: Dynizer.CheckMetaDataKeyName:input_type -> CheckMetaDataKeyNameReq
-	65,  // 213: Dynizer.CreateMetaDataKey:input_type -> CreateMetaDataKeyReq
-	68,  // 214: Dynizer.ReadMetaDataKey:input_type -> MetaDataKeyReq
-	67,  // 215: Dynizer.UpdateMetaDataKey:input_type -> UpdateMetaDataKeyReq
-	69,  // 216: Dynizer.DeleteMetaDataKey:input_type -> DeleteMetaDataKeyReq
-	39,  // 217: Dynizer.CountMetaDataKeys:input_type -> EmptyReq
-	70,  // 218: Dynizer.ListMetaDataKeys:input_type -> ListMetaDataKeysReq
-	71,  // 219: Dynizer.AddInstanceMetaData:input_type -> AddInstanceMetaDataReq
-	73,  // 220: Dynizer.RemoveInstanceMetaData:input_type -> InstanceMetaDataKeyReq
-	72,  // 221: Dynizer.AddInstanceMetaDataValue:input_type -> AddInstanceMetaDataValueReq
-	74,  // 222: Dynizer.RemoveInstanceMetaDataValue:input_type -> InstanceMetaDataKeyValueReq
-	73,  // 223: Dynizer.GetInstanceMetaDataValues:input_type -> InstanceMetaDataKeyReq
-	59,  // 224: Dynizer.CountInstanceMetaDataKeys:input_type -> InstanceReq
-	73,  // 225: Dynizer.CountInstanceMetaDataKeyValues:input_type -> InstanceMetaDataKeyReq
-	59,  // 226: Dynizer.ListInstanceMetaData:input_type -> InstanceReq
-	75,  // 227: Dynizer.AddInstanceActionLabelMetaData:input_type -> AddInstanceActionLabelMetaDataReq
-	76,  // 228: Dynizer.RemoveInstanceActionLabelMetaData:input_type -> InstanceActionLabelMetaDataKeyReq
-	84,  // 229: Dynizer.AddInstanceActionLabelMetaDataValue:input_type -> AddInstanceActionLabelMetaDataValueReq
-	85,  // 230: Dynizer.RemoveInstanceActionLabelMetaDataValue:input_type -> InstanceActionLabelMetaDataValueReq
-	78,  // 231: Dynizer.AddInstanceCellMetaData:input_type -> AddInstanceCellMetaDataReq
-	79,  // 232: Dynizer.RemoveInstanceCellMetaData:input_type -> InstanceCellMetaDataKeyReq
-	87,  // 233: Dynizer.AddInstanceCellMetaDataValue:input_type -> AddInstanceCellMetaDataValueReq
-	86,  // 234: Dynizer.RemoveInstanceCellMetaDataValue:input_type -> InstanceCellMetaDataKeyValueReq
-	79,  // 235: Dynizer.GetInstanceCellMetaDataValues:input_type -> InstanceCellMetaDataKeyReq
-	80,  // 236: Dynizer.CountInstanceCellMetaDataKeys:input_type -> InstanceCellMetaDataReq
-	79,  // 237: Dynizer.CountInstanceCellMetaDataKeyValues:input_type -> InstanceCellMetaDataKeyReq
-	80,  // 238: Dynizer.ListInstanceCellMetaData:input_type -> InstanceCellMetaDataReq
-	39,  // 239: Dynizer.GetDynizerConfiguration:input_type -> EmptyReq
-	137, // 240: Dynizer.ExportUserActions:input_type -> ExportUserActionsReq
-	139, // 241: Dynizer.ImportUserActions:input_type -> ImportUserActionsReq
-	39,  // 242: Dynizer.DropData:input_type -> EmptyReq
-	39,  // 243: Dynizer.GetDynizerVersion:input_type -> EmptyReq
-	143, // 244: Dynizer.QueryDataElements:input_type -> QueryDataElementsReq
-	144, // 245: Dynizer.GetTopNDataElements:input_type -> GetTopNDataElementsReq
-	147, // 246: Dynizer.DynizerFilteredQuery:input_type -> FilterQueryReq
-	153, // 247: Dynizer.ReIndex:input_type -> ReIndexReq
-	148, // 248: Dynizer.DynizerFilteredPlot:input_type -> FilteredPlotReq
-	154, // 249: Dynizer.CreateShareName:input_type -> CreateShareNameReq
-	155, // 250: Dynizer.UpdateShareNameValue:input_type -> UpdateShareNameValueReq
-	156, // 251: Dynizer.DeleteShareNameValue:input_type -> DeleteShareNameValueReq
-	62,  // 252: Dynizer.SimpleQuery:input_type -> DQLReq
-	166, // 253: Dynizer.QueryParse:input_type -> QueryParseReq
-	167, // 254: Dynizer.QueryBind:input_type -> QueryBindReq
-	168, // 255: Dynizer.QueryDescribeStatement:input_type -> QueryDescribeStatementReq
-	169, // 256: Dynizer.QueryDescribePortal:input_type -> QueryDescribePortalReq
-	172, // 257: Dynizer.QueryExecute:input_type -> QueryExecuteReq
-	173, // 258: Dynizer.QueryClose:input_type -> QueryCloseReq
-	176, // 259: Dynizer.FindActionLabelLinks:input_type -> FindActionLabelLinksReq
-	181, // 260: Dynizer.Chat:input_type -> ChatReq
-	181, // 261: Dynizer.ChatStream:input_type -> ChatReq
-	96,  // 262: Dynizer.Login:output_type -> LoginRes
-	96,  // 263: Dynizer.ServiceLogin:output_type -> LoginRes
-	95,  // 264: Dynizer.Logout:output_type -> EmptyRes
-	134, // 265: Dynizer.ValidateToken:output_type -> SessionID
-	97,  // 266: Dynizer.IssueServiceToken:output_type -> ServiceTokenRes
-	108, // 267: Dynizer.ListRoles:output_type -> ListRolesRes
-	95,  // 268: Dynizer.AddUser:output_type -> EmptyRes
-	95,  // 269: Dynizer.AssignUserRole:output_type -> EmptyRes
-	95,  // 270: Dynizer.RevokeUserRole:output_type -> EmptyRes
-	95,  // 271: Dynizer.EnableUser:output_type -> EmptyRes
-	95,  // 272: Dynizer.DisableUser:output_type -> EmptyRes
-	95,  // 273: Dynizer.SetUserPassword:output_type -> EmptyRes
-	95,  // 274: Dynizer.ChangeMyPassword:output_type -> EmptyRes
-	98,  // 275: Dynizer.GetUser:output_type -> UserRes
-	98,  // 276: Dynizer.GetMyProfile:output_type -> UserRes
-	95,  // 277: Dynizer.DeleteUser:output_type -> EmptyRes
-	106, // 278: Dynizer.GetUserCount:output_type -> UserCountRes
-	99,  // 279: Dynizer.ListUsers:output_type -> ListUsersRes
-	109, // 280: Dynizer.ListUserRoles:output_type -> ListUserRolesRes
-	109, // 281: Dynizer.GetMyRoles:output_type -> ListUserRolesRes
-	95,  // 282: Dynizer.CheckUserName:output_type -> EmptyRes
-	117, // 283: Dynizer.CheckPassword:output_type -> CheckPasswordRes
-	95,  // 284: Dynizer.CreateActionType:output_type -> EmptyRes
-	95,  // 285: Dynizer.UpdateActionType:output_type -> EmptyRes
-	35,  // 286: Dynizer.ReadActionType:output_type -> ActionTypeRes
-	37,  // 287: Dynizer.ListActionTypes:output_type -> ActionTypeArrayRes
-	95,  // 288: Dynizer.CreateActionSchema:output_type -> EmptyRes
-	95,  // 289: Dynizer.UpdateActionSchema:output_type -> EmptyRes
-	95,  // 290: Dynizer.DeleteActionSchema:output_type -> EmptyRes
-	95,  // 291: Dynizer.PurgeActionSchema:output_type -> EmptyRes
-	36,  // 292: Dynizer.ReadActionSchema:output_type -> ActionSchemaRes
-	38,  // 293: Dynizer.ListActionSchemas:output_type -> ActionSchemaArrayRes
-	95,  // 294: Dynizer.CheckActionName:output_type -> EmptyRes
-	95,  // 295: Dynizer.CreateAction:output_type -> EmptyRes
-	95,  // 296: Dynizer.UpdateAction:output_type -> EmptyRes
-	95,  // 297: Dynizer.DeleteAction:output_type -> EmptyRes
-	95,  // 298: Dynizer.PurgeAction:output_type -> EmptyRes
-	26,  // 299: Dynizer.ReadAction:output_type -> ActionRes
-	105, // 300: Dynizer.CountActions:output_type -> CountRes
-	100, // 301: Dynizer.ListActionNames:output_type -> ActionNameArrayRes
-	95,  // 302: Dynizer.CheckActionLabelName:output_type -> EmptyRes
-	95,  // 303: Dynizer.AddActionLabel:output_type -> EmptyRes
-	95,  // 304: Dynizer.UpdateActionLabel:output_type -> EmptyRes
-	95,  // 305: Dynizer.DeleteActionLabel:output_type -> EmptyRes
-	101, // 306: Dynizer.ReadActionLabel:output_type -> LabelRes
-	45,  // 307: Dynizer.CreateObject:output_type -> ObjectRes
-	95,  // 308: Dynizer.ClearObjectData:output_type -> EmptyRes
-	95,  // 309: Dynizer.DeleteObject:output_type -> EmptyRes
-	95,  // 310: Dynizer.StreamObjectDataIn:output_type -> EmptyRes
-	50,  // 311: Dynizer.StreamObjectDataOut:output_type -> StreamObjectDataOutRes
-	95,  // 312: Dynizer.UploadObjectData:output_type -> EmptyRes
-	52,  // 313: Dynizer.DownloadObjectData:output_type -> DownloadObjectDataRes
-	53,  // 314: Dynizer.GetObjectSize:output_type -> GetObjectSizeRes
-	55,  // 315: Dynizer.ListObjectUUIDS:output_type -> ObjectUUIDArrayRes
-	95,  // 316: Dynizer.DeleteAllObjects:output_type -> EmptyRes
-	102, // 317: Dynizer.CreateInstance:output_type -> InstanceIDRes
-	103, // 318: Dynizer.StreamInstances:output_type -> StreamInstanceIDRes
-	95,  // 319: Dynizer.UpdateInstance:output_type -> EmptyRes
-	95,  // 320: Dynizer.DeleteInstance:output_type -> EmptyRes
-	95,  // 321: Dynizer.PurgeInstance:output_type -> EmptyRes
-	104, // 322: Dynizer.ReadInstance:output_type -> InstanceRes
-	107, // 323: Dynizer.DynizerQuery:output_type -> DQLRes
-	161, // 324: Dynizer.QueryResultNext:output_type -> QueryResultRes
-	95,  // 325: Dynizer.QueryResultClose:output_type -> EmptyRes
-	95,  // 326: Dynizer.CheckMetaDataKeyName:output_type -> EmptyRes
-	95,  // 327: Dynizer.CreateMetaDataKey:output_type -> EmptyRes
-	110, // 328: Dynizer.ReadMetaDataKey:output_type -> MetaDataKeyRes
-	95,  // 329: Dynizer.UpdateMetaDataKey:output_type -> EmptyRes
-	95,  // 330: Dynizer.DeleteMetaDataKey:output_type -> EmptyRes
-	105, // 331: Dynizer.CountMetaDataKeys:output_type -> CountRes
-	111, // 332: Dynizer.ListMetaDataKeys:output_type -> MetaDataKeyArrayRes
-	95,  // 333: Dynizer.AddInstanceMetaData:output_type -> EmptyRes
-	95,  // 334: Dynizer.RemoveInstanceMetaData:output_type -> EmptyRes
-	95,  // 335: Dynizer.AddInstanceMetaDataValue:output_type -> EmptyRes
-	95,  // 336: Dynizer.RemoveInstanceMetaDataValue:output_type -> EmptyRes
-	113, // 337: Dynizer.GetInstanceMetaDataValues:output_type -> GetInstanceMetaDataKeyRes
-	105, // 338: Dynizer.CountInstanceMetaDataKeys:output_type -> CountRes
-	105, // 339: Dynizer.CountInstanceMetaDataKeyValues:output_type -> CountRes
-	112, // 340: Dynizer.ListInstanceMetaData:output_type -> ListInstanceMetaDataRes
-	95,  // 341: Dynizer.AddInstanceActionLabelMetaData:output_type -> EmptyRes
-	95,  // 342: Dynizer.RemoveInstanceActionLabelMetaData:output_type -> EmptyRes
-	95,  // 343: Dynizer.AddInstanceActionLabelMetaDataValue:output_type -> EmptyRes
-	95,  // 344: Dynizer.RemoveInstanceActionLabelMetaDataValue:output_type -> EmptyRes
-	95,  // 345: Dynizer.AddInstanceCellMetaData:output_type -> EmptyRes
-	95,  // 346: Dynizer.RemoveInstanceCellMetaData:output_type -> EmptyRes
-	95,  // 347: Dynizer.AddInstanceCellMetaDataValue:output_type -> EmptyRes
-	95,  // 348: Dynizer.RemoveInstanceCellMetaDataValue:output_type -> EmptyRes
-	115, // 349: Dynizer.GetInstanceCellMetaDataValues:output_type -> GetInstanceCellMetaDataKeyRes
-	105, // 350: Dynizer.CountInstanceCellMetaDataKeys:output_type -> CountRes
-	105, // 351: Dynizer.CountInstanceCellMetaDataKeyValues:output_type -> CountRes
-	114, // 352: Dynizer.ListInstanceCellMetaData:output_type -> ListInstanceCellMetaDataRes
-	136, // 353: Dynizer.GetDynizerConfiguration:output_type -> GetDynizerConfigurationRes
-	138, // 354: Dynizer.ExportUserActions:output_type -> ExportUserActionsRes
-	95,  // 355: Dynizer.ImportUserActions:output_type -> EmptyRes
-	95,  // 356: Dynizer.DropData:output_type -> EmptyRes
-	141, // 357: Dynizer.GetDynizerVersion:output_type -> VersionRes
-	152, // 358: Dynizer.QueryDataElements:output_type -> QueryDataElementsRes
-	145, // 359: Dynizer.GetTopNDataElements:output_type -> GetTopNDataElementsRes
-	107, // 360: Dynizer.DynizerFilteredQuery:output_type -> DQLRes
-	95,  // 361: Dynizer.ReIndex:output_type -> EmptyRes
-	146, // 362: Dynizer.DynizerFilteredPlot:output_type -> PlotRes
-	95,  // 363: Dynizer.CreateShareName:output_type -> EmptyRes
-	95,  // 364: Dynizer.UpdateShareNameValue:output_type -> EmptyRes
-	95,  // 365: Dynizer.DeleteShareNameValue:output_type -> EmptyRes
-	165, // 366: Dynizer.SimpleQuery:output_type -> SimpleQueryRes
-	95,  // 367: Dynizer.QueryParse:output_type -> EmptyRes
-	95,  // 368: Dynizer.QueryBind:output_type -> EmptyRes
-	170, // 369: Dynizer.QueryDescribeStatement:output_type -> QueryDescribeStatementRes
-	171, // 370: Dynizer.QueryDescribePortal:output_type -> QueryDescribePortalRes
-	162, // 371: Dynizer.QueryExecute:output_type -> QueryExecuteRes
-	95,  // 372: Dynizer.QueryClose:output_type -> EmptyRes
-	177, // 373: Dynizer.FindActionLabelLinks:output_type -> FindActionLabelLinksRes
-	182, // 374: Dynizer.Chat:output_type -> ChatRes
-	184, // 375: Dynizer.ChatStream:output_type -> ChatStreamEvent
-	262, // [262:376] is the sub-list for method output_type
-	148, // [148:262] is the sub-list for method input_type
-	148, // [148:148] is the sub-list for extension type_name
-	148, // [148:148] is the sub-list for extension extendee
-	0,   // [0:148] is the sub-list for field type_name
+	127, // 38: ListMetaDataKeysReq.window:type_name -> Window
+	85,  // 39: AddInstanceMetaDataReq.specs:type_name -> ValueSpec
+	88,  // 40: AddInstanceMetaDataValueReq.spec:type_name -> DataTypeFormat
+	88,  // 41: InstanceMetaDataKeyValueReq.spec:type_name -> DataTypeFormat
+	85,  // 42: AddInstanceCellMetaDataReq.specs:type_name -> ValueSpec
+	88,  // 43: StatsMetaDataKeyValueUsageReq.spec:type_name -> DataTypeFormat
+	127, // 44: ListMetaDataKeyLinksReq.window:type_name -> Window
+	88,  // 45: InstanceCellMetaDataKeyValueReq.spec:type_name -> DataTypeFormat
+	88,  // 46: AddInstanceCellMetaDataValueReq.spec:type_name -> DataTypeFormat
+	83,  // 47: MetaDataValue.value:type_name -> MetaDataValue
+	1,   // 48: MetaDataValue.data_type:type_name -> DataType
+	85,  // 49: InstanceElement.specs:type_name -> ValueSpec
+	86,  // 50: InstanceElement.meta_data:type_name -> InstanceElementMetaData
+	88,  // 51: ValueSpec.override:type_name -> DataTypeFormat
+	87,  // 52: InstanceElementMetaData.meta_data_key_values:type_name -> MetaDataKeyValue
+	85,  // 53: MetaDataKeyValue.specs:type_name -> ValueSpec
+	1,   // 54: DataTypeFormat.data_type:type_name -> DataType
+	88,  // 55: InstanceUpdateElementCell.override:type_name -> DataTypeFormat
+	113, // 56: LoginRes.roles:type_name -> DynizerRole
+	114, // 57: UserRes.user:type_name -> User
+	114, // 58: ListUsersRes.users:type_name -> User
+	123, // 59: LabelRes.action_label:type_name -> ActionLabel
+	8,   // 60: StreamInstanceIDRes.error:type_name -> ErrorResponse
+	117, // 61: InstanceRes.action_labels:type_name -> ResultLabel
+	119, // 62: InstanceRes.alternative_data_types:type_name -> ResultValueAlternativeMetaDataPosition
+	116, // 63: DQLRes.select_result:type_name -> SelectDQLResult
+	113, // 64: ListRolesRes.roles:type_name -> DynizerRole
+	113, // 65: ListUserRolesRes.roles:type_name -> DynizerRole
+	124, // 66: MetaDataKeyRes.meta_data_key:type_name -> MetaDataKey
+	124, // 67: MetaDataKeyArrayRes.meta_data_keys:type_name -> MetaDataKey
+	125, // 68: ListInstanceMetaDataRes.meta_data:type_name -> MetaDataOut
+	125, // 69: GetInstanceMetaDataKeyRes.meta_data:type_name -> MetaDataOut
+	125, // 70: ListInstanceCellMetaDataRes.meta_data:type_name -> MetaDataOut
+	125, // 71: GetInstanceCellMetaDataKeyRes.meta_data:type_name -> MetaDataOut
+	113, // 72: User.roles:type_name -> DynizerRole
+	117, // 73: SelectDQLResult.result_labels:type_name -> ResultLabel
+	0,   // 74: ResultLabel.component_type:type_name -> ComponentType
+	1,   // 75: ResultLabel.default_data_type:type_name -> DataType
+	0,   // 76: ResultLabelWithOverride.component_type:type_name -> ComponentType
+	1,   // 77: ResultLabelWithOverride.default_data_type:type_name -> DataType
+	1,   // 78: ResultLabelWithOverride.override_data_type:type_name -> DataType
+	1,   // 79: ResultValueAlternativeMetaDataPosition.data_type:type_name -> DataType
+	123, // 80: Action.action_labels:type_name -> ActionLabel
+	2,   // 81: ObjectRef.type:type_name -> ObjectDataType
+	0,   // 82: ActionLabel.component:type_name -> ComponentType
+	1,   // 83: ActionLabel.default_data_type:type_name -> DataType
+	1,   // 84: ActionLabel.alternative_data_types:type_name -> DataType
+	1,   // 85: MetaDataKey.default_data_type:type_name -> DataType
+	1,   // 86: MetaDataKey.alternative_data_types:type_name -> DataType
+	126, // 87: MetaDataOut.meta_data_key_value:type_name -> MetaDataRecord
+	1,   // 88: MetaDataRecord.data_type:type_name -> DataType
+	88,  // 89: DQLParam.spec:type_name -> DataTypeFormat
+	130, // 90: GetDynizerConfigurationRes.config_key_values:type_name -> ConfigKV
+	121, // 91: ExportUserActionsRes.actions:type_name -> Action
+	121, // 92: ImportUserActionsReq.actions:type_name -> Action
+	0,   // 93: InstanceFilter.component_type:type_name -> ComponentType
+	1,   // 94: QueryDataElementsReq.data_types:type_name -> DataType
+	137, // 95: QueryDataElementsReq.filters:type_name -> InstanceFilter
+	0,   // 96: QueryDataElementsReq.component_types:type_name -> ComponentType
+	1,   // 97: GetTopNDataElementsReq.data_types:type_name -> DataType
+	0,   // 98: GetTopNDataElementsReq.component_types:type_name -> ComponentType
+	137, // 99: GetTopNDataElementsReq.filters:type_name -> InstanceFilter
+	145, // 100: GetTopNDataElementsRes.who:type_name -> TopNDataElement
+	145, // 101: GetTopNDataElementsRes.what:type_name -> TopNDataElement
+	145, // 102: GetTopNDataElementsRes.where:type_name -> TopNDataElement
+	145, // 103: GetTopNDataElementsRes.when:type_name -> TopNDataElement
+	137, // 104: FilterQueryReq.filters:type_name -> InstanceFilter
+	1,   // 105: FilteredPlotReq.data_types:type_name -> DataType
+	0,   // 106: FilteredPlotReq.component_types:type_name -> ComponentType
+	137, // 107: FilteredPlotReq.filters:type_name -> InstanceFilter
+	0,   // 108: ComponentTypeUsage.component_type:type_name -> ComponentType
+	1,   // 109: TopNDataElement.data_type:type_name -> DataType
+	1,   // 110: DataElement.data_type:type_name -> DataType
+	144, // 111: DataElement.by_component_type:type_name -> ComponentTypeUsage
+	146, // 112: QueryDataElementsRes.dataelements:type_name -> DataElement
+	1,   // 113: UpdateShareNameValueReq.data_type:type_name -> DataType
+	1,   // 114: DeleteShareNameValueReq.data_type:type_name -> DataType
+	120, // 115: QueryResultRes.rows:type_name -> ResultRow
+	119, // 116: QueryResultRes.alternative_data_types:type_name -> ResultValueAlternativeMetaDataPosition
+	120, // 117: QueryExecuteRes.rows:type_name -> ResultRow
+	119, // 118: QueryExecuteRes.alternative_data_types:type_name -> ResultValueAlternativeMetaDataPosition
+	5,   // 119: QueryExecuteRes.type:type_name -> DQLType
+	118, // 120: SimpleSelectResult.result_labels:type_name -> ResultLabelWithOverride
+	120, // 121: SimpleSelectResult.rows:type_name -> ResultRow
+	119, // 122: SimpleSelectResult.alternative_data_types:type_name -> ResultValueAlternativeMetaDataPosition
+	158, // 123: SimpleQueryResItem.select_result:type_name -> SimpleSelectResult
+	5,   // 124: SimpleQueryResItem.type:type_name -> DQLType
+	159, // 125: SimpleQueryRes.result:type_name -> SimpleQueryResItem
+	170, // 126: QueryParseReq.parameter_descriptions:type_name -> DQLParamDescription
+	128, // 127: QueryBindReq.parameters:type_name -> DQLParam
+	118, // 128: QueryDescribeStatementRes.result_labels:type_name -> ResultLabelWithOverride
+	170, // 129: QueryDescribeStatementRes.parameter_descriptions:type_name -> DQLParamDescription
+	5,   // 130: QueryDescribeStatementRes.type:type_name -> DQLType
+	118, // 131: QueryDescribePortalRes.result_labels:type_name -> ResultLabelWithOverride
+	128, // 132: QueryDescribePortalRes.parameters:type_name -> DQLParam
+	5,   // 133: QueryDescribePortalRes.type:type_name -> DQLType
+	127, // 134: QueryExecuteReq.window:type_name -> Window
+	1,   // 135: DQLParamDescription.data_type:type_name -> DataType
+	174, // 136: FindActionLabelLinksRes.links:type_name -> ActionLabelLink
+	173, // 137: ActionLabelLink.left_action_label:type_name -> ActionNameActionLabelName
+	173, // 138: ActionLabelLink.right_action_label:type_name -> ActionNameActionLabelName
+	175, // 139: ChatReq.messages:type_name -> ChatMessage
+	178, // 140: ChatRes.tool_calls:type_name -> ChatToolCall
+	178, // 141: ChatStreamEvent.tool:type_name -> ChatToolCall
+	180, // 142: ChatStreamEvent.critic:type_name -> ChatCriticEvent
+	181, // 143: ChatStreamEvent.stage:type_name -> ChatStageEvent
+	182, // 144: ChatStreamEvent.done:type_name -> ChatDoneEvent
+	9,   // 145: Dynizer.Login:input_type -> LoginReq
+	10,  // 146: Dynizer.ServiceLogin:input_type -> ServiceLoginReq
+	39,  // 147: Dynizer.Logout:input_type -> EmptyReq
+	11,  // 148: Dynizer.ValidateToken:input_type -> TokenReq
+	39,  // 149: Dynizer.IssueServiceToken:input_type -> EmptyReq
+	39,  // 150: Dynizer.ListRoles:input_type -> EmptyReq
+	12,  // 151: Dynizer.AddUser:input_type -> AddUserReq
+	13,  // 152: Dynizer.AssignUserRole:input_type -> UserRoleReq
+	13,  // 153: Dynizer.RevokeUserRole:input_type -> UserRoleReq
+	14,  // 154: Dynizer.EnableUser:input_type -> UserReq
+	14,  // 155: Dynizer.DisableUser:input_type -> UserReq
+	18,  // 156: Dynizer.SetUserPassword:input_type -> SetUserPasswordReq
+	19,  // 157: Dynizer.ChangeMyPassword:input_type -> ChangePasswordReq
+	14,  // 158: Dynizer.GetUser:input_type -> UserReq
+	39,  // 159: Dynizer.GetMyProfile:input_type -> EmptyReq
+	14,  // 160: Dynizer.DeleteUser:input_type -> UserReq
+	39,  // 161: Dynizer.GetUserCount:input_type -> EmptyReq
+	16,  // 162: Dynizer.ListUsers:input_type -> WindowReq
+	14,  // 163: Dynizer.ListUserRoles:input_type -> UserReq
+	39,  // 164: Dynizer.GetMyRoles:input_type -> EmptyReq
+	14,  // 165: Dynizer.CheckUserName:input_type -> UserReq
+	15,  // 166: Dynizer.CheckPassword:input_type -> CheckPasswordReq
+	27,  // 167: Dynizer.CreateActionType:input_type -> CreateActionTypeReq
+	30,  // 168: Dynizer.UpdateActionType:input_type -> UpdateActionTypeReq
+	33,  // 169: Dynizer.ReadActionType:input_type -> ActionTypeReq
+	16,  // 170: Dynizer.ListActionTypes:input_type -> WindowReq
+	29,  // 171: Dynizer.CreateActionSchema:input_type -> CreateActionSchemaReq
+	31,  // 172: Dynizer.UpdateActionSchema:input_type -> UpdateActionSchemaReq
+	32,  // 173: Dynizer.DeleteActionSchema:input_type -> DeleteActionSchemaReq
+	32,  // 174: Dynizer.PurgeActionSchema:input_type -> DeleteActionSchemaReq
+	34,  // 175: Dynizer.ReadActionSchema:input_type -> ActionSchemaReq
+	16,  // 176: Dynizer.ListActionSchemas:input_type -> WindowReq
+	20,  // 177: Dynizer.CheckActionName:input_type -> CheckActionNameReq
+	21,  // 178: Dynizer.CreateAction:input_type -> CreateActionReq
+	23,  // 179: Dynizer.UpdateAction:input_type -> UpdateActionReq
+	24,  // 180: Dynizer.DeleteAction:input_type -> DeleteActionReq
+	24,  // 181: Dynizer.PurgeAction:input_type -> DeleteActionReq
+	25,  // 182: Dynizer.ReadAction:input_type -> ActionReq
+	61,  // 183: Dynizer.CountActions:input_type -> CountActionReq
+	17,  // 184: Dynizer.ListActionNames:input_type -> ListActionNamesWindowReq
+	40,  // 185: Dynizer.CheckActionLabelName:input_type -> CheckActionLabelNameReq
+	41,  // 186: Dynizer.AddActionLabel:input_type -> AddActionLabelReq
+	42,  // 187: Dynizer.UpdateActionLabel:input_type -> UpdateActionLabelReq
+	43,  // 188: Dynizer.DeleteActionLabel:input_type -> ActionLabelReq
+	43,  // 189: Dynizer.ReadActionLabel:input_type -> ActionLabelReq
+	44,  // 190: Dynizer.CreateObject:input_type -> CreateObjectReq
+	46,  // 191: Dynizer.ClearObjectData:input_type -> ClearObjectDataReq
+	47,  // 192: Dynizer.DeleteObject:input_type -> DeleteObjectReq
+	48,  // 193: Dynizer.StreamObjectDataIn:input_type -> StreamObjectDataInReq
+	49,  // 194: Dynizer.StreamObjectDataOut:input_type -> StreamObjectDataOutReq
+	54,  // 195: Dynizer.UploadObjectData:input_type -> UploadObjectDataReq
+	51,  // 196: Dynizer.DownloadObjectData:input_type -> DownloadObjectDataReq
+	51,  // 197: Dynizer.GetObjectSize:input_type -> DownloadObjectDataReq
+	39,  // 198: Dynizer.ListObjectUUIDS:input_type -> EmptyReq
+	39,  // 199: Dynizer.DeleteAllObjects:input_type -> EmptyReq
+	56,  // 200: Dynizer.CreateInstance:input_type -> CreateInstanceReq
+	57,  // 201: Dynizer.StreamInstances:input_type -> StreamInstanceReq
+	58,  // 202: Dynizer.UpdateInstance:input_type -> UpdateInstanceReq
+	59,  // 203: Dynizer.DeleteInstance:input_type -> InstanceReq
+	59,  // 204: Dynizer.PurgeInstance:input_type -> InstanceReq
+	59,  // 205: Dynizer.ReadInstance:input_type -> InstanceReq
+	62,  // 206: Dynizer.DynizerQuery:input_type -> DQLReq
+	63,  // 207: Dynizer.QueryResultNext:input_type -> QueryResultReq
+	168, // 208: Dynizer.QueryResultClose:input_type -> QueryCloseReq
+	64,  // 209: Dynizer.CheckMetaDataKeyName:input_type -> CheckMetaDataKeyNameReq
+	65,  // 210: Dynizer.CreateMetaDataKey:input_type -> CreateMetaDataKeyReq
+	68,  // 211: Dynizer.ReadMetaDataKey:input_type -> MetaDataKeyReq
+	67,  // 212: Dynizer.UpdateMetaDataKey:input_type -> UpdateMetaDataKeyReq
+	69,  // 213: Dynizer.DeleteMetaDataKey:input_type -> DeleteMetaDataKeyReq
+	39,  // 214: Dynizer.CountMetaDataKeys:input_type -> EmptyReq
+	70,  // 215: Dynizer.ListMetaDataKeys:input_type -> ListMetaDataKeysReq
+	71,  // 216: Dynizer.AddInstanceMetaData:input_type -> AddInstanceMetaDataReq
+	73,  // 217: Dynizer.RemoveInstanceMetaData:input_type -> InstanceMetaDataKeyReq
+	72,  // 218: Dynizer.AddInstanceMetaDataValue:input_type -> AddInstanceMetaDataValueReq
+	74,  // 219: Dynizer.RemoveInstanceMetaDataValue:input_type -> InstanceMetaDataKeyValueReq
+	73,  // 220: Dynizer.GetInstanceMetaDataValues:input_type -> InstanceMetaDataKeyReq
+	59,  // 221: Dynizer.CountInstanceMetaDataKeys:input_type -> InstanceReq
+	73,  // 222: Dynizer.CountInstanceMetaDataKeyValues:input_type -> InstanceMetaDataKeyReq
+	59,  // 223: Dynizer.ListInstanceMetaData:input_type -> InstanceReq
+	75,  // 224: Dynizer.AddInstanceCellMetaData:input_type -> AddInstanceCellMetaDataReq
+	76,  // 225: Dynizer.RemoveInstanceCellMetaData:input_type -> InstanceCellMetaDataKeyReq
+	82,  // 226: Dynizer.AddInstanceCellMetaDataValue:input_type -> AddInstanceCellMetaDataValueReq
+	81,  // 227: Dynizer.RemoveInstanceCellMetaDataValue:input_type -> InstanceCellMetaDataKeyValueReq
+	76,  // 228: Dynizer.GetInstanceCellMetaDataValues:input_type -> InstanceCellMetaDataKeyReq
+	77,  // 229: Dynizer.CountInstanceCellMetaDataKeys:input_type -> InstanceCellMetaDataReq
+	76,  // 230: Dynizer.CountInstanceCellMetaDataKeyValues:input_type -> InstanceCellMetaDataKeyReq
+	77,  // 231: Dynizer.ListInstanceCellMetaData:input_type -> InstanceCellMetaDataReq
+	39,  // 232: Dynizer.GetDynizerConfiguration:input_type -> EmptyReq
+	132, // 233: Dynizer.ExportUserActions:input_type -> ExportUserActionsReq
+	134, // 234: Dynizer.ImportUserActions:input_type -> ImportUserActionsReq
+	39,  // 235: Dynizer.DropData:input_type -> EmptyReq
+	39,  // 236: Dynizer.GetDynizerVersion:input_type -> EmptyReq
+	138, // 237: Dynizer.QueryDataElements:input_type -> QueryDataElementsReq
+	139, // 238: Dynizer.GetTopNDataElements:input_type -> GetTopNDataElementsReq
+	142, // 239: Dynizer.DynizerFilteredQuery:input_type -> FilterQueryReq
+	148, // 240: Dynizer.ReIndex:input_type -> ReIndexReq
+	143, // 241: Dynizer.DynizerFilteredPlot:input_type -> FilteredPlotReq
+	149, // 242: Dynizer.CreateShareName:input_type -> CreateShareNameReq
+	150, // 243: Dynizer.UpdateShareNameValue:input_type -> UpdateShareNameValueReq
+	151, // 244: Dynizer.DeleteShareNameValue:input_type -> DeleteShareNameValueReq
+	62,  // 245: Dynizer.SimpleQuery:input_type -> DQLReq
+	161, // 246: Dynizer.QueryParse:input_type -> QueryParseReq
+	162, // 247: Dynizer.QueryBind:input_type -> QueryBindReq
+	163, // 248: Dynizer.QueryDescribeStatement:input_type -> QueryDescribeStatementReq
+	164, // 249: Dynizer.QueryDescribePortal:input_type -> QueryDescribePortalReq
+	167, // 250: Dynizer.QueryExecute:input_type -> QueryExecuteReq
+	168, // 251: Dynizer.QueryClose:input_type -> QueryCloseReq
+	171, // 252: Dynizer.FindActionLabelLinks:input_type -> FindActionLabelLinksReq
+	176, // 253: Dynizer.Chat:input_type -> ChatReq
+	176, // 254: Dynizer.ChatStream:input_type -> ChatReq
+	91,  // 255: Dynizer.Login:output_type -> LoginRes
+	91,  // 256: Dynizer.ServiceLogin:output_type -> LoginRes
+	90,  // 257: Dynizer.Logout:output_type -> EmptyRes
+	129, // 258: Dynizer.ValidateToken:output_type -> SessionID
+	92,  // 259: Dynizer.IssueServiceToken:output_type -> ServiceTokenRes
+	103, // 260: Dynizer.ListRoles:output_type -> ListRolesRes
+	90,  // 261: Dynizer.AddUser:output_type -> EmptyRes
+	90,  // 262: Dynizer.AssignUserRole:output_type -> EmptyRes
+	90,  // 263: Dynizer.RevokeUserRole:output_type -> EmptyRes
+	90,  // 264: Dynizer.EnableUser:output_type -> EmptyRes
+	90,  // 265: Dynizer.DisableUser:output_type -> EmptyRes
+	90,  // 266: Dynizer.SetUserPassword:output_type -> EmptyRes
+	90,  // 267: Dynizer.ChangeMyPassword:output_type -> EmptyRes
+	93,  // 268: Dynizer.GetUser:output_type -> UserRes
+	93,  // 269: Dynizer.GetMyProfile:output_type -> UserRes
+	90,  // 270: Dynizer.DeleteUser:output_type -> EmptyRes
+	101, // 271: Dynizer.GetUserCount:output_type -> UserCountRes
+	94,  // 272: Dynizer.ListUsers:output_type -> ListUsersRes
+	104, // 273: Dynizer.ListUserRoles:output_type -> ListUserRolesRes
+	104, // 274: Dynizer.GetMyRoles:output_type -> ListUserRolesRes
+	90,  // 275: Dynizer.CheckUserName:output_type -> EmptyRes
+	112, // 276: Dynizer.CheckPassword:output_type -> CheckPasswordRes
+	90,  // 277: Dynizer.CreateActionType:output_type -> EmptyRes
+	90,  // 278: Dynizer.UpdateActionType:output_type -> EmptyRes
+	35,  // 279: Dynizer.ReadActionType:output_type -> ActionTypeRes
+	37,  // 280: Dynizer.ListActionTypes:output_type -> ActionTypeArrayRes
+	90,  // 281: Dynizer.CreateActionSchema:output_type -> EmptyRes
+	90,  // 282: Dynizer.UpdateActionSchema:output_type -> EmptyRes
+	90,  // 283: Dynizer.DeleteActionSchema:output_type -> EmptyRes
+	90,  // 284: Dynizer.PurgeActionSchema:output_type -> EmptyRes
+	36,  // 285: Dynizer.ReadActionSchema:output_type -> ActionSchemaRes
+	38,  // 286: Dynizer.ListActionSchemas:output_type -> ActionSchemaArrayRes
+	90,  // 287: Dynizer.CheckActionName:output_type -> EmptyRes
+	90,  // 288: Dynizer.CreateAction:output_type -> EmptyRes
+	90,  // 289: Dynizer.UpdateAction:output_type -> EmptyRes
+	90,  // 290: Dynizer.DeleteAction:output_type -> EmptyRes
+	90,  // 291: Dynizer.PurgeAction:output_type -> EmptyRes
+	26,  // 292: Dynizer.ReadAction:output_type -> ActionRes
+	100, // 293: Dynizer.CountActions:output_type -> CountRes
+	95,  // 294: Dynizer.ListActionNames:output_type -> ActionNameArrayRes
+	90,  // 295: Dynizer.CheckActionLabelName:output_type -> EmptyRes
+	90,  // 296: Dynizer.AddActionLabel:output_type -> EmptyRes
+	90,  // 297: Dynizer.UpdateActionLabel:output_type -> EmptyRes
+	90,  // 298: Dynizer.DeleteActionLabel:output_type -> EmptyRes
+	96,  // 299: Dynizer.ReadActionLabel:output_type -> LabelRes
+	45,  // 300: Dynizer.CreateObject:output_type -> ObjectRes
+	90,  // 301: Dynizer.ClearObjectData:output_type -> EmptyRes
+	90,  // 302: Dynizer.DeleteObject:output_type -> EmptyRes
+	90,  // 303: Dynizer.StreamObjectDataIn:output_type -> EmptyRes
+	50,  // 304: Dynizer.StreamObjectDataOut:output_type -> StreamObjectDataOutRes
+	90,  // 305: Dynizer.UploadObjectData:output_type -> EmptyRes
+	52,  // 306: Dynizer.DownloadObjectData:output_type -> DownloadObjectDataRes
+	53,  // 307: Dynizer.GetObjectSize:output_type -> GetObjectSizeRes
+	55,  // 308: Dynizer.ListObjectUUIDS:output_type -> ObjectUUIDArrayRes
+	90,  // 309: Dynizer.DeleteAllObjects:output_type -> EmptyRes
+	97,  // 310: Dynizer.CreateInstance:output_type -> InstanceIDRes
+	98,  // 311: Dynizer.StreamInstances:output_type -> StreamInstanceIDRes
+	90,  // 312: Dynizer.UpdateInstance:output_type -> EmptyRes
+	90,  // 313: Dynizer.DeleteInstance:output_type -> EmptyRes
+	90,  // 314: Dynizer.PurgeInstance:output_type -> EmptyRes
+	99,  // 315: Dynizer.ReadInstance:output_type -> InstanceRes
+	102, // 316: Dynizer.DynizerQuery:output_type -> DQLRes
+	156, // 317: Dynizer.QueryResultNext:output_type -> QueryResultRes
+	90,  // 318: Dynizer.QueryResultClose:output_type -> EmptyRes
+	90,  // 319: Dynizer.CheckMetaDataKeyName:output_type -> EmptyRes
+	90,  // 320: Dynizer.CreateMetaDataKey:output_type -> EmptyRes
+	105, // 321: Dynizer.ReadMetaDataKey:output_type -> MetaDataKeyRes
+	90,  // 322: Dynizer.UpdateMetaDataKey:output_type -> EmptyRes
+	90,  // 323: Dynizer.DeleteMetaDataKey:output_type -> EmptyRes
+	100, // 324: Dynizer.CountMetaDataKeys:output_type -> CountRes
+	106, // 325: Dynizer.ListMetaDataKeys:output_type -> MetaDataKeyArrayRes
+	90,  // 326: Dynizer.AddInstanceMetaData:output_type -> EmptyRes
+	90,  // 327: Dynizer.RemoveInstanceMetaData:output_type -> EmptyRes
+	90,  // 328: Dynizer.AddInstanceMetaDataValue:output_type -> EmptyRes
+	90,  // 329: Dynizer.RemoveInstanceMetaDataValue:output_type -> EmptyRes
+	108, // 330: Dynizer.GetInstanceMetaDataValues:output_type -> GetInstanceMetaDataKeyRes
+	100, // 331: Dynizer.CountInstanceMetaDataKeys:output_type -> CountRes
+	100, // 332: Dynizer.CountInstanceMetaDataKeyValues:output_type -> CountRes
+	107, // 333: Dynizer.ListInstanceMetaData:output_type -> ListInstanceMetaDataRes
+	90,  // 334: Dynizer.AddInstanceCellMetaData:output_type -> EmptyRes
+	90,  // 335: Dynizer.RemoveInstanceCellMetaData:output_type -> EmptyRes
+	90,  // 336: Dynizer.AddInstanceCellMetaDataValue:output_type -> EmptyRes
+	90,  // 337: Dynizer.RemoveInstanceCellMetaDataValue:output_type -> EmptyRes
+	110, // 338: Dynizer.GetInstanceCellMetaDataValues:output_type -> GetInstanceCellMetaDataKeyRes
+	100, // 339: Dynizer.CountInstanceCellMetaDataKeys:output_type -> CountRes
+	100, // 340: Dynizer.CountInstanceCellMetaDataKeyValues:output_type -> CountRes
+	109, // 341: Dynizer.ListInstanceCellMetaData:output_type -> ListInstanceCellMetaDataRes
+	131, // 342: Dynizer.GetDynizerConfiguration:output_type -> GetDynizerConfigurationRes
+	133, // 343: Dynizer.ExportUserActions:output_type -> ExportUserActionsRes
+	90,  // 344: Dynizer.ImportUserActions:output_type -> EmptyRes
+	90,  // 345: Dynizer.DropData:output_type -> EmptyRes
+	136, // 346: Dynizer.GetDynizerVersion:output_type -> VersionRes
+	147, // 347: Dynizer.QueryDataElements:output_type -> QueryDataElementsRes
+	140, // 348: Dynizer.GetTopNDataElements:output_type -> GetTopNDataElementsRes
+	102, // 349: Dynizer.DynizerFilteredQuery:output_type -> DQLRes
+	90,  // 350: Dynizer.ReIndex:output_type -> EmptyRes
+	141, // 351: Dynizer.DynizerFilteredPlot:output_type -> PlotRes
+	90,  // 352: Dynizer.CreateShareName:output_type -> EmptyRes
+	90,  // 353: Dynizer.UpdateShareNameValue:output_type -> EmptyRes
+	90,  // 354: Dynizer.DeleteShareNameValue:output_type -> EmptyRes
+	160, // 355: Dynizer.SimpleQuery:output_type -> SimpleQueryRes
+	90,  // 356: Dynizer.QueryParse:output_type -> EmptyRes
+	90,  // 357: Dynizer.QueryBind:output_type -> EmptyRes
+	165, // 358: Dynizer.QueryDescribeStatement:output_type -> QueryDescribeStatementRes
+	166, // 359: Dynizer.QueryDescribePortal:output_type -> QueryDescribePortalRes
+	157, // 360: Dynizer.QueryExecute:output_type -> QueryExecuteRes
+	90,  // 361: Dynizer.QueryClose:output_type -> EmptyRes
+	172, // 362: Dynizer.FindActionLabelLinks:output_type -> FindActionLabelLinksRes
+	177, // 363: Dynizer.Chat:output_type -> ChatRes
+	179, // 364: Dynizer.ChatStream:output_type -> ChatStreamEvent
+	255, // [255:365] is the sub-list for method output_type
+	145, // [145:255] is the sub-list for method input_type
+	145, // [145:145] is the sub-list for extension type_name
+	145, // [145:145] is the sub-list for extension extendee
+	0,   // [0:145] is the sub-list for field type_name
 }
 
 func init() { file_dynizer_proto_init() }
@@ -13462,23 +13052,23 @@ func file_dynizer_proto_init() {
 		(*ErrorArg_DoubleArg)(nil),
 		(*ErrorArg_BytesArg)(nil),
 	}
-	file_dynizer_proto_msgTypes[101].OneofWrappers = []any{
+	file_dynizer_proto_msgTypes[96].OneofWrappers = []any{
 		(*DQLRes_SelectResult)(nil),
 		(*DQLRes_RowsAffected)(nil),
 	}
-	file_dynizer_proto_msgTypes[127].OneofWrappers = []any{
+	file_dynizer_proto_msgTypes[122].OneofWrappers = []any{
 		(*DQLParam_StringValue)(nil),
 		(*DQLParam_BinaryValue)(nil),
 	}
-	file_dynizer_proto_msgTypes[129].OneofWrappers = []any{
+	file_dynizer_proto_msgTypes[124].OneofWrappers = []any{
 		(*ConfigKV_NumericValue)(nil),
 		(*ConfigKV_StringValue)(nil),
 	}
-	file_dynizer_proto_msgTypes[158].OneofWrappers = []any{
+	file_dynizer_proto_msgTypes[153].OneofWrappers = []any{
 		(*SimpleQueryResItem_SelectResult)(nil),
 		(*SimpleQueryResItem_RowsAffected)(nil),
 	}
-	file_dynizer_proto_msgTypes[167].OneofWrappers = []any{
+	file_dynizer_proto_msgTypes[162].OneofWrappers = []any{
 		(*QueryCloseReq_Statement)(nil),
 		(*QueryCloseReq_Portal)(nil),
 	}
@@ -13488,7 +13078,7 @@ func file_dynizer_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_dynizer_proto_rawDesc), len(file_dynizer_proto_rawDesc)),
 			NumEnums:      6,
-			NumMessages:   182,
+			NumMessages:   177,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
